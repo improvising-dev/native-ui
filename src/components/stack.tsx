@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
-import { FlexStyle, View } from 'react-native'
+import { FlexStyle, View, ViewStyle } from 'react-native'
 
 export interface StackProps {
   direction?: FlexStyle['flexDirection']
   align?: FlexStyle['alignItems']
   justify?: FlexStyle['justifyContent']
+  style?: ViewStyle
   spacing?: number
   children: React.ReactNode[]
 }
@@ -13,6 +14,7 @@ export const Stack: React.FC<StackProps> = ({
   direction,
   align,
   justify,
+  style,
   spacing,
   children,
 }) => {
@@ -47,6 +49,7 @@ export const Stack: React.FC<StackProps> = ({
         flexDirection: direction,
         alignItems: align,
         justifyContent: justify,
+        ...style,
       }}
     >
       {items}
