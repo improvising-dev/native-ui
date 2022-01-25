@@ -1,10 +1,12 @@
 import { Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import { HapticFeedback } from '../actions/haptics'
 import { useTheme } from '../core/theme'
 
 export interface ButtonProps {
   children?: string
   style?: ViewStyle
   textStyle?: TextStyle
+  haptic?: boolean
   onPressed?: () => void
 }
 
@@ -12,16 +14,25 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   style,
   textStyle,
+  haptic = false,
   onPressed,
 }) => {
   const theme = useTheme()
   const disabled = !onPressed
 
+  const handlePress = () => {
+    if (haptic) {
+      HapticFeedback.lightImpact()
+    }
+
+    onPressed?.()
+  }
+
   return (
     <TouchableOpacity
       disabled={disabled}
       activeOpacity={0.9}
-      onPress={onPressed}
+      onPress={handlePress}
       style={{
         alignItems: 'center',
         justifyContent: 'center',

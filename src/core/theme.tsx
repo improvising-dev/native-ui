@@ -38,9 +38,19 @@ export interface Theme {
   textStyles: TextStyles
 }
 
-const themeContext = React.createContext({} as Theme)
+export interface ThemeContext {
+  theme: Theme
+  darkTheme: Theme
+}
 
-export const useTheme = () => useContext(themeContext)
+const themeContext = React.createContext({} as ThemeContext)
+
+export const useTheme = () => {
+  const { theme, darkTheme } = useContext(themeContext)
+  const colorScheme = useColorScheme()
+
+  return colorScheme === 'light' ? theme : darkTheme
+}
 
 export interface ThemeProviderProps {
   theme?: Theme
@@ -52,10 +62,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   darkTheme = DarkTheme,
   children,
 }) => {
-  const colorScheme = useColorScheme()
-  const selected = colorScheme === 'light' ? theme : darkTheme
-
   return (
-    <themeContext.Provider value={selected}>{children}</themeContext.Provider>
+    <themeContext.Provider value={{ theme, darkTheme }}>
+      {children}
+    </themeContext.Provider>
   )
 }

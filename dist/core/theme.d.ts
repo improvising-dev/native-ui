@@ -31,6 +31,10 @@ export interface Theme {
     colors: Colors;
     textStyles: TextStyles;
 }
+export interface ThemeContext {
+    theme: Theme;
+    darkTheme: Theme;
+}
 export declare const useTheme: () => Theme;
 export interface ThemeProviderProps {
     theme?: Theme;

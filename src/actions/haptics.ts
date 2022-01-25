@@ -1,4 +1,4 @@
-import Haptics from 'expo-haptics'
+import * as Haptics from 'expo-haptics'
 
 export class HapticFeedback {
   static async lightImpact() {

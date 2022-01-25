@@ -10,12 +10,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("expo-status-bar"), exports);
-__exportStar(require("react-native-eva-icons"), exports);
-__exportStar(require("react-native-gesture-handler"), exports);
-__exportStar(require("react-native-pager-view"), exports);
-__exportStar(require("react-native-portalize"), exports);
-__exportStar(require("react-native-safe-area-context"), exports);
 __exportStar(require("./actions/fullscreen-loading"), exports);
 __exportStar(require("./actions/haptics"), exports);
 __exportStar(require("./components/button"), exports);
