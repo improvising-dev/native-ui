@@ -7,8 +7,8 @@ var useAnimatedValue = function (value) {
     return (0, react_1.useRef)(new react_native_1.Animated.Value(value)).current;
 };
 exports.useAnimatedValue = useAnimatedValue;
-var useAnimatedValueXY = function (x, y) {
-    return (0, react_1.useRef)(new react_native_1.Animated.ValueXY({ x: x, y: y })).current;
+var useAnimatedValueXY = function (value) {
+    return (0, react_1.useRef)(new react_native_1.Animated.ValueXY(value)).current;
 };
 exports.useAnimatedValueXY = useAnimatedValueXY;
 //# sourceMappingURL=animation.js.map

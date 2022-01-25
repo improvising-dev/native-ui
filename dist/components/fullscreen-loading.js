@@ -1,31 +1,40 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(require("react"));
+var react_1 = __importStar(require("react"));
 var react_native_1 = require("react-native");
-var react_native_portalize_1 = require("react-native-portalize");
 var theme_1 = require("../core/theme");
-var visibility_1 = __importDefault(require("./visibility"));
-var FullscreenLoading = function (_a) {
+var fade_in_modal_1 = __importDefault(require("./fade-in-modal"));
+var FullscreenLoading = (0, react_1.memo)(function (_a) {
     var visible = _a.visible;
     var theme = (0, theme_1.useTheme)();
-    return (<react_native_portalize_1.Portal>
-      <visibility_1.default visible={visible} duration={250} style={{
-            backgroundColor: 'rgba(0, 0, 0, .6)',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
+    return (<fade_in_modal_1.default visible={visible} style={{
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 1000,
         }}>
         <react_native_1.ActivityIndicator color={theme.colors.white}/>
-      </visibility_1.default>
-    </react_native_portalize_1.Portal>);
-};
+      </fade_in_modal_1.default>);
+});
 exports.default = FullscreenLoading;
 //# sourceMappingURL=fullscreen-loading.js.map
