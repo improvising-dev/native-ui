@@ -56,7 +56,7 @@ exports.RouterView = (0, react_1.memo)(function (_a) {
     var initialRouteName = _a.initialRouteName, _b = _a.routes, routes = _b === void 0 ? [] : _b;
     return (<native_1.NavigationContainer ref={exports.navigationRef}>
         <Stack.Navigator initialRouteName={initialRouteName}>
-          {routes.map(function (route) { return (<Stack.Screen name={route.name} component={route.component} options={route.options}/>); })}
+          {routes.map(function (route) { return (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>); })}
         </Stack.Navigator>
       </native_1.NavigationContainer>);
 });
