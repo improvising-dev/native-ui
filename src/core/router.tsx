@@ -45,14 +45,14 @@ export interface Route {
   options?: NativeStackNavigationOptions
 }
 
-export interface RouterProviderProps {
+export interface RouterViewProps {
   initialRouteName?: string
   routes?: Route[]
 }
 
 const Stack = createNativeStackNavigator()
 
-export const RouterProvider: React.FC<RouterProviderProps> = memo(
+export const RouterView: React.FC<RouterViewProps> = memo(
   ({ initialRouteName, routes = [] }) => {
     return (
       <NavigationContainer ref={navigationRef}>
