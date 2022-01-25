@@ -1,0 +1,32 @@
+{
+  "name": "@improvising/native-ui",
+  "version": "1.0.0",
+  "description": "The comprehensive UI framework for React Native",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "author": "Improvising Rhythm Ltd.",
+  "license": "MIT",
+  "dependencies": {
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "color": "^4.2.0",
+    "react-native-portalize": "^1.0.7",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.2",
+    "@types/react": "*",
+    "@types/react-native": "*",
+    "react": "*",
+    "react-native": "*",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.5"
+  }
+}
