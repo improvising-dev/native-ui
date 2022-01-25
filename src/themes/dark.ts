@@ -26,6 +26,7 @@ const DarkTextStyles: TextStyles = {
 }
 
 export const DarkTheme: Theme = {
+  brightness: 'dark',
   sizes: CommonSizes,
   colors: DarkColors,
   textStyles: DarkTextStyles,

@@ -30,6 +30,7 @@ var DarkColors = {
 };
 var DarkTextStyles = __assign(__assign({}, common_1.CommonTextStyles), { default: __assign(__assign({}, common_1.CommonTextStyles.default), { color: DarkColors.text.primary }) });
 exports.DarkTheme = {
+    brightness: 'dark',
     sizes: common_1.CommonSizes,
     colors: DarkColors,
     textStyles: DarkTextStyles,

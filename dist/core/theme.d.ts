@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextStyle } from 'react-native';
+export declare type Brightness = 'light' | 'dark';
 export interface Sizes {
     spacing: number;
     borderRadius: number;
@@ -27,6 +28,7 @@ export interface TextStyles {
     tab: TextStyle;
 }
 export interface Theme {
+    brightness: Brightness;
     sizes: Sizes;
     colors: Colors;
     textStyles: TextStyles;

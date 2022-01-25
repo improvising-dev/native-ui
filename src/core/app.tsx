@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Host } from 'react-native-portalize'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { FullscreenLoadingDelegate } from '../components/fullscreen-loading-delegate'
-import { RouterView, RouterViewProps } from './router'
-import { ThemeProvider, ThemeProviderProps } from './theme'
+import { Route, RouterView } from './router'
+import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
 
 export interface AppContext {
   appIsReady: boolean
@@ -14,9 +14,30 @@ const appContext = React.createContext({} as AppContext)
 
 export const useApp = () => useContext(appContext)
 
-export interface AppProviderProps extends ThemeProviderProps, RouterViewProps {
+export interface AppProviderProps
+  extends ThemeProviderProps,
+    RouterRendererProps {
   loadAsync?: () => Promise<void>
   onReady?: () => void
+}
+
+export interface RouterRendererProps {
+  initialRouteName?: string
+  routes?: Route[] | ((theme: Theme) => Route[])
+}
+
+const RouterRenderer: React.FC<RouterRendererProps> = ({
+  initialRouteName,
+  routes,
+}) => {
+  const theme = useTheme()
+
+  return (
+    <RouterView
+      initialRouteName={initialRouteName}
+      routes={typeof routes === 'function' ? routes(theme) : routes}
+    />
+  )
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -52,7 +73,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       <SafeAreaProvider>
         <ThemeProvider theme={theme} darkTheme={darkTheme}>
           <Host>
-            <RouterView initialRouteName={initialRouteName} routes={routes} />
+            <RouterRenderer
+              initialRouteName={initialRouteName}
+              routes={routes}
+            />
             <FullscreenLoadingDelegate />
           </Host>
         </ThemeProvider>

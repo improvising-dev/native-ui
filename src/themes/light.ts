@@ -26,6 +26,7 @@ const LightTextStyles: TextStyles = {
 }
 
 export const LightTheme: Theme = {
+  brightness: 'light',
   sizes: CommonSizes,
   colors: LightColors,
   textStyles: LightTextStyles,

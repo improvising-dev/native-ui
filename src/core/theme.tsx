@@ -3,6 +3,8 @@ import { TextStyle, useColorScheme } from 'react-native'
 import { DarkTheme } from '../themes/dark'
 import { LightTheme } from '../themes/light'
 
+export type Brightness = 'light' | 'dark'
+
 export interface Sizes {
   spacing: number
   borderRadius: number
@@ -33,6 +35,7 @@ export interface TextStyles {
 }
 
 export interface Theme {
+  brightness: Brightness
   sizes: Sizes
   colors: Colors
   textStyles: TextStyles

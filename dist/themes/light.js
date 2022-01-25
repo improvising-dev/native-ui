@@ -30,6 +30,7 @@ var LightColors = {
 };
 var LightTextStyles = __assign(__assign({}, common_1.CommonTextStyles), { default: __assign(__assign({}, common_1.CommonTextStyles.default), { color: LightColors.text.primary }) });
 exports.LightTheme = {
+    brightness: 'light',
     sizes: common_1.CommonSizes,
     colors: LightColors,
     textStyles: LightTextStyles,

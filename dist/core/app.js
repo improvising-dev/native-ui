@@ -33,6 +33,11 @@ var theme_1 = require("./theme");
 var appContext = react_1.default.createContext({});
 var useApp = function () { return (0, react_1.useContext)(appContext); };
 exports.useApp = useApp;
+var RouterRenderer = function (_a) {
+    var initialRouteName = _a.initialRouteName, routes = _a.routes;
+    var theme = (0, theme_1.useTheme)();
+    return (<router_1.RouterView initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
+};
 var AppProvider = function (_a) {
     var _b = _a.loadAsync, loadAsync = _b === void 0 ? function () { return Promise.resolve(); } : _b, onReady = _a.onReady, theme = _a.theme, darkTheme = _a.darkTheme, initialRouteName = _a.initialRouteName, routes = _a.routes;
     var _c = (0, react_1.useState)(false), appIsReady = _c[0], setAppIsReady = _c[1];
@@ -50,7 +55,7 @@ var AppProvider = function (_a) {
       <react_native_safe_area_context_1.SafeAreaProvider>
         <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
           <react_native_portalize_1.Host>
-            <router_1.RouterView initialRouteName={initialRouteName} routes={routes}/>
+            <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
             <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
           </react_native_portalize_1.Host>
         </theme_1.ThemeProvider>
