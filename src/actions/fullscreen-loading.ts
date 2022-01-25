@@ -5,7 +5,7 @@ export const showLoading = () => {
 }
 
 export const hideLoading = () => {
-  globalEvent.fire('FullscreenLoading.showLoading')
+  globalEvent.fire('FullscreenLoading.hideLoading')
 }
 
 export const handleLoading = async <T>(cb: () => Promise<T> | T) => {

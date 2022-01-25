@@ -43,7 +43,7 @@ var showLoading = function () {
 };
 exports.showLoading = showLoading;
 var hideLoading = function () {
-    event_1.globalEvent.fire('FullscreenLoading.showLoading');
+    event_1.globalEvent.fire('FullscreenLoading.hideLoading');
 };
 exports.hideLoading = hideLoading;
 var handleLoading = function (cb) { return __awaiter(void 0, void 0, void 0, function () {
