@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { FlexStyle, View, ViewStyle } from 'react-native'
 
 export interface StackProps {
@@ -25,9 +25,10 @@ export const Stack: React.FC<StackProps> = ({
 
     const builder: React.ReactNode[] = []
 
-    for (const child of children) {
+    for (let index = 0; index < children.length; index++) {
       builder.push(
         <View
+          key={index}
           style={
             direction === 'row' || direction === 'row-reverse'
               ? { width: spacing }
@@ -35,7 +36,10 @@ export const Stack: React.FC<StackProps> = ({
           }
         />,
       )
-      builder.push(child)
+
+      builder.push(
+        <React.Fragment key={index}>{children[index]}</React.Fragment>,
+      )
     }
 
     builder.shift()

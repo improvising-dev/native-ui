@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { FlexStyle, ViewStyle } from 'react-native';
 export interface StackProps {
     direction?: FlexStyle['flexDirection'];
