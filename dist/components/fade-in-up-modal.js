@@ -28,6 +28,7 @@ var FadeInUpModal = function (_a) {
                     toValue: 1,
                     duration: duration,
                     useNativeDriver: useNativeDriver,
+                    easing: react_native_1.Easing.ease,
                 }).start();
             }
             else {
@@ -39,6 +40,7 @@ var FadeInUpModal = function (_a) {
                 toValue: 0,
                 duration: duration,
                 useNativeDriver: useNativeDriver,
+                easing: react_native_1.Easing.ease,
             }).start();
             setTimeout(function () { return setMounted(false); }, duration);
         }

@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Animated, TouchableWithoutFeedback, ViewStyle } from 'react-native'
+import {
+  Animated,
+  Easing,
+  TouchableWithoutFeedback,
+  ViewStyle,
+} from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
@@ -29,8 +34,9 @@ export const FadeInModal: React.FC<FadeInModalProps> = ({
       if (mounted) {
         Animated.timing(opacity, {
           toValue: 1,
-          duration: duration,
-          useNativeDriver: useNativeDriver,
+          duration,
+          useNativeDriver,
+          easing: Easing.ease,
         }).start()
       } else {
         requestAnimationFrame(() => setMounted(true))
@@ -38,8 +44,9 @@ export const FadeInModal: React.FC<FadeInModalProps> = ({
     } else if (mounted) {
       Animated.timing(opacity, {
         toValue: 0,
-        duration: duration,
-        useNativeDriver: useNativeDriver,
+        duration,
+        useNativeDriver,
+        easing: Easing.ease,
       }).start()
 
       setTimeout(() => setMounted(false), duration)
