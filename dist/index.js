@@ -26,6 +26,7 @@ __exportStar(require("./components/fullscreen-loading"), exports);
 __exportStar(require("./components/fullscreen-loading-delegate"), exports);
 __exportStar(require("./components/input"), exports);
 __exportStar(require("./components/page"), exports);
+__exportStar(require("./components/spacer"), exports);
 __exportStar(require("./components/stack"), exports);
 __exportStar(require("./components/text"), exports);
 __exportStar(require("./core/animation"), exports);
