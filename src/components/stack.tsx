@@ -25,7 +25,9 @@ export const Stack: React.FC<StackProps> = ({
 
     const builder: React.ReactNode[] = []
 
-    for (let index = 0; index < children.length; index++) {
+    let index = 0
+
+    for (const child of children) {
       builder.push(
         <View
           key={index}
@@ -37,9 +39,11 @@ export const Stack: React.FC<StackProps> = ({
         />,
       )
 
-      builder.push(
-        <React.Fragment key={index}>{children[index]}</React.Fragment>,
-      )
+      index++
+
+      builder.push(<React.Fragment key={index}>{child}</React.Fragment>)
+
+      index++
     }
 
     builder.shift()

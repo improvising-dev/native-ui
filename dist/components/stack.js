@@ -40,11 +40,15 @@ var Stack = function (_a) {
             return children;
         }
         var builder = [];
-        for (var index = 0; index < children.length; index++) {
+        var index = 0;
+        for (var _i = 0, children_1 = children; _i < children_1.length; _i++) {
+            var child = children_1[_i];
             builder.push(<react_native_1.View key={index} style={direction === 'row' || direction === 'row-reverse'
                     ? { width: spacing }
                     : { height: spacing }}/>);
-            builder.push(<react_1.default.Fragment key={index}>{children[index]}</react_1.default.Fragment>);
+            index++;
+            builder.push(<react_1.default.Fragment key={index}>{child}</react_1.default.Fragment>);
+            index++;
         }
         builder.shift();
         return builder;
