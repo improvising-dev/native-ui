@@ -21,7 +21,7 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
   children,
   visible,
   dismissible = true,
-  duration = 250,
+  duration = 300,
   style,
   useNativeDriver = true,
   onDismiss,
@@ -86,7 +86,7 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
               ...style,
             }}
           >
-            {children}
+            <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
           </Animated.View>
         </Animated.View>
       </TouchableWithoutFeedback>
