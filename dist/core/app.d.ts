@@ -7,5 +7,6 @@ export interface AppContext {
 export declare const useApp: () => AppContext;
 export interface AppProviderProps extends ThemeProviderProps, RouterViewProps {
     loadAsync?: () => Promise<void>;
+    onReady?: () => void;
 }
 export declare const AppProvider: React.FC<AppProviderProps>;

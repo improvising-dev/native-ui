@@ -1,5 +1,5 @@
 import AppLoading from 'expo-app-loading'
-import React, { memo, useContext, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { Host } from 'react-native-portalize'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import FullscreenLoadingDelegate from '../components/fullscreen-loading-delegate'
@@ -16,17 +16,25 @@ export const useApp = () => useContext(appContext)
 
 export interface AppProviderProps extends ThemeProviderProps, RouterViewProps {
   loadAsync?: () => Promise<void>
+  onReady?: () => void
 }
 
 export const AppProvider: React.FC<AppProviderProps> = memo(
   ({
     loadAsync = () => Promise.resolve(),
+    onReady,
     theme,
     darkTheme,
     initialRouteName,
     routes,
   }) => {
     const [appIsReady, setAppIsReady] = useState(false)
+
+    useEffect(() => {
+      if (appIsReady) {
+        onReady?.()
+      }
+    }, [appIsReady])
 
     if (!appIsReady) {
       return (
