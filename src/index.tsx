@@ -1,3 +1,6 @@
+export * from 'expo-app-loading'
+export * from 'expo-status-bar'
+export * from 'react-native-eva-icons'
 export * from 'react-native-portalize'
 export * from 'react-native-safe-area-context'
 export * from './actions/fullscreen-loading'
