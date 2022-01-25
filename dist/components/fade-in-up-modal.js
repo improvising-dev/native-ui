@@ -17,7 +17,7 @@ var react_native_1 = require("react-native");
 var react_native_portalize_1 = require("react-native-portalize");
 var animation_1 = require("../core/animation");
 var FadeInUpModal = function (_a) {
-    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 300 : _c, style = _a.style, _d = _a.useNativeDriver, useNativeDriver = _d === void 0 ? true : _d, onDismiss = _a.onDismiss;
+    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 450 : _c, style = _a.style, _d = _a.useNativeDriver, useNativeDriver = _d === void 0 ? true : _d, onDismiss = _a.onDismiss;
     var _e = (0, react_1.useState)(visible), mounted = _e[0], setMounted = _e[1];
     var dimensions = (0, react_native_1.useWindowDimensions)();
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);
@@ -28,7 +28,6 @@ var FadeInUpModal = function (_a) {
                     toValue: 1,
                     duration: duration,
                     useNativeDriver: useNativeDriver,
-                    easing: react_native_1.Easing.ease,
                 }).start();
             }
             else {
@@ -40,7 +39,6 @@ var FadeInUpModal = function (_a) {
                 toValue: 0,
                 duration: duration,
                 useNativeDriver: useNativeDriver,
-                easing: react_native_1.Easing.ease,
             }).start();
             setTimeout(function () { return setMounted(false); }, duration);
         }

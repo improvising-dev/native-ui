@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
   Animated,
-  Easing,
   TouchableWithoutFeedback,
   useWindowDimensions,
   ViewStyle,
@@ -22,7 +21,7 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
   children,
   visible,
   dismissible = true,
-  duration = 300,
+  duration = 450,
   style,
   useNativeDriver = true,
   onDismiss,
@@ -39,7 +38,6 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
           toValue: 1,
           duration,
           useNativeDriver,
-          easing: Easing.ease,
         }).start()
       } else {
         requestAnimationFrame(() => setMounted(true))
@@ -49,7 +47,6 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
         toValue: 0,
         duration,
         useNativeDriver,
-        easing: Easing.ease,
       }).start()
 
       setTimeout(() => setMounted(false), duration)

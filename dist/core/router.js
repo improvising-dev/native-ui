@@ -23,12 +23,14 @@ var Router = /** @class */ (function () {
     };
     Router.reset = function (name, params) {
         if (exports.navigationRef.isReady()) {
-            exports.navigationRef.dispatch(native_1.StackActions.popToTop());
+            if (exports.navigationRef.canGoBack()) {
+                exports.navigationRef.dispatch(native_1.StackActions.popToTop());
+            }
             exports.navigationRef.dispatch(native_1.StackActions.replace(name, params));
         }
     };
     Router.pop = function () {
-        if (exports.navigationRef.isReady()) {
+        if (exports.navigationRef.isReady() && exports.navigationRef.canGoBack()) {
             exports.navigationRef.dispatch(native_1.StackActions.pop());
         }
     };

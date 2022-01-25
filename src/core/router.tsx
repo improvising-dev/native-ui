@@ -27,13 +27,16 @@ export class Router {
 
   static reset(name: string, params?: any) {
     if (navigationRef.isReady()) {
-      navigationRef.dispatch(StackActions.popToTop())
+      if (navigationRef.canGoBack()) {
+        navigationRef.dispatch(StackActions.popToTop())
+      }
+
       navigationRef.dispatch(StackActions.replace(name, params))
     }
   }
 
   static pop() {
-    if (navigationRef.isReady()) {
+    if (navigationRef.isReady() && navigationRef.canGoBack()) {
       navigationRef.dispatch(StackActions.pop())
     }
   }
