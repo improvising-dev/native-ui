@@ -16,7 +16,7 @@ var react_1 = require("react");
 var react_native_1 = require("react-native");
 var react_native_portalize_1 = require("react-native-portalize");
 var animation_1 = require("../core/animation");
-exports.FadeInUpModal = (0, react_1.memo)(function (_a) {
+var FadeInUpModal = function (_a) {
     var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 250 : _c, style = _a.style, _d = _a.useNativeDriver, useNativeDriver = _d === void 0 ? true : _d, onDismiss = _a.onDismiss;
     var _e = (0, react_1.useState)(visible), mounted = _e[0], setMounted = _e[1];
     var dimensions = (0, react_native_1.useWindowDimensions)();
@@ -47,8 +47,8 @@ exports.FadeInUpModal = (0, react_1.memo)(function (_a) {
         return <></>;
     }
     return (<react_native_portalize_1.Portal>
-        <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
-          <react_native_1.Animated.View style={{
+      <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
+        <react_native_1.Animated.View style={{
             backgroundColor: 'rgba(0, 0, 0, .6)',
             position: 'absolute',
             left: 0,
@@ -58,7 +58,7 @@ exports.FadeInUpModal = (0, react_1.memo)(function (_a) {
             zIndex: 1000,
             opacity: value,
         }}>
-            <react_native_1.Animated.View style={__assign({ flex: 1, transform: [
+          <react_native_1.Animated.View style={__assign({ flex: 1, transform: [
                 {
                     translateY: value.interpolate({
                         inputRange: [0, 1],
@@ -66,10 +66,11 @@ exports.FadeInUpModal = (0, react_1.memo)(function (_a) {
                     }),
                 },
             ] }, style)}>
-              {children}
-            </react_native_1.Animated.View>
+            {children}
           </react_native_1.Animated.View>
-        </react_native_1.TouchableWithoutFeedback>
-      </react_native_portalize_1.Portal>);
-});
+        </react_native_1.Animated.View>
+      </react_native_1.TouchableWithoutFeedback>
+    </react_native_portalize_1.Portal>);
+};
+exports.FadeInUpModal = FadeInUpModal;
 //# sourceMappingURL=fade-in-up-modal.js.map

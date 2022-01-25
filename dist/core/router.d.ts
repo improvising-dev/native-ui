@@ -1,6 +1,6 @@
 import { ParamListBase } from '@react-navigation/native';
-import React from 'react';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+import React from 'react';
 export declare const navigationRef: import("@react-navigation/native").NavigationContainerRefWithCurrent<ParamListBase>;
 export declare class Router {
     static push(name: string, params?: any): void;

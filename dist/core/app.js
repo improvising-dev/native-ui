@@ -33,7 +33,7 @@ var theme_1 = require("./theme");
 var appContext = react_1.default.createContext({});
 var useApp = function () { return (0, react_1.useContext)(appContext); };
 exports.useApp = useApp;
-exports.AppProvider = (0, react_1.memo)(function (_a) {
+var AppProvider = function (_a) {
     var _b = _a.loadAsync, loadAsync = _b === void 0 ? function () { return Promise.resolve(); } : _b, onReady = _a.onReady, theme = _a.theme, darkTheme = _a.darkTheme, initialRouteName = _a.initialRouteName, routes = _a.routes;
     var _c = (0, react_1.useState)(false), appIsReady = _c[0], setAppIsReady = _c[1];
     (0, react_1.useEffect)(function () {
@@ -43,18 +43,19 @@ exports.AppProvider = (0, react_1.memo)(function (_a) {
     }, [appIsReady]);
     if (!appIsReady) {
         return (<appContext.Provider value={{ appIsReady: appIsReady }}>
-          <expo_app_loading_1.default startAsync={loadAsync} onFinish={function () { return setAppIsReady(true); }} onError={console.warn}/>
-        </appContext.Provider>);
+        <expo_app_loading_1.default startAsync={loadAsync} onFinish={function () { return setAppIsReady(true); }} onError={console.warn}/>
+      </appContext.Provider>);
     }
     return (<appContext.Provider value={{ appIsReady: appIsReady }}>
-        <react_native_safe_area_context_1.SafeAreaProvider>
-          <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
-            <react_native_portalize_1.Host>
-              <router_1.RouterView initialRouteName={initialRouteName} routes={routes}/>
-              <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
-            </react_native_portalize_1.Host>
-          </theme_1.ThemeProvider>
-        </react_native_safe_area_context_1.SafeAreaProvider>
-      </appContext.Provider>);
-});
+      <react_native_safe_area_context_1.SafeAreaProvider>
+        <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
+          <react_native_portalize_1.Host>
+            <router_1.RouterView initialRouteName={initialRouteName} routes={routes}/>
+            <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
+          </react_native_portalize_1.Host>
+        </theme_1.ThemeProvider>
+      </react_native_safe_area_context_1.SafeAreaProvider>
+    </appContext.Provider>);
+};
+exports.AppProvider = AppProvider;
 //# sourceMappingURL=app.js.map

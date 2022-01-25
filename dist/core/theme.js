@@ -27,10 +27,11 @@ var light_1 = require("../themes/light");
 var themeContext = react_1.default.createContext({});
 var useTheme = function () { return (0, react_1.useContext)(themeContext); };
 exports.useTheme = useTheme;
-exports.ThemeProvider = (0, react_1.memo)(function (_a) {
+var ThemeProvider = function (_a) {
     var _b = _a.theme, theme = _b === void 0 ? light_1.LightTheme : _b, _c = _a.darkTheme, darkTheme = _c === void 0 ? dark_1.DarkTheme : _c, children = _a.children;
     var colorScheme = (0, react_native_1.useColorScheme)();
     var selected = colorScheme === 'light' ? theme : darkTheme;
     return (<themeContext.Provider value={selected}>{children}</themeContext.Provider>);
-});
+};
+exports.ThemeProvider = ThemeProvider;
 //# sourceMappingURL=theme.js.map

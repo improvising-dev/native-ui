@@ -4,11 +4,11 @@ import {
   ParamListBase,
   StackActions,
 } from '@react-navigation/native'
-import React, { memo } from 'react'
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack'
+import React from 'react'
 
 export const navigationRef = createNavigationContainerRef<ParamListBase>()
 
@@ -52,21 +52,22 @@ export interface RouterViewProps {
 
 const Stack = createNativeStackNavigator()
 
-export const RouterView: React.FC<RouterViewProps> = memo(
-  ({ initialRouteName, routes = [] }) => {
-    return (
-      <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator initialRouteName={initialRouteName}>
-          {routes.map(route => (
-            <Stack.Screen
-              key={route.name}
-              name={route.name}
-              component={route.component}
-              options={route.options}
-            />
-          ))}
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
-  },
-)
+export const RouterView: React.FC<RouterViewProps> = ({
+  initialRouteName,
+  routes = [],
+}) => {
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator initialRouteName={initialRouteName}>
+        {routes.map(route => (
+          <Stack.Screen
+            key={route.name}
+            name={route.name}
+            component={route.component}
+            options={route.options}
+          />
+        ))}
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}

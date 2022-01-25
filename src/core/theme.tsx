@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react'
+import React, { useContext } from 'react'
 import { TextStyle, useColorScheme } from 'react-native'
 import { DarkTheme } from '../themes/dark'
 import { LightTheme } from '../themes/light'
@@ -47,13 +47,15 @@ export interface ThemeProviderProps {
   darkTheme?: Theme
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = memo(
-  ({ theme = LightTheme, darkTheme = DarkTheme, children }) => {
-    const colorScheme = useColorScheme()
-    const selected = colorScheme === 'light' ? theme : darkTheme
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({
+  theme = LightTheme,
+  darkTheme = DarkTheme,
+  children,
+}) => {
+  const colorScheme = useColorScheme()
+  const selected = colorScheme === 'light' ? theme : darkTheme
 
-    return (
-      <themeContext.Provider value={selected}>{children}</themeContext.Provider>
-    )
-  },
-)
+  return (
+    <themeContext.Provider value={selected}>{children}</themeContext.Provider>
+  )
+}
