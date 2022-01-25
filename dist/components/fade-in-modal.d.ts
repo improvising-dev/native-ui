@@ -8,5 +8,4 @@ export interface FadeInModalProps {
     useNativeDriver?: boolean;
     onDismiss?: () => void;
 }
-declare const FadeInModal: React.FC<FadeInModalProps>;
-export default FadeInModal;
+export declare const FadeInModal: React.FC<FadeInModalProps>;

@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Card = void 0;
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
 var Card = function (_a) {
@@ -20,5 +21,5 @@ var Card = function (_a) {
       {children}
     </react_native_1.Pressable>);
 };
-exports.default = Card;
+exports.Card = Card;
 //# sourceMappingURL=card.js.map

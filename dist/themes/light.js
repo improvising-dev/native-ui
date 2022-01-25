@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LightTheme = void 0;
 var common_1 = require("./common");
 var LightColors = {
     white: '#ffffff',
@@ -28,10 +29,9 @@ var LightColors = {
     },
 };
 var LightTextStyles = __assign(__assign({}, common_1.CommonTextStyles), { default: __assign(__assign({}, common_1.CommonTextStyles.default), { color: LightColors.text.primary }) });
-var LightTheme = {
+exports.LightTheme = {
     sizes: common_1.CommonSizes,
     colors: LightColors,
     textStyles: LightTextStyles,
 };
-exports.default = LightTheme;
 //# sourceMappingURL=light.js.map

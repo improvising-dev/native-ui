@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DarkTheme = void 0;
 var common_1 = require("./common");
 var DarkColors = {
     white: '#ffffff',
@@ -28,10 +29,9 @@ var DarkColors = {
     },
 };
 var DarkTextStyles = __assign(__assign({}, common_1.CommonTextStyles), { default: __assign(__assign({}, common_1.CommonTextStyles.default), { color: DarkColors.text.primary }) });
-var DarkTheme = {
+exports.DarkTheme = {
     sizes: common_1.CommonSizes,
     colors: DarkColors,
     textStyles: DarkTextStyles,
 };
-exports.default = DarkTheme;
 //# sourceMappingURL=dark.js.map

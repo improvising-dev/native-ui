@@ -1,7 +1,7 @@
 import React, { memo, useContext } from 'react'
 import { TextStyle, useColorScheme } from 'react-native'
-import DarkTheme from '../themes/dark'
-import LightTheme from '../themes/light'
+import { DarkTheme } from '../themes/dark'
+import { LightTheme } from '../themes/light'
 
 export interface Sizes {
   spacing: number

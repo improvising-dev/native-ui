@@ -25,10 +25,8 @@ const LightTextStyles: TextStyles = {
   },
 }
 
-const LightTheme: Theme = {
+export const LightTheme: Theme = {
   sizes: CommonSizes,
   colors: LightColors,
   textStyles: LightTextStyles,
 }
-
-export default LightTheme

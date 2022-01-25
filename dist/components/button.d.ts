@@ -6,5 +6,4 @@ export interface ButtonProps {
     textStyle?: TextStyle;
     onPressed?: () => void;
 }
-declare const Button: React.FC<ButtonProps>;
-export default Button;
+export declare const Button: React.FC<ButtonProps>;

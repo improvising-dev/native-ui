@@ -7,5 +7,4 @@ export interface StackProps {
     spacing?: number;
     children: React.ReactNode[];
 }
-declare const Stack: React.FC<StackProps>;
-export default Stack;
+export declare const Stack: React.FC<StackProps>;

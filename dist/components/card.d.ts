@@ -4,5 +4,4 @@ export interface CardProps {
     style?: ViewStyle;
     onPressed?: () => void;
 }
-declare const Card: React.FC<CardProps>;
-export default Card;
+export declare const Card: React.FC<CardProps>;

@@ -17,7 +17,7 @@ export interface FadeInUpModalProps {
   onDismiss?: () => void
 }
 
-const FadeInUpModal: React.FC<FadeInUpModalProps> = memo(
+export const FadeInUpModal: React.FC<FadeInUpModalProps> = memo(
   ({
     children,
     visible,
@@ -95,5 +95,3 @@ const FadeInUpModal: React.FC<FadeInUpModalProps> = memo(
     )
   },
 )
-
-export default FadeInUpModal

@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Page = void 0;
 var expo_status_bar_1 = require("expo-status-bar");
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
@@ -29,5 +30,5 @@ var Page = function (_a) {
       {children}
     </react_native_1.View>);
 };
-exports.default = Page;
+exports.Page = Page;
 //# sourceMappingURL=page.js.map

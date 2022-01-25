@@ -6,7 +6,7 @@ export interface CardProps {
   onPressed?: () => void
 }
 
-const Card: React.FC<CardProps> = ({ children, style, onPressed }) => {
+export const Card: React.FC<CardProps> = ({ children, style, onPressed }) => {
   const theme = useTheme()
 
   return (
@@ -23,5 +23,3 @@ const Card: React.FC<CardProps> = ({ children, style, onPressed }) => {
     </Pressable>
   )
 }
-
-export default Card

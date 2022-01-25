@@ -21,3 +21,6 @@ export * from './core/app';
 export * from './core/event';
 export * from './core/router';
 export * from './core/theme';
+export * from './themes/common';
+export * from './themes/dark';
+export * from './themes/light';

@@ -1,8 +1,8 @@
 import { memo, useEffect, useState } from 'react'
 import { globalEvent } from '../core/event'
-import FullscreenLoading from './fullscreen-loading'
+import { FullscreenLoading } from './fullscreen-loading'
 
-const FullscreenLoadingDelegate: React.FC = memo(() => {
+export const FullscreenLoadingDelegate: React.FC = memo(() => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -17,5 +17,3 @@ const FullscreenLoadingDelegate: React.FC = memo(() => {
 
   return <FullscreenLoading visible={visible} />
 })
-
-export default FullscreenLoadingDelegate

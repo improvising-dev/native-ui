@@ -8,7 +8,7 @@ export interface ButtonProps {
   onPressed?: () => void
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   style,
   textStyle,
@@ -44,5 +44,3 @@ const Button: React.FC<ButtonProps> = ({
     </TouchableOpacity>
   )
 }
-
-export default Button

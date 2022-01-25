@@ -7,7 +7,11 @@ export interface PageProps {
   style?: ViewStyle
 }
 
-const Page: React.FC<PageProps> = ({ scrollable = false, style, children }) => {
+export const Page: React.FC<PageProps> = ({
+  scrollable = false,
+  style,
+  children,
+}) => {
   const theme = useTheme()
 
   const viewStyle: ViewStyle = {
@@ -32,5 +36,3 @@ const Page: React.FC<PageProps> = ({ scrollable = false, style, children }) => {
     </View>
   )
 }
-
-export default Page

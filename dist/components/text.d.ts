@@ -4,5 +4,4 @@ export interface TextProps {
     children?: string;
     style?: TextStyle;
 }
-declare const Text: React.FC<TextProps>;
-export default Text;
+export declare const Text: React.FC<TextProps>;

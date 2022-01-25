@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Button = void 0;
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
 var Button = function (_a) {
@@ -23,5 +24,5 @@ var Button = function (_a) {
       </react_native_1.Text>
     </react_native_1.TouchableOpacity>);
 };
-exports.default = Button;
+exports.Button = Button;
 //# sourceMappingURL=button.js.map

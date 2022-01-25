@@ -4,5 +4,4 @@ export interface PageProps {
     scrollable?: boolean;
     style?: ViewStyle;
 }
-declare const Page: React.FC<PageProps>;
-export default Page;
+export declare const Page: React.FC<PageProps>;

@@ -25,10 +25,8 @@ const DarkTextStyles: TextStyles = {
   },
 }
 
-const DarkTheme: Theme = {
+export const DarkTheme: Theme = {
   sizes: CommonSizes,
   colors: DarkColors,
   textStyles: DarkTextStyles,
 }
-
-export default DarkTheme

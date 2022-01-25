@@ -9,7 +9,7 @@ export interface StackProps {
   children: React.ReactNode[]
 }
 
-const Stack: React.FC<StackProps> = ({
+export const Stack: React.FC<StackProps> = ({
   direction,
   align,
   justify,
@@ -53,5 +53,3 @@ const Stack: React.FC<StackProps> = ({
     </View>
   )
 }
-
-export default Stack

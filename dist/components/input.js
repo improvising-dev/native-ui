@@ -22,6 +22,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Input = void 0;
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
 var Input = function (_a) {
@@ -29,5 +30,5 @@ var Input = function (_a) {
     var theme = (0, theme_1.useTheme)();
     return (<react_native_1.TextInput selectionColor={theme.colors.primary} style={__assign(__assign({}, theme.textStyles.default), style)} {...props}/>);
 };
-exports.default = Input;
+exports.Input = Input;
 //# sourceMappingURL=input.js.map

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Stack = void 0;
 var react_1 = require("react");
 var react_native_1 = require("react-native");
 var Stack = function (_a) {
@@ -27,5 +28,5 @@ var Stack = function (_a) {
       {items}
     </react_native_1.View>);
 };
-exports.default = Stack;
+exports.Stack = Stack;
 //# sourceMappingURL=stack.js.map

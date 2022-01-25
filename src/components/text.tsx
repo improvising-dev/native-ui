@@ -6,7 +6,7 @@ export interface TextProps {
   style?: TextStyle
 }
 
-const Text: React.FC<TextProps> = ({ children, style }) => {
+export const Text: React.FC<TextProps> = ({ children, style }) => {
   const theme = useTheme()
 
   return (
@@ -20,5 +20,3 @@ const Text: React.FC<TextProps> = ({ children, style }) => {
     </RNText>
   )
 }
-
-export default Text

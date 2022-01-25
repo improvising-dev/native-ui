@@ -2,7 +2,7 @@ import AppLoading from 'expo-app-loading'
 import React, { memo, useContext, useEffect, useState } from 'react'
 import { Host } from 'react-native-portalize'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import FullscreenLoadingDelegate from '../components/fullscreen-loading-delegate'
+import { FullscreenLoadingDelegate } from '../components/fullscreen-loading-delegate'
 import { RouterView, RouterViewProps } from './router'
 import { ThemeProvider, ThemeProviderProps } from './theme'
 

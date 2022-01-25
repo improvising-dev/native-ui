@@ -5,7 +5,7 @@ export interface InputProps extends TextInputProps {
   style?: TextStyle
 }
 
-const Input: React.FC<InputProps> = ({ style, ...props }) => {
+export const Input: React.FC<InputProps> = ({ style, ...props }) => {
   const theme = useTheme()
 
   return (
@@ -19,5 +19,3 @@ const Input: React.FC<InputProps> = ({ style, ...props }) => {
     />
   )
 }
-
-export default Input
