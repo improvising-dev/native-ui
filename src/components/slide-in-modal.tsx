@@ -8,8 +8,6 @@ import {
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
-const AnimatedTWF = Animated.createAnimatedComponent(TouchableWithoutFeedback)
-
 export interface SlideInModalProps {
   children?: React.ReactChild
   visible: boolean
@@ -76,49 +74,51 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
           opacity: value,
         }}
       />
-      <AnimatedTWF
-        onPress={dismissible ? onDismiss : undefined}
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-          zIndex: 101,
-          transform: [
-            to === 'top'
-              ? {
-                  translateY: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [dimensions.height, 0],
-                  }),
-                }
-              : to === 'bottom'
-              ? {
-                  translateY: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-dimensions.height, 0],
-                  }),
-                }
-              : to === 'left'
-              ? {
-                  translateX: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [dimensions.width, 0],
-                  }),
-                }
-              : {
-                  translateX: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-dimensions.width, 0],
-                  }),
-                },
-          ],
-          ...style,
-        }}
-      >
-        <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
-      </AnimatedTWF>
+
+      <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
+        <Animated.View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 101,
+            transform: [
+              to === 'top'
+                ? {
+                    translateY: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [dimensions.height, 0],
+                    }),
+                  }
+                : to === 'bottom'
+                ? {
+                    translateY: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-dimensions.height, 0],
+                    }),
+                  }
+                : to === 'left'
+                ? {
+                    translateX: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [dimensions.width, 0],
+                    }),
+                  }
+                : {
+                    translateX: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-dimensions.width, 0],
+                    }),
+                  },
+            ],
+            ...style,
+          }}
+        >
+          <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     </Portal>
   )
 }
