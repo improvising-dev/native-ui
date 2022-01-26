@@ -1,9 +1,13 @@
-import { Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import color from 'color'
+import { Animated, Pressable, Text, TextStyle, ViewStyle } from 'react-native'
 import { HapticFeedback } from '../actions/haptics'
+import { useAnimatedValue } from '../core/animation'
 import { useTheme } from '../core/theme'
 
 export interface ButtonProps {
-  children?: string
+  children?: string | React.ReactNode
+  backgroundColor?: string
+  textColor?: string
   style?: ViewStyle
   textStyle?: TextStyle
   haptic?: boolean
@@ -12,13 +16,28 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   children,
+  backgroundColor,
+  textColor,
   style,
   textStyle,
   haptic = false,
   onPressed,
 }) => {
+  const animatedValue = useAnimatedValue(0)
   const theme = useTheme()
+
   const disabled = !onPressed
+
+  const resolvedBackgroundColor = backgroundColor ?? theme.colors.primary
+  const activeBackgroundColor = color(resolvedBackgroundColor).isDark()
+    ? color(resolvedBackgroundColor).lighten(0.2).string()
+    : color(resolvedBackgroundColor).darken(0.2).string()
+
+  const resolvedTextColor =
+    textColor ??
+    (color(resolvedBackgroundColor).isDark()
+      ? theme.colors.white
+      : theme.colors.black)
 
   const handlePress = () => {
     if (haptic) {
@@ -29,29 +48,54 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <TouchableOpacity
-      disabled={disabled}
-      activeOpacity={0.9}
+    <Pressable
       onPress={handlePress}
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: theme.colors.primary,
-        borderRadius: theme.sizes.borderRadius,
-        padding: theme.sizes.spacing,
-        opacity: disabled ? 0.7 : 1.0,
-        ...style,
+      onPressIn={() => {
+        Animated.timing(animatedValue, {
+          toValue: 1,
+          duration: 100,
+          useNativeDriver: false,
+        }).start()
       }}
+      onPressOut={() => {
+        setTimeout(() => {
+          Animated.timing(animatedValue, {
+            toValue: 0,
+            duration: 150,
+            useNativeDriver: false,
+          }).start()
+        }, 200)
+      }}
+      disabled={disabled}
     >
-      <Text
+      <Animated.View
         style={{
-          color: theme.colors.white,
-          ...theme.textStyles.button,
-          ...textStyle,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: animatedValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: [resolvedBackgroundColor, activeBackgroundColor],
+          }),
+          borderRadius: theme.sizes.borderRadius,
+          padding: theme.sizes.spacing,
+          opacity: disabled ? 0.7 : 1.0,
+          ...style,
         }}
       >
-        {children}
-      </Text>
-    </TouchableOpacity>
+        {typeof children === 'string' ? (
+          <Text
+            style={{
+              color: resolvedTextColor,
+              ...theme.textStyles.button,
+              ...textStyle,
+            }}
+          >
+            {children}
+          </Text>
+        ) : (
+          children
+        )}
+      </Animated.View>
+    </Pressable>
   )
 }

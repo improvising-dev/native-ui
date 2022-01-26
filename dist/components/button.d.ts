@@ -1,7 +1,9 @@
 /// <reference types="react" />
 import { TextStyle, ViewStyle } from 'react-native';
 export interface ButtonProps {
-    children?: string;
+    children?: string | React.ReactNode;
+    backgroundColor?: string;
+    textColor?: string;
     style?: ViewStyle;
     textStyle?: TextStyle;
     haptic?: boolean;

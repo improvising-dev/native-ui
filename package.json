@@ -1,6 +1,6 @@
 {
   "name": "@improvising/native-ui",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "The comprehensive UI framework for React Native",
   "main": "dist/index.js",
   "scripts": {
