@@ -61,19 +61,20 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
 
   return (
     <Portal>
+      <Animated.View
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, .6)',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: 100,
+          opacity: value,
+        }}
+      />
+
       <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
-        <Animated.View
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, .6)',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            opacity: value,
-          }}
-        />
         <Animated.View
           style={{
             position: 'absolute',

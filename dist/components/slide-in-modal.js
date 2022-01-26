@@ -47,8 +47,7 @@ var SlideInModal = function (_a) {
         return <></>;
     }
     return (<react_native_portalize_1.Portal>
-      <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
-        <react_native_1.Animated.View style={{
+      <react_native_1.Animated.View style={{
             backgroundColor: 'rgba(0, 0, 0, .6)',
             position: 'absolute',
             left: 0,
@@ -58,6 +57,8 @@ var SlideInModal = function (_a) {
             zIndex: 100,
             opacity: value,
         }}/>
+
+      <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <react_native_1.Animated.View style={__assign({ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 101, transform: [
                 to === 'bottom'
                     ? {
