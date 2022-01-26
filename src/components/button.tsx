@@ -4,6 +4,8 @@ import { HapticFeedback } from '../actions/haptics'
 import { useAnimatedValue } from '../core/animation'
 import { useTheme } from '../core/theme'
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
 export interface ButtonProps {
   children?: string | React.ReactNode
   backgroundColor?: string
@@ -30,8 +32,8 @@ export const Button: React.FC<ButtonProps> = ({
 
   const resolvedBackgroundColor = backgroundColor ?? theme.colors.primary
   const activeBackgroundColor = color(resolvedBackgroundColor).isDark()
-    ? color(resolvedBackgroundColor).lighten(0.2).string()
-    : color(resolvedBackgroundColor).darken(0.2).string()
+    ? color(resolvedBackgroundColor).lighten(0.07).string()
+    : color(resolvedBackgroundColor).darken(0.07).string()
 
   const resolvedTextColor =
     textColor ??
@@ -48,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={handlePress}
       onPressIn={() => {
         Animated.timing(animatedValue, {
@@ -67,35 +69,32 @@ export const Button: React.FC<ButtonProps> = ({
         }, 200)
       }}
       disabled={disabled}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: animatedValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [resolvedBackgroundColor, activeBackgroundColor],
+        }),
+        borderRadius: theme.sizes.borderRadius,
+        padding: theme.sizes.spacing,
+        opacity: disabled ? 0.7 : 1.0,
+        ...style,
+      }}
     >
-      <Animated.View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: animatedValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: [resolvedBackgroundColor, activeBackgroundColor],
-          }),
-          borderRadius: theme.sizes.borderRadius,
-          padding: theme.sizes.spacing,
-          opacity: disabled ? 0.7 : 1.0,
-          ...style,
-        }}
-      >
-        {typeof children === 'string' ? (
-          <Text
-            style={{
-              color: resolvedTextColor,
-              ...theme.textStyles.button,
-              ...textStyle,
-            }}
-          >
-            {children}
-          </Text>
-        ) : (
-          children
-        )}
-      </Animated.View>
-    </Pressable>
+      {typeof children === 'string' ? (
+        <Text
+          style={{
+            color: resolvedTextColor,
+            ...theme.textStyles.button,
+            ...textStyle,
+          }}
+        >
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
+    </AnimatedPressable>
   )
 }
