@@ -3,6 +3,8 @@ import { Animated, TouchableWithoutFeedback, ViewStyle } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
+const AnimatedTWF = Animated.createAnimatedComponent(TouchableWithoutFeedback)
+
 export interface FadeInModalProps {
   children?: React.ReactChild
   visible: boolean
@@ -53,23 +55,22 @@ export const FadeInModal: React.FC<FadeInModalProps> = ({
 
   return (
     <Portal>
-      <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
-        <Animated.View
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, .6)',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            opacity,
-            ...style,
-          }}
-        >
-          <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
-        </Animated.View>
-      </TouchableWithoutFeedback>
+      <AnimatedTWF
+        onPress={dismissible ? onDismiss : undefined}
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, .6)',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: 100,
+          opacity,
+          ...style,
+        }}
+      >
+        <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
+      </AnimatedTWF>
     </Portal>
   )
 }

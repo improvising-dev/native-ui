@@ -26,13 +26,12 @@ var Button = function (_a) {
     var animatedValue = (0, animation_1.useAnimatedValue)(0);
     var theme = (0, theme_1.useTheme)();
     var disabled = !onPressed;
-    var resolvedBackgroundColor = backgroundColor !== null && backgroundColor !== void 0 ? backgroundColor : theme.colors.primary;
-    var activeBackgroundColor = (0, color_1.default)(resolvedBackgroundColor).isDark()
-        ? (0, color_1.default)(resolvedBackgroundColor).lighten(0.07).string()
-        : (0, color_1.default)(resolvedBackgroundColor).darken(0.07).string();
-    var resolvedTextColor = textColor !== null && textColor !== void 0 ? textColor : ((0, color_1.default)(resolvedBackgroundColor).isDark()
-        ? theme.colors.white
-        : theme.colors.black);
+    backgroundColor !== null && backgroundColor !== void 0 ? backgroundColor : (backgroundColor = theme.colors.primary);
+    var colorOps = (0, color_1.default)(backgroundColor);
+    var activeBackgroundColor = colorOps.isDark()
+        ? colorOps.mix((0, color_1.default)('#ffffff'), 0.1).string()
+        : colorOps.mix((0, color_1.default)('#000000'), 0.1).string();
+    textColor !== null && textColor !== void 0 ? textColor : (textColor = colorOps.isDark() ? theme.colors.white : theme.colors.black);
     var handlePress = function () {
         if (haptic) {
             haptics_1.HapticFeedback.lightImpact();
@@ -55,9 +54,9 @@ var Button = function (_a) {
             }, 200);
         }} disabled={disabled} style={__assign({ alignItems: 'center', justifyContent: 'center', backgroundColor: animatedValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: [resolvedBackgroundColor, activeBackgroundColor],
+                outputRange: [backgroundColor, activeBackgroundColor],
             }), borderRadius: theme.sizes.borderRadius, padding: theme.sizes.spacing, opacity: disabled ? 0.7 : 1.0 }, style)}>
-      {typeof children === 'string' ? (<react_native_1.Text style={__assign(__assign({ color: resolvedTextColor }, theme.textStyles.button), textStyle)}>
+      {typeof children === 'string' ? (<react_native_1.Text style={__assign(__assign({ color: textColor }, theme.textStyles.button), textStyle)}>
           {children}
         </react_native_1.Text>) : (children)}
     </AnimatedPressable>);

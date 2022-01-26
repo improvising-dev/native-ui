@@ -30,16 +30,14 @@ export const Button: React.FC<ButtonProps> = ({
 
   const disabled = !onPressed
 
-  const resolvedBackgroundColor = backgroundColor ?? theme.colors.primary
-  const activeBackgroundColor = color(resolvedBackgroundColor).isDark()
-    ? color(resolvedBackgroundColor).lighten(0.07).string()
-    : color(resolvedBackgroundColor).darken(0.07).string()
+  backgroundColor ??= theme.colors.primary
 
-  const resolvedTextColor =
-    textColor ??
-    (color(resolvedBackgroundColor).isDark()
-      ? theme.colors.white
-      : theme.colors.black)
+  const colorOps = color(backgroundColor)
+  const activeBackgroundColor = colorOps.isDark()
+    ? colorOps.mix(color('#ffffff'), 0.1).string()
+    : colorOps.mix(color('#000000'), 0.1).string()
+
+  textColor ??= colorOps.isDark() ? theme.colors.white : theme.colors.black
 
   const handlePress = () => {
     if (haptic) {
@@ -74,7 +72,7 @@ export const Button: React.FC<ButtonProps> = ({
         justifyContent: 'center',
         backgroundColor: animatedValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [resolvedBackgroundColor, activeBackgroundColor],
+          outputRange: [backgroundColor, activeBackgroundColor],
         }),
         borderRadius: theme.sizes.borderRadius,
         padding: theme.sizes.spacing,
@@ -85,7 +83,7 @@ export const Button: React.FC<ButtonProps> = ({
       {typeof children === 'string' ? (
         <Text
           style={{
-            color: resolvedTextColor,
+            color: textColor,
             ...theme.textStyles.button,
             ...textStyle,
           }}

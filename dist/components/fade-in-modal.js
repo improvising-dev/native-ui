@@ -16,6 +16,7 @@ var react_1 = require("react");
 var react_native_1 = require("react-native");
 var react_native_portalize_1 = require("react-native-portalize");
 var animation_1 = require("../core/animation");
+var AnimatedTWF = react_native_1.Animated.createAnimatedComponent(react_native_1.TouchableWithoutFeedback);
 var FadeInModal = function (_a) {
     var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 400 : _c, style = _a.style, _d = _a.useNativeDriver, useNativeDriver = _d === void 0 ? true : _d, onDismiss = _a.onDismiss;
     var _e = (0, react_1.useState)(visible), mounted = _e[0], setMounted = _e[1];
@@ -46,11 +47,9 @@ var FadeInModal = function (_a) {
         return <></>;
     }
     return (<react_native_portalize_1.Portal>
-      <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
-        <react_native_1.Animated.View style={__assign({ backgroundColor: 'rgba(0, 0, 0, .6)', position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 100, opacity: opacity }, style)}>
-          <react_native_1.TouchableWithoutFeedback>{children}</react_native_1.TouchableWithoutFeedback>
-        </react_native_1.Animated.View>
-      </react_native_1.TouchableWithoutFeedback>
+      <AnimatedTWF onPress={dismissible ? onDismiss : undefined} style={__assign({ backgroundColor: 'rgba(0, 0, 0, .6)', position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 100, opacity: opacity }, style)}>
+        <react_native_1.TouchableWithoutFeedback>{children}</react_native_1.TouchableWithoutFeedback>
+      </AnimatedTWF>
     </react_native_portalize_1.Portal>);
 };
 exports.FadeInModal = FadeInModal;
