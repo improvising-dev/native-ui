@@ -4,6 +4,7 @@ import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
 export interface FadeInModalProps {
+  children?: React.ReactChild
   visible: boolean
   dismissible?: boolean
   duration?: number

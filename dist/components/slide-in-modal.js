@@ -60,14 +60,14 @@ var SlideInModal = function (_a) {
 
       <react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <react_native_1.Animated.View style={__assign({ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, zIndex: 101, transform: [
-                to === 'bottom'
+                to === 'top'
                     ? {
                         translateY: value.interpolate({
                             inputRange: [0, 1],
                             outputRange: [dimensions.height, 0],
                         }),
                     }
-                    : to === 'top'
+                    : to === 'bottom'
                         ? {
                             translateY: value.interpolate({
                                 inputRange: [0, 1],

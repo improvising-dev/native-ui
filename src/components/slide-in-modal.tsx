@@ -9,6 +9,7 @@ import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
 export interface SlideInModalProps {
+  children?: React.ReactChild
   visible: boolean
   dismissible?: boolean
   duration?: number
@@ -84,14 +85,14 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
             bottom: 0,
             zIndex: 101,
             transform: [
-              to === 'bottom'
+              to === 'top'
                 ? {
                     translateY: value.interpolate({
                       inputRange: [0, 1],
                       outputRange: [dimensions.height, 0],
                     }),
                   }
-                : to === 'top'
+                : to === 'bottom'
                 ? {
                     translateY: value.interpolate({
                       inputRange: [0, 1],

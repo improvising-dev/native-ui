@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { ViewStyle } from 'react-native';
 export interface SlideInModalProps {
+    children?: React.ReactChild;
     visible: boolean;
     dismissible?: boolean;
     duration?: number;
