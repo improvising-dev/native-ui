@@ -34,8 +34,8 @@ export const Button: React.FC<ButtonProps> = ({
 
   const colorOps = color(backgroundColor)
   const activeBackgroundColor = colorOps.isDark()
-    ? colorOps.mix(color('#ffffff'), 0.1).string()
-    : colorOps.mix(color('#000000'), 0.1).string()
+    ? colorOps.lightness(colorOps.lightness() + 5).string()
+    : colorOps.lightness(colorOps.lightness() - 5).string()
 
   textColor ??= colorOps.isDark() ? theme.colors.white : theme.colors.black
 
@@ -65,6 +65,13 @@ export const Button: React.FC<ButtonProps> = ({
             useNativeDriver: false,
           }).start()
         }, 200)
+      }}
+      onTouchCancel={() => {
+        Animated.timing(animatedValue, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: false,
+        }).start()
       }}
       disabled={disabled}
       style={{

@@ -29,8 +29,8 @@ var Button = function (_a) {
     backgroundColor !== null && backgroundColor !== void 0 ? backgroundColor : (backgroundColor = theme.colors.primary);
     var colorOps = (0, color_1.default)(backgroundColor);
     var activeBackgroundColor = colorOps.isDark()
-        ? colorOps.mix((0, color_1.default)('#ffffff'), 0.1).string()
-        : colorOps.mix((0, color_1.default)('#000000'), 0.1).string();
+        ? colorOps.lightness(colorOps.lightness() + 5).string()
+        : colorOps.lightness(colorOps.lightness() - 5).string();
     textColor !== null && textColor !== void 0 ? textColor : (textColor = colorOps.isDark() ? theme.colors.white : theme.colors.black);
     var handlePress = function () {
         if (haptic) {
@@ -52,6 +52,12 @@ var Button = function (_a) {
                     useNativeDriver: false,
                 }).start();
             }, 200);
+        }} onTouchCancel={function () {
+            react_native_1.Animated.timing(animatedValue, {
+                toValue: 0,
+                duration: 150,
+                useNativeDriver: false,
+            }).start();
         }} disabled={disabled} style={__assign({ alignItems: 'center', justifyContent: 'center', backgroundColor: animatedValue.interpolate({
                 inputRange: [0, 1],
                 outputRange: [backgroundColor, activeBackgroundColor],
