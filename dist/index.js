@@ -29,6 +29,7 @@ __exportStar(require("./components/text"), exports);
 __exportStar(require("./core/animation"), exports);
 __exportStar(require("./core/app"), exports);
 __exportStar(require("./core/event"), exports);
+__exportStar(require("./core/performance"), exports);
 __exportStar(require("./core/router"), exports);
 __exportStar(require("./core/theme"), exports);
 __exportStar(require("./themes/common"), exports);

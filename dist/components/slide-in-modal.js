@@ -16,8 +16,9 @@ var react_1 = require("react");
 var react_native_1 = require("react-native");
 var react_native_portalize_1 = require("react-native-portalize");
 var animation_1 = require("../core/animation");
+var performance_1 = require("../core/performance");
 var SlideInModal = function (_a) {
-    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 400 : _c, _d = _a.to, to = _d === void 0 ? 'top' : _d, style = _a.style, _e = _a.useNativeDriver, useNativeDriver = _e === void 0 ? true : _e, onDismiss = _a.onDismiss;
+    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.duration, duration = _c === void 0 ? 400 : _c, _d = _a.to, to = _d === void 0 ? 'top' : _d, style = _a.style, _e = _a.useNativeDriver, useNativeDriver = _e === void 0 ? performance_1.Performance.animation.useNativeDriver : _e, onDismiss = _a.onDismiss;
     var _f = (0, react_1.useState)(visible), mounted = _f[0], setMounted = _f[1];
     var dimensions = (0, react_native_1.useWindowDimensions)();
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);

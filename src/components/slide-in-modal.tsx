@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
+import { Performance } from '../core/performance'
 
 export interface SlideInModalProps {
   children?: React.ReactChild
@@ -26,7 +27,7 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
   duration = 400,
   to = 'top',
   style,
-  useNativeDriver = true,
+  useNativeDriver = Performance.animation.useNativeDriver,
   onDismiss,
 }) => {
   const [mounted, setMounted] = useState(visible)
