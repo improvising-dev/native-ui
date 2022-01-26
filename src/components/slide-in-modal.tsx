@@ -8,20 +8,22 @@ import {
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 
-export interface FadeInUpModalProps {
+export interface SlideInModalProps {
   visible: boolean
   dismissible?: boolean
   duration?: number
+  to?: 'top' | 'bottom' | 'left' | 'right'
   style?: ViewStyle
   useNativeDriver?: boolean
   onDismiss?: () => void
 }
 
-export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
+export const SlideInModal: React.FC<SlideInModalProps> = ({
   children,
   visible,
   dismissible = true,
-  duration = 450,
+  duration = 400,
+  to = 'top',
   style,
   useNativeDriver = true,
   onDismiss,
@@ -68,26 +70,51 @@ export const FadeInUpModal: React.FC<FadeInUpModalProps> = ({
             right: 0,
             top: 0,
             bottom: 0,
-            zIndex: 1000,
+            zIndex: 100,
             opacity: value,
           }}
+        />
+        <Animated.View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 101,
+            transform: [
+              to === 'bottom'
+                ? {
+                    translateY: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [dimensions.height, 0],
+                    }),
+                  }
+                : to === 'top'
+                ? {
+                    translateY: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-dimensions.height, 0],
+                    }),
+                  }
+                : to === 'left'
+                ? {
+                    translateX: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [dimensions.width, 0],
+                    }),
+                  }
+                : {
+                    translateX: value.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-dimensions.width, 0],
+                    }),
+                  },
+            ],
+            ...style,
+          }}
         >
-          <Animated.View
-            style={{
-              flex: 1,
-              transform: [
-                {
-                  translateY: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [dimensions.height, 0],
-                  }),
-                },
-              ],
-              ...style,
-            }}
-          >
-            <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
-          </Animated.View>
+          <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
         </Animated.View>
       </TouchableWithoutFeedback>
     </Portal>

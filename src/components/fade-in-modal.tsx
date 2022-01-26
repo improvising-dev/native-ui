@@ -16,7 +16,7 @@ export const FadeInModal: React.FC<FadeInModalProps> = ({
   children,
   visible,
   dismissible = true,
-  duration = 450,
+  duration = 400,
   style,
   useNativeDriver = true,
   onDismiss,
@@ -61,7 +61,7 @@ export const FadeInModal: React.FC<FadeInModalProps> = ({
             right: 0,
             top: 0,
             bottom: 0,
-            zIndex: 1000,
+            zIndex: 100,
             opacity,
             ...style,
           }}
