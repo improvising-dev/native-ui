@@ -15,7 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Button = void 0;
-var color_1 = __importDefault(require("color"));
+var tinycolor_1 = __importDefault(require("@ctrl/tinycolor"));
 var react_native_1 = require("react-native");
 var haptics_1 = require("../actions/haptics");
 var animation_1 = require("../core/animation");
@@ -27,10 +27,10 @@ var Button = function (_a) {
     var theme = (0, theme_1.useTheme)();
     var disabled = !onPressed;
     backgroundColor !== null && backgroundColor !== void 0 ? backgroundColor : (backgroundColor = theme.colors.primary);
-    var colorOps = (0, color_1.default)(backgroundColor);
+    var colorOps = (0, tinycolor_1.default)(backgroundColor);
     var activeBackgroundColor = colorOps.isDark()
-        ? colorOps.lightness(colorOps.lightness() + 5).string()
-        : colorOps.lightness(colorOps.lightness() - 5).string();
+        ? colorOps.tint(5).toHexString()
+        : colorOps.shade(5).toHexString();
     textColor !== null && textColor !== void 0 ? textColor : (textColor = colorOps.isDark() ? theme.colors.white : theme.colors.black);
     var handlePress = function () {
         if (haptic) {

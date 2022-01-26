@@ -1,4 +1,4 @@
-import color from 'color'
+import tinycolor from '@ctrl/tinycolor'
 import { Animated, Pressable, Text, TextStyle, ViewStyle } from 'react-native'
 import { HapticFeedback } from '../actions/haptics'
 import { useAnimatedValue } from '../core/animation'
@@ -32,10 +32,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   backgroundColor ??= theme.colors.primary
 
-  const colorOps = color(backgroundColor)
+  const colorOps = tinycolor(backgroundColor)
   const activeBackgroundColor = colorOps.isDark()
-    ? colorOps.lightness(colorOps.lightness() + 5).string()
-    : colorOps.lightness(colorOps.lightness() - 5).string()
+    ? colorOps.tint(5).toHexString()
+    : colorOps.shade(5).toHexString()
 
   textColor ??= colorOps.isDark() ? theme.colors.white : theme.colors.black
 
