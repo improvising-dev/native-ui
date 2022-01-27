@@ -17,6 +17,7 @@ __exportStar(require("./components/action-sheet"), exports);
 __exportStar(require("./components/action-sheet-delegate"), exports);
 __exportStar(require("./components/button"), exports);
 __exportStar(require("./components/card"), exports);
+__exportStar(require("./components/checkbox"), exports);
 __exportStar(require("./components/fullscreen-loading"), exports);
 __exportStar(require("./components/fullscreen-loading-delegate"), exports);
 __exportStar(require("./components/input"), exports);
