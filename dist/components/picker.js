@@ -49,11 +49,11 @@ var theme_1 = require("../core/theme");
 var Picker = function (_a) {
     var style = _a.style, _b = _a.items, items = _b === void 0 ? [] : _b, selectedValue = _a.selectedValue, onValueChange = _a.onValueChange, height = _a.height, _c = _a.itemHeight, itemHeight = _c === void 0 ? 50 : _c, props = __rest(_a, ["style", "items", "selectedValue", "onValueChange", "height", "itemHeight"]);
     var theme = (0, theme_1.useTheme)();
-    var wrapperHeight = height !== null && height !== void 0 ? height : itemHeight * 5;
-    var _d = (0, react_1.useState)(selectedValue), value = _d[0], setValue = _d[1];
     var lastHapticFeedbackIndex = (0, react_1.useRef)();
+    var containerHeight = height !== null && height !== void 0 ? height : itemHeight * 5;
+    var initialIndex = items.findIndex(function (item) { return item.value === selectedValue; });
     var _renderItem = function (item) {
-        var isSelected = item.value === value;
+        var isSelected = item.value === selectedValue;
         return (<react_native_1.View key={item.value} style={{
                 height: itemHeight,
                 justifyContent: 'center',
@@ -75,12 +75,11 @@ var Picker = function (_a) {
         var y = event.nativeEvent.contentOffset.y;
         var index = Math.round(y / itemHeight);
         var item = items[index];
-        if (item && item.value !== value) {
+        if (item && item.value !== selectedValue) {
             if (index !== lastHapticFeedbackIndex.current) {
                 haptics_1.HapticFeedback.selectionClick();
                 lastHapticFeedbackIndex.current = index;
             }
-            setValue(item.value);
             onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };
@@ -88,8 +87,7 @@ var Picker = function (_a) {
         var y = event.nativeEvent.contentOffset.y;
         var index = Math.round(y / itemHeight);
         var item = items[index];
-        if (item && item.value !== value) {
-            setValue(item.value);
+        if (item && item.value !== selectedValue) {
             onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };
@@ -101,20 +99,20 @@ var Picker = function (_a) {
         return offsets;
     }, [items, itemHeight]);
     var placeholder = (0, react_1.useMemo)(function () {
-        var height = (wrapperHeight - itemHeight) / 2;
+        var height = (containerHeight - itemHeight) / 2;
         return <react_native_1.View style={{ height: height, flex: 1 }}/>;
-    }, [wrapperHeight, itemHeight]);
-    return (<react_native_1.View style={__assign({ overflow: 'hidden' }, style)} {...props}>
+    }, [containerHeight, itemHeight]);
+    return (<react_native_1.View style={__assign({ height: containerHeight, overflow: 'hidden' }, style)} {...props}>
       <react_native_1.View style={{
             position: 'absolute',
-            top: (wrapperHeight - itemHeight) / 2,
+            top: (containerHeight - itemHeight) / 2,
             left: theme.sizes.spacing / 2,
             right: theme.sizes.spacing / 2,
             borderRadius: theme.sizes.borderRadius,
             height: itemHeight,
             backgroundColor: theme.colors.background.fill,
         }}/>
-      <react_native_1.FlatList showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={function (_a) {
+      <react_native_1.FlatList initialScrollIndex={initialIndex} showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={function (_a) {
         var item = _a.item;
         return _renderItem(item);
     }} keyExtractor={function (item) { return item.value; }}/>

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import {
   FlatList,
   NativeScrollEvent,
@@ -36,13 +36,13 @@ export const Picker: React.FC<PickerProps> = ({
   ...props
 }) => {
   const theme = useTheme()
-  const wrapperHeight = height ?? itemHeight * 5
-
-  const [value, setValue] = useState(selectedValue)
   const lastHapticFeedbackIndex = useRef<number>()
 
+  const containerHeight = height ?? itemHeight * 5
+  const initialIndex = items.findIndex(item => item.value === selectedValue)
+
   const _renderItem = (item: PickerItem) => {
-    const isSelected = item.value === value
+    const isSelected = item.value === selectedValue
 
     return (
       <View
@@ -85,14 +85,13 @@ export const Picker: React.FC<PickerProps> = ({
     const index = Math.round(y / itemHeight)
     const item = items[index]
 
-    if (item && item.value !== value) {
+    if (item && item.value !== selectedValue) {
       if (index !== lastHapticFeedbackIndex.current) {
         HapticFeedback.selectionClick()
 
         lastHapticFeedbackIndex.current = index
       }
 
-      setValue(item.value)
       onValueChange?.(item.value)
     }
   }
@@ -104,8 +103,7 @@ export const Picker: React.FC<PickerProps> = ({
     const index = Math.round(y / itemHeight)
     const item = items[index]
 
-    if (item && item.value !== value) {
-      setValue(item.value)
+    if (item && item.value !== selectedValue) {
       onValueChange?.(item.value)
     }
   }
@@ -121,17 +119,24 @@ export const Picker: React.FC<PickerProps> = ({
   }, [items, itemHeight])
 
   const placeholder = useMemo(() => {
-    const height = (wrapperHeight - itemHeight) / 2
+    const height = (containerHeight - itemHeight) / 2
 
     return <View style={{ height, flex: 1 }} />
-  }, [wrapperHeight, itemHeight])
+  }, [containerHeight, itemHeight])
 
   return (
-    <View style={{ overflow: 'hidden', ...style }} {...props}>
+    <View
+      style={{
+        height: containerHeight,
+        overflow: 'hidden',
+        ...style,
+      }}
+      {...props}
+    >
       <View
         style={{
           position: 'absolute',
-          top: (wrapperHeight - itemHeight) / 2,
+          top: (containerHeight - itemHeight) / 2,
           left: theme.sizes.spacing / 2,
           right: theme.sizes.spacing / 2,
           borderRadius: theme.sizes.borderRadius,
@@ -140,6 +145,7 @@ export const Picker: React.FC<PickerProps> = ({
         }}
       />
       <FlatList
+        initialScrollIndex={initialIndex}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
         onScroll={handleScroll}
