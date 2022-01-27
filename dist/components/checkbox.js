@@ -13,12 +13,12 @@ var CheckBox = function (_a) {
             width: size,
             height: size,
             borderWidth: 2,
-            borderRadius: size / 2,
+            borderRadius: size / 4,
             borderColor: value
                 ? theme.colors.primary
                 : theme.colors.text.primaryUnselected,
         }}>
-      {value && (<react_native_eva_icons_1.Icon name="checkmark" fill={theme.colors.white} width={iconSize} height={iconSize}/>)}
+      {value && (<react_native_eva_icons_1.Icon name="checkmark" fill={theme.colors.primary} width={iconSize} height={iconSize}/>)}
     </react_native_1.Pressable>);
 };
 exports.CheckBox = CheckBox;

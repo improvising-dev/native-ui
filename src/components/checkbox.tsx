@@ -19,7 +19,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({ value, onValueChange }) => {
         width: size,
         height: size,
         borderWidth: 2,
-        borderRadius: size / 2,
+        borderRadius: size / 4,
         borderColor: value
           ? theme.colors.primary
           : theme.colors.text.primaryUnselected,
@@ -28,7 +28,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({ value, onValueChange }) => {
       {value && (
         <Icon
           name="checkmark"
-          fill={theme.colors.white}
+          fill={theme.colors.primary}
           width={iconSize}
           height={iconSize}
         />
