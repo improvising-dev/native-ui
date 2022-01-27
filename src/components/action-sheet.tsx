@@ -45,7 +45,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
             key={item.title}
             backgroundColor={theme.colors.background.primary}
             style={{
-              height: 60,
+              height: theme.sizes.actionSheetItemHeight,
               borderRadius: 0,
               ...(index === 0 && {
                 borderTopLeftRadius: theme.sizes.borderRadius,

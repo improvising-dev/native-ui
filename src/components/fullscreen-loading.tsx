@@ -16,6 +16,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = memo(
         visible={visible}
         dismissible={false}
         style={{
+          flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
         }}

@@ -8,6 +8,8 @@ export type Brightness = 'light' | 'dark'
 export interface Sizes {
   spacing: number
   borderRadius: number
+  checkBoxSize: number
+  actionSheetItemHeight: number
 }
 
 export interface Colors {

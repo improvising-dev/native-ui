@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonTextStyles = exports.CommonSizes = void 0;
 exports.CommonSizes = {
-    spacing: 15.0,
-    borderRadius: 15.0,
+    spacing: 15,
+    borderRadius: 15,
+    checkBoxSize: 20,
+    actionSheetItemHeight: 60,
 };
 exports.CommonTextStyles = {
     default: {

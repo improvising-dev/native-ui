@@ -61,7 +61,7 @@ var Button = function (_a) {
         }} disabled={disabled} style={__assign({ alignItems: 'center', justifyContent: 'center', backgroundColor: animatedValue.interpolate({
                 inputRange: [0, 1],
                 outputRange: [backgroundColor, activeBackgroundColor],
-            }), borderRadius: theme.sizes.borderRadius, padding: theme.sizes.spacing, opacity: disabled ? 0.7 : 1.0 }, style)}>
+            }), borderRadius: theme.sizes.borderRadius, padding: theme.sizes.spacing, opacity: disabled ? 0.7 : 1 }, style)}>
       {typeof children === 'string' ? (<react_native_1.Text style={__assign(__assign({ color: textColor }, theme.textStyles.button), textStyle)}>
           {children}
         </react_native_1.Text>) : (children)}

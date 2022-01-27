@@ -32,7 +32,7 @@ var ActionSheet = function (_a) {
             paddingBottom: insets.bottom,
         }}>
       {items.map(function (item, index) {
-            return (<button_1.Button key={item.title} backgroundColor={theme.colors.background.primary} style={__assign({ height: 60, borderRadius: 0 }, (index === 0 && {
+            return (<button_1.Button key={item.title} backgroundColor={theme.colors.background.primary} style={__assign({ height: theme.sizes.actionSheetItemHeight, borderRadius: 0 }, (index === 0 && {
                     borderTopLeftRadius: theme.sizes.borderRadius,
                     borderTopRightRadius: theme.sizes.borderRadius,
                 }))} onPressed={item.onPressed}>

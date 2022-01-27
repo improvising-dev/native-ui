@@ -83,7 +83,7 @@ export const Button: React.FC<ButtonProps> = ({
         }),
         borderRadius: theme.sizes.borderRadius,
         padding: theme.sizes.spacing,
-        opacity: disabled ? 0.7 : 1.0,
+        opacity: disabled ? 0.7 : 1,
         ...style,
       }}
     >

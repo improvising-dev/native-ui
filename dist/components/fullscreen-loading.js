@@ -28,6 +28,7 @@ exports.FullscreenLoading = (0, react_1.memo)(function (_a) {
     var visible = _a.visible;
     var theme = (0, theme_1.useTheme)();
     return (<modal_1.Modal visible={visible} dismissible={false} style={{
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
         }}>
