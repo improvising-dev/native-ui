@@ -55,7 +55,7 @@ export const Picker: React.FC<PickerProps> = ({
       >
         <Text
           style={{
-            ...theme.textStyles.default,
+            ...theme.textStyles.picker.title,
             color: isSelected
               ? theme.colors.text.primary
               : theme.colors.text.primaryUnselected,
@@ -66,7 +66,8 @@ export const Picker: React.FC<PickerProps> = ({
         {item.subtitle && (
           <Text
             style={{
-              ...theme.textStyles.small,
+              ...theme.textStyles.picker.subtitle,
+              marginTop: 2,
               color: isSelected
                 ? theme.colors.text.secondary
                 : theme.colors.text.secondaryUnselected,
@@ -117,14 +118,12 @@ export const Picker: React.FC<PickerProps> = ({
     }
 
     return offsets
-  }, [items])
+  }, [items, itemHeight])
 
-  const { header, footer } = useMemo(() => {
+  const placeholder = useMemo(() => {
     const height = (wrapperHeight - itemHeight) / 2
-    const header = <View style={{ height, flex: 1 }}></View>
-    const footer = <View style={{ height, flex: 1 }}></View>
 
-    return { header, footer }
+    return <View style={{ height, flex: 1 }} />
   }, [wrapperHeight, itemHeight])
 
   return (
@@ -146,8 +145,8 @@ export const Picker: React.FC<PickerProps> = ({
         onScroll={handleScroll}
         onMomentumScrollEnd={handleMomentumScrollEnd}
         snapToOffsets={snapToOffsets}
-        ListHeaderComponent={header}
-        ListFooterComponent={footer}
+        ListHeaderComponent={placeholder}
+        ListFooterComponent={placeholder}
         data={items}
         renderItem={({ item }) => _renderItem(item)}
         keyExtractor={item => item.value}

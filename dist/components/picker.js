@@ -59,12 +59,12 @@ var Picker = function (_a) {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-        <react_native_1.Text style={__assign(__assign({}, theme.textStyles.default), { color: isSelected
+        <react_native_1.Text style={__assign(__assign({}, theme.textStyles.picker.title), { color: isSelected
                     ? theme.colors.text.primary
                     : theme.colors.text.primaryUnselected })}>
           {item.title}
         </react_native_1.Text>
-        {item.subtitle && (<react_native_1.Text style={__assign(__assign({}, theme.textStyles.small), { color: isSelected
+        {item.subtitle && (<react_native_1.Text style={__assign(__assign({}, theme.textStyles.picker.subtitle), { marginTop: 2, color: isSelected
                         ? theme.colors.text.secondary
                         : theme.colors.text.secondaryUnselected })}>
             {item.subtitle}
@@ -99,13 +99,11 @@ var Picker = function (_a) {
             offsets.push(i * itemHeight);
         }
         return offsets;
-    }, [items]);
-    var _e = (0, react_1.useMemo)(function () {
+    }, [items, itemHeight]);
+    var placeholder = (0, react_1.useMemo)(function () {
         var height = (wrapperHeight - itemHeight) / 2;
-        var header = <react_native_1.View style={{ height: height, flex: 1 }}></react_native_1.View>;
-        var footer = <react_native_1.View style={{ height: height, flex: 1 }}></react_native_1.View>;
-        return { header: header, footer: footer };
-    }, [wrapperHeight, itemHeight]), header = _e.header, footer = _e.footer;
+        return <react_native_1.View style={{ height: height, flex: 1 }}/>;
+    }, [wrapperHeight, itemHeight]);
     return (<react_native_1.View style={__assign({ overflow: 'hidden' }, style)} {...props}>
       <react_native_1.View style={{
             position: 'absolute',
@@ -116,7 +114,7 @@ var Picker = function (_a) {
             height: itemHeight,
             backgroundColor: '#252525',
         }}/>
-      <react_native_1.FlatList showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={header} ListFooterComponent={footer} data={items} renderItem={function (_a) {
+      <react_native_1.FlatList showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={function (_a) {
         var item = _a.item;
         return _renderItem(item);
     }} keyExtractor={function (item) { return item.value; }}/>
