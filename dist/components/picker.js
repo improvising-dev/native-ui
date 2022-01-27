@@ -112,7 +112,7 @@ var Picker = function (_a) {
             right: theme.sizes.spacing / 2,
             borderRadius: theme.sizes.borderRadius,
             height: itemHeight,
-            backgroundColor: '#252525',
+            backgroundColor: theme.colors.background.fill,
         }}/>
       <react_native_1.FlatList showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={function (_a) {
         var item = _a.item;

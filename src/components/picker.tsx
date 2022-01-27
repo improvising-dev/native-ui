@@ -136,7 +136,7 @@ export const Picker: React.FC<PickerProps> = ({
           right: theme.sizes.spacing / 2,
           borderRadius: theme.sizes.borderRadius,
           height: itemHeight,
-          backgroundColor: '#252525',
+          backgroundColor: theme.colors.background.fill,
         }}
       />
       <FlatList
