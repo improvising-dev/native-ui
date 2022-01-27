@@ -3,7 +3,7 @@ import { Sizes, TextStyles } from '../core/theme'
 export const CommonSizes: Sizes = {
   spacing: 15,
   borderRadius: 15,
-  checkBoxSize: 20,
+  checkBoxSize: 18,
   actionSheetItemHeight: 60,
 }
 
