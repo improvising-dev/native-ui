@@ -12,11 +12,13 @@ var CheckBox = function (_a) {
     return (<react_native_1.Pressable onPress={function () { return onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(!value); }} style={{
             width: size,
             height: size,
-            borderWidth: 2,
+            borderWidth: 1,
             borderRadius: size / 4,
             borderColor: value
                 ? theme.colors.primary
                 : theme.colors.text.primaryUnselected,
+            alignItems: 'center',
+            justifyContent: 'center',
         }}>
       {value && (<react_native_eva_icons_1.Icon name="checkmark" fill={theme.colors.primary} width={iconSize} height={iconSize}/>)}
     </react_native_1.Pressable>);

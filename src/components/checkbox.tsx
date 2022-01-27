@@ -18,11 +18,13 @@ export const CheckBox: React.FC<CheckBoxProps> = ({ value, onValueChange }) => {
       style={{
         width: size,
         height: size,
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: size / 4,
         borderColor: value
           ? theme.colors.primary
           : theme.colors.text.primaryUnselected,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {value && (
