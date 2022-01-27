@@ -17,6 +17,8 @@ export interface Colors {
   background: {
     primary: string
     secondary: string
+    fill: string
+    modalBarrier: string
   }
   text: {
     primary: string

@@ -8,6 +8,7 @@ import {
 import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 import { Performance } from '../core/performance'
+import { useTheme } from '../core/theme'
 
 export interface ModalProps {
   visible: boolean
@@ -31,9 +32,10 @@ export const Modal: React.FC<ModalProps> = ({
   useNativeDriver = Performance.animation.useNativeDriver,
   onDismiss,
 }) => {
-  const [mounted, setMounted] = useState(visible)
-
+  const theme = useTheme()
   const dimensions = useWindowDimensions()
+
+  const [mounted, setMounted] = useState(visible)
   const value = useAnimatedValue(visible ? 1 : 0)
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export const Modal: React.FC<ModalProps> = ({
       <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <Animated.View
           style={{
-            backgroundColor: 'rgba(0, 0, 0, .6)',
+            backgroundColor: theme.colors.background.modalBarrier,
             position: 'absolute',
             left: 0,
             right: 0,

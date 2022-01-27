@@ -17,10 +17,12 @@ var react_native_1 = require("react-native");
 var react_native_portalize_1 = require("react-native-portalize");
 var animation_1 = require("../core/animation");
 var performance_1 = require("../core/performance");
+var theme_1 = require("../core/theme");
 var Modal = function (_a) {
     var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.transition, transition = _c === void 0 ? 'fade' : _c, _d = _a.to, to = _d === void 0 ? 'top' : _d, _e = _a.duration, duration = _e === void 0 ? 400 : _e, style = _a.style, _f = _a.useNativeDriver, useNativeDriver = _f === void 0 ? performance_1.Performance.animation.useNativeDriver : _f, onDismiss = _a.onDismiss;
-    var _g = (0, react_1.useState)(visible), mounted = _g[0], setMounted = _g[1];
+    var theme = (0, theme_1.useTheme)();
     var dimensions = (0, react_native_1.useWindowDimensions)();
+    var _g = (0, react_1.useState)(visible), mounted = _g[0], setMounted = _g[1];
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);
     (0, react_1.useEffect)(function () {
         if (visible) {
@@ -50,7 +52,7 @@ var Modal = function (_a) {
     var renderBackdrop = function () {
         return (<react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <react_native_1.Animated.View style={{
-                backgroundColor: 'rgba(0, 0, 0, .6)',
+                backgroundColor: theme.colors.background.modalBarrier,
                 position: 'absolute',
                 left: 0,
                 right: 0,

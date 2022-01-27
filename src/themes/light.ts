@@ -8,6 +8,8 @@ const LightColors: Colors = {
   background: {
     primary: '#ffffff',
     secondary: '#f0f0f0',
+    fill: '#f5f5f5',
+    modalBarrier: 'rgba(0, 0, 0, .7)',
   },
   text: {
     primary: '#000000',
