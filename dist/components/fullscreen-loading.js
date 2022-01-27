@@ -23,15 +23,15 @@ exports.FullscreenLoading = void 0;
 var react_1 = __importStar(require("react"));
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
-var fade_in_modal_1 = require("./fade-in-modal");
+var modal_1 = require("./modal");
 exports.FullscreenLoading = (0, react_1.memo)(function (_a) {
     var visible = _a.visible;
     var theme = (0, theme_1.useTheme)();
-    return (<fade_in_modal_1.FadeInModal visible={visible} style={{
+    return (<modal_1.Modal visible={visible} dismissible={false} style={{
             alignItems: 'center',
             justifyContent: 'center',
         }}>
         <react_native_1.ActivityIndicator color={theme.colors.white}/>
-      </fade_in_modal_1.FadeInModal>);
+      </modal_1.Modal>);
 });
 //# sourceMappingURL=fullscreen-loading.js.map

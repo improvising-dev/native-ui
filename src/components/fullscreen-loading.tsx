@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useTheme } from '../core/theme'
-import { FadeInModal } from './fade-in-modal'
+import { Modal } from './modal'
 
 export interface FullscreenLoadingProps {
   visible: boolean
@@ -12,15 +12,16 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = memo(
     const theme = useTheme()
 
     return (
-      <FadeInModal
+      <Modal
         visible={visible}
+        dismissible={false}
         style={{
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         <ActivityIndicator color={theme.colors.white} />
-      </FadeInModal>
+      </Modal>
     )
   },
 )

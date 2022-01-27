@@ -9,23 +9,24 @@ import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 import { Performance } from '../core/performance'
 
-export interface SlideInModalProps {
-  children?: React.ReactChild
+export interface ModalProps {
   visible: boolean
   dismissible?: boolean
-  duration?: number
+  transition?: 'fade' | 'slide'
   to?: 'top' | 'bottom' | 'left' | 'right'
+  duration?: number
   style?: ViewStyle
   useNativeDriver?: boolean
   onDismiss?: () => void
 }
 
-export const SlideInModal: React.FC<SlideInModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   dismissible = true,
-  duration = 400,
+  transition = 'fade',
   to = 'top',
+  duration = 400,
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   onDismiss,
@@ -61,29 +62,30 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
     return <></>
   }
 
-  return (
-    <Portal>
-      <Animated.View
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, .6)',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-          zIndex: 100,
-          opacity: value,
-        }}
-      />
-
+  const renderBackdrop = () => {
+    return (
       <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <Animated.View
           style={{
+            backgroundColor: 'rgba(0, 0, 0, .6)',
             position: 'absolute',
             left: 0,
             right: 0,
             top: 0,
             bottom: 0,
+            zIndex: 100,
+            opacity: value,
+          }}
+        />
+      </TouchableWithoutFeedback>
+    )
+  }
+
+  const renderContent = () => {
+    if (transition === 'slide') {
+      return (
+        <Animated.View
+          style={{
             zIndex: 101,
             transform: [
               to === 'top'
@@ -117,9 +119,28 @@ export const SlideInModal: React.FC<SlideInModalProps> = ({
             ...style,
           }}
         >
-          <TouchableWithoutFeedback>{children}</TouchableWithoutFeedback>
+          {children}
         </Animated.View>
-      </TouchableWithoutFeedback>
+      )
+    } else {
+      return (
+        <Animated.View
+          style={{
+            zIndex: 101,
+            opacity: value,
+            ...style,
+          }}
+        >
+          {children}
+        </Animated.View>
+      )
+    }
+  }
+
+  return (
+    <Portal>
+      {renderBackdrop()}
+      {renderContent()}
     </Portal>
   )
 }
