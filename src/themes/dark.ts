@@ -11,9 +11,10 @@ const DarkColors: Colors = {
   },
   text: {
     primary: '#ffffff',
+    primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
+    secondaryUnselected: '#5d5d5d',
     placeholder: '#8d8d8d',
-    unselected: '#8d8d8d',
   },
 }
 

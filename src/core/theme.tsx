@@ -20,9 +20,10 @@ export interface Colors {
   }
   text: {
     primary: string
+    primaryUnselected: string
     secondary: string
+    secondaryUnselected: string
     placeholder: string
-    unselected: string
   }
 }
 
@@ -32,6 +33,10 @@ export interface TextStyles {
   button: TextStyle
   small: TextStyle
   tab: TextStyle
+  picker: {
+    title: TextStyle
+    subtitle: TextStyle
+  }
 }
 
 export interface Theme {

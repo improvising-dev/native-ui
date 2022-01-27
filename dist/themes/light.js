@@ -23,9 +23,10 @@ var LightColors = {
     },
     text: {
         primary: '#000000',
+        primaryUnselected: '#8d8d8d',
         secondary: '#8d8d8d',
+        secondaryUnselected: '#adadad',
         placeholder: '#8d8d8d',
-        unselected: '#8d8d8d',
     },
 };
 var LightTextStyles = __assign(__assign({}, common_1.CommonTextStyles), { default: __assign(__assign({}, common_1.CommonTextStyles.default), { color: LightColors.text.primary }) });

@@ -11,9 +11,10 @@ const LightColors: Colors = {
   },
   text: {
     primary: '#000000',
+    primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
+    secondaryUnselected: '#adadad',
     placeholder: '#8d8d8d',
-    unselected: '#8d8d8d',
   },
 }
 

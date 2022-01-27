@@ -24,4 +24,8 @@ export const CommonTextStyles: TextStyles = {
   tab: {
     fontSize: 24,
   },
+  picker: {
+    title: { fontSize: 17 },
+    subtitle: { fontSize: 12 },
+  },
 }

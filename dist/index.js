@@ -22,6 +22,7 @@ __exportStar(require("./components/fullscreen-loading"), exports);
 __exportStar(require("./components/fullscreen-loading-delegate"), exports);
 __exportStar(require("./components/input"), exports);
 __exportStar(require("./components/page"), exports);
+__exportStar(require("./components/picker"), exports);
 __exportStar(require("./components/slide-in-modal"), exports);
 __exportStar(require("./components/spacer"), exports);
 __exportStar(require("./components/stack"), exports);
