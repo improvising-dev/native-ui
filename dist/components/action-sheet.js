@@ -32,10 +32,12 @@ var ActionSheet = function (_a) {
             paddingBottom: insets.bottom,
         }}>
       {items.map(function (item, index) {
-            return (<button_1.Button key={item.title} backgroundColor={theme.colors.background.primary} style={__assign({ height: theme.sizes.actionSheetItemHeight, borderRadius: 0 }, (index === 0 && {
+            return (<button_1.Button key={item.title} style={__assign({ backgroundColor: theme.colors.background.primary, height: theme.sizes.actionSheetItemHeight, borderRadius: 0 }, (index === 0 && {
                     borderTopLeftRadius: theme.sizes.borderRadius,
                     borderTopRightRadius: theme.sizes.borderRadius,
-                }))} onPressed={function () {
+                }))} textStyle={{
+                    color: theme.colors.text.primary,
+                }} onPressed={function () {
                     var _a;
                     (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
                     onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();

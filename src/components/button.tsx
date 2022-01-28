@@ -1,4 +1,3 @@
-import tinycolor from '@ctrl/tinycolor'
 import { Animated, Pressable, Text, TextStyle, ViewStyle } from 'react-native'
 import { HapticFeedback } from '../actions/haptics'
 import { useAnimatedValue } from '../core/animation'
@@ -8,9 +7,6 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ButtonProps {
   children?: string | React.ReactNode
-  backgroundColor?: string
-  activeBackgroundColor?: string
-  textColor?: string
   style?: ViewStyle
   textStyle?: TextStyle
   haptic?: boolean
@@ -19,9 +15,6 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   children,
-  backgroundColor,
-  activeBackgroundColor,
-  textColor,
   style,
   textStyle,
   haptic = false,
@@ -31,16 +24,6 @@ export const Button: React.FC<ButtonProps> = ({
   const theme = useTheme()
 
   const disabled = !onPressed
-
-  backgroundColor ??= theme.colors.primary
-
-  const colorOps = tinycolor(backgroundColor)
-
-  activeBackgroundColor ??= colorOps.isDark()
-    ? colorOps.tint(5).toHexString()
-    : colorOps.shade(5).toHexString()
-
-  textColor ??= colorOps.isDark() ? theme.colors.white : theme.colors.black
 
   const handlePress = () => {
     if (haptic) {
@@ -78,14 +61,12 @@ export const Button: React.FC<ButtonProps> = ({
       }}
       disabled={disabled}
       style={{
+        overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: animatedValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: [backgroundColor, activeBackgroundColor],
-        }),
         borderRadius: theme.sizes.borderRadius,
         padding: theme.sizes.spacing,
+        backgroundColor: theme.colors.primary,
         opacity: disabled ? 0.7 : 1,
         ...style,
       }}
@@ -93,7 +74,7 @@ export const Button: React.FC<ButtonProps> = ({
       {typeof children === 'string' ? (
         <Text
           style={{
-            color: textColor,
+            color: theme.colors.primaryContrasting,
             ...theme.textStyles.button,
             ...textStyle,
           }}
@@ -103,6 +84,23 @@ export const Button: React.FC<ButtonProps> = ({
       ) : (
         children
       )}
+      <Animated.View
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          backgroundColor: animatedValue.interpolate({
+            inputRange: [0, 1],
+            outputRange:
+              theme.brightness === 'light'
+                ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
+                : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
+          }),
+        }}
+      />
     </AnimatedPressable>
   )
 }

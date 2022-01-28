@@ -2,9 +2,6 @@
 import { TextStyle, ViewStyle } from 'react-native';
 export interface ButtonProps {
     children?: string | React.ReactNode;
-    backgroundColor?: string;
-    activeBackgroundColor?: string;
-    textColor?: string;
     style?: ViewStyle;
     textStyle?: TextStyle;
     haptic?: boolean;

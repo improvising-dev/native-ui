@@ -17,6 +17,7 @@ var DarkColors = {
     white: '#ffffff',
     black: '#000000',
     primary: '#6d3df4',
+    primaryContrasting: '#ffffff',
     background: {
         primary: '#151515',
         secondary: '#000000',

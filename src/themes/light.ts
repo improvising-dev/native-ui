@@ -5,6 +5,7 @@ const LightColors: Colors = {
   white: '#ffffff',
   black: '#000000',
   primary: '#6d3df4',
+  primaryContrasting: '#ffffff',
   background: {
     primary: '#ffffff',
     secondary: '#f0f0f0',

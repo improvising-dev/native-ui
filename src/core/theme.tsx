@@ -16,6 +16,7 @@ export interface Colors {
   white: string
   black: string
   primary: string
+  primaryContrasting: string
   background: {
     primary: string
     secondary: string
