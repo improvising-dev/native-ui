@@ -9,6 +9,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 export interface ButtonProps {
   children?: string | React.ReactNode
   backgroundColor?: string
+  activeBackgroundColor?: string
   textColor?: string
   style?: ViewStyle
   textStyle?: TextStyle
@@ -19,6 +20,7 @@ export interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   children,
   backgroundColor,
+  activeBackgroundColor,
   textColor,
   style,
   textStyle,
@@ -33,7 +35,8 @@ export const Button: React.FC<ButtonProps> = ({
   backgroundColor ??= theme.colors.primary
 
   const colorOps = tinycolor(backgroundColor)
-  const activeBackgroundColor = colorOps.isDark()
+
+  activeBackgroundColor ??= colorOps.isDark()
     ? colorOps.tint(5).toHexString()
     : colorOps.shade(5).toHexString()
 

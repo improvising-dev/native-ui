@@ -52,7 +52,10 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
                 borderTopRightRadius: theme.sizes.borderRadius,
               }),
             }}
-            onPressed={item.onPressed}
+            onPressed={() => {
+              item.onPressed?.()
+              onDismiss?.()
+            }}
           >
             {item.title}
           </Button>

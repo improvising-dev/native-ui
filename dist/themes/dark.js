@@ -21,7 +21,7 @@ var DarkColors = {
         primary: '#151515',
         secondary: '#000000',
         fill: '#252525',
-        modalBarrier: 'rgba(0, 0, 0, .6)',
+        modalBarrier: 'rgba(0, 0, 0, .7)',
     },
     text: {
         primary: '#ffffff',

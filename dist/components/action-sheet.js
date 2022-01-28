@@ -35,7 +35,11 @@ var ActionSheet = function (_a) {
             return (<button_1.Button key={item.title} backgroundColor={theme.colors.background.primary} style={__assign({ height: theme.sizes.actionSheetItemHeight, borderRadius: 0 }, (index === 0 && {
                     borderTopLeftRadius: theme.sizes.borderRadius,
                     borderTopRightRadius: theme.sizes.borderRadius,
-                }))} onPressed={item.onPressed}>
+                }))} onPressed={function () {
+                    var _a;
+                    (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
+                    onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                }}>
             {item.title}
           </button_1.Button>);
         })}

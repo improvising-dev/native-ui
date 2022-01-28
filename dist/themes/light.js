@@ -21,7 +21,7 @@ var LightColors = {
         primary: '#ffffff',
         secondary: '#f0f0f0',
         fill: '#f0f0f0',
-        modalBarrier: 'rgba(0, 0, 0, .7)',
+        modalBarrier: 'rgba(0, 0, 0, .6)',
     },
     text: {
         primary: '#000000',

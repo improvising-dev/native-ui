@@ -22,15 +22,15 @@ var animation_1 = require("../core/animation");
 var theme_1 = require("../core/theme");
 var AnimatedPressable = react_native_1.Animated.createAnimatedComponent(react_native_1.Pressable);
 var Button = function (_a) {
-    var children = _a.children, backgroundColor = _a.backgroundColor, textColor = _a.textColor, style = _a.style, textStyle = _a.textStyle, _b = _a.haptic, haptic = _b === void 0 ? false : _b, onPressed = _a.onPressed;
+    var children = _a.children, backgroundColor = _a.backgroundColor, activeBackgroundColor = _a.activeBackgroundColor, textColor = _a.textColor, style = _a.style, textStyle = _a.textStyle, _b = _a.haptic, haptic = _b === void 0 ? false : _b, onPressed = _a.onPressed;
     var animatedValue = (0, animation_1.useAnimatedValue)(0);
     var theme = (0, theme_1.useTheme)();
     var disabled = !onPressed;
     backgroundColor !== null && backgroundColor !== void 0 ? backgroundColor : (backgroundColor = theme.colors.primary);
     var colorOps = (0, tinycolor_1.default)(backgroundColor);
-    var activeBackgroundColor = colorOps.isDark()
+    activeBackgroundColor !== null && activeBackgroundColor !== void 0 ? activeBackgroundColor : (activeBackgroundColor = colorOps.isDark()
         ? colorOps.tint(5).toHexString()
-        : colorOps.shade(5).toHexString();
+        : colorOps.shade(5).toHexString());
     textColor !== null && textColor !== void 0 ? textColor : (textColor = colorOps.isDark() ? theme.colors.white : theme.colors.black);
     var handlePress = function () {
         if (haptic) {
