@@ -16,7 +16,7 @@ var TextColor = {
     secondaryUnselected: '#adadad',
     placeholder: '#adadad',
 };
-exports.LightTheme = (0, lodash_1.merge)(common_1.DefaultTheme, {
+exports.LightTheme = (0, lodash_1.merge)((0, lodash_1.cloneDeep)(common_1.DefaultTheme), {
     brightness: 'light',
     white: '#ffffff',
     black: '#000000',

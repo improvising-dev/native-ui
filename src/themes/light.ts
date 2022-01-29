@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { cloneDeep, merge } from 'lodash'
 import { Theme } from '../core/theme'
 import { DefaultTheme } from './common'
 
@@ -17,7 +17,7 @@ const TextColor: Theme['textColor'] = {
   placeholder: '#adadad',
 } as const
 
-export const LightTheme: Theme = merge(DefaultTheme, {
+export const LightTheme: Theme = merge(cloneDeep(DefaultTheme), {
   brightness: 'light',
 
   white: '#ffffff',
