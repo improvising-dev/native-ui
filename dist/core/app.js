@@ -40,7 +40,7 @@ var RouterRenderer = function (_a) {
     return (<router_1.RouterView initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
 };
 var AppProvider = function (_a) {
-    var _b = _a.loadAsync, loadAsync = _b === void 0 ? function () { return Promise.resolve(); } : _b, onReady = _a.onReady, theme = _a.theme, darkTheme = _a.darkTheme, initialRouteName = _a.initialRouteName, routes = _a.routes;
+    var _b = _a.loadAsync, loadAsync = _b === void 0 ? function () { return Promise.resolve(); } : _b, onReady = _a.onReady, theme = _a.theme, darkTheme = _a.darkTheme, initialRouteName = _a.initialRouteName, routes = _a.routes, children = _a.children;
     var _c = (0, react_1.useState)(false), appIsReady = _c[0], setAppIsReady = _c[1];
     (0, react_1.useEffect)(function () {
         if (appIsReady) {
@@ -59,6 +59,7 @@ var AppProvider = function (_a) {
             <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
             <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
             <action_sheet_delegate_1.ActionSheetDelegate />
+            {children}
           </portal_1.PortalProvider>
         </theme_1.ThemeProvider>
       </react_native_safe_area_context_1.SafeAreaProvider>

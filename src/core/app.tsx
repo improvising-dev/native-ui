@@ -48,6 +48,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   darkTheme,
   initialRouteName,
   routes,
+  children,
 }) => {
   const [appIsReady, setAppIsReady] = useState(false)
 
@@ -80,6 +81,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
             />
             <FullscreenLoadingDelegate />
             <ActionSheetDelegate />
+            {children}
           </PortalProvider>
         </ThemeProvider>
       </SafeAreaProvider>
