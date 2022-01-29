@@ -10,11 +10,11 @@ const BackgroundColor: Theme['backgroundColor'] = {
 } as const
 
 const TextColor: Theme['textColor'] = {
-  primary: '#ffffff',
+  primary: '#000000',
   primaryUnselected: '#8d8d8d',
   secondary: '#8d8d8d',
-  secondaryUnselected: '#5d5d5d',
-  placeholder: '#8d8d8d',
+  secondaryUnselected: '#adadad',
+  placeholder: '#adadad',
 } as const
 
 export const LightTheme: Theme = merge(DefaultTheme, {

@@ -14,7 +14,7 @@ var TextColor = {
     primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
     secondaryUnselected: '#5d5d5d',
-    placeholder: '#8d8d8d',
+    placeholder: '#5d5d5d',
 };
 exports.DarkTheme = (0, lodash_1.merge)(common_1.DefaultTheme, {
     brightness: 'dark',

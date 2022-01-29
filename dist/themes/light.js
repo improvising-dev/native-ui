@@ -10,11 +10,11 @@ var BackgroundColor = {
     modalBarrier: 'rgba(0, 0, 0, .6)',
 };
 var TextColor = {
-    primary: '#ffffff',
+    primary: '#000000',
     primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
-    secondaryUnselected: '#5d5d5d',
-    placeholder: '#8d8d8d',
+    secondaryUnselected: '#adadad',
+    placeholder: '#adadad',
 };
 exports.LightTheme = (0, lodash_1.merge)(common_1.DefaultTheme, {
     brightness: 'light',
