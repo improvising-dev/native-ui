@@ -15,7 +15,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = memo(
       <Modal
         visible={visible}
         dismissible={false}
-        zIndex={10000}
+        zIndex={theme.componentTheme.fullscreenLoading.zIndex}
         style={{
           flex: 1,
           alignItems: 'center',

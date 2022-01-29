@@ -27,7 +27,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       transition="slide"
       visible={visible}
       onDismiss={onDismiss}
-      zIndex={1000}
+      zIndex={theme.componentTheme.actionSheet.zIndex}
       style={{
         position: 'absolute',
         bottom: 0,

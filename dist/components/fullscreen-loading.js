@@ -27,7 +27,7 @@ var modal_1 = require("./modal");
 exports.FullscreenLoading = (0, react_1.memo)(function (_a) {
     var visible = _a.visible;
     var theme = (0, theme_1.useTheme)();
-    return (<modal_1.Modal visible={visible} dismissible={false} zIndex={10000} style={{
+    return (<modal_1.Modal visible={visible} dismissible={false} zIndex={theme.componentTheme.fullscreenLoading.zIndex} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
