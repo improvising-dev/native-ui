@@ -1,47 +1,54 @@
 import React from 'react';
 import { TextStyle } from 'react-native';
 export declare type Brightness = 'light' | 'dark';
-export interface Sizes {
+export interface TextTheme {
+    default: TextStyle;
+    body: TextStyle;
+    button: TextStyle;
+    small: TextStyle;
+}
+export interface ComponentTheme {
+    actionSheet: {
+        zIndex: number;
+        itemHeight: number;
+    };
+    checkbox: {
+        size: number;
+    };
+    dialog: {
+        zIndex: number;
+    };
+    fullscreenLoading: {
+        zIndex: number;
+    };
+    picker: {
+        titleTextStyle: TextStyle;
+        subtitleTextStyle: TextStyle;
+    };
+}
+export interface Theme {
+    brightness: Brightness;
     spacing: number;
     borderRadius: number;
-    checkBoxSize: number;
-    actionSheetItemHeight: number;
-}
-export interface Colors {
     white: string;
     black: string;
-    primary: string;
-    primaryContrasting: string;
-    background: {
+    primaryColor: string;
+    primaryContrastingColor: string;
+    backgroundColor: {
         primary: string;
         secondary: string;
         fill: string;
         modalBarrier: string;
     };
-    text: {
+    textColor: {
         primary: string;
         primaryUnselected: string;
         secondary: string;
         secondaryUnselected: string;
         placeholder: string;
     };
-}
-export interface TextStyles {
-    default: TextStyle;
-    body: TextStyle;
-    button: TextStyle;
-    small: TextStyle;
-    tab: TextStyle;
-    picker: {
-        title: TextStyle;
-        subtitle: TextStyle;
-    };
-}
-export interface Theme {
-    brightness: Brightness;
-    sizes: Sizes;
-    colors: Colors;
-    textStyles: TextStyles;
+    textTheme: TextTheme;
+    componentTheme: ComponentTheme;
 }
 export declare const useTheme: () => Theme;
 export interface ThemeProviderProps {

@@ -55,10 +55,10 @@ export const Picker: React.FC<PickerProps> = ({
       >
         <Text
           style={{
-            ...theme.textStyles.picker.title,
+            ...theme.componentTheme.picker.titleTextStyle,
             color: isSelected
-              ? theme.colors.text.primary
-              : theme.colors.text.primaryUnselected,
+              ? theme.textColor.primary
+              : theme.textColor.primaryUnselected,
           }}
         >
           {item.title}
@@ -66,11 +66,11 @@ export const Picker: React.FC<PickerProps> = ({
         {item.subtitle && (
           <Text
             style={{
-              ...theme.textStyles.picker.subtitle,
+              ...theme.componentTheme.picker.subtitleTextStyle,
               marginTop: 2,
               color: isSelected
-                ? theme.colors.text.secondary
-                : theme.colors.text.secondaryUnselected,
+                ? theme.textColor.secondary
+                : theme.textColor.secondaryUnselected,
             }}
           >
             {item.subtitle}
@@ -137,11 +137,11 @@ export const Picker: React.FC<PickerProps> = ({
         style={{
           position: 'absolute',
           top: (containerHeight - itemHeight) / 2,
-          left: theme.sizes.spacing / 2,
-          right: theme.sizes.spacing / 2,
-          borderRadius: theme.sizes.borderRadius,
+          left: theme.spacing / 2,
+          right: theme.spacing / 2,
+          borderRadius: theme.borderRadius,
           height: itemHeight,
-          backgroundColor: theme.colors.background.fill,
+          backgroundColor: theme.backgroundColor.fill,
         }}
       />
       <FlatList

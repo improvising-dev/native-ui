@@ -1,37 +1,37 @@
-import { Colors, Theme, TextStyles } from '../core/theme'
-import { CommonSizes, CommonTextStyles } from './common'
+import { merge } from 'lodash'
+import { Theme } from '../core/theme'
+import { DefaultTheme } from './common'
 
-const DarkColors: Colors = {
+const BackgroundColor: Theme['backgroundColor'] = {
+  primary: '#151515',
+  secondary: '#000000',
+  fill: '#252525',
+  modalBarrier: 'rgba(0, 0, 0, .7)',
+} as const
+
+const TextColor: Theme['textColor'] = {
+  primary: '#ffffff',
+  primaryUnselected: '#8d8d8d',
+  secondary: '#8d8d8d',
+  secondaryUnselected: '#5d5d5d',
+  placeholder: '#8d8d8d',
+} as const
+
+export const DarkTheme: Theme = merge(DefaultTheme, {
+  brightness: 'dark',
+
   white: '#ffffff',
   black: '#000000',
-  primary: '#6d3df4',
-  primaryContrasting: '#ffffff',
-  background: {
-    primary: '#151515',
-    secondary: '#000000',
-    fill: '#252525',
-    modalBarrier: 'rgba(0, 0, 0, .7)',
-  },
-  text: {
-    primary: '#ffffff',
-    primaryUnselected: '#8d8d8d',
-    secondary: '#8d8d8d',
-    secondaryUnselected: '#5d5d5d',
-    placeholder: '#8d8d8d',
-  },
-}
 
-const DarkTextStyles: TextStyles = {
-  ...CommonTextStyles,
-  default: {
-    ...CommonTextStyles.default,
-    color: DarkColors.text.primary,
-  },
-}
+  primaryColor: '#6d3df4',
+  primaryContrastingColor: '#ffffff',
 
-export const DarkTheme: Theme = {
-  brightness: 'dark',
-  sizes: CommonSizes,
-  colors: DarkColors,
-  textStyles: DarkTextStyles,
-}
+  backgroundColor: BackgroundColor,
+  textColor: TextColor,
+
+  textTheme: {
+    default: {
+      color: TextColor.primary,
+    },
+  },
+} as const)

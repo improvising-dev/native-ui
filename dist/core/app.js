@@ -25,10 +25,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppProvider = exports.useApp = void 0;
 var expo_app_loading_1 = __importDefault(require("expo-app-loading"));
 var react_1 = __importStar(require("react"));
-var react_native_portalize_1 = require("react-native-portalize");
 var react_native_safe_area_context_1 = require("react-native-safe-area-context");
 var action_sheet_delegate_1 = require("../components/action-sheet-delegate");
 var fullscreen_loading_delegate_1 = require("../components/fullscreen-loading-delegate");
+var portal_1 = require("../components/portal");
 var router_1 = require("./router");
 var theme_1 = require("./theme");
 var appContext = react_1.default.createContext({});
@@ -55,11 +55,11 @@ var AppProvider = function (_a) {
     return (<appContext.Provider value={{ appIsReady: appIsReady }}>
       <react_native_safe_area_context_1.SafeAreaProvider>
         <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
-          <react_native_portalize_1.Host>
+          <portal_1.PortalProvider>
             <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
             <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
             <action_sheet_delegate_1.ActionSheetDelegate />
-          </react_native_portalize_1.Host>
+          </portal_1.PortalProvider>
         </theme_1.ThemeProvider>
       </react_native_safe_area_context_1.SafeAreaProvider>
     </appContext.Provider>);

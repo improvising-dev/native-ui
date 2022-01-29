@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import {
   Animated,
+  StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
   ViewStyle,
 } from 'react-native'
-import { Portal } from 'react-native-portalize'
 import { useAnimatedValue } from '../core/animation'
 import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
+import { Portal } from './portal'
 
 export interface ModalProps {
   visible: boolean
   dismissible?: boolean
+  zIndex?: number
   transition?: 'fade' | 'slide'
   to?: 'top' | 'bottom' | 'left' | 'right'
   duration?: number
@@ -25,6 +27,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   dismissible = true,
+  zIndex = 100,
   transition = 'fade',
   to = 'top',
   duration = 400,
@@ -68,16 +71,14 @@ export const Modal: React.FC<ModalProps> = ({
     return (
       <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <Animated.View
-          style={{
-            backgroundColor: theme.colors.background.modalBarrier,
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            zIndex: 100,
-            opacity: value,
-          }}
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: theme.backgroundColor.modalBarrier,
+              zIndex,
+              opacity: value,
+            },
+          ]}
         />
       </TouchableWithoutFeedback>
     )
@@ -88,7 +89,7 @@ export const Modal: React.FC<ModalProps> = ({
       return (
         <Animated.View
           style={{
-            zIndex: 101,
+            zIndex: zIndex + 1,
             transform: [
               to === 'top'
                 ? {
@@ -128,7 +129,7 @@ export const Modal: React.FC<ModalProps> = ({
       return (
         <Animated.View
           style={{
-            zIndex: 101,
+            zIndex: zIndex + 1,
             opacity: value,
             ...style,
           }}

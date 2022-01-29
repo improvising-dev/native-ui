@@ -59,14 +59,14 @@ var Picker = function (_a) {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-        <react_native_1.Text style={__assign(__assign({}, theme.textStyles.picker.title), { color: isSelected
-                    ? theme.colors.text.primary
-                    : theme.colors.text.primaryUnselected })}>
+        <react_native_1.Text style={__assign(__assign({}, theme.componentTheme.picker.titleTextStyle), { color: isSelected
+                    ? theme.textColor.primary
+                    : theme.textColor.primaryUnselected })}>
           {item.title}
         </react_native_1.Text>
-        {item.subtitle && (<react_native_1.Text style={__assign(__assign({}, theme.textStyles.picker.subtitle), { marginTop: 2, color: isSelected
-                        ? theme.colors.text.secondary
-                        : theme.colors.text.secondaryUnselected })}>
+        {item.subtitle && (<react_native_1.Text style={__assign(__assign({}, theme.componentTheme.picker.subtitleTextStyle), { marginTop: 2, color: isSelected
+                        ? theme.textColor.secondary
+                        : theme.textColor.secondaryUnselected })}>
             {item.subtitle}
           </react_native_1.Text>)}
       </react_native_1.View>);
@@ -106,11 +106,11 @@ var Picker = function (_a) {
       <react_native_1.View style={{
             position: 'absolute',
             top: (containerHeight - itemHeight) / 2,
-            left: theme.sizes.spacing / 2,
-            right: theme.sizes.spacing / 2,
-            borderRadius: theme.sizes.borderRadius,
+            left: theme.spacing / 2,
+            right: theme.spacing / 2,
+            borderRadius: theme.borderRadius,
             height: itemHeight,
-            backgroundColor: theme.colors.background.fill,
+            backgroundColor: theme.backgroundColor.fill,
         }}/>
       <react_native_1.FlatList initialScrollIndex={initialIndex} showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={function (_a) {
         var item = _a.item;

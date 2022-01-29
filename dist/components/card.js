@@ -17,7 +17,7 @@ var theme_1 = require("../core/theme");
 var Card = function (_a) {
     var children = _a.children, style = _a.style, onPressed = _a.onPressed;
     var theme = (0, theme_1.useTheme)();
-    return (<react_native_1.Pressable onPress={onPressed} style={__assign({ backgroundColor: theme.colors.background.primary, borderRadius: theme.sizes.borderRadius, padding: theme.sizes.spacing }, style)}>
+    return (<react_native_1.Pressable onPress={onPressed} style={__assign({ backgroundColor: theme.backgroundColor.primary, borderRadius: theme.borderRadius, padding: theme.spacing }, style)}>
       {children}
     </react_native_1.Pressable>);
 };

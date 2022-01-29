@@ -64,9 +64,9 @@ export const Button: React.FC<ButtonProps> = ({
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: theme.sizes.borderRadius,
-        padding: theme.sizes.spacing,
-        backgroundColor: theme.colors.primary,
+        borderRadius: theme.borderRadius,
+        padding: theme.spacing,
+        backgroundColor: theme.primaryColor,
         opacity: disabled ? 0.7 : 1,
         ...style,
       }}
@@ -74,8 +74,8 @@ export const Button: React.FC<ButtonProps> = ({
       {typeof children === 'string' ? (
         <Text
           style={{
-            color: theme.colors.primaryContrasting,
-            ...theme.textStyles.button,
+            color: theme.primaryContrastingColor,
+            ...theme.textTheme.button,
             ...textStyle,
           }}
         >

@@ -17,7 +17,7 @@ var theme_1 = require("../core/theme");
 var Text = function (_a) {
     var children = _a.children, style = _a.style;
     var theme = (0, theme_1.useTheme)();
-    return (<react_native_1.Text style={__assign(__assign({}, theme.textStyles.default), style)}>
+    return (<react_native_1.Text style={__assign(__assign({}, theme.textTheme.default), style)}>
       {children}
     </react_native_1.Text>);
 };

@@ -10,9 +10,9 @@ export const Input: React.FC<InputProps> = ({ style, ...props }) => {
 
   return (
     <TextInput
-      selectionColor={theme.colors.primary}
+      selectionColor={theme.primaryColor}
       style={{
-        ...theme.textStyles.default,
+        ...theme.textTheme.default,
         ...style,
       }}
       {...props}

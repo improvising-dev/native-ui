@@ -3,6 +3,7 @@ import { ViewStyle } from 'react-native';
 export interface CheckBoxProps {
     value: boolean;
     onValueChange?: (value: boolean) => void;
+    size?: number;
     style?: ViewStyle;
     checkedColor?: string;
     uncheckedColor?: string;

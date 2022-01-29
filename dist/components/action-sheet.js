@@ -20,23 +20,23 @@ var ActionSheet = function (_a) {
     var items = _a.items, visible = _a.visible, onDismiss = _a.onDismiss;
     var theme = (0, theme_1.useTheme)();
     var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    return (<modal_1.Modal transition="slide" visible={visible} onDismiss={onDismiss} style={{
+    return (<modal_1.Modal transition="slide" visible={visible} onDismiss={onDismiss} zIndex={1000} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            backgroundColor: theme.colors.background.primary,
-            borderTopLeftRadius: theme.sizes.borderRadius,
-            borderTopRightRadius: theme.sizes.borderRadius,
+            backgroundColor: theme.backgroundColor.primary,
+            borderTopLeftRadius: theme.borderRadius,
+            borderTopRightRadius: theme.borderRadius,
             overflow: 'hidden',
             paddingBottom: insets.bottom,
         }}>
       {items.map(function (item, index) {
-            return (<button_1.Button key={item.title} style={__assign({ backgroundColor: theme.colors.background.primary, height: theme.sizes.actionSheetItemHeight, borderRadius: 0 }, (index === 0 && {
-                    borderTopLeftRadius: theme.sizes.borderRadius,
-                    borderTopRightRadius: theme.sizes.borderRadius,
+            return (<button_1.Button key={item.title} style={__assign({ backgroundColor: theme.backgroundColor.primary, height: theme.componentTheme.actionSheet.itemHeight, borderRadius: 0 }, (index === 0 && {
+                    borderTopLeftRadius: theme.borderRadius,
+                    borderTopRightRadius: theme.borderRadius,
                 }))} textStyle={{
-                    color: theme.colors.text.primary,
+                    color: theme.textColor.primary,
                 }} onPressed={function () {
                     var _a;
                     (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);

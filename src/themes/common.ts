@@ -1,13 +1,24 @@
-import { Sizes, TextStyles } from '../core/theme'
+export const DefaultComponentTheme = {
+  actionSheet: {
+    zIndex: 500,
+    itemHeight: 60,
+  },
+  checkbox: {
+    size: 18,
+  },
+  dialog: {
+    zIndex: 1000,
+  },
+  fullscreenLoading: {
+    zIndex: 5000,
+  },
+  picker: {
+    titleTextStyle: { fontSize: 17 },
+    subtitleTextStyle: { fontSize: 12 },
+  },
+} as const
 
-export const CommonSizes: Sizes = {
-  spacing: 15,
-  borderRadius: 15,
-  checkBoxSize: 18,
-  actionSheetItemHeight: 60,
-}
-
-export const CommonTextStyles: TextStyles = {
+export const DefaultTextTheme = {
   default: {
     fontSize: 17,
     letterSpacing: -0.41,
@@ -23,11 +34,11 @@ export const CommonTextStyles: TextStyles = {
   small: {
     fontSize: 15,
   },
-  tab: {
-    fontSize: 24,
-  },
-  picker: {
-    title: { fontSize: 17 },
-    subtitle: { fontSize: 12 },
-  },
-}
+} as const
+
+export const DefaultTheme = {
+  spacing: 15,
+  borderRadius: 15,
+  textTheme: DefaultTextTheme,
+  componentTheme: DefaultComponentTheme,
+} as const

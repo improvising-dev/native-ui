@@ -16,7 +16,7 @@ export const Page: React.FC<PageProps> = ({
 
   const viewStyle: ViewStyle = {
     flex: 1,
-    backgroundColor: theme.colors.background.secondary,
+    backgroundColor: theme.backgroundColor.secondary,
     ...style,
   }
 

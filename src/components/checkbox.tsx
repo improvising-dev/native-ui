@@ -5,6 +5,7 @@ import { useTheme } from '../core/theme'
 export interface CheckBoxProps {
   value: boolean
   onValueChange?: (value: boolean) => void
+  size?: number
   style?: ViewStyle
   checkedColor?: string
   uncheckedColor?: string
@@ -14,18 +15,19 @@ export interface CheckBoxProps {
 export const CheckBox: React.FC<CheckBoxProps> = ({
   value,
   onValueChange,
+  size: customSize,
   style,
-  checkedColor,
-  uncheckedColor,
-  iconColor,
+  checkedColor: customCheckedColor,
+  uncheckedColor: customUncheckedColor,
+  iconColor: customIconColor,
 }) => {
   const theme = useTheme()
-  const size = theme.sizes.checkBoxSize
-  const iconSize = Math.floor(theme.sizes.checkBoxSize * 0.8)
+  const size = customSize ?? theme.componentTheme.checkbox.size
+  const iconSize = Math.floor(size * 0.8)
 
-  checkedColor ??= theme.colors.primary
-  uncheckedColor ??= theme.colors.background.primary
-  iconColor ??= theme.colors.white
+  const checkedColor = customCheckedColor ?? theme.primaryColor
+  const uncheckedColor = customUncheckedColor ?? theme.backgroundColor.primary
+  const iconColor = customIconColor ?? theme.primaryContrastingColor
 
   return (
     <Pressable

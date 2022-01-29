@@ -27,14 +27,15 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       transition="slide"
       visible={visible}
       onDismiss={onDismiss}
+      zIndex={1000}
       style={{
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: theme.colors.background.primary,
-        borderTopLeftRadius: theme.sizes.borderRadius,
-        borderTopRightRadius: theme.sizes.borderRadius,
+        backgroundColor: theme.backgroundColor.primary,
+        borderTopLeftRadius: theme.borderRadius,
+        borderTopRightRadius: theme.borderRadius,
         overflow: 'hidden',
         paddingBottom: insets.bottom,
       }}
@@ -44,16 +45,16 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
           <Button
             key={item.title}
             style={{
-              backgroundColor: theme.colors.background.primary,
-              height: theme.sizes.actionSheetItemHeight,
+              backgroundColor: theme.backgroundColor.primary,
+              height: theme.componentTheme.actionSheet.itemHeight,
               borderRadius: 0,
               ...(index === 0 && {
-                borderTopLeftRadius: theme.sizes.borderRadius,
-                borderTopRightRadius: theme.sizes.borderRadius,
+                borderTopLeftRadius: theme.borderRadius,
+                borderTopRightRadius: theme.borderRadius,
               }),
             }}
             textStyle={{
-              color: theme.colors.text.primary,
+              color: theme.textColor.primary,
             }}
             onPressed={() => {
               item.onPressed?.()

@@ -12,7 +12,7 @@ export const Text: React.FC<TextProps> = ({ children, style }) => {
   return (
     <RNText
       style={{
-        ...theme.textStyles.default,
+        ...theme.textTheme.default,
         ...style,
       }}
     >

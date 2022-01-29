@@ -15,13 +15,14 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = memo(
       <Modal
         visible={visible}
         dismissible={false}
+        zIndex={10000}
         style={{
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <ActivityIndicator color={theme.colors.white} />
+        <ActivityIndicator color={theme.white} />
       </Modal>
     )
   },

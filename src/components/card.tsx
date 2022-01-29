@@ -13,9 +13,9 @@ export const Card: React.FC<CardProps> = ({ children, style, onPressed }) => {
     <Pressable
       onPress={onPressed}
       style={{
-        backgroundColor: theme.colors.background.primary,
-        borderRadius: theme.sizes.borderRadius,
-        padding: theme.sizes.spacing,
+        backgroundColor: theme.backgroundColor.primary,
+        borderRadius: theme.borderRadius,
+        padding: theme.spacing,
         ...style,
       }}
     >

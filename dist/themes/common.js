@@ -1,13 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommonTextStyles = exports.CommonSizes = void 0;
-exports.CommonSizes = {
-    spacing: 15,
-    borderRadius: 15,
-    checkBoxSize: 18,
-    actionSheetItemHeight: 60,
+exports.DefaultTheme = exports.DefaultTextTheme = exports.DefaultComponentTheme = void 0;
+exports.DefaultComponentTheme = {
+    actionSheet: {
+        zIndex: 500,
+        itemHeight: 60,
+    },
+    checkbox: {
+        size: 18,
+    },
+    dialog: {
+        zIndex: 1000,
+    },
+    fullscreenLoading: {
+        zIndex: 5000,
+    },
+    picker: {
+        titleTextStyle: { fontSize: 17 },
+        subtitleTextStyle: { fontSize: 12 },
+    },
 };
-exports.CommonTextStyles = {
+exports.DefaultTextTheme = {
     default: {
         fontSize: 17,
         letterSpacing: -0.41,
@@ -23,12 +36,11 @@ exports.CommonTextStyles = {
     small: {
         fontSize: 15,
     },
-    tab: {
-        fontSize: 24,
-    },
-    picker: {
-        title: { fontSize: 17 },
-        subtitle: { fontSize: 12 },
-    },
+};
+exports.DefaultTheme = {
+    spacing: 15,
+    borderRadius: 15,
+    textTheme: exports.DefaultTextTheme,
+    componentTheme: exports.DefaultComponentTheme,
 };
 //# sourceMappingURL=common.js.map

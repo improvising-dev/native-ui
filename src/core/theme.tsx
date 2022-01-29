@@ -5,50 +5,62 @@ import { LightTheme } from '../themes/light'
 
 export type Brightness = 'light' | 'dark'
 
-export interface Sizes {
-  spacing: number
-  borderRadius: number
-  checkBoxSize: number
-  actionSheetItemHeight: number
+export interface TextTheme {
+  default: TextStyle
+  body: TextStyle
+  button: TextStyle
+  small: TextStyle
 }
 
-export interface Colors {
+export interface ComponentTheme {
+  actionSheet: {
+    zIndex: number
+    itemHeight: number
+  }
+  checkbox: {
+    size: number
+  }
+  dialog: {
+    zIndex: number
+  }
+  fullscreenLoading: {
+    zIndex: number
+  }
+  picker: {
+    titleTextStyle: TextStyle
+    subtitleTextStyle: TextStyle
+  }
+}
+
+export interface Theme {
+  brightness: Brightness
+
+  spacing: number
+  borderRadius: number
+
   white: string
   black: string
-  primary: string
-  primaryContrasting: string
-  background: {
+
+  primaryColor: string
+  primaryContrastingColor: string
+
+  backgroundColor: {
     primary: string
     secondary: string
     fill: string
     modalBarrier: string
   }
-  text: {
+
+  textColor: {
     primary: string
     primaryUnselected: string
     secondary: string
     secondaryUnselected: string
     placeholder: string
   }
-}
 
-export interface TextStyles {
-  default: TextStyle
-  body: TextStyle
-  button: TextStyle
-  small: TextStyle
-  tab: TextStyle
-  picker: {
-    title: TextStyle
-    subtitle: TextStyle
-  }
-}
-
-export interface Theme {
-  brightness: Brightness
-  sizes: Sizes
-  colors: Colors
-  textStyles: TextStyles
+  textTheme: TextTheme
+  componentTheme: ComponentTheme
 }
 
 const themeContext = React.createContext({} as Theme)

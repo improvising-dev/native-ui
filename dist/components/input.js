@@ -28,7 +28,7 @@ var theme_1 = require("../core/theme");
 var Input = function (_a) {
     var style = _a.style, props = __rest(_a, ["style"]);
     var theme = (0, theme_1.useTheme)();
-    return (<react_native_1.TextInput selectionColor={theme.colors.primary} style={__assign(__assign({}, theme.textStyles.default), style)} {...props}/>);
+    return (<react_native_1.TextInput selectionColor={theme.primaryColor} style={__assign(__assign({}, theme.textTheme.default), style)} {...props}/>);
 };
 exports.Input = Input;
 //# sourceMappingURL=input.js.map

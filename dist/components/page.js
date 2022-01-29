@@ -18,7 +18,7 @@ var theme_1 = require("../core/theme");
 var Page = function (_a) {
     var _b = _a.scrollable, scrollable = _b === void 0 ? false : _b, style = _a.style, children = _a.children;
     var theme = (0, theme_1.useTheme)();
-    var viewStyle = __assign({ flex: 1, backgroundColor: theme.colors.background.secondary }, style);
+    var viewStyle = __assign({ flex: 1, backgroundColor: theme.backgroundColor.secondary }, style);
     if (scrollable) {
         return (<react_native_1.ScrollView style={viewStyle}>
         <expo_status_bar_1.StatusBar style="auto"/>

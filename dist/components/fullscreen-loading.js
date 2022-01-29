@@ -27,12 +27,12 @@ var modal_1 = require("./modal");
 exports.FullscreenLoading = (0, react_1.memo)(function (_a) {
     var visible = _a.visible;
     var theme = (0, theme_1.useTheme)();
-    return (<modal_1.Modal visible={visible} dismissible={false} style={{
+    return (<modal_1.Modal visible={visible} dismissible={false} zIndex={10000} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-        <react_native_1.ActivityIndicator color={theme.colors.white}/>
+        <react_native_1.ActivityIndicator color={theme.white}/>
       </modal_1.Modal>);
 });
 //# sourceMappingURL=fullscreen-loading.js.map
