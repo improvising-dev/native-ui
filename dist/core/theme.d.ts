@@ -22,6 +22,7 @@ export interface ComponentTheme {
         zIndex: number;
     };
     picker: {
+        itemHeight: number;
         titleTextStyle: TextStyle;
         subtitleTextStyle: TextStyle;
     };

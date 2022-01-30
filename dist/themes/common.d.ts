@@ -13,6 +13,7 @@ export declare const DefaultComponentTheme: {
         readonly zIndex: 5000;
     };
     readonly picker: {
+        readonly itemHeight: 50;
         readonly titleTextStyle: {
             readonly fontSize: 17;
         };
@@ -73,6 +74,7 @@ export declare const DefaultTheme: {
             readonly zIndex: 5000;
         };
         readonly picker: {
+            readonly itemHeight: 50;
             readonly titleTextStyle: {
                 readonly fontSize: 17;
             };

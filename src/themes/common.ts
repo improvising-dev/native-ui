@@ -13,6 +13,7 @@ export const DefaultComponentTheme = {
     zIndex: 5000,
   },
   picker: {
+    itemHeight: 50,
     titleTextStyle: { fontSize: 17 },
     subtitleTextStyle: { fontSize: 12 },
   },
