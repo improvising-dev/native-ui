@@ -1,15 +1,21 @@
-import { useEffect, useState } from 'react'
+import {
+  forwardRef,
+  PropsWithChildren,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
 import {
   Animated,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
+  View,
   ViewStyle,
 } from 'react-native'
 import { useAnimatedValue } from '../core/animation'
 import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
-import { Portal } from './portal'
 
 export interface ModalProps {
   visible: boolean
@@ -37,35 +43,15 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
-
-  const [mounted, setMounted] = useState(visible)
   const value = useAnimatedValue(visible ? 1 : 0)
 
   useEffect(() => {
-    if (visible) {
-      if (mounted) {
-        Animated.timing(value, {
-          toValue: 1,
-          duration,
-          useNativeDriver,
-        }).start()
-      } else {
-        requestAnimationFrame(() => setMounted(true))
-      }
-    } else if (mounted) {
-      Animated.timing(value, {
-        toValue: 0,
-        duration,
-        useNativeDriver,
-      }).start()
-
-      setTimeout(() => setMounted(false), duration)
-    }
-  }, [visible, mounted])
-
-  if (!mounted) {
-    return <></>
-  }
+    Animated.timing(value, {
+      toValue: visible ? 1 : 0,
+      duration,
+      useNativeDriver,
+    }).start()
+  }, [visible])
 
   const renderBackdrop = () => {
     return (
@@ -141,9 +127,45 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   return (
-    <Portal>
+    <View style={StyleSheet.absoluteFill}>
       {renderBackdrop()}
       {renderContent()}
-    </Portal>
+    </View>
   )
 }
+
+export interface ControlledModalProps extends Omit<ModalProps, 'visible'> {}
+export interface ControlledModalRef {
+  dismiss: () => void
+}
+
+export const ControlledModal = forwardRef<
+  ControlledModalRef,
+  PropsWithChildren<ControlledModalProps>
+>(({ duration = 400, onDismiss, ...modalProps }, ref) => {
+  const [visible, setVisible] = useState(false)
+
+  const handleDismiss = () => {
+    setVisible(false)
+    setTimeout(() => onDismiss?.(), duration)
+  }
+
+  useEffect(() => {
+    setVisible(true)
+  }, [])
+
+  useImperativeHandle(ref, () => {
+    return {
+      dismiss: handleDismiss,
+    }
+  })
+
+  return (
+    <Modal
+      duration={duration}
+      visible={visible}
+      onDismiss={handleDismiss}
+      {...modalProps}
+    />
+  )
+})

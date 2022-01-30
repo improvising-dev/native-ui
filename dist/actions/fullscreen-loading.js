@@ -36,28 +36,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleLoading = exports.hideLoading = exports.showLoading = void 0;
-var event_1 = require("../core/event");
+exports.handleLoading = exports.showLoading = void 0;
+var react_1 = require("react");
+var fullscreen_loading_1 = require("../components/fullscreen-loading");
+var modal_1 = require("./modal");
 var showLoading = function () {
-    event_1.globalEvent.fire('FullscreenLoading.showLoading');
+    var ref = (0, react_1.createRef)();
+    var disposeModal = (0, modal_1.showModal)(<fullscreen_loading_1.FullscreenLoading ref={ref} onDismiss={function () { return disposeModal(); }}/>);
+    return ref.current.dismiss;
 };
 exports.showLoading = showLoading;
-var hideLoading = function () {
-    event_1.globalEvent.fire('FullscreenLoading.hideLoading');
-};
-exports.hideLoading = hideLoading;
 var handleLoading = function (cb) { return __awaiter(void 0, void 0, void 0, function () {
+    var hideLoading;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                (0, exports.showLoading)();
+                hideLoading = (0, exports.showLoading)();
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, , 3, 4]);
                 return [4 /*yield*/, cb()];
             case 2: return [2 /*return*/, _a.sent()];
             case 3:
-                (0, exports.hideLoading)();
+                hideLoading();
                 return [7 /*endfinally*/];
             case 4: return [2 /*return*/];
         }

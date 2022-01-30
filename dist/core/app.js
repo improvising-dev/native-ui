@@ -26,9 +26,7 @@ exports.AppProvider = exports.useApp = void 0;
 var expo_app_loading_1 = __importDefault(require("expo-app-loading"));
 var react_1 = __importStar(require("react"));
 var react_native_safe_area_context_1 = require("react-native-safe-area-context");
-var action_sheet_delegate_1 = require("../components/action-sheet-delegate");
-var dialog_delegate_1 = require("../components/dialog-delegate");
-var fullscreen_loading_delegate_1 = require("../components/fullscreen-loading-delegate");
+var modal_context_1 = require("../components/modal-context");
 var portal_1 = require("../components/portal");
 var router_1 = require("./router");
 var theme_1 = require("./theme");
@@ -57,11 +55,10 @@ var AppProvider = function (_a) {
       <react_native_safe_area_context_1.SafeAreaProvider>
         <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
           <portal_1.PortalProvider>
-            <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
-            <action_sheet_delegate_1.ActionSheetDelegate />
-            <dialog_delegate_1.DialogDelegate />
-            <fullscreen_loading_delegate_1.FullscreenLoadingDelegate />
-            {children}
+            <modal_context_1.ModalProvider>
+              <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
+              {children}
+            </modal_context_1.ModalProvider>
           </portal_1.PortalProvider>
         </theme_1.ThemeProvider>
       </react_native_safe_area_context_1.SafeAreaProvider>

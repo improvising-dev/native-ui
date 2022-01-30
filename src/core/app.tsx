@@ -1,9 +1,7 @@
 import AppLoading from 'expo-app-loading'
 import React, { useContext, useEffect, useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { ActionSheetDelegate } from '../components/action-sheet-delegate'
-import { DialogDelegate } from '../components/dialog-delegate'
-import { FullscreenLoadingDelegate } from '../components/fullscreen-loading-delegate'
+import { ModalProvider } from '../components/modal-context'
 import { PortalProvider } from '../components/portal'
 import { Route, RouterView } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
@@ -76,14 +74,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       <SafeAreaProvider>
         <ThemeProvider theme={theme} darkTheme={darkTheme}>
           <PortalProvider>
-            <RouterRenderer
-              initialRouteName={initialRouteName}
-              routes={routes}
-            />
-            <ActionSheetDelegate />
-            <DialogDelegate />
-            <FullscreenLoadingDelegate />
-            {children}
+            <ModalProvider>
+              <RouterRenderer
+                initialRouteName={initialRouteName}
+                routes={routes}
+              />
+              {children}
+            </ModalProvider>
           </PortalProvider>
         </ThemeProvider>
       </SafeAreaProvider>

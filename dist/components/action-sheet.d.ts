@@ -1,12 +1,12 @@
 /// <reference types="react" />
-import { ModalProps } from './modal';
+import { ControlledModalProps } from './modal';
 export interface ActionSheetItem {
     title: string;
     subtitle?: string;
     destrutive?: boolean;
     onPressed?: () => void;
 }
-export interface ActionSheetProps extends ModalProps {
+export interface ActionSheetProps extends ControlledModalProps {
     items: ActionSheetItem[];
 }
 export declare const ActionSheet: React.FC<ActionSheetProps>;

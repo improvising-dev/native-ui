@@ -1,3 +1,2 @@
-export declare const showLoading: () => void;
-export declare const hideLoading: () => void;
+export declare const showLoading: () => () => void;
 export declare const handleLoading: <T>(cb: () => T | Promise<T>) => Promise<T>;

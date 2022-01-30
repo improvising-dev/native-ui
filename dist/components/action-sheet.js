@@ -17,10 +17,10 @@ var theme_1 = require("../core/theme");
 var button_1 = require("./button");
 var modal_1 = require("./modal");
 var ActionSheet = function (_a) {
-    var items = _a.items, visible = _a.visible, onDismiss = _a.onDismiss;
+    var items = _a.items, onDismiss = _a.onDismiss;
     var theme = (0, theme_1.useTheme)();
     var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    return (<modal_1.Modal transition="slide" visible={visible} onDismiss={onDismiss} zIndex={theme.componentTheme.actionSheet.zIndex} style={{
+    return (<modal_1.ControlledModal transition="slide" onDismiss={onDismiss} zIndex={theme.componentTheme.actionSheet.zIndex} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -45,7 +45,7 @@ var ActionSheet = function (_a) {
             {item.title}
           </button_1.Button>);
         })}
-    </modal_1.Modal>);
+    </modal_1.ControlledModal>);
 };
 exports.ActionSheet = ActionSheet;
 //# sourceMappingURL=action-sheet.js.map

@@ -25,14 +25,14 @@ var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
 var modal_1 = require("./modal");
 exports.FullscreenLoading = (0, react_1.memo)(function (_a) {
-    var visible = _a.visible;
+    var ref = _a.ref, onDismiss = _a.onDismiss;
     var theme = (0, theme_1.useTheme)();
-    return (<modal_1.Modal visible={visible} dismissible={false} zIndex={theme.componentTheme.fullscreenLoading.zIndex} style={{
+    return (<modal_1.ControlledModal ref={ref} dismissible={false} onDismiss={onDismiss} zIndex={theme.componentTheme.fullscreenLoading.zIndex} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
         }}>
         <react_native_1.ActivityIndicator color={theme.white}/>
-      </modal_1.Modal>);
+      </modal_1.ControlledModal>);
 });
 //# sourceMappingURL=fullscreen-loading.js.map

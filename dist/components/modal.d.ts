@@ -12,3 +12,11 @@ export interface ModalProps {
     onDismiss?: () => void;
 }
 export declare const Modal: React.FC<ModalProps>;
+export interface ControlledModalProps extends Omit<ModalProps, 'visible'> {
+}
+export interface ControlledModalRef {
+    dismiss: () => void;
+}
+export declare const ControlledModal: import("react").ForwardRefExoticComponent<ControlledModalProps & {
+    children?: import("react").ReactNode;
+} & import("react").RefAttributes<ControlledModalRef>>;

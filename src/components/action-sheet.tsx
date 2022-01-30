@@ -1,7 +1,7 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
 import { Button } from './button'
-import { Modal, ModalProps } from './modal'
+import { ControlledModal, ControlledModalProps } from './modal'
 
 export interface ActionSheetItem {
   title: string
@@ -10,22 +10,20 @@ export interface ActionSheetItem {
   onPressed?: () => void
 }
 
-export interface ActionSheetProps extends ModalProps {
+export interface ActionSheetProps extends ControlledModalProps {
   items: ActionSheetItem[]
 }
 
 export const ActionSheet: React.FC<ActionSheetProps> = ({
   items,
-  visible,
   onDismiss,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
 
   return (
-    <Modal
+    <ControlledModal
       transition="slide"
-      visible={visible}
       onDismiss={onDismiss}
       zIndex={theme.componentTheme.actionSheet.zIndex}
       style={{
@@ -65,6 +63,6 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
           </Button>
         )
       })}
-    </Modal>
+    </ControlledModal>
   )
 }
