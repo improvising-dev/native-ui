@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import {
   FlatList,
   NativeScrollEvent,
@@ -20,7 +20,7 @@ export interface PickerItem {
 export interface PickerProps extends ViewProps {
   style?: ViewStyle
   items?: PickerItem[]
-  defaultValue?: string
+  selectedValue?: string
   onValueChange?: (value: string) => void
   height?: number
   itemHeight?: number
@@ -29,7 +29,7 @@ export interface PickerProps extends ViewProps {
 export const Picker: React.FC<PickerProps> = ({
   style,
   items = [],
-  defaultValue,
+  selectedValue,
   onValueChange,
   height,
   itemHeight = 50,
@@ -39,10 +39,7 @@ export const Picker: React.FC<PickerProps> = ({
   const lastHapticFeedbackIndex = useRef<number>()
 
   const containerHeight = height ?? itemHeight * 5
-  const initialValue = defaultValue ?? items[0]?.value
-
-  const [selectedValue, setSelectedValue] = useState(initialValue)
-  const selectedIndex = items.findIndex(item => item.value === selectedValue)
+  const initialIndex = items.findIndex(item => item.value === selectedValue)
 
   const _renderItem = (item: PickerItem) => {
     const isSelected = item.value === selectedValue
@@ -95,7 +92,6 @@ export const Picker: React.FC<PickerProps> = ({
         lastHapticFeedbackIndex.current = index
       }
 
-      setSelectedValue(item.value)
       onValueChange?.(item.value)
     }
   }
@@ -108,7 +104,6 @@ export const Picker: React.FC<PickerProps> = ({
     const item = items[index]
 
     if (item && item.value !== selectedValue) {
-      setSelectedValue(item.value)
       onValueChange?.(item.value)
     }
   }
@@ -150,7 +145,7 @@ export const Picker: React.FC<PickerProps> = ({
         }}
       />
       <FlatList
-        initialScrollIndex={selectedIndex}
+        initialScrollIndex={initialIndex}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
         onScroll={handleScroll}

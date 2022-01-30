@@ -8,7 +8,7 @@ export interface PickerItem {
 export interface PickerProps extends ViewProps {
     style?: ViewStyle;
     items?: PickerItem[];
-    defaultValue?: string;
+    selectedValue?: string;
     onValueChange?: (value: string) => void;
     height?: number;
     itemHeight?: number;
