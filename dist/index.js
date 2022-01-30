@@ -14,6 +14,7 @@ __exportStar(require("./actions/action-sheet"), exports);
 __exportStar(require("./actions/dialog"), exports);
 __exportStar(require("./actions/fullscreen-loading"), exports);
 __exportStar(require("./actions/haptics"), exports);
+__exportStar(require("./actions/modal"), exports);
 __exportStar(require("./components/action-sheet"), exports);
 __exportStar(require("./components/button"), exports);
 __exportStar(require("./components/card"), exports);
