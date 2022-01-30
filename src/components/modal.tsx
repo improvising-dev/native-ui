@@ -10,12 +10,12 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
-  View,
   ViewStyle,
 } from 'react-native'
 import { useAnimatedValue } from '../core/animation'
 import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
+import { Portal } from './portal'
 
 export interface ModalProps {
   visible: boolean
@@ -127,10 +127,10 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <Portal>
       {renderBackdrop()}
       {renderContent()}
-    </View>
+    </Portal>
   )
 }
 

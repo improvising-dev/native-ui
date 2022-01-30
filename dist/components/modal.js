@@ -28,6 +28,7 @@ var react_native_1 = require("react-native");
 var animation_1 = require("../core/animation");
 var performance_1 = require("../core/performance");
 var theme_1 = require("../core/theme");
+var portal_1 = require("./portal");
 var Modal = function (_a) {
     var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.zIndex, zIndex = _c === void 0 ? 100 : _c, _d = _a.transition, transition = _d === void 0 ? 'fade' : _d, _e = _a.to, to = _e === void 0 ? 'top' : _e, _f = _a.duration, duration = _f === void 0 ? 400 : _f, style = _a.style, _g = _a.useNativeDriver, useNativeDriver = _g === void 0 ? performance_1.Performance.animation.useNativeDriver : _g, onDismiss = _a.onDismiss;
     var theme = (0, theme_1.useTheme)();
@@ -92,10 +93,10 @@ var Modal = function (_a) {
         </react_native_1.Animated.View>);
         }
     };
-    return (<react_native_1.View style={react_native_1.StyleSheet.absoluteFill}>
+    return (<portal_1.Portal>
       {renderBackdrop()}
       {renderContent()}
-    </react_native_1.View>);
+    </portal_1.Portal>);
 };
 exports.Modal = Modal;
 exports.ControlledModal = (0, react_1.forwardRef)(function (_a, ref) {
