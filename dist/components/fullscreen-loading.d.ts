@@ -1,7 +1,4 @@
 import React from 'react';
-import { ControlledModalRef } from './modal';
-export interface FullscreenLoadingProps {
-    ref?: React.Ref<ControlledModalRef>;
-    onDismiss?: () => void;
-}
+import { ModalStateProps } from './modal';
+export declare type FullscreenLoadingProps = ModalStateProps;
 export declare const FullscreenLoading: React.FC<FullscreenLoadingProps>;

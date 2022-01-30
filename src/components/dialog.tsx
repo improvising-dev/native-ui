@@ -4,22 +4,27 @@ import { useTheme } from '../core/theme'
 import { useKeyboardHeight } from '../hooks/use-keyboard-height'
 import { Button } from './button'
 import { Input } from './input'
-import { ControlledModal } from './modal'
+import { Modal, ModalStateProps } from './modal'
 import { Stack } from './stack'
 import { Text } from './text'
 
-export interface DialogProps {
-  onDismiss?: () => void
-}
+export interface DialogProps extends ModalStateProps {}
 
-export const Dialog: React.FC<DialogProps> = ({ children, onDismiss }) => {
+export const Dialog: React.FC<DialogProps> = ({
+  children,
+  visible,
+  onDismiss,
+  onStatusChanged,
+}) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
   const keyboardHeight = useKeyboardHeight()
 
   return (
-    <ControlledModal
+    <Modal
+      visible={visible}
       onDismiss={onDismiss}
+      onStatusChanged={onStatusChanged}
       transition="slide"
       zIndex={theme.componentTheme.dialog.zIndex}
       style={{
@@ -36,27 +41,32 @@ export const Dialog: React.FC<DialogProps> = ({ children, onDismiss }) => {
       }}
     >
       {children}
-    </ControlledModal>
+    </Modal>
   )
 }
 
-export interface AlertDialogProps {
+export interface AlertDialogProps extends DialogProps {
   title: string
   message: string
   okButtonText?: string
-  onDismiss?: () => void
 }
 
 export const AlertDialog: React.FC<AlertDialogProps> = ({
   title,
   message,
   okButtonText = 'Ok',
+  visible,
   onDismiss,
+  onStatusChanged,
 }) => {
   const theme = useTheme()
 
   return (
-    <Dialog onDismiss={onDismiss}>
+    <Dialog
+      visible={visible}
+      onDismiss={onDismiss}
+      onStatusChanged={onStatusChanged}
+    >
       <Text
         style={{
           fontSize: 20,
@@ -73,14 +83,14 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       >
         {message}
       </Text>
-      <Button style={{ flex: 1 }} onPressed={() => onDismiss}>
+      <Button style={{ flex: 1 }} onPressed={onDismiss}>
         {okButtonText}
       </Button>
     </Dialog>
   )
 }
 
-export interface ConfirmDialogProps {
+export interface ConfirmDialogProps extends Omit<DialogProps, 'onDismiss'> {
   title: string
   message: string
   cancelButtonText?: string
@@ -93,12 +103,18 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   message,
   cancelButtonText = 'Cancel',
   confirmButtonText = 'Confirm',
+  visible,
   onDismiss,
+  onStatusChanged,
 }) => {
   const theme = useTheme()
 
   return (
-    <Dialog onDismiss={() => onDismiss?.(false)}>
+    <Dialog
+      visible={visible}
+      onDismiss={() => onDismiss?.(false)}
+      onStatusChanged={onStatusChanged}
+    >
       <Text
         style={{
           fontSize: 20,
@@ -136,7 +152,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   )
 }
 
-export interface PromptDialogProps {
+export interface PromptDialogProps extends Omit<DialogProps, 'onDismiss'> {
   title: string
   message?: string
   cancelButtonText?: string
@@ -153,13 +169,19 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   confirmButtonText = 'Confirm',
   placeholder,
   initialValue = '',
+  visible,
   onDismiss,
+  onStatusChanged,
 }) => {
   const theme = useTheme()
   const [text, setText] = useState(initialValue)
 
   return (
-    <Dialog onDismiss={() => onDismiss?.()}>
+    <Dialog
+      visible={visible}
+      onDismiss={() => onDismiss?.()}
+      onStatusChanged={onStatusChanged}
+    >
       <Text
         style={{
           fontSize: 20,

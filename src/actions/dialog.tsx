@@ -1,3 +1,4 @@
+import { ModalStateProps } from '../components/modal'
 import {
   AlertDialog,
   AlertDialogProps,
@@ -8,48 +9,76 @@ import {
 } from '../components/dialog'
 import { showModal } from './modal'
 
-export type AlertOptions = Omit<AlertDialogProps, 'onDismiss'>
-export type ConfirmOptions = Omit<ConfirmDialogProps, 'onDismiss'>
-export type PromptOptions = Omit<PromptDialogProps, 'onDismiss'>
+export type AlertOptions = Omit<AlertDialogProps, keyof ModalStateProps>
+export type ConfirmOptions = Omit<ConfirmDialogProps, keyof ModalStateProps>
+export type PromptOptions = Omit<PromptDialogProps, keyof ModalStateProps>
 
 export const showAlert = (options: AlertOptions) => {
   return new Promise<void>(resolve => {
-    const disposeModal = showModal(
-      <AlertDialog
-        onDismiss={() => {
-          disposeModal()
-          resolve()
-        }}
-        {...options}
-      />,
-    )
+    const { dispose } = showModal({
+      builder: ({ visible, handleDismiss }) => (
+        <AlertDialog
+          visible={visible}
+          onDismiss={handleDismiss}
+          onStatusChanged={mounted => {
+            if (!mounted) {
+              dispose()
+              resolve()
+            }
+          }}
+          {...options}
+        />
+      ),
+    })
   })
 }
 
 export const showConfirm = (options: ConfirmOptions) => {
   return new Promise<boolean>(resolve => {
-    const disposeModal = showModal(
-      <ConfirmDialog
-        onDismiss={result => {
-          disposeModal()
-          resolve(result)
-        }}
-        {...options}
-      />,
-    )
+    let value: boolean
+
+    const { dispose } = showModal({
+      builder: ({ visible, handleDismiss }) => (
+        <ConfirmDialog
+          visible={visible}
+          onDismiss={result => {
+            value = result
+            handleDismiss()
+          }}
+          onStatusChanged={mounted => {
+            if (!mounted) {
+              dispose()
+              resolve(value)
+            }
+          }}
+          {...options}
+        />
+      ),
+    })
   })
 }
 
 export const showPrompt = (options: PromptOptions) => {
   return new Promise<string | undefined>(resolve => {
-    const disposeModal = showModal(
-      <PromptDialog
-        onDismiss={result => {
-          disposeModal()
-          resolve(result)
-        }}
-        {...options}
-      />,
-    )
+    let value: string | undefined
+
+    const { dispose } = showModal({
+      builder: ({ visible, handleDismiss }) => (
+        <PromptDialog
+          visible={visible}
+          onDismiss={result => {
+            value = result
+            handleDismiss()
+          }}
+          onStatusChanged={mounted => {
+            if (!mounted) {
+              dispose()
+              resolve(value)
+            }
+          }}
+          {...options}
+        />
+      ),
+    })
   })
 }

@@ -1,16 +1,15 @@
 /// <reference types="react" />
-export interface DialogProps {
-    onDismiss?: () => void;
+import { ModalStateProps } from './modal';
+export interface DialogProps extends ModalStateProps {
 }
 export declare const Dialog: React.FC<DialogProps>;
-export interface AlertDialogProps {
+export interface AlertDialogProps extends DialogProps {
     title: string;
     message: string;
     okButtonText?: string;
-    onDismiss?: () => void;
 }
 export declare const AlertDialog: React.FC<AlertDialogProps>;
-export interface ConfirmDialogProps {
+export interface ConfirmDialogProps extends Omit<DialogProps, 'onDismiss'> {
     title: string;
     message: string;
     cancelButtonText?: string;
@@ -18,7 +17,7 @@ export interface ConfirmDialogProps {
     onDismiss?: (result: boolean) => void;
 }
 export declare const ConfirmDialog: React.FC<ConfirmDialogProps>;
-export interface PromptDialogProps {
+export interface PromptDialogProps extends Omit<DialogProps, 'onDismiss'> {
     title: string;
     message?: string;
     cancelButtonText?: string;

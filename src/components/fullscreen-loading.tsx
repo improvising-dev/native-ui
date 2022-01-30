@@ -1,31 +1,29 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useTheme } from '../core/theme'
-import { ControlledModal, ControlledModalRef } from './modal'
+import { Modal, ModalStateProps } from './modal'
 
-export interface FullscreenLoadingProps {
-  ref?: React.Ref<ControlledModalRef>
-  onDismiss?: () => void
+export type FullscreenLoadingProps = ModalStateProps
+
+export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
+  visible,
+  onStatusChanged,
+}) => {
+  const theme = useTheme()
+
+  return (
+    <Modal
+      dismissible={false}
+      visible={visible}
+      onStatusChanged={onStatusChanged}
+      zIndex={theme.componentTheme.fullscreenLoading.zIndex}
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <ActivityIndicator color={theme.white} />
+    </Modal>
+  )
 }
-
-export const FullscreenLoading: React.FC<FullscreenLoadingProps> = memo(
-  ({ ref, onDismiss }) => {
-    const theme = useTheme()
-
-    return (
-      <ControlledModal
-        ref={ref}
-        dismissible={false}
-        onDismiss={onDismiss}
-        zIndex={theme.componentTheme.fullscreenLoading.zIndex}
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <ActivityIndicator color={theme.white} />
-      </ControlledModal>
-    )
-  },
-)

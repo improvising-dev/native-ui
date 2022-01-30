@@ -37,13 +37,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleLoading = exports.showLoading = void 0;
-var react_1 = require("react");
 var fullscreen_loading_1 = require("../components/fullscreen-loading");
 var modal_1 = require("./modal");
 var showLoading = function () {
-    var ref = (0, react_1.createRef)();
-    var disposeModal = (0, modal_1.showModal)(<fullscreen_loading_1.FullscreenLoading ref={ref} onDismiss={function () { return disposeModal(); }}/>);
-    return ref.current.dismiss;
+    var _a = (0, modal_1.showModal)({
+        builder: function (_a) {
+            var visible = _a.visible, handleDismiss = _a.handleDismiss;
+            return (<fullscreen_loading_1.FullscreenLoading visible={visible} onDismiss={handleDismiss} onStatusChanged={function (mounted) {
+                    if (!mounted) {
+                        dispose();
+                    }
+                }}/>);
+        },
+    }), dispose = _a.dispose, handleDismiss = _a.handleDismiss;
+    return handleDismiss;
 };
 exports.showLoading = showLoading;
 var handleLoading = function (cb) { return __awaiter(void 0, void 0, void 0, function () {

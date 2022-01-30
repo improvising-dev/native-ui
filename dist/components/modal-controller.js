@@ -19,20 +19,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showModal = void 0;
+exports.ModalController = void 0;
 var react_1 = __importStar(require("react"));
-var modal_controller_1 = require("../components/modal-controller");
-var modal_1 = require("../core/modal");
-var showModal = function (_a) {
-    var duration = _a.duration, builder = _a.builder;
-    var controllerRef = (0, react_1.createRef)();
-    var dispose = modal_1.ModalService.create(<modal_controller_1.ModalController ref={controllerRef} duration={duration}>
-      {builder}
-    </modal_controller_1.ModalController>);
-    return {
-        dispose: dispose,
-        handleDismiss: controllerRef.current.handleDismiss,
+exports.ModalController = (0, react_1.forwardRef)(function (_a) {
+    var _b = _a.duration, duration = _b === void 0 ? 400 : _b, children = _a.children;
+    var _c = (0, react_1.useState)(false), visible = _c[0], setVisible = _c[1];
+    var handleDismiss = function () {
+        setVisible(false);
     };
-};
-exports.showModal = showModal;
-//# sourceMappingURL=modal.js.map
+    (0, react_1.useEffect)(function () {
+        setVisible(true);
+    }, []);
+    return (<>
+      {children({
+            duration: duration,
+            visible: visible,
+            handleDismiss: handleDismiss,
+        })}
+    </>);
+});
+//# sourceMappingURL=modal-controller.js.map

@@ -1,15 +1,22 @@
-import { createRef } from 'react'
 import { FullscreenLoading } from '../components/fullscreen-loading'
-import { ControlledModalRef } from '../components/modal'
 import { showModal } from './modal'
 
 export const showLoading = () => {
-  const ref = createRef<ControlledModalRef>()
-  const disposeModal = showModal(
-    <FullscreenLoading ref={ref} onDismiss={() => disposeModal()} />,
-  )
+  const { dispose, handleDismiss } = showModal({
+    builder: ({ visible, handleDismiss }) => (
+      <FullscreenLoading
+        visible={visible}
+        onDismiss={handleDismiss}
+        onStatusChanged={mounted => {
+          if (!mounted) {
+            dispose()
+          }
+        }}
+      />
+    ),
+  })
 
-  return ref.current!.dismiss
+  return handleDismiss
 }
 
 export const handleLoading = async <T,>(cb: () => Promise<T> | T) => {

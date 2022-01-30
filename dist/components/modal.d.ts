@@ -1,7 +1,11 @@
 /// <reference types="react" />
 import { ViewStyle } from 'react-native';
-export interface ModalProps {
+export interface ModalStateProps {
     visible: boolean;
+    onDismiss?: () => void;
+    onStatusChanged?: (mounted: boolean) => void;
+}
+export interface ModalProps extends ModalStateProps {
     dismissible?: boolean;
     zIndex?: number;
     transition?: 'fade' | 'slide';
@@ -9,14 +13,5 @@ export interface ModalProps {
     duration?: number;
     style?: ViewStyle;
     useNativeDriver?: boolean;
-    onDismiss?: () => void;
 }
 export declare const Modal: React.FC<ModalProps>;
-export interface ControlledModalProps extends Omit<ModalProps, 'visible'> {
-}
-export interface ControlledModalRef {
-    dismiss: () => void;
-}
-export declare const ControlledModal: import("react").ForwardRefExoticComponent<ControlledModalProps & {
-    children?: import("react").ReactNode;
-} & import("react").RefAttributes<ControlledModalRef>>;

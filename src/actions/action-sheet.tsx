@@ -3,7 +3,18 @@ import { ActionSheet, ActionSheetItem } from '../components/action-sheet'
 import { showModal } from './modal'
 
 export const showActionSheet = (items: ActionSheetItem[]) => {
-  const disposeModal = showModal(
-    <ActionSheet items={items} onDismiss={() => disposeModal()} />,
-  )
+  const { dispose } = showModal({
+    builder: ({ visible, handleDismiss }) => (
+      <ActionSheet
+        items={items}
+        visible={visible}
+        onDismiss={handleDismiss}
+        onStatusChanged={mounted => {
+          if (!mounted) {
+            dispose()
+          }
+        }}
+      />
+    ),
+  })
 }

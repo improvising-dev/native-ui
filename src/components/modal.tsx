@@ -1,10 +1,4 @@
-import {
-  forwardRef,
-  PropsWithChildren,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react'
+import { useEffect, useState } from 'react'
 import {
   Animated,
   StyleSheet,
@@ -17,8 +11,13 @@ import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
 
-export interface ModalProps {
+export interface ModalStateProps {
   visible: boolean
+  onDismiss?: () => void
+  onStatusChanged?: (mounted: boolean) => void
+}
+
+export interface ModalProps extends ModalStateProps {
   dismissible?: boolean
   zIndex?: number
   transition?: 'fade' | 'slide'
@@ -26,7 +25,6 @@ export interface ModalProps {
   duration?: number
   style?: ViewStyle
   useNativeDriver?: boolean
-  onDismiss?: () => void
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -40,18 +38,45 @@ export const Modal: React.FC<ModalProps> = ({
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   onDismiss,
+  onStatusChanged,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
   const value = useAnimatedValue(visible ? 1 : 0)
 
+  const [mounted, setMounted] = useState(visible)
+
   useEffect(() => {
-    Animated.timing(value, {
-      toValue: visible ? 1 : 0,
-      duration,
-      useNativeDriver,
-    }).start()
-  }, [visible])
+    if (visible) {
+      if (mounted) {
+        Animated.timing(value, {
+          toValue: 1,
+          duration,
+          useNativeDriver,
+        }).start()
+      } else {
+        requestAnimationFrame(() => {
+          setMounted(true)
+          onStatusChanged?.(true)
+        })
+      }
+    } else if (mounted) {
+      Animated.timing(value, {
+        toValue: 0,
+        duration,
+        useNativeDriver,
+      }).start()
+
+      setTimeout(() => {
+        setMounted(false)
+        onStatusChanged?.(false)
+      }, duration)
+    }
+  }, [visible, mounted])
+
+  if (!mounted) {
+    return <></>
+  }
 
   const renderBackdrop = () => {
     return (
@@ -133,39 +158,3 @@ export const Modal: React.FC<ModalProps> = ({
     </Portal>
   )
 }
-
-export interface ControlledModalProps extends Omit<ModalProps, 'visible'> {}
-export interface ControlledModalRef {
-  dismiss: () => void
-}
-
-export const ControlledModal = forwardRef<
-  ControlledModalRef,
-  PropsWithChildren<ControlledModalProps>
->(({ duration = 400, onDismiss, ...modalProps }, ref) => {
-  const [visible, setVisible] = useState(false)
-
-  const handleDismiss = () => {
-    setVisible(false)
-    setTimeout(() => onDismiss?.(), duration)
-  }
-
-  useEffect(() => {
-    setVisible(true)
-  }, [])
-
-  useImperativeHandle(ref, () => {
-    return {
-      dismiss: handleDismiss,
-    }
-  })
-
-  return (
-    <Modal
-      duration={duration}
-      visible={visible}
-      onDismiss={handleDismiss}
-      {...modalProps}
-    />
-  )
-})

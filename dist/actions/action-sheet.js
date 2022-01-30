@@ -8,7 +8,16 @@ var react_1 = __importDefault(require("react"));
 var action_sheet_1 = require("../components/action-sheet");
 var modal_1 = require("./modal");
 var showActionSheet = function (items) {
-    var disposeModal = (0, modal_1.showModal)(<action_sheet_1.ActionSheet items={items} onDismiss={function () { return disposeModal(); }}/>);
+    var dispose = (0, modal_1.showModal)({
+        builder: function (_a) {
+            var visible = _a.visible, handleDismiss = _a.handleDismiss;
+            return (<action_sheet_1.ActionSheet items={items} visible={visible} onDismiss={handleDismiss} onStatusChanged={function (mounted) {
+                    if (!mounted) {
+                        dispose();
+                    }
+                }}/>);
+        },
+    }).dispose;
 };
 exports.showActionSheet = showActionSheet;
 //# sourceMappingURL=action-sheet.js.map
