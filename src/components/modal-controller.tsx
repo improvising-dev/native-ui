@@ -1,4 +1,9 @@
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
 
 export interface ModalBuilderParams {
   visible: boolean
@@ -18,7 +23,7 @@ export interface ModalControllerProps {
 export const ModalController = forwardRef<
   ModalControllerRef,
   ModalControllerProps
->(({ duration = 400, children }) => {
+>(({ duration = 400, children }, ref) => {
   const [visible, setVisible] = useState(false)
 
   const handleDismiss = () => {
@@ -28,6 +33,10 @@ export const ModalController = forwardRef<
   useEffect(() => {
     setVisible(true)
   }, [])
+
+  useImperativeHandle(ref, () => {
+    return { handleDismiss }
+  })
 
   return (
     <>

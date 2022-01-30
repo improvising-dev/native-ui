@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModalController = void 0;
 var react_1 = __importStar(require("react"));
-exports.ModalController = (0, react_1.forwardRef)(function (_a) {
+exports.ModalController = (0, react_1.forwardRef)(function (_a, ref) {
     var _b = _a.duration, duration = _b === void 0 ? 400 : _b, children = _a.children;
     var _c = (0, react_1.useState)(false), visible = _c[0], setVisible = _c[1];
     var handleDismiss = function () {
@@ -30,6 +30,9 @@ exports.ModalController = (0, react_1.forwardRef)(function (_a) {
     (0, react_1.useEffect)(function () {
         setVisible(true);
     }, []);
+    (0, react_1.useImperativeHandle)(ref, function () {
+        return { handleDismiss: handleDismiss };
+    });
     return (<>
       {children({
             duration: duration,
