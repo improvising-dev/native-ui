@@ -38,10 +38,11 @@ export const Picker: React.FC<PickerProps> = ({
   const theme = useTheme()
   const lastHapticFeedbackIndex = useRef<number>()
 
-  const [selectedValue, setSelectedValue] = useState(defaultValue)
-
   const containerHeight = height ?? itemHeight * 5
-  const initialIndex = items.findIndex(item => item.value === selectedValue)
+  const initialValue = defaultValue ?? items[0]?.value
+
+  const [selectedValue, setSelectedValue] = useState(initialValue)
+  const selectedIndex = items.findIndex(item => item.value === selectedValue)
 
   const _renderItem = (item: PickerItem) => {
     const isSelected = item.value === selectedValue
@@ -149,7 +150,7 @@ export const Picker: React.FC<PickerProps> = ({
         }}
       />
       <FlatList
-        initialScrollIndex={initialIndex}
+        initialScrollIndex={selectedIndex}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
         onScroll={handleScroll}
