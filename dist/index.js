@@ -11,6 +11,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./actions/action-sheet"), exports);
+__exportStar(require("./actions/dialog"), exports);
 __exportStar(require("./actions/fullscreen-loading"), exports);
 __exportStar(require("./actions/haptics"), exports);
 __exportStar(require("./components/action-sheet"), exports);
@@ -31,6 +32,7 @@ __exportStar(require("./core/event"), exports);
 __exportStar(require("./core/performance"), exports);
 __exportStar(require("./core/router"), exports);
 __exportStar(require("./core/theme"), exports);
+__exportStar(require("./hooks/use-keyboard-height"), exports);
 __exportStar(require("./themes/common"), exports);
 __exportStar(require("./themes/dark"), exports);
 __exportStar(require("./themes/light"), exports);

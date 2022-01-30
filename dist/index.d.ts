@@ -1,4 +1,5 @@
 export * from './actions/action-sheet';
+export * from './actions/dialog';
 export * from './actions/fullscreen-loading';
 export * from './actions/haptics';
 export * from './components/action-sheet';
@@ -19,6 +20,7 @@ export * from './core/event';
 export * from './core/performance';
 export * from './core/router';
 export * from './core/theme';
+export * from './hooks/use-keyboard-height';
 export * from './themes/common';
 export * from './themes/dark';
 export * from './themes/light';

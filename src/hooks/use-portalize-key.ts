@@ -1,28 +1,25 @@
 import React from 'react'
 
-interface IUseKey {
-  generateKey(): string
-  removeKey(key: string): void
-}
-
 // Generates a random key
 const keyGenerator = () => {
-  return `portalize_${Math.random().toString(36).substr(2, 16)}-${Math.random()
+  return `portalize_${Math.random()
     .toString(36)
-    .substring(2, 17)}-${Math.random().toString(36).substr(2, 16)}`
+    .substring(2, 18)}-${Math.random()
+    .toString(36)
+    .substring(2, 18)}-${Math.random().toString(36).substring(2, 18)}`
 }
 
 // Custom hook that checks for uniqueness and retries if clashes
-export const usePortalizeKey = (): IUseKey => {
+export const usePortalizeKey = () => {
   const usedKeys = React.useRef<Array<string>>([])
 
-  const generateKey = (): string => {
+  const generateKey = () => {
     let foundUniqueKey = false
     let newKey = ''
     let tries = 0
 
     while (!foundUniqueKey && tries < 3) {
-      // limit number of tries to stop endless loop of pain
+      // Limit number of tries to stop endless loop of pain
       tries++
       newKey = keyGenerator()
 
@@ -31,17 +28,18 @@ export const usePortalizeKey = (): IUseKey => {
       }
     }
 
-    // will only run if exited while loop without finding a unique key
+    // Will only run if exited while loop without finding a unique key
     if (!foundUniqueKey) {
       newKey = `portalize_${Date.now()}_${Math.floor(Math.random() * 1000)}` // fallback method
     }
 
     usedKeys.current.push(newKey)
+
     return newKey
   }
 
   // Removes our key to make it 'available' again
-  const removeKey = (key: string): void => {
+  const removeKey = (key: string) => {
     usedKeys.current = usedKeys.current.filter(k => k !== key)
   }
 
