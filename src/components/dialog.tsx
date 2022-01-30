@@ -190,6 +190,8 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
         </Text>
       )}
       <Input
+        autoFocus={true}
+        returnKeyType="done"
         defaultValue={text}
         onChangeText={setText}
         placeholder={placeholder}

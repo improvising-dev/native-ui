@@ -1,4 +1,5 @@
 import {
+  CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
   ParamListBase,
@@ -27,11 +28,12 @@ export class Router {
 
   static reset(name: string, params?: any) {
     if (navigationRef.isReady()) {
-      if (navigationRef.canGoBack()) {
-        navigationRef.dispatch(StackActions.popToTop())
-      }
-
-      navigationRef.dispatch(StackActions.replace(name, params))
+      navigationRef.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name, params }],
+        }),
+      )
     }
   }
 

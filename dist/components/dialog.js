@@ -102,7 +102,7 @@ var PromptDialog = function (_a) {
             }}>
           {message}
         </text_1.Text>)}
-      <input_1.Input defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
+      <input_1.Input autoFocus={true} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
             padding: theme.spacing,
             borderRadius: theme.borderRadius,
             backgroundColor: theme.backgroundColor.fill,

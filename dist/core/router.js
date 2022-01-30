@@ -23,10 +23,10 @@ var Router = /** @class */ (function () {
     };
     Router.reset = function (name, params) {
         if (exports.navigationRef.isReady()) {
-            if (exports.navigationRef.canGoBack()) {
-                exports.navigationRef.dispatch(native_1.StackActions.popToTop());
-            }
-            exports.navigationRef.dispatch(native_1.StackActions.replace(name, params));
+            exports.navigationRef.dispatch(native_1.CommonActions.reset({
+                index: 0,
+                routes: [{ name: name, params: params }],
+            }));
         }
     };
     Router.pop = function () {
