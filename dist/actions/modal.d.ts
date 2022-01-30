@@ -5,5 +5,5 @@ export declare const showModal: ({ duration, builder, }: {
     builder: (params: ModalBuilderParams) => React.ReactNode;
 }) => {
     dispose: () => void | undefined;
-    handleDismiss: () => void;
+    handleDismiss: () => void | undefined;
 };

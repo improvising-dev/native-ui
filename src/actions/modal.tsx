@@ -23,6 +23,6 @@ export const showModal = ({
 
   return {
     dispose,
-    handleDismiss: controllerRef.current!.handleDismiss,
+    handleDismiss: () => controllerRef.current?.handleDismiss(),
   }
 }

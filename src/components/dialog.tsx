@@ -14,7 +14,7 @@ export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
@@ -24,7 +24,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <Modal
       visible={visible}
       onDismiss={onDismiss}
-      onStatusChanged={onStatusChanged}
+      onUnmounted={onUnmounted}
       transition="slide"
       zIndex={theme.componentTheme.dialog.zIndex}
       style={{
@@ -57,16 +57,12 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   okButtonText = 'Ok',
   visible,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
 
   return (
-    <Dialog
-      visible={visible}
-      onDismiss={onDismiss}
-      onStatusChanged={onStatusChanged}
-    >
+    <Dialog visible={visible} onDismiss={onDismiss} onUnmounted={onUnmounted}>
       <Text
         style={{
           fontSize: 20,
@@ -105,7 +101,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   confirmButtonText = 'Confirm',
   visible,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
 
@@ -113,7 +109,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     <Dialog
       visible={visible}
       onDismiss={() => onDismiss?.(false)}
-      onStatusChanged={onStatusChanged}
+      onUnmounted={onUnmounted}
     >
       <Text
         style={{
@@ -171,7 +167,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   initialValue = '',
   visible,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const [text, setText] = useState(initialValue)
@@ -180,7 +176,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
     <Dialog
       visible={visible}
       onDismiss={() => onDismiss?.()}
-      onStatusChanged={onStatusChanged}
+      onUnmounted={onUnmounted}
     >
       <Text
         style={{

@@ -31,7 +31,7 @@ var showModal = function (_a) {
     </modal_controller_1.ModalController>);
     return {
         dispose: dispose,
-        handleDismiss: controllerRef.current.handleDismiss,
+        handleDismiss: function () { var _a; return (_a = controllerRef.current) === null || _a === void 0 ? void 0 : _a.handleDismiss(); },
     };
 };
 exports.showModal = showModal;

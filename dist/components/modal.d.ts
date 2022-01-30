@@ -3,7 +3,7 @@ import { ViewStyle } from 'react-native';
 export interface ModalStateProps {
     visible: boolean;
     onDismiss?: () => void;
-    onStatusChanged?: (mounted: boolean) => void;
+    onUnmounted?: () => void;
 }
 export interface ModalProps extends ModalStateProps {
     dismissible?: boolean;

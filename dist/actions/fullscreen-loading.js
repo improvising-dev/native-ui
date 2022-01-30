@@ -43,11 +43,7 @@ var showLoading = function () {
     var _a = (0, modal_1.showModal)({
         builder: function (_a) {
             var visible = _a.visible, handleDismiss = _a.handleDismiss;
-            return (<fullscreen_loading_1.FullscreenLoading visible={visible} onDismiss={handleDismiss} onStatusChanged={function (mounted) {
-                    if (!mounted) {
-                        dispose();
-                    }
-                }}/>);
+            return (<fullscreen_loading_1.FullscreenLoading visible={visible} onDismiss={handleDismiss} onUnmounted={function () { return dispose(); }}/>);
         },
     }), dispose = _a.dispose, handleDismiss = _a.handleDismiss;
     return handleDismiss;

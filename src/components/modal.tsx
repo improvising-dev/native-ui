@@ -14,7 +14,7 @@ import { Portal } from './portal'
 export interface ModalStateProps {
   visible: boolean
   onDismiss?: () => void
-  onStatusChanged?: (mounted: boolean) => void
+  onUnmounted?: () => void
 }
 
 export interface ModalProps extends ModalStateProps {
@@ -38,7 +38,7 @@ export const Modal: React.FC<ModalProps> = ({
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
@@ -55,10 +55,7 @@ export const Modal: React.FC<ModalProps> = ({
           useNativeDriver,
         }).start()
       } else {
-        requestAnimationFrame(() => {
-          setMounted(true)
-          onStatusChanged?.(true)
-        })
+        requestAnimationFrame(() => setMounted(true))
       }
     } else if (mounted) {
       Animated.timing(value, {
@@ -69,7 +66,7 @@ export const Modal: React.FC<ModalProps> = ({
 
       setTimeout(() => {
         setMounted(false)
-        onStatusChanged?.(false)
+        onUnmounted?.()
       }, duration)
     }
   }, [visible, mounted])

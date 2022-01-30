@@ -8,11 +8,8 @@ var showAlert = function (options) {
         var dispose = (0, modal_1.showModal)({
             builder: function (_a) {
                 var visible = _a.visible, handleDismiss = _a.handleDismiss;
-                return (<dialog_1.AlertDialog visible={visible} onDismiss={handleDismiss} onStatusChanged={function (mounted) {
-                        if (!mounted) {
-                            dispose();
-                            resolve();
-                        }
+                return (<dialog_1.AlertDialog visible={visible} onDismiss={handleDismiss} onUnmounted={function () {
+                        resolve(dispose());
                     }} {...options}/>);
             },
         }).dispose;
@@ -28,11 +25,9 @@ var showConfirm = function (options) {
                 return (<dialog_1.ConfirmDialog visible={visible} onDismiss={function (result) {
                         value = result;
                         handleDismiss();
-                    }} onStatusChanged={function (mounted) {
-                        if (!mounted) {
-                            dispose();
-                            resolve(value);
-                        }
+                    }} onUnmounted={function () {
+                        dispose();
+                        resolve(value);
                     }} {...options}/>);
             },
         }).dispose;
@@ -48,11 +43,9 @@ var showPrompt = function (options) {
                 return (<dialog_1.PromptDialog visible={visible} onDismiss={function (result) {
                         value = result;
                         handleDismiss();
-                    }} onStatusChanged={function (mounted) {
-                        if (!mounted) {
-                            dispose();
-                            resolve(value);
-                        }
+                    }} onUnmounted={function () {
+                        dispose();
+                        resolve(value);
                     }} {...options}/>);
             },
         }).dispose;

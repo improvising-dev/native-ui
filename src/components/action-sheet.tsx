@@ -18,7 +18,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
   items,
   visible,
   onDismiss,
-  onStatusChanged,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
@@ -28,7 +28,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       transition="slide"
       visible={visible}
       onDismiss={onDismiss}
-      onStatusChanged={onStatusChanged}
+      onUnmounted={onUnmounted}
       zIndex={theme.componentTheme.actionSheet.zIndex}
       style={{
         position: 'absolute',

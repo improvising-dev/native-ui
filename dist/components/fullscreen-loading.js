@@ -9,9 +9,9 @@ var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
 var modal_1 = require("./modal");
 var FullscreenLoading = function (_a) {
-    var visible = _a.visible, onStatusChanged = _a.onStatusChanged;
+    var visible = _a.visible, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
-    return (<modal_1.Modal dismissible={false} visible={visible} onStatusChanged={onStatusChanged} zIndex={theme.componentTheme.fullscreenLoading.zIndex} style={{
+    return (<modal_1.Modal dismissible={false} visible={visible} onDismiss={onDismiss} onUnmounted={onUnmounted} zIndex={theme.componentTheme.fullscreenLoading.zIndex} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',

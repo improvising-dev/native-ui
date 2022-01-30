@@ -19,7 +19,7 @@ var performance_1 = require("../core/performance");
 var theme_1 = require("../core/theme");
 var portal_1 = require("./portal");
 var Modal = function (_a) {
-    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.zIndex, zIndex = _c === void 0 ? 100 : _c, _d = _a.transition, transition = _d === void 0 ? 'fade' : _d, _e = _a.to, to = _e === void 0 ? 'top' : _e, _f = _a.duration, duration = _f === void 0 ? 400 : _f, style = _a.style, _g = _a.useNativeDriver, useNativeDriver = _g === void 0 ? performance_1.Performance.animation.useNativeDriver : _g, onDismiss = _a.onDismiss, onStatusChanged = _a.onStatusChanged;
+    var children = _a.children, visible = _a.visible, _b = _a.dismissible, dismissible = _b === void 0 ? true : _b, _c = _a.zIndex, zIndex = _c === void 0 ? 100 : _c, _d = _a.transition, transition = _d === void 0 ? 'fade' : _d, _e = _a.to, to = _e === void 0 ? 'top' : _e, _f = _a.duration, duration = _f === void 0 ? 400 : _f, style = _a.style, _g = _a.useNativeDriver, useNativeDriver = _g === void 0 ? performance_1.Performance.animation.useNativeDriver : _g, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var dimensions = (0, react_native_1.useWindowDimensions)();
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);
@@ -34,10 +34,7 @@ var Modal = function (_a) {
                 }).start();
             }
             else {
-                requestAnimationFrame(function () {
-                    setMounted(true);
-                    onStatusChanged === null || onStatusChanged === void 0 ? void 0 : onStatusChanged(true);
-                });
+                requestAnimationFrame(function () { return setMounted(true); });
             }
         }
         else if (mounted) {
@@ -48,7 +45,7 @@ var Modal = function (_a) {
             }).start();
             setTimeout(function () {
                 setMounted(false);
-                onStatusChanged === null || onStatusChanged === void 0 ? void 0 : onStatusChanged(false);
+                onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
             }, duration);
         }
     }, [visible, mounted]);

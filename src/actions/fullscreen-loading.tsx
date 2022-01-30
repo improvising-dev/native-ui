@@ -7,11 +7,7 @@ export const showLoading = () => {
       <FullscreenLoading
         visible={visible}
         onDismiss={handleDismiss}
-        onStatusChanged={mounted => {
-          if (!mounted) {
-            dispose()
-          }
-        }}
+        onUnmounted={() => dispose()}
       />
     ),
   })

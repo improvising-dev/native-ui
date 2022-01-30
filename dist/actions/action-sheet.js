@@ -11,11 +11,7 @@ var showActionSheet = function (items) {
     var dispose = (0, modal_1.showModal)({
         builder: function (_a) {
             var visible = _a.visible, handleDismiss = _a.handleDismiss;
-            return (<action_sheet_1.ActionSheet items={items} visible={visible} onDismiss={handleDismiss} onStatusChanged={function (mounted) {
-                    if (!mounted) {
-                        dispose();
-                    }
-                }}/>);
+            return (<action_sheet_1.ActionSheet items={items} visible={visible} onDismiss={handleDismiss} onUnmounted={function () { return dispose(); }}/>);
         },
     }).dispose;
 };
