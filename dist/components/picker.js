@@ -47,9 +47,10 @@ var react_native_1 = require("react-native");
 var haptics_1 = require("../actions/haptics");
 var theme_1 = require("../core/theme");
 var Picker = function (_a) {
-    var style = _a.style, _b = _a.items, items = _b === void 0 ? [] : _b, selectedValue = _a.selectedValue, onValueChange = _a.onValueChange, height = _a.height, _c = _a.itemHeight, itemHeight = _c === void 0 ? 50 : _c, props = __rest(_a, ["style", "items", "selectedValue", "onValueChange", "height", "itemHeight"]);
+    var style = _a.style, _b = _a.items, items = _b === void 0 ? [] : _b, defaultValue = _a.defaultValue, onValueChange = _a.onValueChange, height = _a.height, _c = _a.itemHeight, itemHeight = _c === void 0 ? 50 : _c, props = __rest(_a, ["style", "items", "defaultValue", "onValueChange", "height", "itemHeight"]);
     var theme = (0, theme_1.useTheme)();
     var lastHapticFeedbackIndex = (0, react_1.useRef)();
+    var _d = (0, react_1.useState)(defaultValue), selectedValue = _d[0], setSelectedValue = _d[1];
     var containerHeight = height !== null && height !== void 0 ? height : itemHeight * 5;
     var initialIndex = items.findIndex(function (item) { return item.value === selectedValue; });
     var _renderItem = function (item) {
@@ -80,6 +81,7 @@ var Picker = function (_a) {
                 haptics_1.HapticFeedback.selectionClick();
                 lastHapticFeedbackIndex.current = index;
             }
+            setSelectedValue(item.value);
             onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };
@@ -88,6 +90,7 @@ var Picker = function (_a) {
         var index = Math.round(y / itemHeight);
         var item = items[index];
         if (item && item.value !== selectedValue) {
+            setSelectedValue(item.value);
             onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };

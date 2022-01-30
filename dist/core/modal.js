@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModalService = exports.ModalServiceStatic = void 0;
+exports.ModalService = void 0;
 var ModalServiceStatic = /** @class */ (function () {
     function ModalServiceStatic() {
     }
@@ -22,6 +22,5 @@ var ModalServiceStatic = /** @class */ (function () {
     };
     return ModalServiceStatic;
 }());
-exports.ModalServiceStatic = ModalServiceStatic;
 exports.ModalService = new ModalServiceStatic();
 //# sourceMappingURL=modal.js.map

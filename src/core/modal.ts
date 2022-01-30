@@ -1,7 +1,7 @@
 import React from 'react'
 import { ModalContext } from '../components/modal-context'
 
-export class ModalServiceStatic {
+class ModalServiceStatic {
   context?: ModalContext
 
   mount(context: ModalContext) {

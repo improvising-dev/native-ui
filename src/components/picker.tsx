@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import {
   FlatList,
   NativeScrollEvent,
@@ -20,7 +20,7 @@ export interface PickerItem {
 export interface PickerProps extends ViewProps {
   style?: ViewStyle
   items?: PickerItem[]
-  selectedValue?: string
+  defaultValue?: string
   onValueChange?: (value: string) => void
   height?: number
   itemHeight?: number
@@ -29,7 +29,7 @@ export interface PickerProps extends ViewProps {
 export const Picker: React.FC<PickerProps> = ({
   style,
   items = [],
-  selectedValue,
+  defaultValue,
   onValueChange,
   height,
   itemHeight = 50,
@@ -37,6 +37,8 @@ export const Picker: React.FC<PickerProps> = ({
 }) => {
   const theme = useTheme()
   const lastHapticFeedbackIndex = useRef<number>()
+
+  const [selectedValue, setSelectedValue] = useState(defaultValue)
 
   const containerHeight = height ?? itemHeight * 5
   const initialIndex = items.findIndex(item => item.value === selectedValue)
@@ -92,6 +94,7 @@ export const Picker: React.FC<PickerProps> = ({
         lastHapticFeedbackIndex.current = index
       }
 
+      setSelectedValue(item.value)
       onValueChange?.(item.value)
     }
   }
@@ -104,6 +107,7 @@ export const Picker: React.FC<PickerProps> = ({
     const item = items[index]
 
     if (item && item.value !== selectedValue) {
+      setSelectedValue(item.value)
       onValueChange?.(item.value)
     }
   }

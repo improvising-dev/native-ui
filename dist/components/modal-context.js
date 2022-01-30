@@ -19,11 +19,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModalProvider = exports.modalContext = void 0;
+exports.ModalProvider = void 0;
 var react_1 = __importStar(require("react"));
 var react_native_1 = require("react-native");
 var modal_1 = require("../core/modal");
-exports.modalContext = react_1.default.createContext({});
+var modalContext = react_1.default.createContext({});
 var ModalProvider = function (_a) {
     var children = _a.children;
     var _b = (0, react_1.useState)(new Map()), modalMap = _b[0], setModalMap = _b[1];
@@ -59,10 +59,10 @@ var ModalProvider = function (_a) {
             modal_1.ModalService.unmount();
         };
     }, []);
-    return (<exports.modalContext.Provider value={context}>
+    return (<modalContext.Provider value={context}>
       {children}
       {modalList}
-    </exports.modalContext.Provider>);
+    </modalContext.Provider>);
 };
 exports.ModalProvider = ModalProvider;
 //# sourceMappingURL=modal-context.js.map

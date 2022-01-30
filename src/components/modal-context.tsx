@@ -7,12 +7,10 @@ export interface ModalContext {
   delete: (id: string) => void
 }
 
-export const modalContext = React.createContext({} as ModalContext)
+const modalContext = React.createContext({} as ModalContext)
 
 export const ModalProvider: React.FC = ({ children }) => {
-  const [modalMap, setModalMap] = useState<Map<string, React.ReactNode>>(
-    new Map(),
-  )
+  const [modalMap, setModalMap] = useState(new Map<string, React.ReactNode>())
 
   const context = useMemo<ModalContext>(() => {
     return {
