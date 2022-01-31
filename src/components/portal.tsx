@@ -1,5 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { usePortalizeKey } from '../hooks/use-portalize-key'
 
 interface PortalManagerHandles {
@@ -53,8 +53,7 @@ const PortalManager = React.forwardRef<PortalManagerHandles>((_, ref) => {
 })
 
 export interface PortalProviderProps {
-  children: React.ReactNode
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 interface PortalContext {
@@ -66,8 +65,8 @@ interface PortalContext {
 const portalContext = React.createContext({} as PortalContext)
 
 export const PortalProvider: React.FC<PortalProviderProps> = ({
-  children,
   style,
+  children,
 }) => {
   const managerRef = React.useRef<PortalManagerHandles>(null)
   const queue: {

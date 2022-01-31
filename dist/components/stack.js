@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -41,8 +30,8 @@ var Stack = function (_a) {
         }
         var builder = [];
         var index = 0;
-        for (var _i = 0, children_1 = children; _i < children_1.length; _i++) {
-            var child = children_1[_i];
+        for (var _i = 0, _a = react_1.default.Children.toArray(children); _i < _a.length; _i++) {
+            var child = _a[_i];
             builder.push(<react_native_1.View key={index} style={direction === 'row' || direction === 'row-reverse'
                     ? { width: spacing }
                     : { height: spacing }}/>);
@@ -53,7 +42,14 @@ var Stack = function (_a) {
         builder.shift();
         return builder;
     }, [children]);
-    return (<react_native_1.View style={__assign({ flexDirection: direction, alignItems: align, justifyContent: justify }, style)}>
+    return (<react_native_1.View style={[
+            {
+                flexDirection: direction,
+                alignItems: align,
+                justifyContent: justify,
+            },
+            style,
+        ]}>
       {items}
     </react_native_1.View>);
 };

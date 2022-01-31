@@ -1,28 +1,30 @@
 import { StatusBar } from 'expo-status-bar'
-import { ScrollView, View, ViewStyle } from 'react-native'
+import { ScrollView, StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
 
-export interface PageProps {
+export interface PageProps extends ViewProps {
   scrollable?: boolean
-  style?: ViewStyle
 }
 
 export const Page: React.FC<PageProps> = ({
   scrollable = false,
   style,
   children,
+  ...viewProps
 }) => {
   const theme = useTheme()
 
-  const viewStyle: ViewStyle = {
-    flex: 1,
-    backgroundColor: theme.backgroundColor.secondary,
-    ...style,
-  }
+  const viewStyle: StyleProp<ViewStyle> = [
+    {
+      flex: 1,
+      backgroundColor: theme.backgroundColor.secondary,
+    },
+    style,
+  ]
 
   if (scrollable) {
     return (
-      <ScrollView style={viewStyle}>
+      <ScrollView style={viewStyle} {...viewProps}>
         <StatusBar style="auto" />
         {children}
       </ScrollView>
@@ -30,7 +32,7 @@ export const Page: React.FC<PageProps> = ({
   }
 
   return (
-    <View style={viewStyle}>
+    <View style={viewStyle} {...viewProps}>
       <StatusBar style="auto" />
       {children}
     </View>

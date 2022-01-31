@@ -74,7 +74,7 @@ var PortalManager = react_1.default.forwardRef(function (_, ref) {
 });
 var portalContext = react_1.default.createContext({});
 var PortalProvider = function (_a) {
-    var children = _a.children, style = _a.style;
+    var style = _a.style, children = _a.children;
     var managerRef = react_1.default.useRef(null);
     var queue = [];
     var _b = (0, use_portalize_key_1.usePortalizeKey)(), generateKey = _b.generateKey, removeKey = _b.removeKey;

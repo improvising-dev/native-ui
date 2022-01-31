@@ -1,10 +1,10 @@
 /// <reference types="react" />
-import { ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 export interface CheckBoxProps {
     value: boolean;
     onValueChange?: (value: boolean) => void;
     size?: number;
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
     checkedColor?: string;
     uncheckedColor?: string;
     iconColor?: string;

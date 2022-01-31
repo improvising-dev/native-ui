@@ -48,7 +48,18 @@ var Button = function (_a) {
                 duration: 150,
                 useNativeDriver: false,
             }).start();
-        }} disabled={disabled} style={__assign({ overflow: 'hidden', alignItems: 'center', justifyContent: 'center', borderRadius: theme.borderRadius, padding: theme.spacing, backgroundColor: theme.primaryColor, opacity: disabled ? 0.7 : 1 }, style)}>
+        }} disabled={disabled} style={[
+            {
+                overflow: 'hidden',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: theme.borderRadius,
+                padding: theme.spacing,
+                backgroundColor: theme.primaryColor,
+                opacity: disabled ? 0.7 : 1,
+            },
+            style,
+        ]}>
       {typeof children === 'string' ? (<react_native_1.Text style={__assign(__assign({ color: theme.primaryContrastingColor }, theme.textTheme.button), textStyle)}>
           {children}
         </react_native_1.Text>) : (children)}

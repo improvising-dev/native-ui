@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   Animated,
+  StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
@@ -11,6 +12,9 @@ import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
 
+export type ModalTransition = 'fade' | 'slide' | 'scale'
+export type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right'
+
 export interface ModalStateProps {
   visible: boolean
   onDismiss?: () => void
@@ -18,25 +22,27 @@ export interface ModalStateProps {
 }
 
 export interface ModalProps extends ModalStateProps {
-  dismissible?: boolean
   zIndex?: number
-  transition?: 'fade' | 'slide'
-  to?: 'top' | 'bottom' | 'left' | 'right'
+  dismissible?: boolean
+  backdrop?: boolean
+  transition?: ModalTransition
+  to?: ModalSlideTo
   duration?: number
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   useNativeDriver?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({
   children,
-  visible,
-  dismissible = true,
   zIndex = 100,
+  dismissible = true,
+  backdrop = true,
   transition = 'fade',
   to = 'top',
   duration = 400,
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
+  visible,
   onDismiss,
   onUnmounted,
 }) => {
@@ -76,6 +82,10 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderBackdrop = () => {
+    if (!backdrop) {
+      return <></>
+    }
+
     return (
       <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
         <Animated.View
@@ -96,39 +106,63 @@ export const Modal: React.FC<ModalProps> = ({
     if (transition === 'slide') {
       return (
         <Animated.View
-          style={{
-            zIndex: zIndex + 1,
-            transform: [
-              to === 'top'
-                ? {
-                    translateY: value.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [dimensions.height, 0],
-                    }),
-                  }
-                : to === 'bottom'
-                ? {
-                    translateY: value.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [-dimensions.height, 0],
-                    }),
-                  }
-                : to === 'left'
-                ? {
-                    translateX: value.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [dimensions.width, 0],
-                    }),
-                  }
-                : {
-                    translateX: value.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [-dimensions.width, 0],
-                    }),
-                  },
-            ],
-            ...style,
-          }}
+          style={[
+            {
+              zIndex: zIndex + 1,
+              transform: [
+                to === 'top'
+                  ? {
+                      translateY: value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [dimensions.height, 0],
+                      }),
+                    }
+                  : to === 'bottom'
+                  ? {
+                      translateY: value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-dimensions.height, 0],
+                      }),
+                    }
+                  : to === 'left'
+                  ? {
+                      translateX: value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [dimensions.width, 0],
+                      }),
+                    }
+                  : {
+                      translateX: value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-dimensions.width, 0],
+                      }),
+                    },
+              ],
+            },
+            style,
+          ]}
+        >
+          {children}
+        </Animated.View>
+      )
+    } else if (transition === 'scale') {
+      return (
+        <Animated.View
+          style={[
+            {
+              zIndex: zIndex + 1,
+              opacity: value,
+              transform: [
+                {
+                  scale: value.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.8, 1],
+                  }),
+                },
+              ],
+            },
+            style,
+          ]}
         >
           {children}
         </Animated.View>
@@ -136,11 +170,13 @@ export const Modal: React.FC<ModalProps> = ({
     } else {
       return (
         <Animated.View
-          style={{
-            zIndex: zIndex + 1,
-            opacity: value,
-            ...style,
-          }}
+          style={[
+            {
+              zIndex: zIndex + 1,
+              opacity: value,
+            },
+            style,
+          ]}
         >
           {children}
         </Animated.View>

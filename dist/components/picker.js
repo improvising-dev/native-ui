@@ -106,7 +106,13 @@ var Picker = function (_a) {
         var height = (containerHeight - itemHeight) / 2;
         return <react_native_1.View style={{ height: height, flex: 1 }}/>;
     }, [containerHeight, itemHeight]);
-    return (<react_native_1.View style={__assign({ height: containerHeight, overflow: 'hidden' }, style)} {...props}>
+    return (<react_native_1.View style={[
+            {
+                height: containerHeight,
+                overflow: 'hidden',
+            },
+            style,
+        ]} {...props}>
       <react_native_1.View style={{
             position: 'absolute',
             top: (containerHeight - itemHeight) / 2,

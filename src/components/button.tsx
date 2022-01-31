@@ -1,4 +1,11 @@
-import { Animated, Pressable, Text, TextStyle, ViewStyle } from 'react-native'
+import {
+  Animated,
+  Pressable,
+  StyleProp,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from 'react-native'
 import { HapticFeedback } from '../actions/haptics'
 import { useAnimatedValue } from '../core/animation'
 import { useTheme } from '../core/theme'
@@ -7,7 +14,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ButtonProps {
   children?: string | React.ReactNode
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   textStyle?: TextStyle
   haptic?: boolean
   onPressed?: () => void
@@ -22,7 +29,6 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const animatedValue = useAnimatedValue(0)
   const theme = useTheme()
-
   const disabled = !onPressed
 
   const handlePress = () => {
@@ -60,16 +66,18 @@ export const Button: React.FC<ButtonProps> = ({
         }).start()
       }}
       disabled={disabled}
-      style={{
-        overflow: 'hidden',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: theme.borderRadius,
-        padding: theme.spacing,
-        backgroundColor: theme.primaryColor,
-        opacity: disabled ? 0.7 : 1,
-        ...style,
-      }}
+      style={[
+        {
+          overflow: 'hidden',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: theme.borderRadius,
+          padding: theme.spacing,
+          backgroundColor: theme.primaryColor,
+          opacity: disabled ? 0.7 : 1,
+        },
+        style,
+      ]}
     >
       {typeof children === 'string' ? (
         <Text

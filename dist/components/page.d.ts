@@ -1,7 +1,6 @@
 /// <reference types="react" />
-import { ViewStyle } from 'react-native';
-export interface PageProps {
+import { ViewProps } from 'react-native';
+export interface PageProps extends ViewProps {
     scrollable?: boolean;
-    style?: ViewStyle;
 }
 export declare const Page: React.FC<PageProps>;

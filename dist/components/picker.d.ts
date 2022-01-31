@@ -1,12 +1,11 @@
 import React from 'react';
-import { ViewProps, ViewStyle } from 'react-native';
+import { ViewProps } from 'react-native';
 export interface PickerItem {
     title: string;
     subtitle?: string;
     value: string;
 }
 export interface PickerProps extends ViewProps {
-    style?: ViewStyle;
     items?: PickerItem[];
     defaultValue?: string;
     onValueChange?: (value: string) => void;

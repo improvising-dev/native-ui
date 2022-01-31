@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react'
-import { FlexStyle, View, ViewStyle } from 'react-native'
+import { FlexStyle, View, ViewProps } from 'react-native'
 
-export interface StackProps {
+export interface StackProps extends ViewProps {
   direction?: FlexStyle['flexDirection']
   align?: FlexStyle['alignItems']
   justify?: FlexStyle['justifyContent']
-  style?: ViewStyle
   spacing?: number
-  children: React.ReactNode[]
 }
 
 export const Stack: React.FC<StackProps> = ({
@@ -27,7 +25,7 @@ export const Stack: React.FC<StackProps> = ({
 
     let index = 0
 
-    for (const child of children) {
+    for (const child of React.Children.toArray(children)) {
       builder.push(
         <View
           key={index}
@@ -53,12 +51,14 @@ export const Stack: React.FC<StackProps> = ({
 
   return (
     <View
-      style={{
-        flexDirection: direction,
-        alignItems: align,
-        justifyContent: justify,
-        ...style,
-      }}
+      style={[
+        {
+          flexDirection: direction,
+          alignItems: align,
+          justifyContent: justify,
+        },
+        style,
+      ]}
     >
       {items}
     </View>

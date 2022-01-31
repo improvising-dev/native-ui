@@ -6,7 +6,6 @@ import {
   Text,
   View,
   ViewProps,
-  ViewStyle,
 } from 'react-native'
 import { HapticFeedback } from '../actions/haptics'
 import { useTheme } from '../core/theme'
@@ -18,7 +17,6 @@ export interface PickerItem {
 }
 
 export interface PickerProps extends ViewProps {
-  style?: ViewStyle
   items?: PickerItem[]
   defaultValue?: string
   onValueChange?: (value: string) => void
@@ -132,11 +130,13 @@ export const Picker: React.FC<PickerProps> = ({
 
   return (
     <View
-      style={{
-        height: containerHeight,
-        overflow: 'hidden',
-        ...style,
-      }}
+      style={[
+        {
+          height: containerHeight,
+          overflow: 'hidden',
+        },
+        style,
+      ]}
       {...props}
     >
       <View
