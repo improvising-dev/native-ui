@@ -13,6 +13,7 @@ export interface DialogProps extends ModalStateProps {}
 export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
+  duration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -23,12 +24,13 @@ export const Dialog: React.FC<DialogProps> = ({
 
   return (
     <Modal
+      zIndex={theme.componentTheme.dialog.zIndex}
       visible={visible}
+      duration={duration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       transition="slide"
-      zIndex={theme.componentTheme.dialog.zIndex}
       style={{
         position: 'absolute',
         bottom: 0,
@@ -58,6 +60,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   message,
   okButtonText = 'Ok',
   visible,
+  duration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -67,6 +70,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      duration={duration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
@@ -108,6 +112,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   cancelButtonText = 'Cancel',
   confirmButtonText = 'Confirm',
   visible,
+  duration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -117,6 +122,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      duration={duration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.(false)}
       onUnmounted={onUnmounted}
@@ -176,6 +182,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   placeholder,
   initialValue = '',
   visible,
+  duration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -186,6 +193,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      duration={duration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.()}
       onUnmounted={onUnmounted}

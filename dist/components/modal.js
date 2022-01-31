@@ -8,7 +8,7 @@ var performance_1 = require("../core/performance");
 var theme_1 = require("../core/theme");
 var portal_1 = require("./portal");
 var Modal = function (_a) {
-    var children = _a.children, _b = _a.zIndex, zIndex = _b === void 0 ? 100 : _b, _c = _a.dismissible, dismissible = _c === void 0 ? true : _c, _d = _a.backdrop, backdrop = _d === void 0 ? true : _d, _e = _a.transition, transition = _e === void 0 ? 'fade' : _e, _f = _a.to, to = _f === void 0 ? 'top' : _f, _g = _a.duration, duration = _g === void 0 ? 400 : _g, style = _a.style, _h = _a.useNativeDriver, useNativeDriver = _h === void 0 ? performance_1.Performance.animation.useNativeDriver : _h, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var children = _a.children, _b = _a.zIndex, zIndex = _b === void 0 ? 100 : _b, _c = _a.dismissible, dismissible = _c === void 0 ? true : _c, _d = _a.backdrop, backdrop = _d === void 0 ? true : _d, _e = _a.transition, transition = _e === void 0 ? 'fade' : _e, _f = _a.to, to = _f === void 0 ? 'top' : _f, style = _a.style, _g = _a.useNativeDriver, useNativeDriver = _g === void 0 ? performance_1.Performance.animation.useNativeDriver : _g, visible = _a.visible, _h = _a.duration, duration = _h === void 0 ? 400 : _h, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var dimensions = (0, react_native_1.useWindowDimensions)();
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);

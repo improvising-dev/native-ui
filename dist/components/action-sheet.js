@@ -17,10 +17,10 @@ var theme_1 = require("../core/theme");
 var button_1 = require("./button");
 var modal_1 = require("./modal");
 var ActionSheet = function (_a) {
-    var items = _a.items, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var items = _a.items, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    return (<modal_1.Modal transition="slide" visible={visible} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} zIndex={theme.componentTheme.actionSheet.zIndex} style={{
+    return (<modal_1.Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

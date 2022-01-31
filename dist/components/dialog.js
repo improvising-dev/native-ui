@@ -11,11 +11,11 @@ var modal_1 = require("./modal");
 var stack_1 = require("./stack");
 var text_1 = require("./text");
 var Dialog = function (_a) {
-    var children = _a.children, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var children = _a.children, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
     var keyboardHeight = (0, use_keyboard_height_1.useKeyboardHeight)();
-    return (<modal_1.Modal visible={visible} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" zIndex={theme.componentTheme.dialog.zIndex} style={{
+    return (<modal_1.Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -31,9 +31,9 @@ var Dialog = function (_a) {
 };
 exports.Dialog = Dialog;
 var AlertDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.okButtonText, okButtonText = _b === void 0 ? 'Ok' : _b, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var title = _a.title, message = _a.message, _b = _a.okButtonText, okButtonText = _b === void 0 ? 'Ok' : _b, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
-    return (<exports.Dialog visible={visible} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
+    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
       <text_1.Text style={{
             fontSize: 20,
             fontWeight: '500',
@@ -53,9 +53,9 @@ var AlertDialog = function (_a) {
 };
 exports.AlertDialog = AlertDialog;
 var ConfirmDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
-    return (<exports.Dialog visible={visible} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false); }} onUnmounted={onUnmounted}>
+    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false); }} onUnmounted={onUnmounted}>
       <text_1.Text style={{
             fontSize: 20,
             fontWeight: '500',
@@ -85,10 +85,10 @@ var ConfirmDialog = function (_a) {
 };
 exports.ConfirmDialog = ConfirmDialog;
 var PromptDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, placeholder = _a.placeholder, _d = _a.initialValue, initialValue = _d === void 0 ? '' : _d, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, placeholder = _a.placeholder, _d = _a.initialValue, initialValue = _d === void 0 ? '' : _d, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var _e = (0, react_1.useState)(initialValue), text = _e[0], setText = _e[1];
-    return (<exports.Dialog visible={visible} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }} onUnmounted={onUnmounted}>
+    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }} onUnmounted={onUnmounted}>
       <text_1.Text style={[
             theme.componentTheme.dialog.titleTextStyle,
             {
