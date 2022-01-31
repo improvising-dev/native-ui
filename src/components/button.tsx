@@ -17,6 +17,7 @@ export interface ButtonProps {
   style?: StyleProp<ViewStyle>
   textStyle?: TextStyle
   haptic?: boolean
+  disabled?: boolean
   onPressed?: () => void
 }
 
@@ -25,11 +26,11 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
   haptic = false,
+  disabled = false,
   onPressed,
 }) => {
   const animatedValue = useAnimatedValue(0)
   const theme = useTheme()
-  const disabled = !onPressed
 
   const handlePress = () => {
     if (haptic) {

@@ -17,6 +17,7 @@ export interface ActionSheetProps extends ModalStateProps {
 export const ActionSheet: React.FC<ActionSheetProps> = ({
   items,
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -27,6 +28,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
     <Modal
       transition="slide"
       visible={visible}
+      onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       zIndex={theme.componentTheme.actionSheet.zIndex}

@@ -18,10 +18,9 @@ var animation_1 = require("../core/animation");
 var theme_1 = require("../core/theme");
 var AnimatedPressable = react_native_1.Animated.createAnimatedComponent(react_native_1.Pressable);
 var Button = function (_a) {
-    var children = _a.children, style = _a.style, textStyle = _a.textStyle, _b = _a.haptic, haptic = _b === void 0 ? false : _b, onPressed = _a.onPressed;
+    var children = _a.children, style = _a.style, textStyle = _a.textStyle, _b = _a.haptic, haptic = _b === void 0 ? false : _b, _c = _a.disabled, disabled = _c === void 0 ? false : _c, onPressed = _a.onPressed;
     var animatedValue = (0, animation_1.useAnimatedValue)(0);
     var theme = (0, theme_1.useTheme)();
-    var disabled = !onPressed;
     var handlePress = function () {
         if (haptic) {
             haptics_1.HapticFeedback.lightImpact();

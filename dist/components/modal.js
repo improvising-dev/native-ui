@@ -8,7 +8,7 @@ var performance_1 = require("../core/performance");
 var theme_1 = require("../core/theme");
 var portal_1 = require("./portal");
 var Modal = function (_a) {
-    var children = _a.children, _b = _a.zIndex, zIndex = _b === void 0 ? 100 : _b, _c = _a.dismissible, dismissible = _c === void 0 ? true : _c, _d = _a.backdrop, backdrop = _d === void 0 ? true : _d, _e = _a.transition, transition = _e === void 0 ? 'fade' : _e, _f = _a.to, to = _f === void 0 ? 'top' : _f, _g = _a.duration, duration = _g === void 0 ? 400 : _g, style = _a.style, _h = _a.useNativeDriver, useNativeDriver = _h === void 0 ? performance_1.Performance.animation.useNativeDriver : _h, visible = _a.visible, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
+    var children = _a.children, _b = _a.zIndex, zIndex = _b === void 0 ? 100 : _b, _c = _a.dismissible, dismissible = _c === void 0 ? true : _c, _d = _a.backdrop, backdrop = _d === void 0 ? true : _d, _e = _a.transition, transition = _e === void 0 ? 'fade' : _e, _f = _a.to, to = _f === void 0 ? 'top' : _f, _g = _a.duration, duration = _g === void 0 ? 400 : _g, style = _a.style, _h = _a.useNativeDriver, useNativeDriver = _h === void 0 ? performance_1.Performance.animation.useNativeDriver : _h, visible = _a.visible, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
     var theme = (0, theme_1.useTheme)();
     var dimensions = (0, react_native_1.useWindowDimensions)();
     var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);
@@ -41,11 +41,17 @@ var Modal = function (_a) {
     if (!mounted) {
         return <></>;
     }
+    var handleBackdropPress = function () {
+        onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
+        if (dismissible) {
+            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+        }
+    };
     var renderBackdrop = function () {
         if (!backdrop) {
             return <></>;
         }
-        return (<react_native_1.TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
+        return (<react_native_1.TouchableWithoutFeedback onPress={handleBackdropPress}>
         <react_native_1.Animated.View style={[
                 react_native_1.StyleSheet.absoluteFill,
                 {

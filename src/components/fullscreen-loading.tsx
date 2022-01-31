@@ -7,6 +7,7 @@ export type FullscreenLoadingProps = ModalStateProps
 
 export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -16,6 +17,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
     <Modal
       dismissible={false}
       visible={visible}
+      onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       zIndex={theme.componentTheme.fullscreenLoading.zIndex}

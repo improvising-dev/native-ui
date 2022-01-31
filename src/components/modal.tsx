@@ -17,6 +17,7 @@ export type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right'
 
 export interface ModalStateProps {
   visible: boolean
+  onBackdropPressed?: () => void
   onDismiss?: () => void
   onUnmounted?: () => void
 }
@@ -43,6 +44,7 @@ export const Modal: React.FC<ModalProps> = ({
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -81,13 +83,21 @@ export const Modal: React.FC<ModalProps> = ({
     return <></>
   }
 
+  const handleBackdropPress = () => {
+    onBackdropPressed?.()
+
+    if (dismissible) {
+      onDismiss?.()
+    }
+  }
+
   const renderBackdrop = () => {
     if (!backdrop) {
       return <></>
     }
 
     return (
-      <TouchableWithoutFeedback onPress={dismissible ? onDismiss : undefined}>
+      <TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Animated.View
           style={[
             StyleSheet.absoluteFill,

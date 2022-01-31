@@ -13,6 +13,7 @@ export interface DialogProps extends ModalStateProps {}
 export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -23,6 +24,7 @@ export const Dialog: React.FC<DialogProps> = ({
   return (
     <Modal
       visible={visible}
+      onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       transition="slide"
@@ -56,13 +58,19 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   message,
   okButtonText = 'Ok',
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
   const theme = useTheme()
 
   return (
-    <Dialog visible={visible} onDismiss={onDismiss} onUnmounted={onUnmounted}>
+    <Dialog
+      visible={visible}
+      onBackdropPressed={onBackdropPressed}
+      onDismiss={onDismiss}
+      onUnmounted={onUnmounted}
+    >
       <Text
         style={{
           fontSize: 20,
@@ -100,6 +108,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   cancelButtonText = 'Cancel',
   confirmButtonText = 'Confirm',
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -108,6 +117,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.(false)}
       onUnmounted={onUnmounted}
     >
@@ -166,6 +176,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   placeholder,
   initialValue = '',
   visible,
+  onBackdropPressed,
   onDismiss,
   onUnmounted,
 }) => {
@@ -175,6 +186,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.()}
       onUnmounted={onUnmounted}
     >
