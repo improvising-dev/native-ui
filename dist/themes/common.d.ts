@@ -8,6 +8,11 @@ export declare const DefaultComponentTheme: {
     };
     readonly dialog: {
         readonly zIndex: 1000;
+        readonly titleTextStyle: {
+            readonly fontSize: 19;
+            readonly fontWeight: "500";
+        };
+        readonly messageTextStyle: {};
     };
     readonly fullscreenLoading: {
         readonly zIndex: 5000;
@@ -69,6 +74,11 @@ export declare const DefaultTheme: {
         };
         readonly dialog: {
             readonly zIndex: 1000;
+            readonly titleTextStyle: {
+                readonly fontSize: 19;
+                readonly fontWeight: "500";
+            };
+            readonly messageTextStyle: {};
         };
         readonly fullscreenLoading: {
             readonly zIndex: 5000;

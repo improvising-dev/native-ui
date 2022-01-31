@@ -29,5 +29,12 @@ exports.LightTheme = (0, lodash_1.merge)((0, lodash_1.cloneDeep)(common_1.Defaul
             color: TextColor.primary,
         },
     },
+    componentTheme: {
+        dialog: {
+            messageTextStyle: {
+                color: TextColor.secondary,
+            },
+        },
+    },
 });
 //# sourceMappingURL=light.js.map

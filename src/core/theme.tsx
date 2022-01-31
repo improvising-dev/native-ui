@@ -22,6 +22,8 @@ export interface ComponentTheme {
   }
   dialog: {
     zIndex: number
+    titleTextStyle: TextStyle
+    messageTextStyle: TextStyle
   }
   fullscreenLoading: {
     zIndex: number

@@ -11,6 +11,11 @@ exports.DefaultComponentTheme = {
     },
     dialog: {
         zIndex: 1000,
+        titleTextStyle: {
+            fontSize: 19,
+            fontWeight: '500',
+        },
+        messageTextStyle: {},
     },
     fullscreenLoading: {
         zIndex: 5000,

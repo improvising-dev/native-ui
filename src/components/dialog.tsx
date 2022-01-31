@@ -179,20 +179,23 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
       onUnmounted={onUnmounted}
     >
       <Text
-        style={{
-          fontSize: 20,
-          fontWeight: '500',
-          marginBottom: theme.spacing,
-        }}
+        style={[
+          theme.componentTheme.dialog.titleTextStyle,
+          {
+            marginBottom: theme.spacing,
+          },
+        ]}
       >
         {title}
       </Text>
       {message && (
         <Text
-          style={{
-            color: theme.textColor.secondary,
-            marginBottom: theme.spacing,
-          }}
+          style={[
+            theme.componentTheme.dialog.messageTextStyle,
+            {
+              marginBottom: theme.spacing,
+            },
+          ]}
         >
           {message}
         </Text>

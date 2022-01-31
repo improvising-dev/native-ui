@@ -89,17 +89,20 @@ var PromptDialog = function (_a) {
     var theme = (0, theme_1.useTheme)();
     var _e = (0, react_1.useState)(initialValue), text = _e[0], setText = _e[1];
     return (<exports.Dialog visible={visible} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }} onUnmounted={onUnmounted}>
-      <text_1.Text style={{
-            fontSize: 20,
-            fontWeight: '500',
-            marginBottom: theme.spacing,
-        }}>
+      <text_1.Text style={[
+            theme.componentTheme.dialog.titleTextStyle,
+            {
+                marginBottom: theme.spacing,
+            },
+        ]}>
         {title}
       </text_1.Text>
-      {message && (<text_1.Text style={{
-                color: theme.textColor.secondary,
-                marginBottom: theme.spacing,
-            }}>
+      {message && (<text_1.Text style={[
+                theme.componentTheme.dialog.messageTextStyle,
+                {
+                    marginBottom: theme.spacing,
+                },
+            ]}>
           {message}
         </text_1.Text>)}
       <input_1.Input autoFocus={true} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{

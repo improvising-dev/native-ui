@@ -34,4 +34,12 @@ export const DarkTheme: Theme = merge(cloneDeep(DefaultTheme), {
       color: TextColor.primary,
     },
   },
+
+  componentTheme: {
+    dialog: {
+      messageTextStyle: {
+        color: TextColor.secondary,
+      },
+    },
+  },
 } as const)

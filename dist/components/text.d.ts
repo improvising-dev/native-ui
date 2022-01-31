@@ -1,7 +1,6 @@
 /// <reference types="react" />
-import { TextStyle } from 'react-native';
-export interface TextProps {
+import { TextProps as RNTextProps } from 'react-native';
+export interface TextProps extends RNTextProps {
     children?: string;
-    style?: TextStyle;
 }
 export declare const Text: React.FC<TextProps>;
