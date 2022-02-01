@@ -47,7 +47,7 @@ export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, dura
 };
 export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
-    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss?.(false)} onUnmounted={onUnmounted}>
+    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)} onUnmounted={onUnmounted}>
       <Text style={{
             fontSize: 20,
             fontWeight: '500',
@@ -66,10 +66,10 @@ export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', con
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={() => onDismiss?.(false)}>
+        }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)}>
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.(true)}>
+        <Button style={{ flex: 1 }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(true)}>
           {confirmButtonText}
         </Button>
       </Stack>
@@ -78,7 +78,7 @@ export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', con
 export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [text, setText] = useState(initialValue);
-    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss?.()} onUnmounted={onUnmounted}>
+    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()} onUnmounted={onUnmounted}>
       <Text style={[
             theme.componentTheme.dialog.titleTextStyle,
             {
@@ -107,10 +107,10 @@ export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', conf
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={() => onDismiss?.()}>
+        }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.()}>
+        <Button style={{ flex: 1 }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
           {confirmButtonText}
         </Button>
       </Stack>

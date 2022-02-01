@@ -8,6 +8,6 @@ export const showModal = ({ duration, builder, }) => {
     </ModalController>);
     return {
         dispose,
-        handleDismiss: () => controllerRef.current?.handleDismiss(),
+        handleDismiss: () => { var _a; return (_a = controllerRef.current) === null || _a === void 0 ? void 0 : _a.handleDismiss(); },
     };
 };

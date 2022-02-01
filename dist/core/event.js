@@ -1,5 +1,7 @@
 export class EventEmitter {
-    _eventHandlers = {};
+    constructor() {
+        this._eventHandlers = {};
+    }
     isValidType(type) {
         return typeof type === 'string';
     }

@@ -64,19 +64,22 @@ interface PortalContext {
 
 const portalContext = React.createContext({} as PortalContext)
 
+interface PortalQueueItem {
+  type: 'mount' | 'update' | 'unmount'
+  key: string
+  children?: React.ReactNode
+}
+
 export const PortalProvider: React.FC<PortalProviderProps> = ({
   style,
   children,
 }) => {
-  const managerRef = React.useRef<PortalManagerHandles>(null)
-  const queue: {
-    type: 'mount' | 'update' | 'unmount'
-    key: string
-    children?: React.ReactNode
-  }[] = []
+  const managerRef = useRef<PortalManagerHandles>(null)
+  const queue: PortalQueueItem[] = []
+
   const { generateKey, removeKey } = usePortalizeKey()
 
-  React.useEffect(() => {
+  useEffect(() => {
     while (queue.length && managerRef.current) {
       const action = queue.pop()
 

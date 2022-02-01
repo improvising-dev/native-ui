@@ -13,7 +13,7 @@ export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, them
     const [appIsReady, setAppIsReady] = useState(false);
     useEffect(() => {
         if (appIsReady) {
-            onReady?.();
+            onReady === null || onReady === void 0 ? void 0 : onReady();
         }
     }, [appIsReady]);
     if (!appIsReady) {

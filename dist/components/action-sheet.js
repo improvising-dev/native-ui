@@ -18,19 +18,15 @@ export const ActionSheet = ({ items, visible, duration, onBackdropPressed, onDis
             paddingBottom: insets.bottom,
         }}>
       {items.map((item, index) => {
-            return (<Button key={item.title} style={{
-                    backgroundColor: theme.backgroundColor.primary,
-                    height: theme.componentTheme.actionSheet.itemHeight,
-                    borderRadius: 0,
-                    ...(index === 0 && {
-                        borderTopLeftRadius: theme.borderRadius,
-                        borderTopRightRadius: theme.borderRadius,
-                    }),
-                }} textStyle={{
+            return (<Button key={item.title} style={Object.assign({ backgroundColor: theme.backgroundColor.primary, height: theme.componentTheme.actionSheet.itemHeight, borderRadius: 0 }, (index === 0 && {
+                    borderTopLeftRadius: theme.borderRadius,
+                    borderTopRightRadius: theme.borderRadius,
+                }))} textStyle={{
                     color: theme.textColor.primary,
                 }} onPressed={() => {
-                    item.onPressed?.();
-                    onDismiss?.();
+                    var _a;
+                    (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
+                    onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
                 }}>
             {item.title}
           </Button>);

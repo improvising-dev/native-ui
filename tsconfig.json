@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "jsx": "react-native",
     "lib": ["esnext"],
-    "target": "esnext",
+    "target": "es6",
     "outDir": "dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,

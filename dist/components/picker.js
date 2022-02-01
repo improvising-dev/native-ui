@@ -1,13 +1,25 @@
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 import React, { useMemo, useRef, useState } from 'react';
 import { FlatList, Text, View, } from 'react-native';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
-export const Picker = ({ style, items = [], defaultValue, onValueChange, height, itemHeight: customItemHeight, ...props }) => {
+export const Picker = (_a) => {
+    var { style, items = [], defaultValue, onValueChange, height, itemHeight: customItemHeight } = _a, props = __rest(_a, ["style", "items", "defaultValue", "onValueChange", "height", "itemHeight"]);
     const theme = useTheme();
     const lastHapticFeedbackIndex = useRef();
     const [selectedValue, setSelectedValue] = useState(defaultValue);
-    const itemHeight = customItemHeight ?? theme.componentTheme.picker.itemHeight;
-    const containerHeight = height ?? itemHeight * 5;
+    const itemHeight = customItemHeight !== null && customItemHeight !== void 0 ? customItemHeight : theme.componentTheme.picker.itemHeight;
+    const containerHeight = height !== null && height !== void 0 ? height : itemHeight * 5;
     const initialIndex = items.findIndex(item => item.value === selectedValue);
     const _renderItem = (item) => {
         const isSelected = item.value === selectedValue;
@@ -16,21 +28,14 @@ export const Picker = ({ style, items = [], defaultValue, onValueChange, height,
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-        <Text style={{
-                ...theme.componentTheme.picker.titleTextStyle,
-                color: isSelected
+        <Text style={Object.assign(Object.assign({}, theme.componentTheme.picker.titleTextStyle), { color: isSelected
                     ? theme.textColor.primary
-                    : theme.textColor.primaryUnselected,
-            }}>
+                    : theme.textColor.primaryUnselected })}>
           {item.title}
         </Text>
-        {item.subtitle && (<Text style={{
-                    ...theme.componentTheme.picker.subtitleTextStyle,
-                    marginTop: 2,
-                    color: isSelected
+        {item.subtitle && (<Text style={Object.assign(Object.assign({}, theme.componentTheme.picker.subtitleTextStyle), { marginTop: 2, color: isSelected
                         ? theme.textColor.secondary
-                        : theme.textColor.secondaryUnselected,
-                }}>
+                        : theme.textColor.secondaryUnselected })}>
             {item.subtitle}
           </Text>)}
       </View>);
@@ -45,7 +50,7 @@ export const Picker = ({ style, items = [], defaultValue, onValueChange, height,
                 lastHapticFeedbackIndex.current = index;
             }
             setSelectedValue(item.value);
-            onValueChange?.(item.value);
+            onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };
     const handleMomentumScrollEnd = (event) => {
@@ -54,7 +59,7 @@ export const Picker = ({ style, items = [], defaultValue, onValueChange, height,
         const item = items[index];
         if (item && item.value !== selectedValue) {
             setSelectedValue(item.value);
-            onValueChange?.(item.value);
+            onValueChange === null || onValueChange === void 0 ? void 0 : onValueChange(item.value);
         }
     };
     const snapToOffsets = useMemo(() => {

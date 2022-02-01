@@ -11,7 +11,7 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
         if (haptic) {
             HapticFeedback.lightImpact();
         }
-        onPressed?.();
+        onPressed === null || onPressed === void 0 ? void 0 : onPressed();
     };
     return (<AnimatedPressable onPress={handlePress} onPressIn={() => {
             Animated.timing(animatedValue, {
@@ -45,11 +45,7 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
             },
             style,
         ]}>
-      {typeof children === 'string' ? (<Text style={{
-                color: theme.primaryContrastingColor,
-                ...theme.textTheme.button,
-                ...textStyle,
-            }}>
+      {typeof children === 'string' ? (<Text style={Object.assign(Object.assign({ color: theme.primaryContrastingColor }, theme.textTheme.button), textStyle)}>
           {children}
         </Text>) : (children)}
       <Animated.View style={{

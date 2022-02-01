@@ -10,7 +10,7 @@ const PortalManager = React.forwardRef((_, ref) => {
         update(key, children) {
             setPortals(prev => prev.map(item => {
                 if (item.key === key) {
-                    return { ...item, children };
+                    return Object.assign(Object.assign({}, item), { children });
                 }
                 return item;
             }));
@@ -27,22 +27,23 @@ const PortalManager = React.forwardRef((_, ref) => {
 });
 const portalContext = React.createContext({});
 export const PortalProvider = ({ style, children, }) => {
-    const managerRef = React.useRef(null);
+    const managerRef = useRef(null);
     const queue = [];
     const { generateKey, removeKey } = usePortalizeKey();
-    React.useEffect(() => {
+    useEffect(() => {
+        var _a, _b, _c;
         while (queue.length && managerRef.current) {
             const action = queue.pop();
             if (action) {
                 switch (action.type) {
                     case 'mount':
-                        managerRef.current?.mount(action.key, action.children);
+                        (_a = managerRef.current) === null || _a === void 0 ? void 0 : _a.mount(action.key, action.children);
                         break;
                     case 'update':
-                        managerRef.current?.update(action.key, action.children);
+                        (_b = managerRef.current) === null || _b === void 0 ? void 0 : _b.update(action.key, action.children);
                         break;
                     case 'unmount':
-                        managerRef.current?.unmount(action.key);
+                        (_c = managerRef.current) === null || _c === void 0 ? void 0 : _c.unmount(action.key);
                         break;
                 }
             }
@@ -99,17 +100,17 @@ const Consumer = ({ children, context }) => {
     };
     const handleInit = () => {
         checkManager();
-        key.current = context?.mount(children);
+        key.current = context === null || context === void 0 ? void 0 : context.mount(children);
     };
     useEffect(() => {
         checkManager();
-        context?.update(key.current, children);
+        context === null || context === void 0 ? void 0 : context.update(key.current, children);
     }, [children, context]);
     useEffect(() => {
         handleInit();
         return () => {
             checkManager();
-            context?.unmount(key.current);
+            context === null || context === void 0 ? void 0 : context.unmount(key.current);
         };
     }, []);
     return null;

@@ -30,7 +30,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             }).start();
             setTimeout(() => {
                 setMounted(false);
-                onUnmounted?.();
+                onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
             }, duration);
         }
     }, [visible, mounted]);
@@ -38,9 +38,9 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         return <></>;
     }
     const handleBackdropPress = () => {
-        onBackdropPressed?.();
+        onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
         if (dismissible) {
-            onDismiss?.();
+            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
         }
     };
     const renderBackdrop = () => {
