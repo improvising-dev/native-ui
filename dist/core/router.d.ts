@@ -2,6 +2,7 @@ import { NativeStackNavigationOptions, NativeStackScreenProps } from '@react-nav
 import React from 'react';
 export interface RouteParamList {
 }
+export declare type RouteProps<T extends keyof RouteParamList> = NativeStackScreenProps<T>;
 export declare const navigationRef: import("@react-navigation/native").NavigationContainerRefWithCurrent<RouteParamList>;
 export declare class Router {
     static push(name: string, params?: any): void;
@@ -9,10 +10,9 @@ export declare class Router {
     static reset(name: string, params?: any): void;
     static pop(): void;
 }
-export declare type RouteProps<T extends keyof RouteParamList> = NativeStackScreenProps<T>;
 export interface Route {
     name: keyof RouteParamList;
-    component: React.ComponentType;
+    component: React.ComponentType<RouteProps<keyof RouteParamList>>;
     options?: NativeStackNavigationOptions;
 }
 export interface RouterViewProps {

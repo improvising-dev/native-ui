@@ -13,6 +13,9 @@ import React from 'react'
 
 export interface RouteParamList {}
 
+export type RouteProps<T extends keyof RouteParamList> =
+  NativeStackScreenProps<T>
+
 export const navigationRef = createNavigationContainerRef<RouteParamList>()
 
 export class Router {
@@ -46,12 +49,9 @@ export class Router {
   }
 }
 
-export type RouteProps<T extends keyof RouteParamList> =
-  NativeStackScreenProps<T>
-
 export interface Route {
   name: keyof RouteParamList
-  component: React.ComponentType
+  component: React.ComponentType<RouteProps<keyof RouteParamList>>
   options?: NativeStackNavigationOptions
 }
 
