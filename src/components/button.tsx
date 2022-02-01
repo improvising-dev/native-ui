@@ -6,7 +6,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native'
-import { HapticFeedback } from '../actions/haptics'
+import { HapticFeedback } from '../actions/haptic-feedback'
 import { useAnimatedValue } from '../core/animation'
 import { useTheme } from '../core/theme'
 

@@ -23,4 +23,4 @@ var HapticFeedback = /** @class */ (function () {
     return HapticFeedback;
 }());
 exports.HapticFeedback = HapticFeedback;
-//# sourceMappingURL=haptics.js.map
+//# sourceMappingURL=haptic-feedback.js.map

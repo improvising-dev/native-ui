@@ -1,5 +1,5 @@
 import { Pressable, ViewProps } from 'react-native'
-import { HapticFeedback } from '../actions/haptics'
+import { HapticFeedback } from '../actions/haptic-feedback'
 import { useTheme } from '../core/theme'
 
 export interface CardProps extends ViewProps {

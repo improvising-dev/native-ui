@@ -44,7 +44,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Picker = void 0;
 var react_1 = __importStar(require("react"));
 var react_native_1 = require("react-native");
-var haptics_1 = require("../actions/haptics");
+var haptic_feedback_1 = require("../actions/haptic-feedback");
 var theme_1 = require("../core/theme");
 var Picker = function (_a) {
     var style = _a.style, _b = _a.items, items = _b === void 0 ? [] : _b, defaultValue = _a.defaultValue, onValueChange = _a.onValueChange, height = _a.height, customItemHeight = _a.itemHeight, props = __rest(_a, ["style", "items", "defaultValue", "onValueChange", "height", "itemHeight"]);
@@ -79,7 +79,7 @@ var Picker = function (_a) {
         var item = items[index];
         if (item && item.value !== selectedValue) {
             if (index !== lastHapticFeedbackIndex.current) {
-                haptics_1.HapticFeedback.selectionClick();
+                haptic_feedback_1.HapticFeedback.selectionClick();
                 lastHapticFeedbackIndex.current = index;
             }
             setSelectedValue(item.value);

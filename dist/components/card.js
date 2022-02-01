@@ -13,7 +13,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Card = void 0;
 var react_native_1 = require("react-native");
-var haptics_1 = require("../actions/haptics");
+var haptic_feedback_1 = require("../actions/haptic-feedback");
 var theme_1 = require("../core/theme");
 var Card = function (_a) {
     var children = _a.children, style = _a.style, _b = _a.haptic, haptic = _b === void 0 ? false : _b, onPressed = _a.onPressed, viewProps = __rest(_a, ["children", "style", "haptic", "onPressed"]);
@@ -21,7 +21,7 @@ var Card = function (_a) {
     var disabled = !onPressed;
     var handlePress = function () {
         if (haptic) {
-            haptics_1.HapticFeedback.lightImpact();
+            haptic_feedback_1.HapticFeedback.lightImpact();
         }
         onPressed === null || onPressed === void 0 ? void 0 : onPressed();
     };

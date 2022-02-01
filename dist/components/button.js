@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Button = void 0;
 var react_native_1 = require("react-native");
-var haptics_1 = require("../actions/haptics");
+var haptic_feedback_1 = require("../actions/haptic-feedback");
 var animation_1 = require("../core/animation");
 var theme_1 = require("../core/theme");
 var AnimatedPressable = react_native_1.Animated.createAnimatedComponent(react_native_1.Pressable);
@@ -23,7 +23,7 @@ var Button = function (_a) {
     var theme = (0, theme_1.useTheme)();
     var handlePress = function () {
         if (haptic) {
-            haptics_1.HapticFeedback.lightImpact();
+            haptic_feedback_1.HapticFeedback.lightImpact();
         }
         onPressed === null || onPressed === void 0 ? void 0 : onPressed();
     };
