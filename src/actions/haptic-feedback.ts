@@ -1,19 +1,24 @@
-import RNHapticFeedback from 'react-native-haptic-feedback'
+import RNHapticFeedback, { HapticOptions } from 'react-native-haptic-feedback'
+
+const HAPTIC_OPTIONS: HapticOptions = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+}
 
 export class HapticFeedback {
   static lightImpact() {
-    RNHapticFeedback.trigger('impactLight')
+    RNHapticFeedback.trigger('impactLight', HAPTIC_OPTIONS)
   }
 
   static mediumImpact() {
-    RNHapticFeedback.trigger('impactMedium')
+    RNHapticFeedback.trigger('impactMedium', HAPTIC_OPTIONS)
   }
 
   static heavyImpact() {
-    RNHapticFeedback.trigger('impactHeavy')
+    RNHapticFeedback.trigger('impactHeavy', HAPTIC_OPTIONS)
   }
 
   static selectionClick() {
-    RNHapticFeedback.trigger('selection')
+    RNHapticFeedback.trigger('selection', HAPTIC_OPTIONS)
   }
 }
