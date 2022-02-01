@@ -1,52 +1,34 @@
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Button = void 0;
-var react_1 = __importDefault(require("react"));
-var react_native_1 = require("react-native");
-var haptic_feedback_1 = require("../actions/haptic-feedback");
-var animation_1 = require("../core/animation");
-var theme_1 = require("../core/theme");
-var AnimatedPressable = react_native_1.Animated.createAnimatedComponent(react_native_1.Pressable);
-var Button = function (_a) {
-    var children = _a.children, style = _a.style, textStyle = _a.textStyle, _b = _a.haptic, haptic = _b === void 0 ? false : _b, _c = _a.disabled, disabled = _c === void 0 ? false : _c, onPressed = _a.onPressed;
-    var animatedValue = (0, animation_1.useAnimatedValue)(0);
-    var theme = (0, theme_1.useTheme)();
-    var handlePress = function () {
+import React from 'react';
+import { Animated, Pressable, Text, } from 'react-native';
+import { HapticFeedback } from '../actions/haptic-feedback';
+import { useAnimatedValue } from '../core/animation';
+import { useTheme } from '../core/theme';
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPressed, }) => {
+    const animatedValue = useAnimatedValue(0);
+    const theme = useTheme();
+    const handlePress = () => {
         if (haptic) {
-            haptic_feedback_1.HapticFeedback.lightImpact();
+            HapticFeedback.lightImpact();
         }
-        onPressed === null || onPressed === void 0 ? void 0 : onPressed();
+        onPressed?.();
     };
-    return (<AnimatedPressable onPress={handlePress} onPressIn={function () {
-            react_native_1.Animated.timing(animatedValue, {
+    return (<AnimatedPressable onPress={handlePress} onPressIn={() => {
+            Animated.timing(animatedValue, {
                 toValue: 1,
                 duration: 100,
                 useNativeDriver: false,
             }).start();
-        }} onPressOut={function () {
-            setTimeout(function () {
-                react_native_1.Animated.timing(animatedValue, {
+        }} onPressOut={() => {
+            setTimeout(() => {
+                Animated.timing(animatedValue, {
                     toValue: 0,
                     duration: 150,
                     useNativeDriver: false,
                 }).start();
             }, 200);
-        }} onTouchCancel={function () {
-            react_native_1.Animated.timing(animatedValue, {
+        }} onTouchCancel={() => {
+            Animated.timing(animatedValue, {
                 toValue: 0,
                 duration: 150,
                 useNativeDriver: false,
@@ -63,10 +45,14 @@ var Button = function (_a) {
             },
             style,
         ]}>
-      {typeof children === 'string' ? (<react_native_1.Text style={__assign(__assign({ color: theme.primaryContrastingColor }, theme.textTheme.button), textStyle)}>
+      {typeof children === 'string' ? (<Text style={{
+                color: theme.primaryContrastingColor,
+                ...theme.textTheme.button,
+                ...textStyle,
+            }}>
           {children}
-        </react_native_1.Text>) : (children)}
-      <react_native_1.Animated.View style={{
+        </Text>) : (children)}
+      <Animated.View style={{
             position: 'absolute',
             top: 0,
             bottom: 0,
@@ -82,5 +68,3 @@ var Button = function (_a) {
         }}/>
     </AnimatedPressable>);
 };
-exports.Button = Button;
-//# sourceMappingURL=button.js.map

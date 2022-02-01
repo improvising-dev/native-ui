@@ -1,13 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+import React from 'react';
+import { View } from 'react-native';
+export const Spacer = () => {
+    return <View style={{ flex: 1 }}/>;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Spacer = void 0;
-var react_1 = __importDefault(require("react"));
-var react_native_1 = require("react-native");
-var Spacer = function () {
-    return <react_native_1.View style={{ flex: 1 }}/>;
-};
-exports.Spacer = Spacer;
-//# sourceMappingURL=spacer.js.map

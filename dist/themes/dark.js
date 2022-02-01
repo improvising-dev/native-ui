@@ -1,22 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DarkTheme = void 0;
-var lodash_1 = require("lodash");
-var common_1 = require("./common");
-var BackgroundColor = {
+import { cloneDeep, merge } from 'lodash';
+import { DefaultTheme } from './common';
+const BackgroundColor = {
     primary: '#151515',
     secondary: '#000000',
     fill: '#252525',
     modalBarrier: 'rgba(0, 0, 0, .7)',
 };
-var TextColor = {
+const TextColor = {
     primary: '#ffffff',
     primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
     secondaryUnselected: '#5d5d5d',
     placeholder: '#5d5d5d',
 };
-exports.DarkTheme = (0, lodash_1.merge)((0, lodash_1.cloneDeep)(common_1.DefaultTheme), {
+export const DarkTheme = merge(cloneDeep(DefaultTheme), {
     brightness: 'dark',
     white: '#ffffff',
     black: '#000000',
@@ -37,4 +34,3 @@ exports.DarkTheme = (0, lodash_1.merge)((0, lodash_1.cloneDeep)(common_1.Default
         },
     },
 });
-//# sourceMappingURL=dark.js.map

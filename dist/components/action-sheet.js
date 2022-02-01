@@ -1,30 +1,12 @@
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionSheet = void 0;
-var react_1 = __importDefault(require("react"));
-var react_native_safe_area_context_1 = require("react-native-safe-area-context");
-var theme_1 = require("../core/theme");
-var button_1 = require("./button");
-var modal_1 = require("./modal");
-var ActionSheet = function (_a) {
-    var items = _a.items, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    return (<modal_1.Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
+import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../core/theme';
+import { Button } from './button';
+import { Modal } from './modal';
+export const ActionSheet = ({ items, visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    const insets = useSafeAreaInsets();
+    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -35,21 +17,23 @@ var ActionSheet = function (_a) {
             overflow: 'hidden',
             paddingBottom: insets.bottom,
         }}>
-      {items.map(function (item, index) {
-            return (<button_1.Button key={item.title} style={__assign({ backgroundColor: theme.backgroundColor.primary, height: theme.componentTheme.actionSheet.itemHeight, borderRadius: 0 }, (index === 0 && {
-                    borderTopLeftRadius: theme.borderRadius,
-                    borderTopRightRadius: theme.borderRadius,
-                }))} textStyle={{
+      {items.map((item, index) => {
+            return (<Button key={item.title} style={{
+                    backgroundColor: theme.backgroundColor.primary,
+                    height: theme.componentTheme.actionSheet.itemHeight,
+                    borderRadius: 0,
+                    ...(index === 0 && {
+                        borderTopLeftRadius: theme.borderRadius,
+                        borderTopRightRadius: theme.borderRadius,
+                    }),
+                }} textStyle={{
                     color: theme.textColor.primary,
-                }} onPressed={function () {
-                    var _a;
-                    (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
-                    onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                }} onPressed={() => {
+                    item.onPressed?.();
+                    onDismiss?.();
                 }}>
             {item.title}
-          </button_1.Button>);
+          </Button>);
         })}
-    </modal_1.Modal>);
+    </Modal>);
 };
-exports.ActionSheet = ActionSheet;
-//# sourceMappingURL=action-sheet.js.map

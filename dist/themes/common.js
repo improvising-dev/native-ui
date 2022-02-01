@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DefaultTheme = exports.DefaultTextTheme = exports.DefaultComponentTheme = void 0;
-exports.DefaultComponentTheme = {
+export const DefaultComponentTheme = {
     actionSheet: {
         zIndex: 500,
         itemHeight: 60,
@@ -26,7 +23,7 @@ exports.DefaultComponentTheme = {
         subtitleTextStyle: { fontSize: 12 },
     },
 };
-exports.DefaultTextTheme = {
+export const DefaultTextTheme = {
     default: {
         fontSize: 17,
         letterSpacing: -0.41,
@@ -43,10 +40,9 @@ exports.DefaultTextTheme = {
         fontSize: 15,
     },
 };
-exports.DefaultTheme = {
+export const DefaultTheme = {
     spacing: 15,
     borderRadius: 15,
-    textTheme: exports.DefaultTextTheme,
-    componentTheme: exports.DefaultComponentTheme,
+    textTheme: DefaultTextTheme,
+    componentTheme: DefaultComponentTheme,
 };
-//# sourceMappingURL=common.js.map

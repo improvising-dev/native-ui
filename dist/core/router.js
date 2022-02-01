@@ -1,50 +1,37 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RouterView = exports.Router = exports.navigationRef = void 0;
-var native_1 = require("@react-navigation/native");
-var native_stack_1 = require("@react-navigation/native-stack");
-var react_1 = __importDefault(require("react"));
-exports.navigationRef = (0, native_1.createNavigationContainerRef)();
-var Router = /** @class */ (function () {
-    function Router() {
+import { CommonActions, createNavigationContainerRef, NavigationContainer, StackActions, } from '@react-navigation/native';
+import { createNativeStackNavigator, } from '@react-navigation/native-stack';
+import React from 'react';
+export const navigationRef = createNavigationContainerRef();
+export class Router {
+    static push(name, params) {
+        if (navigationRef.isReady()) {
+            navigationRef.dispatch(StackActions.push(name, params));
+        }
     }
-    Router.push = function (name, params) {
-        if (exports.navigationRef.isReady()) {
-            exports.navigationRef.dispatch(native_1.StackActions.push(name, params));
+    static replace(name, params) {
+        if (navigationRef.isReady()) {
+            navigationRef.dispatch(StackActions.replace(name, params));
         }
-    };
-    Router.replace = function (name, params) {
-        if (exports.navigationRef.isReady()) {
-            exports.navigationRef.dispatch(native_1.StackActions.replace(name, params));
-        }
-    };
-    Router.reset = function (name, params) {
-        if (exports.navigationRef.isReady()) {
-            exports.navigationRef.dispatch(native_1.CommonActions.reset({
+    }
+    static reset(name, params) {
+        if (navigationRef.isReady()) {
+            navigationRef.dispatch(CommonActions.reset({
                 index: 0,
-                routes: [{ name: name, params: params }],
+                routes: [{ name, params }],
             }));
         }
-    };
-    Router.pop = function () {
-        if (exports.navigationRef.isReady() && exports.navigationRef.canGoBack()) {
-            exports.navigationRef.dispatch(native_1.StackActions.pop());
+    }
+    static pop() {
+        if (navigationRef.isReady() && navigationRef.canGoBack()) {
+            navigationRef.dispatch(StackActions.pop());
         }
-    };
-    return Router;
-}());
-exports.Router = Router;
-var Stack = (0, native_stack_1.createNativeStackNavigator)();
-var RouterView = function (_a) {
-    var initialRouteName = _a.initialRouteName, _b = _a.routes, routes = _b === void 0 ? [] : _b;
-    return (<native_1.NavigationContainer ref={exports.navigationRef}>
+    }
+}
+const Stack = createNativeStackNavigator();
+export const RouterView = ({ initialRouteName, routes = [], }) => {
+    return (<NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName={initialRouteName}>
-        {routes.map(function (route) { return (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>); })}
+        {routes.map(route => (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>))}
       </Stack.Navigator>
-    </native_1.NavigationContainer>);
+    </NavigationContainer>);
 };
-exports.RouterView = RouterView;
-//# sourceMappingURL=router.js.map

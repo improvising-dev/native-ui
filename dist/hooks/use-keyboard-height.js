@@ -1,37 +1,32 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useKeyboardHeight = void 0;
-var react_1 = require("react");
-var react_native_1 = require("react-native");
-var useKeyboardHeight = function () {
-    var _a = (0, react_1.useState)(0), keyboardHeight = _a[0], setKeyboardHeight = _a[1];
-    (0, react_1.useEffect)(function () {
-        if (react_native_1.Platform.OS === 'ios') {
-            react_native_1.Keyboard.addListener('keyboardWillShow', keyboardShow);
-            react_native_1.Keyboard.addListener('keyboardWillHide', keyboardHide);
+import { useEffect, useState } from 'react';
+import { Keyboard, Platform } from 'react-native';
+export const useKeyboardHeight = () => {
+    const [keyboardHeight, setKeyboardHeight] = useState(0);
+    useEffect(() => {
+        if (Platform.OS === 'ios') {
+            Keyboard.addListener('keyboardWillShow', keyboardShow);
+            Keyboard.addListener('keyboardWillHide', keyboardHide);
         }
         else {
-            react_native_1.Keyboard.addListener('keyboardDidShow', keyboardShow);
-            react_native_1.Keyboard.addListener('keyboardDidHide', keyboardHide);
+            Keyboard.addListener('keyboardDidShow', keyboardShow);
+            Keyboard.addListener('keyboardDidHide', keyboardHide);
         }
-        return function () {
-            if (react_native_1.Platform.OS === 'ios') {
-                react_native_1.Keyboard.removeAllListeners('keyboardWillShow');
-                react_native_1.Keyboard.removeAllListeners('keyboardWillHide');
+        return () => {
+            if (Platform.OS === 'ios') {
+                Keyboard.removeAllListeners('keyboardWillShow');
+                Keyboard.removeAllListeners('keyboardWillHide');
             }
             else {
-                react_native_1.Keyboard.removeAllListeners('keyboardDidShow');
-                react_native_1.Keyboard.removeAllListeners('keyboardDidHide');
+                Keyboard.removeAllListeners('keyboardDidShow');
+                Keyboard.removeAllListeners('keyboardDidHide');
             }
         };
     }, []);
-    var keyboardShow = function (frames) {
+    const keyboardShow = frames => {
         setKeyboardHeight(frames.endCoordinates.height);
     };
-    var keyboardHide = function () {
+    const keyboardHide = () => {
         setKeyboardHeight(0);
     };
     return keyboardHeight;
 };
-exports.useKeyboardHeight = useKeyboardHeight;
-//# sourceMappingURL=use-keyboard-height.js.map

@@ -1,89 +1,66 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Modal = void 0;
-var react_1 = __importStar(require("react"));
-var react_native_1 = require("react-native");
-var animation_1 = require("../core/animation");
-var performance_1 = require("../core/performance");
-var theme_1 = require("../core/theme");
-var portal_1 = require("./portal");
-var Modal = function (_a) {
-    var children = _a.children, _b = _a.zIndex, zIndex = _b === void 0 ? 100 : _b, _c = _a.dismissible, dismissible = _c === void 0 ? true : _c, _d = _a.backdrop, backdrop = _d === void 0 ? true : _d, _e = _a.transition, transition = _e === void 0 ? 'fade' : _e, _f = _a.to, to = _f === void 0 ? 'top' : _f, style = _a.style, _g = _a.useNativeDriver, useNativeDriver = _g === void 0 ? performance_1.Performance.animation.useNativeDriver : _g, visible = _a.visible, _h = _a.duration, duration = _h === void 0 ? 400 : _h, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    var dimensions = (0, react_native_1.useWindowDimensions)();
-    var value = (0, animation_1.useAnimatedValue)(visible ? 1 : 0);
-    var _j = (0, react_1.useState)(visible), mounted = _j[0], setMounted = _j[1];
-    (0, react_1.useEffect)(function () {
+import React, { useEffect, useState } from 'react';
+import { Animated, StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'react-native';
+import { useAnimatedValue } from '../core/animation';
+import { Performance } from '../core/performance';
+import { useTheme } from '../core/theme';
+import { Portal } from './portal';
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', to = 'top', style, useNativeDriver = Performance.animation.useNativeDriver, visible, duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    const dimensions = useWindowDimensions();
+    const value = useAnimatedValue(visible ? 1 : 0);
+    const [mounted, setMounted] = useState(visible);
+    useEffect(() => {
         if (visible) {
             if (mounted) {
-                react_native_1.Animated.timing(value, {
+                Animated.timing(value, {
                     toValue: 1,
-                    duration: duration,
-                    useNativeDriver: useNativeDriver,
+                    duration,
+                    useNativeDriver,
                 }).start();
             }
             else {
-                requestAnimationFrame(function () { return setMounted(true); });
+                requestAnimationFrame(() => setMounted(true));
             }
         }
         else if (mounted) {
-            react_native_1.Animated.timing(value, {
+            Animated.timing(value, {
                 toValue: 0,
-                duration: duration,
-                useNativeDriver: useNativeDriver,
+                duration,
+                useNativeDriver,
             }).start();
-            setTimeout(function () {
+            setTimeout(() => {
                 setMounted(false);
-                onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
+                onUnmounted?.();
             }, duration);
         }
     }, [visible, mounted]);
     if (!mounted) {
         return <></>;
     }
-    var handleBackdropPress = function () {
-        onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
+    const handleBackdropPress = () => {
+        onBackdropPressed?.();
         if (dismissible) {
-            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+            onDismiss?.();
         }
     };
-    var renderBackdrop = function () {
+    const renderBackdrop = () => {
         if (!backdrop) {
             return <></>;
         }
-        return (<react_native_1.TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <react_native_1.Animated.View style={[
-                react_native_1.StyleSheet.absoluteFill,
+        return (<TouchableWithoutFeedback onPress={handleBackdropPress}>
+        <Animated.View style={[
+                StyleSheet.absoluteFill,
                 {
                     backgroundColor: theme.backgroundColor.modalBarrier,
-                    zIndex: zIndex,
+                    zIndex,
                     opacity: value,
                 },
             ]}/>
-      </react_native_1.TouchableWithoutFeedback>);
+      </TouchableWithoutFeedback>);
     };
-    var renderContent = function () {
+    const renderContent = () => {
         if (transition === 'slide') {
-            return (<react_native_1.Animated.View style={[
+            return (<Animated.View style={[
                     {
                         zIndex: zIndex + 1,
                         transform: [
@@ -119,10 +96,10 @@ var Modal = function (_a) {
                     style,
                 ]}>
           {children}
-        </react_native_1.Animated.View>);
+        </Animated.View>);
         }
         else if (transition === 'scale') {
-            return (<react_native_1.Animated.View style={[
+            return (<Animated.View style={[
                     {
                         zIndex: zIndex + 1,
                         opacity: value,
@@ -138,10 +115,10 @@ var Modal = function (_a) {
                     style,
                 ]}>
           {children}
-        </react_native_1.Animated.View>);
+        </Animated.View>);
         }
         else {
-            return (<react_native_1.Animated.View style={[
+            return (<Animated.View style={[
                     {
                         zIndex: zIndex + 1,
                         opacity: value,
@@ -149,13 +126,11 @@ var Modal = function (_a) {
                     style,
                 ]}>
           {children}
-        </react_native_1.Animated.View>);
+        </Animated.View>);
         }
     };
-    return (<portal_1.Portal>
+    return (<Portal>
       {renderBackdrop()}
       {renderContent()}
-    </portal_1.Portal>);
+    </Portal>);
 };
-exports.Modal = Modal;
-//# sourceMappingURL=modal.js.map

@@ -1,40 +1,17 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PromptDialog = exports.ConfirmDialog = exports.AlertDialog = exports.Dialog = void 0;
-var react_1 = __importStar(require("react"));
-var react_native_safe_area_context_1 = require("react-native-safe-area-context");
-var theme_1 = require("../core/theme");
-var use_keyboard_height_1 = require("../hooks/use-keyboard-height");
-var button_1 = require("./button");
-var input_1 = require("./input");
-var modal_1 = require("./modal");
-var stack_1 = require("./stack");
-var text_1 = require("./text");
-var Dialog = function (_a) {
-    var children = _a.children, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    var insets = (0, react_native_safe_area_context_1.useSafeAreaInsets)();
-    var keyboardHeight = (0, use_keyboard_height_1.useKeyboardHeight)();
-    return (<modal_1.Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
+import React, { useState } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../core/theme';
+import { useKeyboardHeight } from '../hooks/use-keyboard-height';
+import { Button } from './button';
+import { Input } from './input';
+import { Modal } from './modal';
+import { Stack } from './stack';
+import { Text } from './text';
+export const Dialog = ({ children, visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    const insets = useSafeAreaInsets();
+    const keyboardHeight = useKeyboardHeight();
+    return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} transition="slide" style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -46,104 +23,96 @@ var Dialog = function (_a) {
             backgroundColor: theme.backgroundColor.primary,
         }}>
       {children}
-    </modal_1.Modal>);
+    </Modal>);
 };
-exports.Dialog = Dialog;
-var AlertDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.okButtonText, okButtonText = _b === void 0 ? 'Ok' : _b, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
-      <text_1.Text style={{
+export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
+      <Text style={{
             fontSize: 20,
             fontWeight: '500',
             marginBottom: theme.spacing,
         }}>
         {title}
-      </text_1.Text>
-      <text_1.Text style={{
+      </Text>
+      <Text style={{
             marginBottom: theme.spacing * 1.5,
         }}>
         {message}
-      </text_1.Text>
-      <button_1.Button style={{ flex: 1 }} onPressed={onDismiss}>
+      </Text>
+      <Button style={{ flex: 1 }} onPressed={onDismiss}>
         {okButtonText}
-      </button_1.Button>
-    </exports.Dialog>);
+      </Button>
+    </Dialog>);
 };
-exports.AlertDialog = AlertDialog;
-var ConfirmDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false); }} onUnmounted={onUnmounted}>
-      <text_1.Text style={{
+export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss?.(false)} onUnmounted={onUnmounted}>
+      <Text style={{
             fontSize: 20,
             fontWeight: '500',
             marginBottom: theme.spacing,
         }}>
         {title}
-      </text_1.Text>
-      <text_1.Text style={{
+      </Text>
+      <Text style={{
             marginBottom: theme.spacing * 1.5,
         }}>
         {message}
-      </text_1.Text>
-      <stack_1.Stack direction="row" spacing={theme.spacing}>
-        <button_1.Button style={{
+      </Text>
+      <Stack direction="row" spacing={theme.spacing}>
+        <Button style={{
             flex: 1,
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false); }}>
+        }} onPressed={() => onDismiss?.(false)}>
           {cancelButtonText}
-        </button_1.Button>
-        <button_1.Button style={{ flex: 1 }} onPressed={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(true); }}>
+        </Button>
+        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.(true)}>
           {confirmButtonText}
-        </button_1.Button>
-      </stack_1.Stack>
-    </exports.Dialog>);
+        </Button>
+      </Stack>
+    </Dialog>);
 };
-exports.ConfirmDialog = ConfirmDialog;
-var PromptDialog = function (_a) {
-    var title = _a.title, message = _a.message, _b = _a.cancelButtonText, cancelButtonText = _b === void 0 ? 'Cancel' : _b, _c = _a.confirmButtonText, confirmButtonText = _c === void 0 ? 'Confirm' : _c, placeholder = _a.placeholder, _d = _a.initialValue, initialValue = _d === void 0 ? '' : _d, visible = _a.visible, duration = _a.duration, onBackdropPressed = _a.onBackdropPressed, onDismiss = _a.onDismiss, onUnmounted = _a.onUnmounted;
-    var theme = (0, theme_1.useTheme)();
-    var _e = (0, react_1.useState)(initialValue), text = _e[0], setText = _e[1];
-    return (<exports.Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }} onUnmounted={onUnmounted}>
-      <text_1.Text style={[
+export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, duration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+    const theme = useTheme();
+    const [text, setText] = useState(initialValue);
+    return (<Dialog visible={visible} duration={duration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss?.()} onUnmounted={onUnmounted}>
+      <Text style={[
             theme.componentTheme.dialog.titleTextStyle,
             {
                 marginBottom: theme.spacing,
             },
         ]}>
         {title}
-      </text_1.Text>
-      {message && (<text_1.Text style={[
+      </Text>
+      {message && (<Text style={[
                 theme.componentTheme.dialog.messageTextStyle,
                 {
                     marginBottom: theme.spacing,
                 },
             ]}>
           {message}
-        </text_1.Text>)}
-      <input_1.Input autoFocus={true} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
+        </Text>)}
+      <Input autoFocus={true} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
             padding: theme.spacing,
             borderRadius: theme.borderRadius,
             backgroundColor: theme.backgroundColor.fill,
             marginBottom: theme.spacing,
         }}/>
-      <stack_1.Stack direction="row" spacing={theme.spacing}>
-        <button_1.Button style={{
+      <Stack direction="row" spacing={theme.spacing}>
+        <Button style={{
             flex: 1,
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }}>
+        }} onPressed={() => onDismiss?.()}>
           {cancelButtonText}
-        </button_1.Button>
-        <button_1.Button style={{ flex: 1 }} onPressed={function () { return onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(); }}>
+        </Button>
+        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.()}>
           {confirmButtonText}
-        </button_1.Button>
-      </stack_1.Stack>
-    </exports.Dialog>);
+        </Button>
+      </Stack>
+    </Dialog>);
 };
-exports.PromptDialog = PromptDialog;
-//# sourceMappingURL=dialog.js.map
