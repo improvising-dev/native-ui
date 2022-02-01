@@ -51,7 +51,7 @@ export class Router {
 
 export interface Route {
   name: keyof RouteParamList
-  component: React.ComponentType<RouteProps<keyof RouteParamList>>
+  component: React.ComponentType<any>
   options?: NativeStackNavigationOptions
 }
 
