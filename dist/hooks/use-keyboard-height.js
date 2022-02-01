@@ -4,23 +4,21 @@ export const useKeyboardHeight = () => {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     useEffect(() => {
         if (Platform.OS === 'ios') {
-            Keyboard.addListener('keyboardWillShow', keyboardShow);
-            Keyboard.addListener('keyboardWillHide', keyboardHide);
+            const showSub = Keyboard.addListener('keyboardWillShow', keyboardShow);
+            const hideSub = Keyboard.addListener('keyboardWillHide', keyboardHide);
+            return () => {
+                showSub.remove();
+                hideSub.remove();
+            };
         }
         else {
-            Keyboard.addListener('keyboardDidShow', keyboardShow);
-            Keyboard.addListener('keyboardDidHide', keyboardHide);
+            const showSub = Keyboard.addListener('keyboardDidShow', keyboardShow);
+            const hideSub = Keyboard.addListener('keyboardDidHide', keyboardHide);
+            return () => {
+                showSub.remove();
+                hideSub.remove();
+            };
         }
-        return () => {
-            if (Platform.OS === 'ios') {
-                Keyboard.removeAllListeners('keyboardWillShow');
-                Keyboard.removeAllListeners('keyboardWillHide');
-            }
-            else {
-                Keyboard.removeAllListeners('keyboardDidShow');
-                Keyboard.removeAllListeners('keyboardDidHide');
-            }
-        };
     }, []);
     const keyboardShow = frames => {
         setKeyboardHeight(frames.endCoordinates.height);
