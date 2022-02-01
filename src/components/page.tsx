@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar'
 import { ScrollView, StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
+import { StatusBar } from './status-bar'
 
 export interface PageProps extends ViewProps {
   scrollable?: boolean

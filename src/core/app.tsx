@@ -1,18 +1,10 @@
-import AppLoading from 'expo-app-loading'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
 import { PortalProvider } from '../components/portal'
-import { Route, RouterView } from './router'
+import { Route, RouterView, RouteParamList } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
-
-export interface AppContext {
-  appIsReady: boolean
-}
-
-const appContext = React.createContext({} as AppContext)
-
-export const useApp = () => useContext(appContext)
 
 export interface AppProviderProps
   extends ThemeProviderProps,
@@ -22,7 +14,7 @@ export interface AppProviderProps
 }
 
 export interface RouterRendererProps {
-  initialRouteName?: string
+  initialRouteName?: keyof RouteParamList
   routes?: Route[] | ((theme: Theme) => Route[])
 }
 
@@ -59,31 +51,27 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   if (!appIsReady) {
     return (
-      <appContext.Provider value={{ appIsReady }}>
-        <AppLoading
-          startAsync={loadAsync}
-          onFinish={() => setAppIsReady(true)}
-          onError={console.warn}
-        />
-      </appContext.Provider>
+      <AppLoading
+        loadAsync={loadAsync}
+        onComplete={() => setAppIsReady(true)}
+        onError={console.warn}
+      />
     )
   }
 
   return (
-    <appContext.Provider value={{ appIsReady }}>
-      <SafeAreaProvider>
-        <ThemeProvider theme={theme} darkTheme={darkTheme}>
-          <PortalProvider>
-            <ModalProvider>
-              <RouterRenderer
-                initialRouteName={initialRouteName}
-                routes={routes}
-              />
-              {children}
-            </ModalProvider>
-          </PortalProvider>
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </appContext.Provider>
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme} darkTheme={darkTheme}>
+        <PortalProvider>
+          <ModalProvider>
+            <RouterRenderer
+              initialRouteName={initialRouteName}
+              routes={routes}
+            />
+            {children}
+          </ModalProvider>
+        </PortalProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   )
 }

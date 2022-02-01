@@ -18,21 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppProvider = exports.useApp = void 0;
-var expo_app_loading_1 = __importDefault(require("expo-app-loading"));
+exports.AppProvider = void 0;
 var react_1 = __importStar(require("react"));
 var react_native_safe_area_context_1 = require("react-native-safe-area-context");
+var app_loading_1 = require("../components/app-loading");
 var modal_context_1 = require("../components/modal-context");
 var portal_1 = require("../components/portal");
 var router_1 = require("./router");
 var theme_1 = require("./theme");
-var appContext = react_1.default.createContext({});
-var useApp = function () { return (0, react_1.useContext)(appContext); };
-exports.useApp = useApp;
 var RouterRenderer = function (_a) {
     var initialRouteName = _a.initialRouteName, routes = _a.routes;
     var theme = (0, theme_1.useTheme)();
@@ -47,22 +41,18 @@ var AppProvider = function (_a) {
         }
     }, [appIsReady]);
     if (!appIsReady) {
-        return (<appContext.Provider value={{ appIsReady: appIsReady }}>
-        <expo_app_loading_1.default startAsync={loadAsync} onFinish={function () { return setAppIsReady(true); }} onError={console.warn}/>
-      </appContext.Provider>);
+        return (<app_loading_1.AppLoading loadAsync={loadAsync} onComplete={function () { return setAppIsReady(true); }} onError={console.warn}/>);
     }
-    return (<appContext.Provider value={{ appIsReady: appIsReady }}>
-      <react_native_safe_area_context_1.SafeAreaProvider>
-        <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
-          <portal_1.PortalProvider>
-            <modal_context_1.ModalProvider>
-              <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
-              {children}
-            </modal_context_1.ModalProvider>
-          </portal_1.PortalProvider>
-        </theme_1.ThemeProvider>
-      </react_native_safe_area_context_1.SafeAreaProvider>
-    </appContext.Provider>);
+    return (<react_native_safe_area_context_1.SafeAreaProvider>
+      <theme_1.ThemeProvider theme={theme} darkTheme={darkTheme}>
+        <portal_1.PortalProvider>
+          <modal_context_1.ModalProvider>
+            <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
+            {children}
+          </modal_context_1.ModalProvider>
+        </portal_1.PortalProvider>
+      </theme_1.ThemeProvider>
+    </react_native_safe_area_context_1.SafeAreaProvider>);
 };
 exports.AppProvider = AppProvider;
 //# sourceMappingURL=app.js.map

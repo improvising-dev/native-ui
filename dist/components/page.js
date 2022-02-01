@@ -12,9 +12,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Page = void 0;
-var expo_status_bar_1 = require("expo-status-bar");
 var react_native_1 = require("react-native");
 var theme_1 = require("../core/theme");
+var status_bar_1 = require("./status-bar");
 var Page = function (_a) {
     var _b = _a.scrollable, scrollable = _b === void 0 ? false : _b, style = _a.style, children = _a.children, viewProps = __rest(_a, ["scrollable", "style", "children"]);
     var theme = (0, theme_1.useTheme)();
@@ -27,12 +27,12 @@ var Page = function (_a) {
     ];
     if (scrollable) {
         return (<react_native_1.ScrollView style={viewStyle} {...viewProps}>
-        <expo_status_bar_1.StatusBar style="auto"/>
+        <status_bar_1.StatusBar style="auto"/>
         {children}
       </react_native_1.ScrollView>);
     }
     return (<react_native_1.View style={viewStyle} {...viewProps}>
-      <expo_status_bar_1.StatusBar style="auto"/>
+      <status_bar_1.StatusBar style="auto"/>
       {children}
     </react_native_1.View>);
 };

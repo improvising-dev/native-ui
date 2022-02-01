@@ -1,6 +1,6 @@
 export declare class HapticFeedback {
-    static lightImpact(): Promise<void>;
-    static mediumImpact(): Promise<void>;
-    static heavyImpact(): Promise<void>;
-    static selectionClick(): Promise<void>;
+    static lightImpact(): void;
+    static mediumImpact(): void;
+    static heavyImpact(): void;
+    static selectionClick(): void;
 }

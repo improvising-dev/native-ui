@@ -1,7 +1,6 @@
 export * from './actions/action-sheet';
 export * from './actions/dialog';
 export * from './actions/fullscreen-loading';
-export * from './actions/haptics';
 export * from './actions/modal';
 export * from './components/action-sheet';
 export * from './components/button';
@@ -14,6 +13,7 @@ export * from './components/picker';
 export * from './components/portal';
 export * from './components/spacer';
 export * from './components/stack';
+export * from './components/status-bar';
 export * from './components/text';
 export * from './core/animation';
 export * from './core/app';

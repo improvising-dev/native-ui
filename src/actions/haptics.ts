@@ -1,19 +1,19 @@
-import * as Haptics from 'expo-haptics'
+import RNHapticFeedback from 'react-native-haptic-feedback'
 
 export class HapticFeedback {
-  static async lightImpact() {
-    return Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+  static lightImpact() {
+    RNHapticFeedback.trigger('impactLight')
   }
 
-  static async mediumImpact() {
-    return Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+  static mediumImpact() {
+    RNHapticFeedback.trigger('impactMedium')
   }
 
-  static async heavyImpact() {
-    return Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+  static heavyImpact() {
+    RNHapticFeedback.trigger('impactHeavy')
   }
 
-  static async selectionClick() {
-    return Haptics.selectionAsync()
+  static selectionClick() {
+    RNHapticFeedback.trigger('selection')
   }
 }
