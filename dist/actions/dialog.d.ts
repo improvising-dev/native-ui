@@ -1,5 +1,5 @@
-import { ModalStateProps } from '../components/modal';
 import { AlertDialogProps, ConfirmDialogProps, PromptDialogProps } from '../components/dialog';
+import { ModalStateProps } from '../components/modal';
 export declare type AlertOptions = Omit<AlertDialogProps, keyof ModalStateProps>;
 export declare type ConfirmOptions = Omit<ConfirmDialogProps, keyof ModalStateProps>;
 export declare type PromptOptions = Omit<PromptDialogProps, keyof ModalStateProps>;

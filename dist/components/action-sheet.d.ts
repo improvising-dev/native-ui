@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ModalStateProps } from './modal';
 export interface ActionSheetItem {
     title: string;

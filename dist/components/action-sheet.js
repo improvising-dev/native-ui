@@ -10,8 +10,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionSheet = void 0;
+var react_1 = __importDefault(require("react"));
 var react_native_safe_area_context_1 = require("react-native-safe-area-context");
 var theme_1 = require("../core/theme");
 var button_1 = require("./button");

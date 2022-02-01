@@ -1,3 +1,4 @@
+import React from 'react'
 import { ActivityIndicator, useColorScheme, View } from 'react-native'
 
 export interface AppLoadingProps {

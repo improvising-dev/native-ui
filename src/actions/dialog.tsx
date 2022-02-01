@@ -1,4 +1,4 @@
-import { ModalStateProps } from '../components/modal'
+import React from 'react'
 import {
   AlertDialog,
   AlertDialogProps,
@@ -7,6 +7,7 @@ import {
   PromptDialog,
   PromptDialogProps,
 } from '../components/dialog'
+import { ModalStateProps } from '../components/modal'
 import { showModal } from './modal'
 
 export type AlertOptions = Omit<AlertDialogProps, keyof ModalStateProps>

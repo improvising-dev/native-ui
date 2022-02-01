@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 export declare type ModalTransition = 'fade' | 'slide' | 'scale';
 export declare type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right';

@@ -10,8 +10,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Button = void 0;
+var react_1 = __importDefault(require("react"));
 var react_native_1 = require("react-native");
 var haptic_feedback_1 = require("../actions/haptic-feedback");
 var animation_1 = require("../core/animation");

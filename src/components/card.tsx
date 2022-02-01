@@ -1,3 +1,4 @@
+import React from 'react'
 import { Pressable, ViewProps } from 'react-native'
 import { HapticFeedback } from '../actions/haptic-feedback'
 import { useTheme } from '../core/theme'

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Pressable, StyleProp, ViewStyle } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { useTheme } from '../core/theme'

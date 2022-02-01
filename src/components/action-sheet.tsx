@@ -1,3 +1,4 @@
+import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
 import { Button } from './button'

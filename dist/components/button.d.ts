@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 export interface ButtonProps {
     children?: string | React.ReactNode;

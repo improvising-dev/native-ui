@@ -1,3 +1,4 @@
+import React from 'react'
 import { ScrollView, StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
 import { StatusBar } from './status-bar'

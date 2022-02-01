@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showPrompt = exports.showConfirm = exports.showAlert = void 0;
+var react_1 = __importDefault(require("react"));
 var dialog_1 = require("../components/dialog");
 var modal_1 = require("./modal");
 var showAlert = function (options) {

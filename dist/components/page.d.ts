@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ViewProps } from 'react-native';
 export interface PageProps extends ViewProps {
     scrollable?: boolean;

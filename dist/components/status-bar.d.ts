@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { ColorSchemeName, StatusBarProps as RNStatusBarProps } from 'react-native';
 export declare type StatusBarStyle = 'auto' | 'inverted' | 'light' | 'dark';
 export interface StatusBarProps {

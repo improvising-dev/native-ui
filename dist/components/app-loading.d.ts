@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 export interface AppLoadingProps {
     loadAsync: () => Promise<void>;
     onComplete: () => void;

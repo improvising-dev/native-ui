@@ -1,3 +1,4 @@
+import React from 'react'
 import { TextInput, TextInputProps, TextStyle } from 'react-native'
 import { useTheme } from '../core/theme'
 

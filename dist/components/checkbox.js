@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CheckBox = void 0;
+var react_1 = __importDefault(require("react"));
 var react_native_1 = require("react-native");
 var react_native_eva_icons_1 = require("react-native-eva-icons");
 var theme_1 = require("../core/theme");

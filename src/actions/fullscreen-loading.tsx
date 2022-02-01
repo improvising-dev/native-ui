@@ -1,3 +1,4 @@
+import React from 'react'
 import { FullscreenLoading } from '../components/fullscreen-loading'
 import { showModal } from './modal'
 

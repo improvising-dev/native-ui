@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { TextInputProps, TextStyle } from 'react-native';
 export interface InputProps extends TextInputProps {
     style?: TextStyle;
