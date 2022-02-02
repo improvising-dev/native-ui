@@ -14,6 +14,8 @@ const TextColor: Theme['textColor'] = {
   primaryUnselected: '#8d8d8d',
   secondary: '#8d8d8d',
   secondaryUnselected: '#adadad',
+  destructive: '#fe3f43',
+  destructiveSecondary: '#fe3f4390',
   placeholder: '#adadad',
 } as const
 
@@ -25,6 +27,8 @@ export const LightTheme: Theme = merge(cloneDeep(DefaultTheme), {
 
   primaryColor: '#6d3df4',
   primaryContrastingColor: '#ffffff',
+
+  destructiveColor: '#fe3f43',
 
   backgroundColor: BackgroundColor,
   textColor: TextColor,

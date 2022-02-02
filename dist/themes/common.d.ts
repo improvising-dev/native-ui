@@ -2,6 +2,12 @@ export declare const DefaultComponentTheme: {
     readonly actionSheet: {
         readonly zIndex: 500;
         readonly itemHeight: 60;
+        readonly titleTextStyle: {
+            readonly fontSize: 17;
+        };
+        readonly subtitleTextStyle: {
+            readonly fontSize: 12;
+        };
     };
     readonly checkbox: {
         readonly size: 18;
@@ -12,7 +18,9 @@ export declare const DefaultComponentTheme: {
             readonly fontSize: 19;
             readonly fontWeight: "500";
         };
-        readonly messageTextStyle: {};
+        readonly messageTextStyle: {
+            readonly fontSize: 17;
+        };
     };
     readonly fullscreenLoading: {
         readonly zIndex: 5000;
@@ -68,6 +76,12 @@ export declare const DefaultTheme: {
         readonly actionSheet: {
             readonly zIndex: 500;
             readonly itemHeight: 60;
+            readonly titleTextStyle: {
+                readonly fontSize: 17;
+            };
+            readonly subtitleTextStyle: {
+                readonly fontSize: 12;
+            };
         };
         readonly checkbox: {
             readonly size: 18;
@@ -78,7 +92,9 @@ export declare const DefaultTheme: {
                 readonly fontSize: 19;
                 readonly fontWeight: "500";
             };
-            readonly messageTextStyle: {};
+            readonly messageTextStyle: {
+                readonly fontSize: 17;
+            };
         };
         readonly fullscreenLoading: {
             readonly zIndex: 5000;

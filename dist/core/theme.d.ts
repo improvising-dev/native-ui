@@ -11,6 +11,8 @@ export interface ComponentTheme {
     actionSheet: {
         zIndex: number;
         itemHeight: number;
+        titleTextStyle: TextStyle;
+        subtitleTextStyle: TextStyle;
     };
     checkbox: {
         size: number;
@@ -48,6 +50,8 @@ export interface Theme {
         primaryUnselected: string;
         secondary: string;
         secondaryUnselected: string;
+        destructive: string;
+        destructiveSecondary: string;
         placeholder: string;
     };
     textTheme: TextTheme;

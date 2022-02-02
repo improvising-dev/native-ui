@@ -8,8 +8,8 @@ export interface SpacerProps {
 
 export const Spacer: React.FC<SpacerProps> = memo(({ width, height }) => {
   if (width || height) {
-    return <View style={{ width, height }} />
+    return <View pointerEvents="box-none" style={{ width, height }} />
   }
 
-  return <View style={{ flex: 1 }} />
+  return <View pointerEvents="box-none" style={{ flex: 1 }} />
 })

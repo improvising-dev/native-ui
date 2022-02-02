@@ -4,13 +4,15 @@ const BackgroundColor = {
     primary: '#151515',
     secondary: '#000000',
     fill: '#252525',
-    modalBarrier: 'rgba(0, 0, 0, .7)',
+    modalBarrier: 'rgba(0, 0, 0, .8)',
 };
 const TextColor = {
     primary: '#ffffff',
     primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
     secondaryUnselected: '#5d5d5d',
+    destructive: '#fe3f43',
+    destructiveSecondary: '#fe3f4390',
     placeholder: '#5d5d5d',
 };
 export const DarkTheme = merge(cloneDeep(DefaultTheme), {

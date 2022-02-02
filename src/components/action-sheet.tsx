@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Text } from './text'
 import { useTheme } from '../core/theme'
 import { Button } from './button'
 import { Modal, ModalStateProps } from './modal'
@@ -7,7 +8,7 @@ import { Modal, ModalStateProps } from './modal'
 export interface ActionSheetItem {
   title: string
   subtitle?: string
-  destrutive?: boolean
+  destructive?: boolean
   onPressed?: () => void
 }
 
@@ -68,7 +69,29 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
               onDismiss?.()
             }}
           >
-            {item.title}
+            <Text
+              style={{
+                ...theme.componentTheme.actionSheet.titleTextStyle,
+                color: item.destructive
+                  ? theme.textColor.destructive
+                  : theme.textColor.primary,
+              }}
+            >
+              {item.title}
+            </Text>
+            {item.subtitle && (
+              <Text
+                style={{
+                  ...theme.componentTheme.actionSheet.subtitleTextStyle,
+                  marginTop: 2,
+                  color: item.destructive
+                    ? theme.textColor.destructiveSecondary
+                    : theme.textColor.secondary,
+                }}
+              >
+                {item.subtitle}
+              </Text>
+            )}
           </Button>
         )
       })}

@@ -11,6 +11,8 @@ const TextColor = {
     primaryUnselected: '#8d8d8d',
     secondary: '#8d8d8d',
     secondaryUnselected: '#adadad',
+    destructive: '#fe3f43',
+    destructiveSecondary: '#fe3f4390',
     placeholder: '#adadad',
 };
 export const LightTheme = merge(cloneDeep(DefaultTheme), {
@@ -19,6 +21,7 @@ export const LightTheme = merge(cloneDeep(DefaultTheme), {
     black: '#000000',
     primaryColor: '#6d3df4',
     primaryContrastingColor: '#ffffff',
+    destructiveColor: '#fe3f43',
     backgroundColor: BackgroundColor,
     textColor: TextColor,
     textTheme: {

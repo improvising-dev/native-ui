@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text } from './text';
 import { useTheme } from '../core/theme';
 import { Button } from './button';
 import { Modal } from './modal';
@@ -28,7 +29,16 @@ export const ActionSheet = ({ items, visible, duration, onBackdropPressed, onDis
                     (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
                     onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
                 }}>
-            {item.title}
+            <Text style={Object.assign(Object.assign({}, theme.componentTheme.actionSheet.titleTextStyle), { color: item.destructive
+                        ? theme.textColor.destructive
+                        : theme.textColor.primary })}>
+              {item.title}
+            </Text>
+            {item.subtitle && (<Text style={Object.assign(Object.assign({}, theme.componentTheme.actionSheet.subtitleTextStyle), { marginTop: 2, color: item.destructive
+                            ? theme.textColor.destructiveSecondary
+                            : theme.textColor.secondary })}>
+                {item.subtitle}
+              </Text>)}
           </Button>);
         })}
     </Modal>);

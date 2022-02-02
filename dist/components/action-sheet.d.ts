@@ -3,7 +3,7 @@ import { ModalStateProps } from './modal';
 export interface ActionSheetItem {
     title: string;
     subtitle?: string;
-    destrutive?: boolean;
+    destructive?: boolean;
     onPressed?: () => void;
 }
 export interface ActionSheetProps extends ModalStateProps {

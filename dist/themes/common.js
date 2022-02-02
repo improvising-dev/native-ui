@@ -2,6 +2,8 @@ export const DefaultComponentTheme = {
     actionSheet: {
         zIndex: 500,
         itemHeight: 60,
+        titleTextStyle: { fontSize: 17 },
+        subtitleTextStyle: { fontSize: 12 },
     },
     checkbox: {
         size: 18,
@@ -12,7 +14,7 @@ export const DefaultComponentTheme = {
             fontSize: 19,
             fontWeight: '500',
         },
-        messageTextStyle: {},
+        messageTextStyle: { fontSize: 17 },
     },
     fullscreenLoading: {
         zIndex: 5000,
