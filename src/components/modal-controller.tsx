@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
 
 export interface ModalBuilderParams {
   visible: boolean
@@ -20,7 +15,7 @@ export interface ModalControllerProps {
   children: (params: ModalBuilderParams) => React.ReactNode
 }
 
-export const ModalController = forwardRef<
+export const ModalController = React.forwardRef<
   ModalControllerRef,
   ModalControllerProps
 >(({ duration = 400, children }, ref) => {

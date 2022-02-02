@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { memo, useContext } from 'react'
 import { useWindowDimensions } from 'react-native'
 
 export interface Constraints {
@@ -21,14 +21,12 @@ export interface ConstraintsProviderProps {
   maxHeight?: number
 }
 
-export const ConstraintsProvider: React.FC<ConstraintsProviderProps> = ({
-  maxWidth,
-  maxHeight,
-  children,
-}) => {
-  return (
-    <constraintsContext.Provider value={{ maxWidth, maxHeight }}>
-      {children}
-    </constraintsContext.Provider>
-  )
-}
+export const ConstraintsProvider: React.FC<ConstraintsProviderProps> = memo(
+  ({ maxWidth, maxHeight, children }) => {
+    return (
+      <constraintsContext.Provider value={{ maxWidth, maxHeight }}>
+        {children}
+      </constraintsContext.Provider>
+    )
+  },
+)

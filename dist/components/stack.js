@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { memo } from 'react';
 import { View } from 'react-native';
-export const Stack = ({ direction, align, justify, style, spacing, children, }) => {
-    const items = useMemo(() => {
+export const Stack = memo(({ direction, align, justify, style, spacing, children }) => {
+    const renderItems = () => {
         if (!spacing) {
             return children;
         }
@@ -17,7 +17,7 @@ export const Stack = ({ direction, align, justify, style, spacing, children, }) 
         }
         builder.shift();
         return builder;
-    }, [children]);
+    };
     return (<View style={[
             {
                 flexDirection: direction,
@@ -26,6 +26,6 @@ export const Stack = ({ direction, align, justify, style, spacing, children, }) 
             },
             style,
         ]}>
-      {items}
-    </View>);
-};
+        {renderItems()}
+      </View>);
+});

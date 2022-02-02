@@ -1,2 +1,6 @@
 import React from 'react';
-export declare const Spacer: React.FC;
+export interface SpacerProps {
+    width?: number;
+    height?: number;
+}
+export declare const Spacer: React.FC<SpacerProps>;
