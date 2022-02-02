@@ -1,14 +1,20 @@
 import React, { useContext } from 'react'
 import { useWindowDimensions } from 'react-native'
 
-export interface ConstraintsContext {
-  maxWidth: number
-  maxHeight: number
+export interface Constraints {
+  maxWidth?: number
+  maxHeight?: number
 }
 
-const constraintsContext = React.createContext({} as ConstraintsContext)
+const constraintsContext = React.createContext<Constraints>({})
 
-export const useConstraints = () => useContext(constraintsContext)
+export const useConstraints = () => {
+  const { width, height } = useWindowDimensions()
+  const { maxWidth = width, maxHeight = height } =
+    useContext(constraintsContext)
+
+  return { maxWidth, maxHeight }
+}
 
 export interface ConstraintsProviderProps {
   maxWidth?: number
@@ -16,15 +22,10 @@ export interface ConstraintsProviderProps {
 }
 
 export const ConstraintsProvider: React.FC<ConstraintsProviderProps> = ({
-  maxWidth: providedMaxWidth,
-  maxHeight: providedMaxHeight,
+  maxWidth,
+  maxHeight,
   children,
 }) => {
-  const dimensions = useWindowDimensions()
-
-  const maxWidth = providedMaxWidth ?? dimensions.width
-  const maxHeight = providedMaxHeight ?? dimensions.height
-
   return (
     <constraintsContext.Provider value={{ maxWidth, maxHeight }}>
       {children}
