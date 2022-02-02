@@ -4,6 +4,7 @@ export declare const DefaultComponentTheme: {
         readonly itemHeight: 60;
         readonly titleTextStyle: {
             readonly fontSize: 17;
+            readonly fontWeight: "500";
         };
         readonly subtitleTextStyle: {
             readonly fontSize: 12;
@@ -78,6 +79,7 @@ export declare const DefaultTheme: {
             readonly itemHeight: 60;
             readonly titleTextStyle: {
                 readonly fontSize: 17;
+                readonly fontWeight: "500";
             };
             readonly subtitleTextStyle: {
                 readonly fontSize: 12;

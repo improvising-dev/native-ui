@@ -2,7 +2,10 @@ export const DefaultComponentTheme = {
     actionSheet: {
         zIndex: 500,
         itemHeight: 60,
-        titleTextStyle: { fontSize: 17 },
+        titleTextStyle: {
+            fontSize: 17,
+            fontWeight: '500',
+        },
         subtitleTextStyle: { fontSize: 12 },
     },
     checkbox: {
