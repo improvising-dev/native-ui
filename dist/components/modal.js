@@ -4,7 +4,7 @@ import { useAnimatedValue } from '../core/animation';
 import { Performance } from '../core/performance';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', to = 'top', style, useNativeDriver = Performance.animation.useNativeDriver, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, useNativeDriver = Performance.animation.useNativeDriver, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const value = useAnimatedValue(visible ? 1 : 0);
@@ -59,26 +59,26 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        if (transition === 'slide') {
+        if (transition.startsWith('slide-')) {
             return (<Animated.View style={[
                     {
                         zIndex: zIndex + 1,
                         transform: [
-                            to === 'top'
+                            transition === 'slide-up'
                                 ? {
                                     translateY: value.interpolate({
                                         inputRange: [0, 1],
                                         outputRange: [dimensions.height, 0],
                                     }),
                                 }
-                                : to === 'bottom'
+                                : transition === 'slide-down'
                                     ? {
                                         translateY: value.interpolate({
                                             inputRange: [0, 1],
                                             outputRange: [-dimensions.height, 0],
                                         }),
                                     }
-                                    : to === 'left'
+                                    : transition === 'slide-left'
                                         ? {
                                             translateX: value.interpolate({
                                                 inputRange: [0, 1],
@@ -107,7 +107,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                             {
                                 scale: value.interpolate({
                                     inputRange: [0, 1],
-                                    outputRange: [0.8, 1],
+                                    outputRange: [0.9, 1],
                                 }),
                             },
                         ],

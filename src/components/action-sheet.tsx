@@ -31,7 +31,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
     <Modal
       zIndex={theme.componentTheme.actionSheet.zIndex}
       visible={visible}
-      transition="slide"
+      transition="slide-up"
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}

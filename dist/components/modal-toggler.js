@@ -1,5 +1,5 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-export const ModalToggler = React.forwardRef(({ duration = 400, children }, ref) => {
+export const ModalToggler = React.forwardRef(({ transitionDuration = 400, children }, ref) => {
     const [visible, setVisible] = useState(false);
     const handleDismiss = () => {
         setVisible(false);
@@ -12,8 +12,8 @@ export const ModalToggler = React.forwardRef(({ duration = 400, children }, ref)
     });
     return (<>
       {children({
-            duration,
             visible,
+            transitionDuration,
             handleDismiss,
         })}
     </>);

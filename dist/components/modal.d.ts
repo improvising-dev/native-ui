@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-export declare type ModalTransition = 'fade' | 'slide' | 'scale';
-export declare type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right';
+export declare type ModalTransition = 'fade' | 'scale' | 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right';
 export interface ModalStateProps {
     visible: boolean;
     transitionDuration?: number;
@@ -14,7 +13,6 @@ export interface ModalProps extends ModalStateProps {
     dismissible?: boolean;
     backdrop?: boolean;
     transition?: ModalTransition;
-    to?: ModalSlideTo;
     style?: StyleProp<ViewStyle>;
     useNativeDriver?: boolean;
 }

@@ -7,7 +7,7 @@ import { Modal } from './modal';
 export const ActionSheet = ({ items, visible, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
-    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition="slide" transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition="slide-up" transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

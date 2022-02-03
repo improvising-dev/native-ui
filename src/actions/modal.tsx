@@ -7,16 +7,16 @@ import {
 import { ModalService } from '../core/modal'
 
 export const showModal = ({
-  duration,
+  transitionDuration,
   builder,
 }: {
-  duration?: number
+  transitionDuration?: number
   builder: (params: ModalBuilderParams) => React.ReactNode
 }) => {
   const togglerRef = createRef<ModalTogglerRef>()
 
   const dispose = ModalService.create(
-    <ModalToggler ref={togglerRef} duration={duration}>
+    <ModalToggler ref={togglerRef} transitionDuration={transitionDuration}>
       {builder}
     </ModalToggler>,
   )

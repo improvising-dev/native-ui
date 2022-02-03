@@ -12,8 +12,13 @@ import { Performance } from '../core/performance'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
 
-export type ModalTransition = 'fade' | 'slide' | 'scale'
-export type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right'
+export type ModalTransition =
+  | 'fade'
+  | 'scale'
+  | 'slide-up'
+  | 'slide-down'
+  | 'slide-left'
+  | 'slide-right'
 
 export interface ModalStateProps {
   visible: boolean
@@ -28,7 +33,6 @@ export interface ModalProps extends ModalStateProps {
   dismissible?: boolean
   backdrop?: boolean
   transition?: ModalTransition
-  to?: ModalSlideTo
   style?: StyleProp<ViewStyle>
   useNativeDriver?: boolean
 }
@@ -39,7 +43,6 @@ export const Modal: React.FC<ModalProps> = ({
   dismissible = true,
   backdrop = true,
   transition = 'fade',
-  to = 'top',
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   visible,
@@ -113,28 +116,28 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderContent = () => {
-    if (transition === 'slide') {
+    if (transition.startsWith('slide-')) {
       return (
         <Animated.View
           style={[
             {
               zIndex: zIndex + 1,
               transform: [
-                to === 'top'
+                transition === 'slide-up'
                   ? {
                       translateY: value.interpolate({
                         inputRange: [0, 1],
                         outputRange: [dimensions.height, 0],
                       }),
                     }
-                  : to === 'bottom'
+                  : transition === 'slide-down'
                   ? {
                       translateY: value.interpolate({
                         inputRange: [0, 1],
                         outputRange: [-dimensions.height, 0],
                       }),
                     }
-                  : to === 'left'
+                  : transition === 'slide-left'
                   ? {
                       translateX: value.interpolate({
                         inputRange: [0, 1],
@@ -166,7 +169,7 @@ export const Modal: React.FC<ModalProps> = ({
                 {
                   scale: value.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0.8, 1],
+                    outputRange: [0.9, 1],
                   }),
                 },
               ],

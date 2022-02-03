@@ -11,7 +11,7 @@ export const Dialog = ({ children, visible, transitionDuration, onBackdropPresse
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const keyboardHeight = useKeyboardHeight();
-    return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} transition="slide" transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} transition="slide-up" transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

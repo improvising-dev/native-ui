@@ -26,7 +26,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <Modal
       zIndex={theme.componentTheme.dialog.zIndex}
       visible={visible}
-      transition="slide"
+      transition="slide-up"
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
