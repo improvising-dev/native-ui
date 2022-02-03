@@ -1,1 +1,1 @@
-export declare const useKeyboardHeight: () => number;
+export declare const useKeyboardHeight: (onChange?: ((height: number) => void) | undefined) => number;

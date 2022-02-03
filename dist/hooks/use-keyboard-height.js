@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Keyboard, Platform } from 'react-native';
-export const useKeyboardHeight = () => {
+export const useKeyboardHeight = (onChange) => {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
     useEffect(() => {
         if (Platform.OS === 'ios') {
@@ -22,9 +22,11 @@ export const useKeyboardHeight = () => {
     }, []);
     const keyboardShow = frames => {
         setKeyboardHeight(frames.endCoordinates.height);
+        onChange === null || onChange === void 0 ? void 0 : onChange(frames.endCoordinates.height);
     };
     const keyboardHide = () => {
         setKeyboardHeight(0);
+        onChange === null || onChange === void 0 ? void 0 : onChange(0);
     };
     return keyboardHeight;
 };
