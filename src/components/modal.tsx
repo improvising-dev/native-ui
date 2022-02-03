@@ -17,7 +17,7 @@ export type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right'
 
 export interface ModalStateProps {
   visible: boolean
-  duration?: number
+  transitionDuration?: number
   onBackdropPressed?: () => void
   onDismiss?: () => void
   onUnmounted?: () => void
@@ -43,7 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
   style,
   useNativeDriver = Performance.animation.useNativeDriver,
   visible,
-  duration = 400,
+  transitionDuration = 400,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -59,7 +59,7 @@ export const Modal: React.FC<ModalProps> = ({
       if (mounted) {
         Animated.timing(value, {
           toValue: 1,
-          duration,
+          duration: transitionDuration,
           useNativeDriver,
         }).start()
       } else {
@@ -68,19 +68,19 @@ export const Modal: React.FC<ModalProps> = ({
     } else if (mounted) {
       Animated.timing(value, {
         toValue: 0,
-        duration,
+        duration: transitionDuration,
         useNativeDriver,
       }).start()
 
       setTimeout(() => {
         setMounted(false)
         onUnmounted?.()
-      }, duration)
+      }, transitionDuration)
     }
   }, [visible, mounted])
 
   if (!mounted) {
-    return <></>
+    return null
   }
 
   const handleBackdropPress = () => {
@@ -93,7 +93,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const renderBackdrop = () => {
     if (!backdrop) {
-      return <></>
+      return null
     }
 
     return (

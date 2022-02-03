@@ -1,9 +1,9 @@
 import React, { createRef } from 'react'
 import {
   ModalBuilderParams,
-  ModalController,
-  ModalControllerRef,
-} from '../components/modal-controller'
+  ModalToggler,
+  ModalTogglerRef,
+} from '../components/modal-toggler'
 import { ModalService } from '../core/modal'
 
 export const showModal = ({
@@ -13,16 +13,16 @@ export const showModal = ({
   duration?: number
   builder: (params: ModalBuilderParams) => React.ReactNode
 }) => {
-  const controllerRef = createRef<ModalControllerRef>()
+  const togglerRef = createRef<ModalTogglerRef>()
 
   const dispose = ModalService.create(
-    <ModalController ref={controllerRef} duration={duration}>
+    <ModalToggler ref={togglerRef} duration={duration}>
       {builder}
-    </ModalController>,
+    </ModalToggler>,
   )
 
   return {
     dispose,
-    handleDismiss: () => controllerRef.current?.handleDismiss(),
+    handleDismiss: () => togglerRef.current?.handleDismiss(),
   }
 }

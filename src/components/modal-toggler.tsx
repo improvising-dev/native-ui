@@ -6,18 +6,18 @@ export interface ModalBuilderParams {
   handleDismiss: () => void
 }
 
-export interface ModalControllerRef {
+export interface ModalTogglerRef {
   handleDismiss: () => void
 }
 
-export interface ModalControllerProps {
+export interface ModalTogglerProps {
   duration?: number
   children: (params: ModalBuilderParams) => React.ReactNode
 }
 
-export const ModalController = React.forwardRef<
-  ModalControllerRef,
-  ModalControllerProps
+export const ModalToggler = React.forwardRef<
+  ModalTogglerRef,
+  ModalTogglerProps
 >(({ duration = 400, children }, ref) => {
   const [visible, setVisible] = useState(false)
 

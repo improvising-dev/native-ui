@@ -4,7 +4,7 @@ import { useAnimatedValue } from '../core/animation';
 import { Performance } from '../core/performance';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', to = 'top', style, useNativeDriver = Performance.animation.useNativeDriver, visible, duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', to = 'top', style, useNativeDriver = Performance.animation.useNativeDriver, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const value = useAnimatedValue(visible ? 1 : 0);
@@ -14,7 +14,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             if (mounted) {
                 Animated.timing(value, {
                     toValue: 1,
-                    duration,
+                    duration: transitionDuration,
                     useNativeDriver,
                 }).start();
             }
@@ -25,17 +25,17 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         else if (mounted) {
             Animated.timing(value, {
                 toValue: 0,
-                duration,
+                duration: transitionDuration,
                 useNativeDriver,
             }).start();
             setTimeout(() => {
                 setMounted(false);
                 onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
-            }, duration);
+            }, transitionDuration);
         }
     }, [visible, mounted]);
     if (!mounted) {
-        return <></>;
+        return null;
     }
     const handleBackdropPress = () => {
         onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
@@ -45,7 +45,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderBackdrop = () => {
         if (!backdrop) {
-            return <></>;
+            return null;
         }
         return (<TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Animated.View style={[

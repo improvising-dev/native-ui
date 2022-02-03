@@ -1,13 +1,13 @@
 import React, { createRef } from 'react';
-import { ModalController, } from '../components/modal-controller';
+import { ModalToggler, } from '../components/modal-toggler';
 import { ModalService } from '../core/modal';
 export const showModal = ({ duration, builder, }) => {
-    const controllerRef = createRef();
-    const dispose = ModalService.create(<ModalController ref={controllerRef} duration={duration}>
+    const togglerRef = createRef();
+    const dispose = ModalService.create(<ModalToggler ref={togglerRef} duration={duration}>
       {builder}
-    </ModalController>);
+    </ModalToggler>);
     return {
         dispose,
-        handleDismiss: () => { var _a; return (_a = controllerRef.current) === null || _a === void 0 ? void 0 : _a.handleDismiss(); },
+        handleDismiss: () => { var _a; return (_a = togglerRef.current) === null || _a === void 0 ? void 0 : _a.handleDismiss(); },
     };
 };

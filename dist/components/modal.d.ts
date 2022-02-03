@@ -4,7 +4,7 @@ export declare type ModalTransition = 'fade' | 'slide' | 'scale';
 export declare type ModalSlideTo = 'top' | 'bottom' | 'left' | 'right';
 export interface ModalStateProps {
     visible: boolean;
-    duration?: number;
+    transitionDuration?: number;
     onBackdropPressed?: () => void;
     onDismiss?: () => void;
     onUnmounted?: () => void;

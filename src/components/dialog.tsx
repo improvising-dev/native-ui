@@ -13,7 +13,7 @@ export interface DialogProps extends ModalStateProps {}
 export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
-  duration,
+  transitionDuration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -26,11 +26,11 @@ export const Dialog: React.FC<DialogProps> = ({
     <Modal
       zIndex={theme.componentTheme.dialog.zIndex}
       visible={visible}
-      duration={duration}
+      transition="slide"
+      transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
-      transition="slide"
       style={{
         position: 'absolute',
         bottom: 0,
@@ -60,7 +60,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   message,
   okButtonText = 'Ok',
   visible,
-  duration,
+  transitionDuration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -70,7 +70,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   return (
     <Dialog
       visible={visible}
-      duration={duration}
+      transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
@@ -112,7 +112,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   cancelButtonText = 'Cancel',
   confirmButtonText = 'Confirm',
   visible,
-  duration,
+  transitionDuration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -122,7 +122,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   return (
     <Dialog
       visible={visible}
-      duration={duration}
+      transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.(false)}
       onUnmounted={onUnmounted}
@@ -182,7 +182,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   placeholder,
   initialValue = '',
   visible,
-  duration,
+  transitionDuration,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -193,7 +193,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   return (
     <Dialog
       visible={visible}
-      duration={duration}
+      transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.()}
       onUnmounted={onUnmounted}

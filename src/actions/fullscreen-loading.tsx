@@ -1,11 +1,15 @@
 import React from 'react'
-import { FullscreenLoading } from '../components/fullscreen-loading'
+import {
+  FullscreenLoading,
+  FullscreenLoadingController,
+} from '../components/fullscreen-loading'
 import { showModal } from './modal'
 
-export const showLoading = () => {
+export const showLoading = (controller?: FullscreenLoadingController) => {
   const { dispose, handleDismiss } = showModal({
     builder: ({ visible, handleDismiss }) => (
       <FullscreenLoading
+        controller={controller}
         visible={visible}
         onDismiss={handleDismiss}
         onUnmounted={() => dispose()}
@@ -16,8 +20,11 @@ export const showLoading = () => {
   return handleDismiss
 }
 
-export const handleLoading = async <T,>(cb: () => Promise<T> | T) => {
-  const hideLoading = showLoading()
+export const handleLoading = async <T,>(
+  cb: () => Promise<T> | T,
+  controller?: FullscreenLoadingController,
+) => {
+  const hideLoading = showLoading(controller)
 
   try {
     return await cb()

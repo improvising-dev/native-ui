@@ -1,5 +1,5 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-export const ModalController = React.forwardRef(({ duration = 400, children }, ref) => {
+export const ModalToggler = React.forwardRef(({ duration = 400, children }, ref) => {
     const [visible, setVisible] = useState(false);
     const handleDismiss = () => {
         setVisible(false);

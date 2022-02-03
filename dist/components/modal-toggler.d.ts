@@ -4,11 +4,11 @@ export interface ModalBuilderParams {
     duration: number;
     handleDismiss: () => void;
 }
-export interface ModalControllerRef {
+export interface ModalTogglerRef {
     handleDismiss: () => void;
 }
-export interface ModalControllerProps {
+export interface ModalTogglerProps {
     duration?: number;
     children: (params: ModalBuilderParams) => React.ReactNode;
 }
-export declare const ModalController: React.ForwardRefExoticComponent<ModalControllerProps & React.RefAttributes<ModalControllerRef>>;
+export declare const ModalToggler: React.ForwardRefExoticComponent<ModalTogglerProps & React.RefAttributes<ModalTogglerRef>>;
