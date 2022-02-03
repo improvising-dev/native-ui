@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LayoutAnimation } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../core/theme';
 import { useKeyboardHeight } from '../hooks/use-keyboard-height';
@@ -10,14 +11,18 @@ import { Text } from './text';
 export const Dialog = ({ children, visible, transition = 'slide-up', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
-    const keyboardHeight = useKeyboardHeight();
+    const [bottomInset, setBottomInset] = useState(insets.bottom);
+    useKeyboardHeight(keyboardHeight => {
+        LayoutAnimation.configureNext(Object.assign(Object.assign({}, LayoutAnimation.Presets.easeInEaseOut), { duration: 200 }));
+        setBottomInset(keyboardHeight > 0 ? keyboardHeight : insets.bottom);
+    });
     return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
             padding: theme.spacing,
-            paddingBottom: theme.spacing + (keyboardHeight > 0 ? keyboardHeight : insets.bottom),
+            paddingBottom: theme.spacing + bottomInset,
             borderTopLeftRadius: theme.borderRadius,
             borderTopRightRadius: theme.borderRadius,
             backgroundColor: theme.backgroundColor.primary,

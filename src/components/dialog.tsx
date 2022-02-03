@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { LayoutAnimation } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
 import { useKeyboardHeight } from '../hooks/use-keyboard-height'
@@ -21,7 +22,17 @@ export const Dialog: React.FC<DialogProps> = ({
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
-  const keyboardHeight = useKeyboardHeight()
+
+  const [bottomInset, setBottomInset] = useState(insets.bottom)
+
+  useKeyboardHeight(keyboardHeight => {
+    LayoutAnimation.configureNext({
+      ...LayoutAnimation.Presets.easeInEaseOut,
+      duration: 200,
+    })
+
+    setBottomInset(keyboardHeight > 0 ? keyboardHeight : insets.bottom)
+  })
 
   return (
     <Modal
@@ -38,8 +49,7 @@ export const Dialog: React.FC<DialogProps> = ({
         left: 0,
         right: 0,
         padding: theme.spacing,
-        paddingBottom:
-          theme.spacing + (keyboardHeight > 0 ? keyboardHeight : insets.bottom),
+        paddingBottom: theme.spacing + bottomInset,
         borderTopLeftRadius: theme.borderRadius,
         borderTopRightRadius: theme.borderRadius,
         backgroundColor: theme.backgroundColor.primary,
