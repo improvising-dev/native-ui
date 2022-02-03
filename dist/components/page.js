@@ -10,11 +10,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme } from '../core/theme';
 import { StatusBar } from './status-bar';
+import { ScrollView } from './scroll-view';
 export const Page = (_a) => {
-    var { scrollable = false, style, children } = _a, viewProps = __rest(_a, ["scrollable", "style", "children"]);
+    var { scrollable = false, keyboardAvoiding = false, style, children } = _a, viewProps = __rest(_a, ["scrollable", "keyboardAvoiding", "style", "children"]);
     const theme = useTheme();
     const viewStyle = [
         {
@@ -24,7 +25,7 @@ export const Page = (_a) => {
         style,
     ];
     if (scrollable) {
-        return (<ScrollView style={viewStyle} {...viewProps}>
+        return (<ScrollView keyboardAvoiding={keyboardAvoiding} style={viewStyle} {...viewProps}>
         <StatusBar style="auto"/>
         {children}
       </ScrollView>);

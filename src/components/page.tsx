@@ -1,14 +1,17 @@
 import React from 'react'
-import { ScrollView, StyleProp, View, ViewProps, ViewStyle } from 'react-native'
+import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
 import { StatusBar } from './status-bar'
+import { ScrollView } from './scroll-view'
 
 export interface PageProps extends ViewProps {
   scrollable?: boolean
+  keyboardAvoiding?: boolean
 }
 
 export const Page: React.FC<PageProps> = ({
   scrollable = false,
+  keyboardAvoiding = false,
   style,
   children,
   ...viewProps
@@ -25,7 +28,11 @@ export const Page: React.FC<PageProps> = ({
 
   if (scrollable) {
     return (
-      <ScrollView style={viewStyle} {...viewProps}>
+      <ScrollView
+        keyboardAvoiding={keyboardAvoiding}
+        style={viewStyle}
+        {...viewProps}
+      >
         <StatusBar style="auto" />
         {children}
       </ScrollView>

@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import { Platform, UIManager } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
 import { PortalProvider } from '../components/portal'
 import { Route, RouterView, RouteParamList } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
+
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true)
+}
 
 export interface AppProviderProps
   extends ThemeProviderProps,

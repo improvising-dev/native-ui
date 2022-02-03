@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Platform, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from '../components/app-loading';
 import { ModalProvider } from '../components/modal-context';
 import { PortalProvider } from '../components/portal';
 import { RouterView } from './router';
 import { ThemeProvider, useTheme } from './theme';
+if (Platform.OS === 'android' &&
+    UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 const RouterRenderer = ({ initialRouteName, routes, }) => {
     const theme = useTheme();
     return (<RouterView initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
