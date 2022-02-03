@@ -7,11 +7,11 @@ import { Input } from './input';
 import { Modal } from './modal';
 import { Stack } from './stack';
 import { Text } from './text';
-export const Dialog = ({ children, visible, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const Dialog = ({ children, visible, transition = 'slide-up', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const keyboardHeight = useKeyboardHeight();
-    return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} transition="slide-up" transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.dialog.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
@@ -25,9 +25,9 @@ export const Dialog = ({ children, visible, transitionDuration, onBackdropPresse
       {children}
     </Modal>);
 };
-export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, transition, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
-    return (<Dialog visible={visible} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
+    return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted}>
       <Text style={{
             fontSize: 20,
             fontWeight: '500',
@@ -45,9 +45,9 @@ export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, tran
       </Button>
     </Dialog>);
 };
-export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, transition, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
-    return (<Dialog visible={visible} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)} onUnmounted={onUnmounted}>
+    return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)} onUnmounted={onUnmounted}>
       <Text style={{
             fontSize: 20,
             fontWeight: '500',
@@ -75,10 +75,10 @@ export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', con
       </Stack>
     </Dialog>);
 };
-export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, transition, transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [text, setText] = useState(initialValue);
-    return (<Dialog visible={visible} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()} onUnmounted={onUnmounted}>
+    return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()} onUnmounted={onUnmounted}>
       <Text style={[
             theme.componentTheme.dialog.titleTextStyle,
             {

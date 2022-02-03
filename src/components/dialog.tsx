@@ -13,6 +13,7 @@ export interface DialogProps extends ModalStateProps {}
 export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
+  transition = 'slide-up',
   transitionDuration,
   onBackdropPressed,
   onDismiss,
@@ -26,7 +27,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <Modal
       zIndex={theme.componentTheme.dialog.zIndex}
       visible={visible}
-      transition="slide-up"
+      transition={transition}
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
@@ -60,6 +61,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   message,
   okButtonText = 'Ok',
   visible,
+  transition,
   transitionDuration,
   onBackdropPressed,
   onDismiss,
@@ -70,6 +72,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      transition={transition}
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
@@ -112,6 +115,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   cancelButtonText = 'Cancel',
   confirmButtonText = 'Confirm',
   visible,
+  transition,
   transitionDuration,
   onBackdropPressed,
   onDismiss,
@@ -122,6 +126,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      transition={transition}
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.(false)}
@@ -182,6 +187,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   placeholder,
   initialValue = '',
   visible,
+  transition,
   transitionDuration,
   onBackdropPressed,
   onDismiss,
@@ -193,6 +199,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   return (
     <Dialog
       visible={visible}
+      transition={transition}
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.()}

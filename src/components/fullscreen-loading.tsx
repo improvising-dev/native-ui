@@ -31,6 +31,7 @@ export interface FullscreenLoadingProps extends ModalStateProps {
 export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   controller,
   visible,
+  transition = 'fade',
   transitionDuration,
   onBackdropPressed,
   onDismiss,
@@ -68,7 +69,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
     <Modal
       zIndex={theme.componentTheme.fullscreenLoading.zIndex}
       visible={visible}
-      transition="fade"
+      transition={transition}
       transitionDuration={transitionDuration}
       dismissible={false}
       onBackdropPressed={onBackdropPressed}

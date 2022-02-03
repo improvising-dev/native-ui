@@ -1,9 +1,9 @@
 import React, { createRef } from 'react';
 import { ModalToggler, } from '../components/modal-toggler';
 import { ModalService } from '../core/modal';
-export const showModal = ({ transitionDuration, builder, }) => {
+export const showModal = ({ transition, transitionDuration, builder, }) => {
     const togglerRef = createRef();
-    const dispose = ModalService.create(<ModalToggler ref={togglerRef} transitionDuration={transitionDuration}>
+    const dispose = ModalService.create(<ModalToggler ref={togglerRef} transition={transition} transitionDuration={transitionDuration}>
       {builder}
     </ModalToggler>);
     return {

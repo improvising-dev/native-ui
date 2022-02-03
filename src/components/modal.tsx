@@ -22,6 +22,7 @@ export type ModalTransition =
 
 export interface ModalStateProps {
   visible: boolean
+  transition?: ModalTransition
   transitionDuration?: number
   onBackdropPressed?: () => void
   onDismiss?: () => void
@@ -32,7 +33,6 @@ export interface ModalProps extends ModalStateProps {
   zIndex?: number
   dismissible?: boolean
   backdrop?: boolean
-  transition?: ModalTransition
   style?: StyleProp<ViewStyle>
   useNativeDriver?: boolean
 }

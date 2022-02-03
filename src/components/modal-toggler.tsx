@@ -1,7 +1,9 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react'
+import { ModalTransition } from './modal'
 
 export interface ModalBuilderParams {
   visible: boolean
+  transition?: ModalTransition
   transitionDuration: number
   handleDismiss: () => void
 }
@@ -11,6 +13,7 @@ export interface ModalTogglerRef {
 }
 
 export interface ModalTogglerProps {
+  transition?: ModalTransition
   transitionDuration?: number
   children: (params: ModalBuilderParams) => React.ReactNode
 }
@@ -18,7 +21,7 @@ export interface ModalTogglerProps {
 export const ModalToggler = React.forwardRef<
   ModalTogglerRef,
   ModalTogglerProps
->(({ transitionDuration = 400, children }, ref) => {
+>(({ transition, transitionDuration = 400, children }, ref) => {
   const [visible, setVisible] = useState(false)
 
   const handleDismiss = () => {
@@ -37,6 +40,7 @@ export const ModalToggler = React.forwardRef<
     <>
       {children({
         visible,
+        transition,
         transitionDuration,
         handleDismiss,
       })}
