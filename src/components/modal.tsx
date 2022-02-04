@@ -6,9 +6,9 @@ import {
   ViewStyle,
 } from 'react-native'
 import Animated, {
-  ComplexAnimationBuilder,
-  FadeIn,
-  FadeOut,
+  BaseAnimationBuilder,
+  combineTransition,
+  FadingTransition,
   SlideInDown,
   SlideInLeft,
   SlideInRight,
@@ -82,8 +82,7 @@ export const Modal: React.FC<ModalProps> = ({
     return (
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Animated.View
-          entering={FadeIn.duration(transitionDuration)}
-          exiting={FadeOut.duration(transitionDuration)}
+          layout={FadingTransition.duration(transitionDuration)}
           style={[
             StyleSheet.absoluteFill,
             {
@@ -97,62 +96,47 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderContent = () => {
-    let entering: ComplexAnimationBuilder
-    let exiting: ComplexAnimationBuilder
+    let layout: BaseAnimationBuilder
 
     switch (transition) {
       case 'slide-up':
       case 'slide-down':
       case 'slide-left':
       case 'slide-right':
-        {
-          entering =
-            transition === 'slide-up'
-              ? new SlideInUp()
-              : transition === 'slide-down'
-              ? new SlideInDown()
-              : transition === 'slide-left'
-              ? new SlideInLeft()
-              : new SlideInRight()
-
-          exiting =
-            transition === 'slide-up'
-              ? new SlideOutDown()
-              : transition === 'slide-down'
-              ? new SlideOutUp()
-              : transition === 'slide-left'
-              ? new SlideOutRight()
-              : new SlideOutLeft()
-        }
+        layout = combineTransition(
+          transition === 'slide-up'
+            ? new SlideInUp()
+            : transition === 'slide-down'
+            ? new SlideInDown()
+            : transition === 'slide-left'
+            ? new SlideInLeft()
+            : new SlideInRight(),
+          transition === 'slide-up'
+            ? new SlideOutDown()
+            : transition === 'slide-down'
+            ? new SlideOutUp()
+            : transition === 'slide-left'
+            ? new SlideOutRight()
+            : new SlideOutLeft(),
+        )
         break
       case 'scale':
-        {
-          entering = new ZoomIn()
-          exiting = new ZoomOut()
-        }
+        layout = combineTransition(new ZoomIn(), new ZoomOut())
         break
       case 'fade':
       default:
-        {
-          entering = new FadeIn()
-          exiting = new FadeOut()
-        }
+        layout = new FadingTransition()
         break
     }
 
-    entering = entering.duration(transitionDuration)
-    exiting = entering.duration(transitionDuration)
+    layout = layout.duration(transitionDuration)
 
     if (onUnmounted) {
-      exiting = exiting.withCallback(onUnmounted)
+      layout = layout.withCallback(onUnmounted)
     }
 
     return (
-      <Animated.View
-        entering={entering}
-        exiting={exiting}
-        style={[{ zIndex: zIndex + 1 }, style]}
-      >
+      <Animated.View layout={layout} style={[{ zIndex: zIndex + 1 }, style]}>
         {children}
       </Animated.View>
     )

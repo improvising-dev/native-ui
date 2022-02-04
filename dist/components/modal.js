@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, } from 'react-native';
-import Animated, { FadeIn, FadeOut, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, ZoomIn, ZoomOut, } from 'react-native-reanimated';
+import Animated, { combineTransition, FadingTransition, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, ZoomIn, ZoomOut, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
@@ -19,7 +19,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             return null;
         }
         return (<TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <Animated.View entering={FadeIn.duration(transitionDuration)} exiting={FadeOut.duration(transitionDuration)} style={[
+        <Animated.View layout={FadingTransition.duration(transitionDuration)} style={[
                 StyleSheet.absoluteFill,
                 {
                     backgroundColor: theme.backgroundColor.modalBarrier,
@@ -29,52 +29,39 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        let entering;
-        let exiting;
+        let layout;
         switch (transition) {
             case 'slide-up':
             case 'slide-down':
             case 'slide-left':
             case 'slide-right':
-                {
-                    entering =
-                        transition === 'slide-up'
-                            ? new SlideInUp()
-                            : transition === 'slide-down'
-                                ? new SlideInDown()
-                                : transition === 'slide-left'
-                                    ? new SlideInLeft()
-                                    : new SlideInRight();
-                    exiting =
-                        transition === 'slide-up'
-                            ? new SlideOutDown()
-                            : transition === 'slide-down'
-                                ? new SlideOutUp()
-                                : transition === 'slide-left'
-                                    ? new SlideOutRight()
-                                    : new SlideOutLeft();
-                }
+                layout = combineTransition(transition === 'slide-up'
+                    ? new SlideInUp()
+                    : transition === 'slide-down'
+                        ? new SlideInDown()
+                        : transition === 'slide-left'
+                            ? new SlideInLeft()
+                            : new SlideInRight(), transition === 'slide-up'
+                    ? new SlideOutDown()
+                    : transition === 'slide-down'
+                        ? new SlideOutUp()
+                        : transition === 'slide-left'
+                            ? new SlideOutRight()
+                            : new SlideOutLeft());
                 break;
             case 'scale':
-                {
-                    entering = new ZoomIn();
-                    exiting = new ZoomOut();
-                }
+                layout = combineTransition(new ZoomIn(), new ZoomOut());
                 break;
             case 'fade':
             default:
-                {
-                    entering = new FadeIn();
-                    exiting = new FadeOut();
-                }
+                layout = new FadingTransition();
                 break;
         }
-        entering = entering.duration(transitionDuration);
-        exiting = entering.duration(transitionDuration);
+        layout = layout.duration(transitionDuration);
         if (onUnmounted) {
-            exiting = exiting.withCallback(onUnmounted);
+            layout = layout.withCallback(onUnmounted);
         }
-        return (<Animated.View entering={entering} exiting={exiting} style={[{ zIndex: zIndex + 1 }, style]}>
+        return (<Animated.View layout={layout} style={[{ zIndex: zIndex + 1 }, style]}>
         {children}
       </Animated.View>);
     };
