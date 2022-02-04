@@ -76,10 +76,6 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [visible, mounted])
 
-  if (!mounted) {
-    return null
-  }
-
   const handleBackdropPress = () => {
     onBackdropPressed?.()
 
@@ -206,6 +202,10 @@ export const Modal: React.FC<ModalProps> = ({
         {children}
       </Animated.View>
     )
+  }
+
+  if (!mounted) {
+    return null
   }
 
   return (

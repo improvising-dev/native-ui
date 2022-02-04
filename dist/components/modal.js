@@ -25,9 +25,6 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             }, duration);
         }
     }, [visible, mounted]);
-    if (!mounted) {
-        return null;
-    }
     const handleBackdropPress = () => {
         onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
         if (dismissible) {
@@ -116,6 +113,9 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         {children}
       </Animated.View>);
     };
+    if (!mounted) {
+        return null;
+    }
     return (<Portal>
       {renderBackdrop()}
       {renderContent()}
