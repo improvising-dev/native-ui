@@ -1,24 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
+  useWindowDimensions,
   ViewStyle,
 } from 'react-native'
 import Animated, {
-  BaseAnimationBuilder,
-  combineTransition,
-  FadingTransition,
-  SlideInDown,
-  SlideInLeft,
-  SlideInRight,
-  SlideInUp,
-  SlideOutDown,
-  SlideOutLeft,
-  SlideOutRight,
-  SlideOutUp,
-  ZoomIn,
-  ZoomOut,
+  interpolate,
+  useSharedValue,
+  withTiming,
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
@@ -45,6 +36,7 @@ export interface ModalProps extends ModalStateProps {
   dismissible?: boolean
   backdrop?: boolean
   style?: StyleProp<ViewStyle>
+  useNativeDriver?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -61,8 +53,33 @@ export const Modal: React.FC<ModalProps> = ({
   onUnmounted,
 }) => {
   const theme = useTheme()
+  const dimensions = useWindowDimensions()
+  const animation = useSharedValue(visible ? 1 : 0)
 
-  if (!visible) {
+  const [mounted, setMounted] = useState(visible)
+
+  useEffect(() => {
+    if (visible) {
+      if (mounted) {
+        animation.value = withTiming(1, {
+          duration: transitionDuration,
+        })
+      } else {
+        requestAnimationFrame(() => setMounted(true))
+      }
+    } else if (mounted) {
+      animation.value = withTiming(0, {
+        duration: transitionDuration,
+      })
+
+      setTimeout(() => {
+        setMounted(false)
+        onUnmounted?.()
+      }, transitionDuration)
+    }
+  }, [visible, mounted])
+
+  if (!mounted) {
     return null
   }
 
@@ -82,12 +99,12 @@ export const Modal: React.FC<ModalProps> = ({
     return (
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Animated.View
-          layout={FadingTransition.duration(transitionDuration)}
           style={[
             StyleSheet.absoluteFill,
             {
               backgroundColor: theme.backgroundColor.modalBarrier,
               zIndex,
+              opacity: animation.value,
             },
           ]}
         />
@@ -96,50 +113,86 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderContent = () => {
-    let layout: BaseAnimationBuilder
-
-    switch (transition) {
-      case 'slide-up':
-      case 'slide-down':
-      case 'slide-left':
-      case 'slide-right':
-        layout = combineTransition(
-          transition === 'slide-up'
-            ? new SlideInUp()
-            : transition === 'slide-down'
-            ? new SlideInDown()
-            : transition === 'slide-left'
-            ? new SlideInLeft()
-            : new SlideInRight(),
-          transition === 'slide-up'
-            ? new SlideOutDown()
-            : transition === 'slide-down'
-            ? new SlideOutUp()
-            : transition === 'slide-left'
-            ? new SlideOutRight()
-            : new SlideOutLeft(),
-        )
-        break
-      case 'scale':
-        layout = combineTransition(new ZoomIn(), new ZoomOut())
-        break
-      case 'fade':
-      default:
-        layout = new FadingTransition()
-        break
+    if (transition.startsWith('slide-')) {
+      return (
+        <Animated.View
+          style={[
+            {
+              zIndex: zIndex + 1,
+              transform: [
+                transition === 'slide-up'
+                  ? {
+                      translateY: interpolate(
+                        animation.value,
+                        [0, 1],
+                        [dimensions.height, 0],
+                      ),
+                    }
+                  : transition === 'slide-down'
+                  ? {
+                      translateY: interpolate(
+                        animation.value,
+                        [0, 1],
+                        [-dimensions.height, 0],
+                      ),
+                    }
+                  : transition === 'slide-left'
+                  ? {
+                      translateX: interpolate(
+                        animation.value,
+                        [0, 1],
+                        [dimensions.width, 0],
+                      ),
+                    }
+                  : {
+                      translateX: interpolate(
+                        animation.value,
+                        [0, 1],
+                        [-dimensions.width, 0],
+                      ),
+                    },
+              ],
+            },
+            style,
+          ]}
+        >
+          {children}
+        </Animated.View>
+      )
+    } else if (transition === 'scale') {
+      return (
+        <Animated.View
+          style={[
+            {
+              zIndex: zIndex + 1,
+              opacity: animation.value,
+              transform: [
+                {
+                  scale: interpolate(animation.value, [0, 1], [0.9, 1]),
+                },
+              ],
+            },
+            style,
+          ]}
+        >
+          {children}
+        </Animated.View>
+      )
+    } else {
+      return (
+        <Animated.View
+          style={[
+            {
+              zIndex: zIndex + 1,
+              opacity: animation.value,
+            },
+            style,
+          ]}
+        >
+          {children}
+        </Animated.View>
+      )
     }
-
-    layout = layout.duration(transitionDuration)
-
-    if (onUnmounted) {
-      layout = layout.withCallback(onUnmounted)
-    }
-
-    return (
-      <Animated.View layout={layout} style={[{ zIndex: zIndex + 1 }, style]}>
-        {children}
-      </Animated.View>
-    )
   }
 
   return (

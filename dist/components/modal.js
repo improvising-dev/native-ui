@@ -1,11 +1,35 @@
-import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, } from 'react-native';
-import Animated, { combineTransition, FadingTransition, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, ZoomIn, ZoomOut, } from 'react-native-reanimated';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'react-native';
+import Animated, { interpolate, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
-    if (!visible) {
+    const dimensions = useWindowDimensions();
+    const animation = useSharedValue(visible ? 1 : 0);
+    const [mounted, setMounted] = useState(visible);
+    useEffect(() => {
+        if (visible) {
+            if (mounted) {
+                animation.value = withTiming(1, {
+                    duration: transitionDuration,
+                });
+            }
+            else {
+                requestAnimationFrame(() => setMounted(true));
+            }
+        }
+        else if (mounted) {
+            animation.value = withTiming(0, {
+                duration: transitionDuration,
+            });
+            setTimeout(() => {
+                setMounted(false);
+                onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
+            }, transitionDuration);
+        }
+    }, [visible, mounted]);
+    if (!mounted) {
         return null;
     }
     const handleBackdropPress = () => {
@@ -19,51 +43,71 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             return null;
         }
         return (<TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <Animated.View layout={FadingTransition.duration(transitionDuration)} style={[
+        <Animated.View style={[
                 StyleSheet.absoluteFill,
                 {
                     backgroundColor: theme.backgroundColor.modalBarrier,
                     zIndex,
+                    opacity: animation.value,
                 },
             ]}/>
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        let layout;
-        switch (transition) {
-            case 'slide-up':
-            case 'slide-down':
-            case 'slide-left':
-            case 'slide-right':
-                layout = combineTransition(transition === 'slide-up'
-                    ? new SlideInUp()
-                    : transition === 'slide-down'
-                        ? new SlideInDown()
-                        : transition === 'slide-left'
-                            ? new SlideInLeft()
-                            : new SlideInRight(), transition === 'slide-up'
-                    ? new SlideOutDown()
-                    : transition === 'slide-down'
-                        ? new SlideOutUp()
-                        : transition === 'slide-left'
-                            ? new SlideOutRight()
-                            : new SlideOutLeft());
-                break;
-            case 'scale':
-                layout = combineTransition(new ZoomIn(), new ZoomOut());
-                break;
-            case 'fade':
-            default:
-                layout = new FadingTransition();
-                break;
+        if (transition.startsWith('slide-')) {
+            return (<Animated.View style={[
+                    {
+                        zIndex: zIndex + 1,
+                        transform: [
+                            transition === 'slide-up'
+                                ? {
+                                    translateY: interpolate(animation.value, [0, 1], [dimensions.height, 0]),
+                                }
+                                : transition === 'slide-down'
+                                    ? {
+                                        translateY: interpolate(animation.value, [0, 1], [-dimensions.height, 0]),
+                                    }
+                                    : transition === 'slide-left'
+                                        ? {
+                                            translateX: interpolate(animation.value, [0, 1], [dimensions.width, 0]),
+                                        }
+                                        : {
+                                            translateX: interpolate(animation.value, [0, 1], [-dimensions.width, 0]),
+                                        },
+                        ],
+                    },
+                    style,
+                ]}>
+          {children}
+        </Animated.View>);
         }
-        layout = layout.duration(transitionDuration);
-        if (onUnmounted) {
-            layout = layout.withCallback(onUnmounted);
+        else if (transition === 'scale') {
+            return (<Animated.View style={[
+                    {
+                        zIndex: zIndex + 1,
+                        opacity: animation.value,
+                        transform: [
+                            {
+                                scale: interpolate(animation.value, [0, 1], [0.9, 1]),
+                            },
+                        ],
+                    },
+                    style,
+                ]}>
+          {children}
+        </Animated.View>);
         }
-        return (<Animated.View layout={layout} style={[{ zIndex: zIndex + 1 }, style]}>
-        {children}
-      </Animated.View>);
+        else {
+            return (<Animated.View style={[
+                    {
+                        zIndex: zIndex + 1,
+                        opacity: animation.value,
+                    },
+                    style,
+                ]}>
+          {children}
+        </Animated.View>);
+        }
     };
     return (<Portal>
       {renderBackdrop()}
