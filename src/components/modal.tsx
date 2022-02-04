@@ -11,7 +11,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-  runOnJS,
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
@@ -60,10 +59,22 @@ export const Modal: React.FC<ModalProps> = ({
 
   const [mounted, setMounted] = useState(visible)
 
-  const handleUnmount = () => {
-    setMounted(false)
-    onUnmounted?.()
-  }
+  useEffect(() => {
+    if (visible) {
+      if (mounted) {
+        animation.value = withTiming(1, { duration })
+      } else {
+        requestAnimationFrame(() => setMounted(true))
+      }
+    } else if (mounted) {
+      animation.value = withTiming(0, { duration })
+
+      setTimeout(() => {
+        setMounted(false)
+        onUnmounted?.()
+      }, duration)
+    }
+  }, [visible, mounted])
 
   const handleBackdropPress = () => {
     onBackdropPressed?.()
@@ -184,18 +195,6 @@ export const Modal: React.FC<ModalProps> = ({
       </Animated.View>
     )
   }
-
-  useEffect(() => {
-    if (visible) {
-      if (mounted) {
-        animation.value = withTiming(1, { duration })
-      } else {
-        requestAnimationFrame(() => setMounted(true))
-      }
-    } else if (mounted) {
-      animation.value = withTiming(0, { duration }, runOnJS(handleUnmount))
-    }
-  }, [visible, mounted])
 
   if (!mounted) {
     return null
