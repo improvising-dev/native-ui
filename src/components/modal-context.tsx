@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { View } from 'react-native'
 import { ModalService } from '../core/modal'
 
 export interface ModalContext {
@@ -30,7 +29,7 @@ export const ModalProvider: React.FC = ({ children }) => {
   const modalList = useMemo(() => {
     return Array.from(modalMap.entries())
       .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-      .map(([key, modal]) => <View key={key}>{modal}</View>)
+      .map(([key, modal]) => <React.Fragment key={key}>{modal}</React.Fragment>)
   }, [modalMap])
 
   useEffect(() => {

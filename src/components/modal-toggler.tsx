@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useMemo, useState } from 'react'
 import { ModalTransition } from './modal'
 
 export interface ModalBuilderParams {
@@ -36,14 +36,14 @@ export const ModalToggler = React.forwardRef<
     return { handleDismiss }
   })
 
-  return (
-    <>
-      {children({
-        visible,
-        transition,
-        transitionDuration,
-        handleDismiss,
-      })}
-    </>
-  )
+  const node = useMemo(() => {
+    return children({
+      visible,
+      transition,
+      transitionDuration,
+      handleDismiss,
+    })
+  }, [visible])
+
+  return <>{node}</>
 })

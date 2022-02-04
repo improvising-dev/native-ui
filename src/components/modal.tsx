@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
+  View,
   ViewStyle,
 } from 'react-native'
 import Animated, {
@@ -13,7 +14,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
-import { Portal } from './portal'
 
 export type ModalTransition =
   | 'fade'
@@ -171,7 +171,7 @@ export const Modal: React.FC<ModalProps> = ({
             StyleSheet.absoluteFill,
             {
               backgroundColor: theme.backgroundColor.modalBarrier,
-              zIndex,
+              zIndex: 0,
             },
             animatedBackdropStyles,
           ]}
@@ -182,15 +182,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => {
     return (
-      <Animated.View
-        style={[
-          {
-            zIndex: zIndex + 1,
-          },
-          animatedTransitionStyles,
-          style,
-        ]}
-      >
+      <Animated.View style={[{ zIndex: 1 }, animatedTransitionStyles, style]}>
         {children}
       </Animated.View>
     )
@@ -201,9 +193,13 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   return (
-    <Portal>
+    <View
+      style={[StyleSheet.absoluteFill, { zIndex }]}
+      collapsable={false}
+      pointerEvents="box-none"
+    >
       {renderBackdrop()}
       {renderContent()}
-    </Portal>
+    </View>
   )
 }

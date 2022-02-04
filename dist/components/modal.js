@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
-import { Portal } from './portal';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
@@ -92,28 +91,22 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                 StyleSheet.absoluteFill,
                 {
                     backgroundColor: theme.backgroundColor.modalBarrier,
-                    zIndex,
+                    zIndex: 0,
                 },
                 animatedBackdropStyles,
             ]}/>
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        return (<Animated.View style={[
-                {
-                    zIndex: zIndex + 1,
-                },
-                animatedTransitionStyles,
-                style,
-            ]}>
+        return (<Animated.View style={[{ zIndex: 1 }, animatedTransitionStyles, style]}>
         {children}
       </Animated.View>);
     };
     if (!mounted) {
         return null;
     }
-    return (<Portal>
+    return (<View style={[StyleSheet.absoluteFill, { zIndex }]} collapsable={false} pointerEvents="box-none">
       {renderBackdrop()}
       {renderContent()}
-    </Portal>);
+    </View>);
 };

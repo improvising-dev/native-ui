@@ -3,7 +3,6 @@ import { Platform, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from '../components/app-loading';
 import { ModalProvider } from '../components/modal-context';
-import { PortalProvider } from '../components/portal';
 import { RouterView } from './router';
 import { ThemeProvider, useTheme } from './theme';
 if (Platform.OS === 'android' &&
@@ -26,12 +25,10 @@ export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, them
     }
     return (<SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>
-        <PortalProvider>
-          <ModalProvider>
-            <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
-            {children}
-          </ModalProvider>
-        </PortalProvider>
+        <ModalProvider>
+          <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
+          {children}
+        </ModalProvider>
       </ThemeProvider>
     </SafeAreaProvider>);
 };

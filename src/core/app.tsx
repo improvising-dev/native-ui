@@ -3,8 +3,7 @@ import { Platform, UIManager } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
-import { PortalProvider } from '../components/portal'
-import { Route, RouterView, RouteParamList } from './router'
+import { Route, RouteParamList, RouterView } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
 
 if (
@@ -70,15 +69,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>
-        <PortalProvider>
-          <ModalProvider>
-            <RouterRenderer
-              initialRouteName={initialRouteName}
-              routes={routes}
-            />
-            {children}
-          </ModalProvider>
-        </PortalProvider>
+        <ModalProvider>
+          <RouterRenderer initialRouteName={initialRouteName} routes={routes} />
+          {children}
+        </ModalProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   )
