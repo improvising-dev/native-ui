@@ -6,6 +6,6 @@ export declare const showModal: ({ transition, transitionDuration, builder, }: {
     transitionDuration?: number | undefined;
     builder: (params: ModalBuilderParams) => React.ReactNode;
 }) => {
-    dispose: () => void | undefined;
+    dispose: () => void;
     handleDismiss: () => void | undefined;
 };

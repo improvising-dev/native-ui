@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ActivityIndicator } from 'react-native'
+import { BaseController, useMountController } from '../core/controller'
 import { useTheme } from '../core/theme'
 import { Modal, ModalStateProps } from './modal'
 import { Text } from './text'
@@ -8,17 +9,7 @@ interface FullscreenLoadingMethods {
   setMessage: (value?: string) => void
 }
 
-export class FullscreenLoadingController {
-  private methods?: FullscreenLoadingMethods
-
-  mount(methods: FullscreenLoadingMethods) {
-    this.methods = methods
-  }
-
-  unmount() {
-    delete this.methods
-  }
-
+export class FullscreenLoadingController extends BaseController<FullscreenLoadingMethods> {
   setMessage(message?: string) {
     this.methods?.setMessage(message)
   }
@@ -57,13 +48,10 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
     )
   }
 
-  useEffect(() => {
-    controller?.mount({ setMessage })
-
-    return () => {
-      controller?.unmount()
-    }
-  }, [])
+  useMountController({
+    controller,
+    methods: { setMessage },
+  })
 
   return (
     <Modal

@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { BaseController, useMountController } from '../core/controller';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-export class FullscreenLoadingController {
-    mount(methods) {
-        this.methods = methods;
-    }
-    unmount() {
-        delete this.methods;
-    }
+export class FullscreenLoadingController extends BaseController {
     setMessage(message) {
         var _a;
         (_a = this.methods) === null || _a === void 0 ? void 0 : _a.setMessage(message);
@@ -29,12 +24,10 @@ export const FullscreenLoading = ({ controller, visible, transition = 'fade', tr
         {message}
       </Text>);
     };
-    useEffect(() => {
-        controller === null || controller === void 0 ? void 0 : controller.mount({ setMessage });
-        return () => {
-            controller === null || controller === void 0 ? void 0 : controller.unmount();
-        };
-    }, []);
+    useMountController({
+        controller,
+        methods: { setMessage },
+    });
     return (<Modal zIndex={theme.componentTheme.fullscreenLoading.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} dismissible={false} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             flex: 1,
             alignItems: 'center',
