@@ -3,7 +3,7 @@ import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'reac
 import Animated, { interpolate, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const animation = useSharedValue(visible ? 1 : 0);
@@ -11,22 +11,17 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     useEffect(() => {
         if (visible) {
             if (mounted) {
-                animation.value = withTiming(1, {
-                    duration: transitionDuration,
-                });
+                animation.value = withTiming(1, { duration });
             }
             else {
                 requestAnimationFrame(() => setMounted(true));
             }
         }
         else if (mounted) {
-            animation.value = withTiming(0, {
-                duration: transitionDuration,
-            });
-            setTimeout(() => {
+            animation.value = withTiming(0, { duration }, () => {
                 setMounted(false);
                 onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
-            }, transitionDuration);
+            });
         }
     }, [visible, mounted]);
     if (!mounted) {

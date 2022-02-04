@@ -47,7 +47,7 @@ export const Modal: React.FC<ModalProps> = ({
   transition = 'fade',
   style,
   visible,
-  transitionDuration = 400,
+  transitionDuration: duration = 400,
   onBackdropPressed,
   onDismiss,
   onUnmounted,
@@ -61,21 +61,15 @@ export const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (visible) {
       if (mounted) {
-        animation.value = withTiming(1, {
-          duration: transitionDuration,
-        })
+        animation.value = withTiming(1, { duration })
       } else {
         requestAnimationFrame(() => setMounted(true))
       }
     } else if (mounted) {
-      animation.value = withTiming(0, {
-        duration: transitionDuration,
-      })
-
-      setTimeout(() => {
+      animation.value = withTiming(0, { duration }, () => {
         setMounted(false)
         onUnmounted?.()
-      }, transitionDuration)
+      })
     }
   }, [visible, mounted])
 
