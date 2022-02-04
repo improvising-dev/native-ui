@@ -35,7 +35,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onUnmounted,
+  onDisappered,
 }) => {
   const theme = useTheme()
   const [message, setMessage] = useState<string>()
@@ -74,7 +74,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
       dismissible={false}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
-      onUnmounted={onUnmounted}
+      onDisappered={onDisappered}
       style={{
         flex: 1,
         alignItems: 'center',

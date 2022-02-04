@@ -7,13 +7,12 @@ export interface ModalStateProps {
     transitionDuration?: number;
     onBackdropPressed?: () => void;
     onDismiss?: () => void;
-    onUnmounted?: () => void;
+    onDisappered?: () => void;
 }
 export interface ModalProps extends ModalStateProps {
     zIndex?: number;
     dismissible?: boolean;
     backdrop?: boolean;
     style?: StyleProp<ViewStyle>;
-    useNativeDriver?: boolean;
 }
 export declare const Modal: React.FC<ModalProps>;

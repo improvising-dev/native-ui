@@ -1,17 +1,14 @@
 import React from 'react'
-import {
-  Animated,
-  Pressable,
-  StyleProp,
-  Text,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import { Pressable, StyleProp, Text, TextStyle, ViewStyle } from 'react-native'
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  withDelay,
+  interpolateColor,
+} from 'react-native-reanimated'
 import { HapticFeedback } from '../actions/haptic-feedback'
-import { useAnimatedValue } from '../core/animation'
 import { useTheme } from '../core/theme'
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export interface ButtonProps {
   children?: string | React.ReactNode
@@ -30,8 +27,20 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   onPressed,
 }) => {
-  const animatedValue = useAnimatedValue(0)
   const theme = useTheme()
+  const touchableProgress = useSharedValue(0)
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(
+        touchableProgress.value,
+        [0, 1],
+        theme.brightness === 'light'
+          ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
+          : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
+      ),
+    }
+  })
 
   const handlePress = () => {
     if (haptic) {
@@ -41,32 +50,24 @@ export const Button: React.FC<ButtonProps> = ({
     onPressed?.()
   }
 
+  const handlePressIn = () => {
+    touchableProgress.value = withTiming(1, { duration: 100 })
+  }
+
+  const handlePressOut = () => {
+    touchableProgress.value = withDelay(200, withTiming(0, { duration: 150 }))
+  }
+
+  const handleTouchCancel = () => {
+    touchableProgress.value = withTiming(0, { duration: 100 })
+  }
+
   return (
-    <AnimatedPressable
+    <Pressable
       onPress={handlePress}
-      onPressIn={() => {
-        Animated.timing(animatedValue, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: false,
-        }).start()
-      }}
-      onPressOut={() => {
-        setTimeout(() => {
-          Animated.timing(animatedValue, {
-            toValue: 0,
-            duration: 150,
-            useNativeDriver: false,
-          }).start()
-        }, 200)
-      }}
-      onTouchCancel={() => {
-        Animated.timing(animatedValue, {
-          toValue: 0,
-          duration: 150,
-          useNativeDriver: false,
-        }).start()
-      }}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onTouchCancel={handleTouchCancel}
       disabled={disabled}
       style={[
         {
@@ -95,22 +96,18 @@ export const Button: React.FC<ButtonProps> = ({
         children
       )}
       <Animated.View
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1,
-          backgroundColor: animatedValue.interpolate({
-            inputRange: [0, 1],
-            outputRange:
-              theme.brightness === 'light'
-                ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
-                : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
-          }),
-        }}
+        style={[
+          {
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1,
+          },
+          animatedStyles,
+        ]}
       />
-    </AnimatedPressable>
+    </Pressable>
   )
 }

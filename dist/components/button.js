@@ -1,39 +1,34 @@
 import React from 'react';
-import { Animated, Pressable, Text, } from 'react-native';
+import { Pressable, Text } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, withDelay, interpolateColor, } from 'react-native-reanimated';
 import { HapticFeedback } from '../actions/haptic-feedback';
-import { useAnimatedValue } from '../core/animation';
 import { useTheme } from '../core/theme';
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPressed, }) => {
-    const animatedValue = useAnimatedValue(0);
     const theme = useTheme();
+    const touchableProgress = useSharedValue(0);
+    const animatedStyles = useAnimatedStyle(() => {
+        return {
+            backgroundColor: interpolateColor(touchableProgress.value, [0, 1], theme.brightness === 'light'
+                ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
+                : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)']),
+        };
+    });
     const handlePress = () => {
         if (haptic) {
             HapticFeedback.lightImpact();
         }
         onPressed === null || onPressed === void 0 ? void 0 : onPressed();
     };
-    return (<AnimatedPressable onPress={handlePress} onPressIn={() => {
-            Animated.timing(animatedValue, {
-                toValue: 1,
-                duration: 100,
-                useNativeDriver: false,
-            }).start();
-        }} onPressOut={() => {
-            setTimeout(() => {
-                Animated.timing(animatedValue, {
-                    toValue: 0,
-                    duration: 150,
-                    useNativeDriver: false,
-                }).start();
-            }, 200);
-        }} onTouchCancel={() => {
-            Animated.timing(animatedValue, {
-                toValue: 0,
-                duration: 150,
-                useNativeDriver: false,
-            }).start();
-        }} disabled={disabled} style={[
+    const handlePressIn = () => {
+        touchableProgress.value = withTiming(1, { duration: 100 });
+    };
+    const handlePressOut = () => {
+        touchableProgress.value = withDelay(200, withTiming(0, { duration: 150 }));
+    };
+    const handleTouchCancel = () => {
+        touchableProgress.value = withTiming(0, { duration: 100 });
+    };
+    return (<Pressable onPress={handlePress} onPressIn={handlePressIn} onPressOut={handlePressOut} onTouchCancel={handleTouchCancel} disabled={disabled} style={[
             {
                 overflow: 'hidden',
                 alignItems: 'center',
@@ -48,19 +43,16 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
       {typeof children === 'string' ? (<Text style={Object.assign(Object.assign({ color: theme.primaryContrastingColor }, theme.textTheme.button), textStyle)}>
           {children}
         </Text>) : (children)}
-      <Animated.View style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 1,
-            backgroundColor: animatedValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: theme.brightness === 'light'
-                    ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
-                    : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
-            }),
-        }}/>
-    </AnimatedPressable>);
+      <Animated.View style={[
+            {
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                zIndex: 1,
+            },
+            animatedStyles,
+        ]}/>
+    </Pressable>);
 };

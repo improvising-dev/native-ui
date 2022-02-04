@@ -15,7 +15,7 @@ export class FullscreenLoadingController {
         (_a = this.methods) === null || _a === void 0 ? void 0 : _a.setMessage(message);
     }
 }
-export const FullscreenLoading = ({ controller, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const FullscreenLoading = ({ controller, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onDisappered, }) => {
     const theme = useTheme();
     const [message, setMessage] = useState();
     const renderMessage = () => {
@@ -35,7 +35,7 @@ export const FullscreenLoading = ({ controller, visible, transition = 'fade', tr
             controller === null || controller === void 0 ? void 0 : controller.unmount();
         };
     }, []);
-    return (<Modal zIndex={theme.componentTheme.fullscreenLoading.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} dismissible={false} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.fullscreenLoading.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} dismissible={false} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onDisappered={onDisappered} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',

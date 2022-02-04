@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
-  Animated,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
-  useWindowDimensions,
   ViewStyle,
 } from 'react-native'
-import { useAnimatedValue } from '../core/animation'
-import { Performance } from '../core/performance'
+import Animated, {
+  ComplexAnimationBuilder,
+  FadeIn,
+  FadeOut,
+  SlideInDown,
+  SlideInLeft,
+  SlideInRight,
+  SlideInUp,
+  SlideOutDown,
+  SlideOutLeft,
+  SlideOutRight,
+  SlideOutUp,
+  ZoomIn,
+  ZoomOut,
+} from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
 import { Portal } from './portal'
 
@@ -26,7 +37,7 @@ export interface ModalStateProps {
   transitionDuration?: number
   onBackdropPressed?: () => void
   onDismiss?: () => void
-  onUnmounted?: () => void
+  onDisappered?: () => void
 }
 
 export interface ModalProps extends ModalStateProps {
@@ -34,7 +45,6 @@ export interface ModalProps extends ModalStateProps {
   dismissible?: boolean
   backdrop?: boolean
   style?: StyleProp<ViewStyle>
-  useNativeDriver?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -44,45 +54,15 @@ export const Modal: React.FC<ModalProps> = ({
   backdrop = true,
   transition = 'fade',
   style,
-  useNativeDriver = Performance.animation.useNativeDriver,
   visible,
   transitionDuration = 400,
   onBackdropPressed,
   onDismiss,
-  onUnmounted,
+  onDisappered,
 }) => {
   const theme = useTheme()
-  const dimensions = useWindowDimensions()
-  const value = useAnimatedValue(visible ? 1 : 0)
 
-  const [mounted, setMounted] = useState(visible)
-
-  useEffect(() => {
-    if (visible) {
-      if (mounted) {
-        Animated.timing(value, {
-          toValue: 1,
-          duration: transitionDuration,
-          useNativeDriver,
-        }).start()
-      } else {
-        requestAnimationFrame(() => setMounted(true))
-      }
-    } else if (mounted) {
-      Animated.timing(value, {
-        toValue: 0,
-        duration: transitionDuration,
-        useNativeDriver,
-      }).start()
-
-      setTimeout(() => {
-        setMounted(false)
-        onUnmounted?.()
-      }, transitionDuration)
-    }
-  }, [visible, mounted])
-
-  if (!mounted) {
+  if (!visible) {
     return null
   }
 
@@ -102,12 +82,13 @@ export const Modal: React.FC<ModalProps> = ({
     return (
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Animated.View
+          entering={FadeIn.duration(transitionDuration)}
+          exiting={FadeOut.duration(transitionDuration)}
           style={[
             StyleSheet.absoluteFill,
             {
               backgroundColor: theme.backgroundColor.modalBarrier,
               zIndex,
-              opacity: value,
             },
           ]}
         />
@@ -116,85 +97,65 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderContent = () => {
-    if (transition.startsWith('slide-')) {
-      return (
-        <Animated.View
-          style={[
-            {
-              zIndex: zIndex + 1,
-              transform: [
-                transition === 'slide-up'
-                  ? {
-                      translateY: value.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [dimensions.height, 0],
-                      }),
-                    }
-                  : transition === 'slide-down'
-                  ? {
-                      translateY: value.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [-dimensions.height, 0],
-                      }),
-                    }
-                  : transition === 'slide-left'
-                  ? {
-                      translateX: value.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [dimensions.width, 0],
-                      }),
-                    }
-                  : {
-                      translateX: value.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [-dimensions.width, 0],
-                      }),
-                    },
-              ],
-            },
-            style,
-          ]}
-        >
-          {children}
-        </Animated.View>
-      )
-    } else if (transition === 'scale') {
-      return (
-        <Animated.View
-          style={[
-            {
-              zIndex: zIndex + 1,
-              opacity: value,
-              transform: [
-                {
-                  scale: value.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.9, 1],
-                  }),
-                },
-              ],
-            },
-            style,
-          ]}
-        >
-          {children}
-        </Animated.View>
-      )
-    } else {
-      return (
-        <Animated.View
-          style={[
-            {
-              zIndex: zIndex + 1,
-              opacity: value,
-            },
-            style,
-          ]}
-        >
-          {children}
-        </Animated.View>
-      )
+    let entering: ComplexAnimationBuilder
+    let exiting: ComplexAnimationBuilder
+
+    switch (transition) {
+      case 'slide-up':
+      case 'slide-down':
+      case 'slide-left':
+      case 'slide-right':
+        {
+          entering =
+            transition === 'slide-up'
+              ? new SlideInUp()
+              : transition === 'slide-down'
+              ? new SlideInDown()
+              : transition === 'slide-left'
+              ? new SlideInLeft()
+              : new SlideInRight()
+
+          exiting =
+            transition === 'slide-up'
+              ? new SlideOutDown()
+              : transition === 'slide-down'
+              ? new SlideOutUp()
+              : transition === 'slide-left'
+              ? new SlideOutRight()
+              : new SlideOutLeft()
+        }
+        break
+      case 'scale':
+        {
+          entering = new ZoomIn()
+          exiting = new ZoomOut()
+        }
+        break
+      case 'fade':
+      default:
+        {
+          entering = new FadeIn()
+          exiting = new FadeOut()
+        }
+        break
     }
+
+    entering = entering.duration(transitionDuration)
+    exiting = entering.duration(transitionDuration)
+
+    if (onDisappered) {
+      exiting = exiting.withCallback(onDisappered)
+    }
+
+    return (
+      <Animated.View
+        entering={entering}
+        exiting={exiting}
+        style={[{ zIndex: zIndex + 1 }, style]}
+      >
+        {children}
+      </Animated.View>
+    )
   }
 
   return (

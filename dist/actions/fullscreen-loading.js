@@ -12,7 +12,7 @@ import { FullscreenLoading, } from '../components/fullscreen-loading';
 import { showModal } from './modal';
 export const showLoading = (controller) => {
     const { dispose, handleDismiss } = showModal({
-        builder: ({ visible, handleDismiss }) => (<FullscreenLoading controller={controller} visible={visible} onDismiss={handleDismiss} onUnmounted={() => dispose()}/>),
+        builder: ({ visible, handleDismiss }) => (<FullscreenLoading controller={controller} visible={visible} onDismiss={handleDismiss} onDisappered={() => dispose()}/>),
     });
     return handleDismiss;
 };

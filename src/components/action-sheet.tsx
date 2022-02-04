@@ -23,7 +23,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onUnmounted,
+  onDisappered,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
@@ -36,7 +36,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
-      onUnmounted={onUnmounted}
+      onDisappered={onDisappered}
       style={{
         position: 'absolute',
         bottom: 0,
