@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'react-native';
-import Animated, { interpolate, useSharedValue, withTiming, } from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
@@ -11,17 +11,18 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     useEffect(() => {
         if (visible) {
             if (mounted) {
-                animation.value = withTiming(1, { duration });
+                animation.value = 1;
             }
             else {
                 requestAnimationFrame(() => setMounted(true));
             }
         }
         else if (mounted) {
-            animation.value = withTiming(0, { duration }, () => {
+            animation.value = 0;
+            setTimeout(() => {
                 setMounted(false);
                 onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
-            });
+            }, duration);
         }
     }, [visible, mounted]);
     if (!mounted) {
@@ -33,6 +34,62 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
         }
     };
+    const animatedBackdropStyles = useAnimatedStyle(() => {
+        return {
+            opacity: withTiming(animation.value, { duration }),
+        };
+    });
+    const animatedTransitionStyles = useAnimatedStyle(() => {
+        if (transition === 'slide-up') {
+            return {
+                transform: [
+                    {
+                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [dimensions.height, 0]),
+                    },
+                ],
+            };
+        }
+        if (transition === 'slide-down') {
+            return {
+                transform: [
+                    {
+                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [-dimensions.height, 0]),
+                    },
+                ],
+            };
+        }
+        if (transition === 'slide-left') {
+            return {
+                transform: [
+                    {
+                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [dimensions.width, 0]),
+                    },
+                ],
+            };
+        }
+        if (transition === 'slide-right') {
+            return {
+                transform: [
+                    {
+                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [-dimensions.width, 0]),
+                    },
+                ],
+            };
+        }
+        if (transition === 'scale') {
+            return {
+                opacity: withTiming(animation.value, { duration }),
+                transform: [
+                    {
+                        scale: interpolate(withTiming(animation.value, { duration }), [0, 1], [0.9, 1]),
+                    },
+                ],
+            };
+        }
+        return {
+            opacity: withTiming(animation.value, { duration }),
+        };
+    });
     const renderBackdrop = () => {
         if (!backdrop) {
             return null;
@@ -43,66 +100,21 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                 {
                     backgroundColor: theme.backgroundColor.modalBarrier,
                     zIndex,
-                    opacity: animation.value,
                 },
+                animatedBackdropStyles,
             ]}/>
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        if (transition.startsWith('slide-')) {
-            return (<Animated.View style={[
-                    {
-                        zIndex: zIndex + 1,
-                        transform: [
-                            transition === 'slide-up'
-                                ? {
-                                    translateY: interpolate(animation.value, [0, 1], [dimensions.height, 0]),
-                                }
-                                : transition === 'slide-down'
-                                    ? {
-                                        translateY: interpolate(animation.value, [0, 1], [-dimensions.height, 0]),
-                                    }
-                                    : transition === 'slide-left'
-                                        ? {
-                                            translateX: interpolate(animation.value, [0, 1], [dimensions.width, 0]),
-                                        }
-                                        : {
-                                            translateX: interpolate(animation.value, [0, 1], [-dimensions.width, 0]),
-                                        },
-                        ],
-                    },
-                    style,
-                ]}>
-          {children}
-        </Animated.View>);
-        }
-        else if (transition === 'scale') {
-            return (<Animated.View style={[
-                    {
-                        zIndex: zIndex + 1,
-                        opacity: animation.value,
-                        transform: [
-                            {
-                                scale: interpolate(animation.value, [0, 1], [0.9, 1]),
-                            },
-                        ],
-                    },
-                    style,
-                ]}>
-          {children}
-        </Animated.View>);
-        }
-        else {
-            return (<Animated.View style={[
-                    {
-                        zIndex: zIndex + 1,
-                        opacity: animation.value,
-                    },
-                    style,
-                ]}>
-          {children}
-        </Animated.View>);
-        }
+        return (<Animated.View style={[
+                {
+                    zIndex: zIndex + 1,
+                },
+                animatedTransitionStyles,
+                style,
+            ]}>
+        {children}
+      </Animated.View>);
     };
     return (<Portal>
       {renderBackdrop()}

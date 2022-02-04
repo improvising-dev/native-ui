@@ -2,8 +2,8 @@ import React from 'react'
 import { Pressable, StyleProp, Text, TextStyle, ViewStyle } from 'react-native'
 import Animated, {
   interpolateColor,
+  useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import { HapticFeedback } from '../actions/haptic-feedback'
@@ -29,6 +29,21 @@ export const Button: React.FC<ButtonProps> = ({
   const theme = useTheme()
   const touchableProgress = useSharedValue(0)
 
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      backgroundColor: withTiming(
+        interpolateColor(
+          touchableProgress.value,
+          [0, 1],
+          theme.brightness === 'light'
+            ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
+            : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
+        ),
+        { duration: 100 },
+      ),
+    }
+  })
+
   const handlePress = () => {
     if (haptic) {
       HapticFeedback.lightImpact()
@@ -38,15 +53,17 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   const handlePressIn = () => {
-    touchableProgress.value = withTiming(1, { duration: 100 })
+    touchableProgress.value = 1
   }
 
   const handlePressOut = () => {
-    touchableProgress.value = withDelay(200, withTiming(0, { duration: 150 }))
+    setTimeout(() => {
+      touchableProgress.value = 0
+    })
   }
 
   const handleTouchCancel = () => {
-    touchableProgress.value = withTiming(0, { duration: 100 })
+    touchableProgress.value = 0
   }
 
   return (
@@ -83,21 +100,17 @@ export const Button: React.FC<ButtonProps> = ({
         children
       )}
       <Animated.View
-        style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1,
-          backgroundColor: interpolateColor(
-            touchableProgress.value,
-            [0, 1],
-            theme.brightness === 'light'
-              ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
-              : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
-          ),
-        }}
+        style={[
+          {
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1,
+          },
+          animatedStyles,
+        ]}
       />
     </Pressable>
   )
