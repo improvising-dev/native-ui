@@ -62,17 +62,15 @@ export const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (visible) {
       if (mounted) {
-        animation.value = 1
+        animation.value = withTiming(1, { duration })
       } else {
         requestAnimationFrame(() => setMounted(true))
       }
     } else if (mounted) {
-      animation.value = 0
-
-      setTimeout(() => {
+      animation.value = withTiming(0, { duration }, () => {
         setMounted(false)
         onUnmounted?.()
-      }, duration)
+      })
     }
   }, [visible, mounted])
 
@@ -85,9 +83,7 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const animatedBackdropStyles = useAnimatedStyle(() => {
-    return {
-      opacity: withTiming(animation.value, { duration }),
-    }
+    return { opacity: animation.value }
   })
 
   const animatedTransitionStyles = useAnimatedStyle(() => {
@@ -96,7 +92,7 @@ export const Modal: React.FC<ModalProps> = ({
         transform: [
           {
             translateY: interpolate(
-              withTiming(animation.value, { duration }),
+              animation.value,
               [0, 1],
               [dimensions.height, 0],
             ),
@@ -110,7 +106,7 @@ export const Modal: React.FC<ModalProps> = ({
         transform: [
           {
             translateY: interpolate(
-              withTiming(animation.value, { duration }),
+              animation.value,
               [0, 1],
               [-dimensions.height, 0],
             ),
@@ -124,7 +120,7 @@ export const Modal: React.FC<ModalProps> = ({
         transform: [
           {
             translateY: interpolate(
-              withTiming(animation.value, { duration }),
+              animation.value,
               [0, 1],
               [dimensions.width, 0],
             ),
@@ -138,7 +134,7 @@ export const Modal: React.FC<ModalProps> = ({
         transform: [
           {
             translateY: interpolate(
-              withTiming(animation.value, { duration }),
+              animation.value,
               [0, 1],
               [-dimensions.width, 0],
             ),
@@ -149,22 +145,16 @@ export const Modal: React.FC<ModalProps> = ({
 
     if (transition === 'scale') {
       return {
-        opacity: withTiming(animation.value, { duration }),
+        opacity: animation.value,
         transform: [
           {
-            scale: interpolate(
-              withTiming(animation.value, { duration }),
-              [0, 1],
-              [0.9, 1],
-            ),
+            scale: interpolate(animation.value, [0, 1], [0.9, 1]),
           },
         ],
       }
     }
 
-    return {
-      opacity: withTiming(animation.value, { duration }),
-    }
+    return { opacity: animation.value }
   })
 
   const renderBackdrop = () => {

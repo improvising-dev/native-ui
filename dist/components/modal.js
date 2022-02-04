@@ -11,18 +11,17 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     useEffect(() => {
         if (visible) {
             if (mounted) {
-                animation.value = 1;
+                animation.value = withTiming(1, { duration });
             }
             else {
                 requestAnimationFrame(() => setMounted(true));
             }
         }
         else if (mounted) {
-            animation.value = 0;
-            setTimeout(() => {
+            animation.value = withTiming(0, { duration }, () => {
                 setMounted(false);
                 onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
-            }, duration);
+            });
         }
     }, [visible, mounted]);
     const handleBackdropPress = () => {
@@ -32,16 +31,14 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         }
     };
     const animatedBackdropStyles = useAnimatedStyle(() => {
-        return {
-            opacity: withTiming(animation.value, { duration }),
-        };
+        return { opacity: animation.value };
     });
     const animatedTransitionStyles = useAnimatedStyle(() => {
         if (transition === 'slide-up') {
             return {
                 transform: [
                     {
-                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [dimensions.height, 0]),
+                        translateY: interpolate(animation.value, [0, 1], [dimensions.height, 0]),
                     },
                 ],
             };
@@ -50,7 +47,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             return {
                 transform: [
                     {
-                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [-dimensions.height, 0]),
+                        translateY: interpolate(animation.value, [0, 1], [-dimensions.height, 0]),
                     },
                 ],
             };
@@ -59,7 +56,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             return {
                 transform: [
                     {
-                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [dimensions.width, 0]),
+                        translateY: interpolate(animation.value, [0, 1], [dimensions.width, 0]),
                     },
                 ],
             };
@@ -68,24 +65,22 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             return {
                 transform: [
                     {
-                        translateY: interpolate(withTiming(animation.value, { duration }), [0, 1], [-dimensions.width, 0]),
+                        translateY: interpolate(animation.value, [0, 1], [-dimensions.width, 0]),
                     },
                 ],
             };
         }
         if (transition === 'scale') {
             return {
-                opacity: withTiming(animation.value, { duration }),
+                opacity: animation.value,
                 transform: [
                     {
-                        scale: interpolate(withTiming(animation.value, { duration }), [0, 1], [0.9, 1]),
+                        scale: interpolate(animation.value, [0, 1], [0.9, 1]),
                     },
                 ],
             };
         }
-        return {
-            opacity: withTiming(animation.value, { duration }),
-        };
+        return { opacity: animation.value };
     });
     const renderBackdrop = () => {
         if (!backdrop) {

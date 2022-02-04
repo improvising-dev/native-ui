@@ -4,6 +4,7 @@ import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import { HapticFeedback } from '../actions/haptic-feedback'
@@ -31,15 +32,12 @@ export const Button: React.FC<ButtonProps> = ({
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      backgroundColor: withTiming(
-        interpolateColor(
-          touchableProgress.value,
-          [0, 1],
-          theme.brightness === 'light'
-            ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
-            : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
-        ),
-        { duration: 100 },
+      backgroundColor: interpolateColor(
+        touchableProgress.value,
+        [0, 1],
+        theme.brightness === 'light'
+          ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
+          : ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, .05)'],
       ),
     }
   })
@@ -53,17 +51,15 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   const handlePressIn = () => {
-    touchableProgress.value = 1
+    touchableProgress.value = withTiming(1, { duration: 100 })
   }
 
   const handlePressOut = () => {
-    setTimeout(() => {
-      touchableProgress.value = 0
-    })
+    touchableProgress.value = withDelay(200, withTiming(0, { duration: 150 }))
   }
 
   const handleTouchCancel = () => {
-    touchableProgress.value = 0
+    touchableProgress.value = withTiming(0, { duration: 100 })
   }
 
   return (
