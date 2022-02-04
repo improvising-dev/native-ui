@@ -9,7 +9,7 @@ export const showActionSheet = (items: ActionSheetItem[]) => {
         items={items}
         visible={visible}
         onDismiss={handleDismiss}
-        onDisappered={() => dispose()}
+        onUnmounted={() => dispose()}
       />
     ),
   })

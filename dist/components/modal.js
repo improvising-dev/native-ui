@@ -3,7 +3,7 @@ import { StyleSheet, TouchableWithoutFeedback, } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, ZoomIn, ZoomOut, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onDisappered, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     if (!visible) {
         return null;
@@ -71,8 +71,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         }
         entering = entering.duration(transitionDuration);
         exiting = entering.duration(transitionDuration);
-        if (onDisappered) {
-            exiting = exiting.withCallback(onDisappered);
+        if (onUnmounted) {
+            exiting = exiting.withCallback(onUnmounted);
         }
         return (<Animated.View entering={entering} exiting={exiting} style={[{ zIndex: zIndex + 1 }, style]}>
         {children}

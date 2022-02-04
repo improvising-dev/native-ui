@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming, withDelay, interpolateColor, } from 'react-native-reanimated';
+import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withDelay, withTiming, } from 'react-native-reanimated';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
 export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPressed, }) => {

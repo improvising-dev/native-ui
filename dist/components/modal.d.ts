@@ -7,7 +7,7 @@ export interface ModalStateProps {
     transitionDuration?: number;
     onBackdropPressed?: () => void;
     onDismiss?: () => void;
-    onDisappered?: () => void;
+    onUnmounted?: () => void;
 }
 export interface ModalProps extends ModalStateProps {
     zIndex?: number;

@@ -37,7 +37,7 @@ export interface ModalStateProps {
   transitionDuration?: number
   onBackdropPressed?: () => void
   onDismiss?: () => void
-  onDisappered?: () => void
+  onUnmounted?: () => void
 }
 
 export interface ModalProps extends ModalStateProps {
@@ -58,7 +58,7 @@ export const Modal: React.FC<ModalProps> = ({
   transitionDuration = 400,
   onBackdropPressed,
   onDismiss,
-  onDisappered,
+  onUnmounted,
 }) => {
   const theme = useTheme()
 
@@ -143,8 +143,8 @@ export const Modal: React.FC<ModalProps> = ({
     entering = entering.duration(transitionDuration)
     exiting = entering.duration(transitionDuration)
 
-    if (onDisappered) {
-      exiting = exiting.withCallback(onDisappered)
+    if (onUnmounted) {
+      exiting = exiting.withCallback(onUnmounted)
     }
 
     return (

@@ -12,7 +12,7 @@ export const showLoading = (controller?: FullscreenLoadingController) => {
         controller={controller}
         visible={visible}
         onDismiss={handleDismiss}
-        onDisappered={() => dispose()}
+        onUnmounted={() => dispose()}
       />
     ),
   })

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Pressable, StyleProp, Text, TextStyle, ViewStyle } from 'react-native'
 import Animated, {
+  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
   withDelay,
-  interpolateColor,
+  withTiming,
 } from 'react-native-reanimated'
 import { HapticFeedback } from '../actions/haptic-feedback'
 import { useTheme } from '../core/theme'

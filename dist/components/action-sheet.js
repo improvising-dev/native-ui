@@ -4,10 +4,10 @@ import { Text } from './text';
 import { useTheme } from '../core/theme';
 import { Button } from './button';
 import { Modal } from './modal';
-export const ActionSheet = ({ items, visible, transition = 'slide-up', transitionDuration, onBackdropPressed, onDismiss, onDisappered, }) => {
+export const ActionSheet = ({ items, visible, transition = 'slide-up', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
-    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onDisappered={onDisappered} style={{
+    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

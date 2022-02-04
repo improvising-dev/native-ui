@@ -21,7 +21,7 @@ export const showAlert = (options: AlertOptions) => {
         <AlertDialog
           visible={visible}
           onDismiss={handleDismiss}
-          onDisappered={() => resolve(dispose())}
+          onUnmounted={() => resolve(dispose())}
           {...options}
         />
       ),
@@ -41,7 +41,7 @@ export const showConfirm = (options: ConfirmOptions) => {
             value = result
             handleDismiss()
           }}
-          onDisappered={() => {
+          onUnmounted={() => {
             dispose()
             resolve(value)
           }}
@@ -64,7 +64,7 @@ export const showPrompt = (options: PromptOptions) => {
             value = result
             handleDismiss()
           }}
-          onDisappered={() => {
+          onUnmounted={() => {
             dispose()
             resolve(value)
           }}

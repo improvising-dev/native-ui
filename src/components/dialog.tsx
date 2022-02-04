@@ -18,7 +18,7 @@ export const Dialog: React.FC<DialogProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onDisappered,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
@@ -42,7 +42,7 @@ export const Dialog: React.FC<DialogProps> = ({
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
-      onDisappered={onDisappered}
+      onUnmounted={onUnmounted}
       style={{
         position: 'absolute',
         bottom: 0,
@@ -75,7 +75,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onDisappered,
+  onUnmounted,
 }) => {
   const theme = useTheme()
 
@@ -86,7 +86,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={onDismiss}
-      onDisappered={onDisappered}
+      onUnmounted={onUnmounted}
     >
       <Text
         style={{
@@ -129,7 +129,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onDisappered,
+  onUnmounted,
 }) => {
   const theme = useTheme()
 
@@ -140,7 +140,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.(false)}
-      onDisappered={onDisappered}
+      onUnmounted={onUnmounted}
     >
       <Text
         style={{
@@ -201,7 +201,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   transitionDuration,
   onBackdropPressed,
   onDismiss,
-  onDisappered,
+  onUnmounted,
 }) => {
   const theme = useTheme()
   const [text, setText] = useState(initialValue)
@@ -213,7 +213,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
       transitionDuration={transitionDuration}
       onBackdropPressed={onBackdropPressed}
       onDismiss={() => onDismiss?.()}
-      onDisappered={onDisappered}
+      onUnmounted={onUnmounted}
     >
       <Text
         style={[
