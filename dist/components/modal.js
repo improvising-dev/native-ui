@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, } from 'react-native';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, runOnJS, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { Portal } from './portal';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
@@ -8,22 +8,10 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     const dimensions = useWindowDimensions();
     const animation = useSharedValue(visible ? 1 : 0);
     const [mounted, setMounted] = useState(visible);
-    useEffect(() => {
-        if (visible) {
-            if (mounted) {
-                animation.value = withTiming(1, { duration });
-            }
-            else {
-                requestAnimationFrame(() => setMounted(true));
-            }
-        }
-        else if (mounted) {
-            animation.value = withTiming(0, { duration }, () => {
-                setMounted(false);
-                onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
-            });
-        }
-    }, [visible, mounted]);
+    const handleUnmount = () => {
+        setMounted(false);
+        onUnmounted === null || onUnmounted === void 0 ? void 0 : onUnmounted();
+    };
     const handleBackdropPress = () => {
         onBackdropPressed === null || onBackdropPressed === void 0 ? void 0 : onBackdropPressed();
         if (dismissible) {
@@ -108,6 +96,19 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         {children}
       </Animated.View>);
     };
+    useEffect(() => {
+        if (visible) {
+            if (mounted) {
+                animation.value = withTiming(1, { duration });
+            }
+            else {
+                requestAnimationFrame(() => setMounted(true));
+            }
+        }
+        else if (mounted) {
+            animation.value = withTiming(0, { duration }, runOnJS(handleUnmount));
+        }
+    }, [visible, mounted]);
     if (!mounted) {
         return null;
     }
