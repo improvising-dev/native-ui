@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-  FullscreenLoading,
-  FullscreenLoadingController,
-} from '../components/fullscreen-loading'
+import { FullscreenLoading } from '../components/fullscreen-loading'
+import { FullscreenLoadingController } from '../controllers/fullscreen-loading'
 import { showModal } from './modal'
 
 export interface FullscreenLoadingParams {

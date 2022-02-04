@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
 import { ActivityIndicator } from 'react-native'
-import { BaseController, useMountController } from '../core/controller'
+import { FullscreenLoadingController } from '../controllers/fullscreen-loading'
+import { useMountController } from '../core/controller'
 import { useTheme } from '../core/theme'
 import { Modal, ModalStateProps } from './modal'
 import { Text } from './text'
-
-interface FullscreenLoadingMethods {
-  setMessage: (value?: string) => void
-}
-
-export class FullscreenLoadingController extends BaseController<FullscreenLoadingMethods> {
-  setMessage(message?: string) {
-    this.methods?.setMessage(message)
-  }
-}
 
 export interface FullscreenLoadingProps extends ModalStateProps {
   controller?: FullscreenLoadingController

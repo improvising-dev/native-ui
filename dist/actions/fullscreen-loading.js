@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import React from 'react';
-import { FullscreenLoading, } from '../components/fullscreen-loading';
+import { FullscreenLoading } from '../components/fullscreen-loading';
 import { showModal } from './modal';
 export const showLoading = ({ controller, message, } = {}) => {
     const { dispose, handleDismiss } = showModal({

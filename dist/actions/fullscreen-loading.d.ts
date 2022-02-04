@@ -1,4 +1,4 @@
-import { FullscreenLoadingController } from '../components/fullscreen-loading';
+import { FullscreenLoadingController } from '../controllers/fullscreen-loading';
 export interface FullscreenLoadingParams {
     controller?: FullscreenLoadingController;
     message?: string;

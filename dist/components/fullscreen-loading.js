@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { BaseController, useMountController } from '../core/controller';
+import { useMountController } from '../core/controller';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-export class FullscreenLoadingController extends BaseController {
-    setMessage(message) {
-        var _a;
-        (_a = this.methods) === null || _a === void 0 ? void 0 : _a.setMessage(message);
-    }
-}
 export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [message, setMessage] = useState(initialMessage);

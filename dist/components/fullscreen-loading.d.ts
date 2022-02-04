@@ -1,15 +1,8 @@
 import React from 'react';
-import { BaseController } from '../core/controller';
+import { FullscreenLoadingController } from '../controllers/fullscreen-loading';
 import { ModalStateProps } from './modal';
-interface FullscreenLoadingMethods {
-    setMessage: (value?: string) => void;
-}
-export declare class FullscreenLoadingController extends BaseController<FullscreenLoadingMethods> {
-    setMessage(message?: string): void;
-}
 export interface FullscreenLoadingProps extends ModalStateProps {
     controller?: FullscreenLoadingController;
     message?: string;
 }
 export declare const FullscreenLoading: React.FC<FullscreenLoadingProps>;
-export {};
