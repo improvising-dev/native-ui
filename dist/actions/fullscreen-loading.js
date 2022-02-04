@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import React from 'react';
 import { FullscreenLoading, } from '../components/fullscreen-loading';
 import { showModal } from './modal';
-export const showLoading = (controller) => {
+export const showLoading = ({ controller, message, } = {}) => {
     const { dispose, handleDismiss } = showModal({
-        builder: ({ visible, handleDismiss }) => (<FullscreenLoading controller={controller} visible={visible} onDismiss={handleDismiss} onUnmounted={() => dispose()}/>),
+        builder: ({ visible, handleDismiss }) => (<FullscreenLoading controller={controller} message={message} visible={visible} onDismiss={handleDismiss} onUnmounted={() => dispose()}/>),
     });
     return handleDismiss;
 };
-export const handleLoading = (cb, controller) => __awaiter(void 0, void 0, void 0, function* () {
-    const hideLoading = showLoading(controller);
+export const handleLoading = (cb, params = {}) => __awaiter(void 0, void 0, void 0, function* () {
+    const hideLoading = showLoading(params);
     try {
         return yield cb();
     }

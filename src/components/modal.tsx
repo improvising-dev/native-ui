@@ -36,6 +36,7 @@ export interface ModalProps extends ModalStateProps {
   zIndex?: number
   dismissible?: boolean
   backdrop?: boolean
+  backdropStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
   useNativeDriver?: boolean
 }
@@ -45,9 +46,10 @@ export const Modal: React.FC<ModalProps> = ({
   zIndex = 100,
   dismissible = true,
   backdrop = true,
-  transition = 'fade',
+  backdropStyle,
   style,
   visible,
+  transition = 'fade',
   transitionDuration: duration = 400,
   onBackdropPressed,
   onDismiss,
@@ -173,6 +175,7 @@ export const Modal: React.FC<ModalProps> = ({
               backgroundColor: theme.backgroundColor.modalBarrier,
               zIndex: 0,
             },
+            backdropStyle,
             animatedBackdropStyles,
           ]}
         />

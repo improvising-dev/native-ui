@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, transition = 'fade', style, visible, transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const animation = useSharedValue(visible ? 1 : 0);
@@ -93,6 +93,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     backgroundColor: theme.backgroundColor.modalBarrier,
                     zIndex: 0,
                 },
+                backdropStyle,
                 animatedBackdropStyles,
             ]}/>
       </TouchableWithoutFeedback>);

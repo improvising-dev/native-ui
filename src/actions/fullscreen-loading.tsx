@@ -5,11 +5,20 @@ import {
 } from '../components/fullscreen-loading'
 import { showModal } from './modal'
 
-export const showLoading = (controller?: FullscreenLoadingController) => {
+export interface FullscreenLoadingParams {
+  controller?: FullscreenLoadingController
+  message?: string
+}
+
+export const showLoading = ({
+  controller,
+  message,
+}: FullscreenLoadingParams = {}) => {
   const { dispose, handleDismiss } = showModal({
     builder: ({ visible, handleDismiss }) => (
       <FullscreenLoading
         controller={controller}
+        message={message}
         visible={visible}
         onDismiss={handleDismiss}
         onUnmounted={() => dispose()}
@@ -22,9 +31,9 @@ export const showLoading = (controller?: FullscreenLoadingController) => {
 
 export const handleLoading = async <T,>(
   cb: () => Promise<T> | T,
-  controller?: FullscreenLoadingController,
+  params: FullscreenLoadingParams = {},
 ) => {
-  const hideLoading = showLoading(controller)
+  const hideLoading = showLoading(params)
 
   try {
     return await cb()

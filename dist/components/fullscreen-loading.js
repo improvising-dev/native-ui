@@ -10,9 +10,9 @@ export class FullscreenLoadingController extends BaseController {
         (_a = this.methods) === null || _a === void 0 ? void 0 : _a.setMessage(message);
     }
 }
-export const FullscreenLoading = ({ controller, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState(initialMessage);
     const renderMessage = () => {
         if (!message) {
             return null;

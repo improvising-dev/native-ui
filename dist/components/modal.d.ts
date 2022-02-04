@@ -13,6 +13,7 @@ export interface ModalProps extends ModalStateProps {
     zIndex?: number;
     dismissible?: boolean;
     backdrop?: boolean;
+    backdropStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     useNativeDriver?: boolean;
 }

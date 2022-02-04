@@ -17,10 +17,12 @@ export class FullscreenLoadingController extends BaseController<FullscreenLoadin
 
 export interface FullscreenLoadingProps extends ModalStateProps {
   controller?: FullscreenLoadingController
+  message?: string
 }
 
 export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   controller,
+  message: initialMessage,
   visible,
   transition = 'fade',
   transitionDuration,
@@ -29,7 +31,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   onUnmounted,
 }) => {
   const theme = useTheme()
-  const [message, setMessage] = useState<string>()
+  const [message, setMessage] = useState(initialMessage)
 
   const renderMessage = () => {
     if (!message) {

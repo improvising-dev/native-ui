@@ -9,6 +9,7 @@ export declare class FullscreenLoadingController extends BaseController<Fullscre
 }
 export interface FullscreenLoadingProps extends ModalStateProps {
     controller?: FullscreenLoadingController;
+    message?: string;
 }
 export declare const FullscreenLoading: React.FC<FullscreenLoadingProps>;
 export {};
