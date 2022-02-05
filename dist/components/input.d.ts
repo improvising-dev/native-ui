@@ -1,6 +1,7 @@
 import React from 'react';
-import { TextInputProps, TextStyle } from 'react-native';
+import { TextInputProps } from 'react-native';
+import { TextPadding } from '../core/layout';
 export interface InputProps extends TextInputProps {
-    style?: TextStyle;
+    textPadding?: TextPadding;
 }
 export declare const Input: React.FC<InputProps>;
