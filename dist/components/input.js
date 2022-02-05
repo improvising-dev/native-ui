@@ -9,22 +9,31 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useState } from 'react';
-import { TextInput } from 'react-native';
-import { TextPadding } from '../core/layout';
+import React, { useImperativeHandle, useRef, useState } from 'react';
+import { Pressable, TextInput, } from 'react-native';
 import { useTheme } from '../core/theme';
-export const Input = (_a) => {
-    var _b;
-    var { multiline, style, textPadding = TextPadding.zero, placeholderTextColor, underlineColorAndroid = 'transparent', onContentSizeChange } = _a, props = __rest(_a, ["multiline", "style", "textPadding", "placeholderTextColor", "underlineColorAndroid", "onContentSizeChange"]);
+export const Input = React.forwardRef((_a, ref) => {
+    var { multiline, style, textStyle, placeholderTextColor, underlineColorAndroid = 'transparent', onContentSizeChange } = _a, textInputProps = __rest(_a, ["multiline", "style", "textStyle", "placeholderTextColor", "underlineColorAndroid", "onContentSizeChange"]);
     const theme = useTheme();
+    const textInput = useRef(null);
     const [height, setHeight] = useState();
-    const updateLayoutHeight = (contentHeight) => {
-        setHeight(contentHeight + textPadding.vertical);
-    };
-    return (<TextInput multiline={multiline} selectionColor={theme.primaryColor} style={[theme.textTheme.default, style, textPadding.build(), { height }]} placeholderTextColor={(_b = theme.textColor.placeholder) !== null && _b !== void 0 ? _b : placeholderTextColor} underlineColorAndroid={underlineColorAndroid} onContentSizeChange={event => {
+    useImperativeHandle(ref, () => textInput.current);
+    return (<Pressable style={style} onPress={() => { var _a; return (_a = textInput.current) === null || _a === void 0 ? void 0 : _a.focus(); }}>
+        <TextInput ref={textInput} multiline={multiline} selectionColor={theme.primaryColor} style={[
+            theme.textTheme.default,
+            textStyle,
+            {
+                paddingTop: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                paddingRight: 0,
+                height,
+            },
+        ]} placeholderTextColor={placeholderTextColor !== null && placeholderTextColor !== void 0 ? placeholderTextColor : theme.textColor.placeholder} underlineColorAndroid={underlineColorAndroid} onContentSizeChange={event => {
             if (multiline) {
-                updateLayoutHeight(event.nativeEvent.contentSize.height);
+                setHeight(event.nativeEvent.contentSize.height);
             }
             onContentSizeChange === null || onContentSizeChange === void 0 ? void 0 : onContentSizeChange(event);
-        }} {...props}/>);
-};
+        }} {...textInputProps}/>
+      </Pressable>);
+});

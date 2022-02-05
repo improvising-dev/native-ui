@@ -1,7 +1,9 @@
 import React from 'react';
-import { TextInputProps } from 'react-native';
-import { TextPadding } from '../core/layout';
-export interface InputProps extends TextInputProps {
-    textPadding?: TextPadding;
+import { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from 'react-native';
+export interface Input extends TextInput {
 }
-export declare const Input: React.FC<InputProps>;
+export interface InputProps extends TextInputProps {
+    style?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
+}
+export declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<TextInput>>;

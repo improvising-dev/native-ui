@@ -1,43 +1,72 @@
-import React, { useState } from 'react'
-import { TextInput, TextInputProps } from 'react-native'
-import { TextPadding } from '../core/layout'
+import React, { useImperativeHandle, useRef, useState } from 'react'
+import {
+  Pressable,
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native'
 import { useTheme } from '../core/theme'
 
+export interface Input extends TextInput {}
+
 export interface InputProps extends TextInputProps {
-  textPadding?: TextPadding
+  style?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
 }
 
-export const Input: React.FC<InputProps> = ({
-  multiline,
-  style,
-  textPadding = TextPadding.zero,
-  placeholderTextColor,
-  underlineColorAndroid = 'transparent',
-  onContentSizeChange,
-  ...props
-}) => {
-  const theme = useTheme()
-  const [height, setHeight] = useState<number>()
+export const Input = React.forwardRef<TextInput, InputProps>(
+  (
+    {
+      multiline,
+      style,
+      textStyle,
+      placeholderTextColor,
+      underlineColorAndroid = 'transparent',
+      onContentSizeChange,
+      ...textInputProps
+    },
+    ref,
+  ) => {
+    const theme = useTheme()
+    const textInput = useRef<TextInput>(null)
 
-  const updateLayoutHeight = (contentHeight: number) => {
-    setHeight(contentHeight + textPadding.vertical)
-  }
+    const [height, setHeight] = useState<number>()
 
-  return (
-    <TextInput
-      multiline={multiline}
-      selectionColor={theme.primaryColor}
-      style={[theme.textTheme.default, style, textPadding.build(), { height }]}
-      placeholderTextColor={theme.textColor.placeholder ?? placeholderTextColor}
-      underlineColorAndroid={underlineColorAndroid}
-      onContentSizeChange={event => {
-        if (multiline) {
-          updateLayoutHeight(event.nativeEvent.contentSize.height)
-        }
+    useImperativeHandle(ref, () => textInput.current!)
 
-        onContentSizeChange?.(event)
-      }}
-      {...props}
-    />
-  )
-}
+    return (
+      <Pressable style={style} onPress={() => textInput.current?.focus()}>
+        <TextInput
+          ref={textInput}
+          multiline={multiline}
+          selectionColor={theme.primaryColor}
+          style={[
+            theme.textTheme.default,
+            textStyle,
+            {
+              paddingTop: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              paddingRight: 0,
+              height,
+            },
+          ]}
+          placeholderTextColor={
+            placeholderTextColor ?? theme.textColor.placeholder
+          }
+          underlineColorAndroid={underlineColorAndroid}
+          onContentSizeChange={event => {
+            if (multiline) {
+              setHeight(event.nativeEvent.contentSize.height)
+            }
+
+            onContentSizeChange?.(event)
+          }}
+          {...textInputProps}
+        />
+      </Pressable>
+    )
+  },
+)
