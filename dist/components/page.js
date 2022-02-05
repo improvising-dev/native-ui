@@ -12,8 +12,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React from 'react';
 import { View } from 'react-native';
 import { useTheme } from '../core/theme';
-import { StatusBar } from './status-bar';
 import { ScrollView } from './scroll-view';
+import { StatusBar } from './status-bar';
 export const Page = (_a) => {
     var { scrollable = false, keyboardAvoiding = false, style, children } = _a, viewProps = __rest(_a, ["scrollable", "keyboardAvoiding", "style", "children"]);
     const theme = useTheme();

@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useWindowDimensions } from 'react-native';
 const constraintsContext = React.createContext({});
 export const useConstraints = () => {
@@ -6,8 +6,8 @@ export const useConstraints = () => {
     const { maxWidth = width, maxHeight = height } = useContext(constraintsContext);
     return { maxWidth, maxHeight };
 };
-export const ConstraintsProvider = memo(({ maxWidth, maxHeight, children }) => {
+export const ConstraintsProvider = ({ maxWidth, maxHeight, children, }) => {
     return (<constraintsContext.Provider value={{ maxWidth, maxHeight }}>
-        {children}
-      </constraintsContext.Provider>);
-});
+      {children}
+    </constraintsContext.Provider>);
+};

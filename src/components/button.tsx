@@ -84,11 +84,13 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {typeof children === 'string' ? (
         <Text
-          style={{
-            color: theme.primaryContrastingColor,
-            ...theme.textTheme.button,
-            ...textStyle,
-          }}
+          style={[
+            theme.textTheme.button,
+            {
+              color: theme.primaryContrastingColor,
+            },
+            textStyle,
+          ]}
         >
           {children}
         </Text>

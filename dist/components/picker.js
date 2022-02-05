@@ -28,14 +28,25 @@ export const Picker = (_a) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-        <Text style={Object.assign(Object.assign({}, theme.componentTheme.picker.titleTextStyle), { color: isSelected
-                    ? theme.textColor.primary
-                    : theme.textColor.primaryUnselected })}>
+        <Text style={[
+                theme.componentTheme.picker.titleTextStyle,
+                {
+                    color: isSelected
+                        ? theme.textColor.primary
+                        : theme.textColor.primaryUnselected,
+                },
+            ]}>
           {item.title}
         </Text>
-        {item.subtitle && (<Text style={Object.assign(Object.assign({}, theme.componentTheme.picker.subtitleTextStyle), { marginTop: 2, color: isSelected
-                        ? theme.textColor.secondary
-                        : theme.textColor.secondaryUnselected })}>
+        {item.subtitle && (<Text style={[
+                    theme.componentTheme.picker.subtitleTextStyle,
+                    {
+                        marginTop: 2,
+                        color: isSelected
+                            ? theme.textColor.secondary
+                            : theme.textColor.secondaryUnselected,
+                    },
+                ]}>
             {item.subtitle}
           </Text>)}
       </View>);

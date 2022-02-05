@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-export const Stack = memo(({ direction, align, justify, style, spacing, children }) => {
+export const Stack = ({ direction, align, justify, style, spacing, children, }) => {
     const renderItems = () => {
         if (!spacing) {
             return children;
@@ -26,6 +26,6 @@ export const Stack = memo(({ direction, align, justify, style, spacing, children
             },
             style,
         ]}>
-        {renderItems()}
-      </View>);
-});
+      {renderItems()}
+    </View>);
+};

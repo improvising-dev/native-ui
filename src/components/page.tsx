@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
-import { StatusBar } from './status-bar'
 import { ScrollView } from './scroll-view'
+import { StatusBar } from './status-bar'
 
 export interface PageProps extends ViewProps {
   scrollable?: boolean

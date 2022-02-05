@@ -1,10 +1,10 @@
 import React from 'react';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text } from './text';
 import { useTheme } from '../core/theme';
 import { Button } from './button';
 import { Modal } from './modal';
-import { View } from 'react-native';
+import { Text } from './text';
 export const ActionSheet = ({ items, header, visible, transition = 'slide-up', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
@@ -23,24 +23,42 @@ export const ActionSheet = ({ items, header, visible, transition = 'slide-up', t
             paddingBottom: insets.bottom,
         }}>
         {items.map((item, index) => {
-            return (<Button key={item.title} style={Object.assign({ backgroundColor: theme.backgroundColor.primary, height: theme.componentTheme.actionSheet.itemHeight, borderRadius: 0 }, (index === 0 && {
-                    borderTopLeftRadius: theme.borderRadius,
-                    borderTopRightRadius: theme.borderRadius,
-                }))} textStyle={{
+            return (<Button key={item.title} style={[
+                    {
+                        backgroundColor: theme.backgroundColor.primary,
+                        height: theme.componentTheme.actionSheet.itemHeight,
+                        borderRadius: 0,
+                    },
+                    index === 0 && {
+                        borderTopLeftRadius: theme.borderRadius,
+                        borderTopRightRadius: theme.borderRadius,
+                    },
+                ]} textStyle={{
                     color: theme.textColor.primary,
                 }} onPress={() => {
                     var _a;
                     (_a = item.onPress) === null || _a === void 0 ? void 0 : _a.call(item);
                     onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
                 }}>
-              <Text style={Object.assign(Object.assign({}, theme.componentTheme.actionSheet.titleTextStyle), { color: item.destructive
-                        ? theme.textColor.destructive
-                        : theme.textColor.primary })}>
+              <Text style={[
+                    theme.componentTheme.actionSheet.titleTextStyle,
+                    {
+                        color: item.destructive
+                            ? theme.textColor.destructive
+                            : theme.textColor.primary,
+                    },
+                ]}>
                 {item.title}
               </Text>
-              {item.subtitle && (<Text style={Object.assign(Object.assign({}, theme.componentTheme.actionSheet.subtitleTextStyle), { marginTop: 2, color: item.destructive
-                            ? theme.textColor.destructiveSecondary
-                            : theme.textColor.secondary })}>
+              {item.subtitle && (<Text style={[
+                        theme.componentTheme.actionSheet.subtitleTextStyle,
+                        {
+                            marginTop: 2,
+                            color: item.destructive
+                                ? theme.textColor.destructiveSecondary
+                                : theme.textColor.secondary,
+                        },
+                    ]}>
                   {item.subtitle}
                 </Text>)}
             </Button>);

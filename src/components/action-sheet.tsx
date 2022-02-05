@@ -1,10 +1,10 @@
 import React from 'react'
+import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Text } from './text'
 import { useTheme } from '../core/theme'
 import { Button } from './button'
 import { Modal, ModalStateProps } from './modal'
-import { View } from 'react-native'
+import { Text } from './text'
 
 export interface ActionSheetItem {
   title: string
@@ -61,15 +61,17 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
           return (
             <Button
               key={item.title}
-              style={{
-                backgroundColor: theme.backgroundColor.primary,
-                height: theme.componentTheme.actionSheet.itemHeight,
-                borderRadius: 0,
-                ...(index === 0 && {
+              style={[
+                {
+                  backgroundColor: theme.backgroundColor.primary,
+                  height: theme.componentTheme.actionSheet.itemHeight,
+                  borderRadius: 0,
+                },
+                index === 0 && {
                   borderTopLeftRadius: theme.borderRadius,
                   borderTopRightRadius: theme.borderRadius,
-                }),
-              }}
+                },
+              ]}
               textStyle={{
                 color: theme.textColor.primary,
               }}
@@ -79,24 +81,28 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
               }}
             >
               <Text
-                style={{
-                  ...theme.componentTheme.actionSheet.titleTextStyle,
-                  color: item.destructive
-                    ? theme.textColor.destructive
-                    : theme.textColor.primary,
-                }}
+                style={[
+                  theme.componentTheme.actionSheet.titleTextStyle,
+                  {
+                    color: item.destructive
+                      ? theme.textColor.destructive
+                      : theme.textColor.primary,
+                  },
+                ]}
               >
                 {item.title}
               </Text>
               {item.subtitle && (
                 <Text
-                  style={{
-                    ...theme.componentTheme.actionSheet.subtitleTextStyle,
-                    marginTop: 2,
-                    color: item.destructive
-                      ? theme.textColor.destructiveSecondary
-                      : theme.textColor.secondary,
-                  }}
+                  style={[
+                    theme.componentTheme.actionSheet.subtitleTextStyle,
+                    {
+                      marginTop: 2,
+                      color: item.destructive
+                        ? theme.textColor.destructiveSecondary
+                        : theme.textColor.secondary,
+                    },
+                  ]}
                 >
                   {item.subtitle}
                 </Text>

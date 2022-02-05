@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 
 export interface SpacerProps {
@@ -6,10 +6,10 @@ export interface SpacerProps {
   height?: number
 }
 
-export const Spacer: React.FC<SpacerProps> = memo(({ width, height }) => {
+export const Spacer: React.FC<SpacerProps> = ({ width, height }) => {
   if (width || height) {
     return <View pointerEvents="box-none" style={{ width, height }} />
   }
 
   return <View pointerEvents="box-none" style={{ flex: 1 }} />
-})
+}

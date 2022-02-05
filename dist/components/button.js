@@ -40,7 +40,13 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
             },
             style,
         ]}>
-      {typeof children === 'string' ? (<Text style={Object.assign(Object.assign({ color: theme.primaryContrastingColor }, theme.textTheme.button), textStyle)}>
+      {typeof children === 'string' ? (<Text style={[
+                theme.textTheme.button,
+                {
+                    color: theme.primaryContrastingColor,
+                },
+                textStyle,
+            ]}>
           {children}
         </Text>) : (children)}
       <Animated.View style={[
