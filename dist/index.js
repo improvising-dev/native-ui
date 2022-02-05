@@ -23,6 +23,7 @@ export * from './core/controller';
 export * from './core/event';
 export * from './core/router';
 export * from './core/theme';
+export * from './hooks/use-back-handler';
 export * from './hooks/use-keyboard-height';
 export * from './themes/common';
 export * from './themes/dark';

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
+import { useBackHandler } from '../hooks/use-back-handler';
 export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
@@ -24,6 +25,12 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             }, duration);
         }
     }, [visible, mounted]);
+    useBackHandler(() => {
+        if (dismissible) {
+            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+        }
+        return true;
+    }, [dismissible]);
     const handleBackdropPress = () => {
         onBackdropPress === null || onBackdropPress === void 0 ? void 0 : onBackdropPress();
         if (dismissible) {

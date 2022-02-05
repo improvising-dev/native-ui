@@ -14,6 +14,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
+import { useBackHandler } from '../hooks/use-back-handler'
 
 export type ModalTransition =
   | 'fade'
@@ -77,6 +78,14 @@ export const Modal: React.FC<ModalProps> = ({
       }, duration)
     }
   }, [visible, mounted])
+
+  useBackHandler(() => {
+    if (dismissible) {
+      onDismiss?.()
+    }
+
+    return true
+  }, [dismissible])
 
   const handleBackdropPress = () => {
     onBackdropPress?.()
