@@ -17,7 +17,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
   visible,
   transition = 'fade',
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -53,7 +53,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
       transition={transition}
       transitionDuration={transitionDuration}
       dismissible={false}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       style={{

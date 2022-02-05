@@ -4,7 +4,7 @@ import { useMountController } from '../core/controller';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [message, setMessage] = useState(initialMessage);
     const renderMessage = () => {
@@ -22,7 +22,7 @@ export const FullscreenLoading = ({ controller, message: initialMessage, visible
         controller,
         methods: { setMessage },
     });
-    return (<Modal zIndex={theme.componentTheme.fullscreenLoading.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} dismissible={false} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.fullscreenLoading.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} dismissible={false} onBackdropPress={onBackdropPress} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',

@@ -5,10 +5,10 @@ import { useTheme } from '../core/theme';
 import { Button } from './button';
 import { Modal } from './modal';
 import { View } from 'react-native';
-export const ActionSheet = ({ items, header, visible, transition = 'slide-up', transitionDuration, onBackdropPressed, onDismiss, onUnmounted, }) => {
+export const ActionSheet = ({ items, header, visible, transition = 'slide-up', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
-    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPressed={onBackdropPressed} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPress={onBackdropPress} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

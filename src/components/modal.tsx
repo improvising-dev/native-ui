@@ -27,7 +27,7 @@ export interface ModalStateProps {
   visible: boolean
   transition?: ModalTransition
   transitionDuration?: number
-  onBackdropPressed?: () => void
+  onBackdropPress?: () => void
   onDismiss?: () => void
   onUnmounted?: () => void
 }
@@ -51,7 +51,7 @@ export const Modal: React.FC<ModalProps> = ({
   visible,
   transition = 'fade',
   transitionDuration: duration = 400,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -79,7 +79,7 @@ export const Modal: React.FC<ModalProps> = ({
   }, [visible, mounted])
 
   const handleBackdropPress = () => {
-    onBackdropPressed?.()
+    onBackdropPress?.()
 
     if (dismissible) {
       onDismiss?.()

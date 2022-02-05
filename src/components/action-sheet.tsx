@@ -24,7 +24,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
   visible,
   transition = 'slide-up',
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -37,7 +37,7 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
       visible={visible}
       transition={transition}
       transitionDuration={transitionDuration}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       style={{

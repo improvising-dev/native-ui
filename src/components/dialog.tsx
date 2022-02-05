@@ -16,7 +16,7 @@ export const Dialog: React.FC<DialogProps> = ({
   visible,
   transition = 'slide-up',
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -40,7 +40,7 @@ export const Dialog: React.FC<DialogProps> = ({
       visible={visible}
       transition={transition}
       transitionDuration={transitionDuration}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       style={{
@@ -73,7 +73,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   visible,
   transition,
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -84,7 +84,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       visible={visible}
       transition={transition}
       transitionDuration={transitionDuration}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
     >
@@ -127,7 +127,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   visible,
   transition,
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -138,7 +138,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       visible={visible}
       transition={transition}
       transitionDuration={transitionDuration}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={() => onDismiss?.(false)}
       onUnmounted={onUnmounted}
     >
@@ -199,7 +199,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   visible,
   transition,
   transitionDuration,
-  onBackdropPressed,
+  onBackdropPress,
   onDismiss,
   onUnmounted,
 }) => {
@@ -211,7 +211,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
       visible={visible}
       transition={transition}
       transitionDuration={transitionDuration}
-      onBackdropPressed={onBackdropPressed}
+      onBackdropPress={onBackdropPress}
       onDismiss={() => onDismiss?.()}
       onUnmounted={onUnmounted}
     >

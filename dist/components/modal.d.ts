@@ -5,7 +5,7 @@ export interface ModalStateProps {
     visible: boolean;
     transition?: ModalTransition;
     transitionDuration?: number;
-    onBackdropPressed?: () => void;
+    onBackdropPress?: () => void;
     onDismiss?: () => void;
     onUnmounted?: () => void;
 }
