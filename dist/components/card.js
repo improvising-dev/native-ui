@@ -14,16 +14,16 @@ import { Pressable } from 'react-native';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
 export const Card = (_a) => {
-    var { children, style, haptic = false, onPressed } = _a, viewProps = __rest(_a, ["children", "style", "haptic", "onPressed"]);
+    var { children, style, haptic = false, onPress, onLongPress } = _a, viewProps = __rest(_a, ["children", "style", "haptic", "onPress", "onLongPress"]);
     const theme = useTheme();
-    const disabled = !onPressed;
+    const disabled = !onPress;
     const handlePress = () => {
         if (haptic) {
             HapticFeedback.lightImpact();
         }
-        onPressed === null || onPressed === void 0 ? void 0 : onPressed();
+        onPress === null || onPress === void 0 ? void 0 : onPress();
     };
-    return (<Pressable disabled={disabled} onPress={handlePress} style={[
+    return (<Pressable disabled={disabled} onPress={handlePress} onLongPress={onLongPress} style={[
             {
                 backgroundColor: theme.backgroundColor.primary,
                 borderRadius: theme.borderRadius,

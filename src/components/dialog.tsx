@@ -104,7 +104,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       >
         {message}
       </Text>
-      <Button style={{ flex: 1 }} onPressed={onDismiss}>
+      <Button style={{ flex: 1 }} onPress={onDismiss}>
         {okButtonText}
       </Button>
     </Dialog>
@@ -167,11 +167,11 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           textStyle={{
             color: theme.textColor.primary,
           }}
-          onPressed={() => onDismiss?.(false)}
+          onPress={() => onDismiss?.(false)}
         >
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.(true)}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss?.(true)}>
           {confirmButtonText}
         </Button>
       </Stack>
@@ -259,11 +259,11 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
           textStyle={{
             color: theme.textColor.primary,
           }}
-          onPressed={() => onDismiss?.()}
+          onPress={() => onDismiss?.()}
         >
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss?.()}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss?.()}>
           {confirmButtonText}
         </Button>
       </Stack>

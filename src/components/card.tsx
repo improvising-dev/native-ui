@@ -5,31 +5,34 @@ import { useTheme } from '../core/theme'
 
 export interface CardProps extends ViewProps {
   haptic?: boolean
-  onPressed?: () => void
+  onPress?: () => void
+  onLongPress?: () => void
 }
 
 export const Card: React.FC<CardProps> = ({
   children,
   style,
   haptic = false,
-  onPressed,
+  onPress,
+  onLongPress,
   ...viewProps
 }) => {
   const theme = useTheme()
-  const disabled = !onPressed
+  const disabled = !onPress
 
   const handlePress = () => {
     if (haptic) {
       HapticFeedback.lightImpact()
     }
 
-    onPressed?.()
+    onPress?.()
   }
 
   return (
     <Pressable
       disabled={disabled}
       onPress={handlePress}
+      onLongPress={onLongPress}
       style={[
         {
           backgroundColor: theme.backgroundColor.primary,

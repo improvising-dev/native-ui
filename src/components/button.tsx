@@ -16,7 +16,7 @@ export interface ButtonProps {
   textStyle?: TextStyle
   haptic?: boolean
   disabled?: boolean
-  onPressed?: () => void
+  onPress?: () => void
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
   textStyle,
   haptic = false,
   disabled = false,
-  onPressed,
+  onPress,
 }) => {
   const theme = useTheme()
   const touchableProgress = useSharedValue(0)
@@ -47,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
       HapticFeedback.lightImpact()
     }
 
-    onPressed?.()
+    onPress?.()
   }
 
   const handlePressIn = () => {

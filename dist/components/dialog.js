@@ -45,7 +45,7 @@ export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, tran
         }}>
         {message}
       </Text>
-      <Button style={{ flex: 1 }} onPressed={onDismiss}>
+      <Button style={{ flex: 1 }} onPress={onDismiss}>
         {okButtonText}
       </Button>
     </Dialog>);
@@ -71,10 +71,10 @@ export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', con
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)}>
+        }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)}>
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(true)}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(true)}>
           {confirmButtonText}
         </Button>
       </Stack>
@@ -112,10 +112,10 @@ export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', conf
             backgroundColor: theme.backgroundColor.fill,
         }} textStyle={{
             color: theme.textColor.primary,
-        }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
+        }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPressed={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
           {confirmButtonText}
         </Button>
       </Stack>

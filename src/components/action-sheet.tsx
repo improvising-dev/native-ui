@@ -10,7 +10,7 @@ export interface ActionSheetItem {
   title: string
   subtitle?: string
   destructive?: boolean
-  onPressed?: () => void
+  onPress?: () => void
 }
 
 export interface ActionSheetProps extends ModalStateProps {
@@ -73,8 +73,8 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
               textStyle={{
                 color: theme.textColor.primary,
               }}
-              onPressed={() => {
-                item.onPressed?.()
+              onPress={() => {
+                item.onPress?.()
                 onDismiss?.()
               }}
             >

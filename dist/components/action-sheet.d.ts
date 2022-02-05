@@ -4,7 +4,7 @@ export interface ActionSheetItem {
     title: string;
     subtitle?: string;
     destructive?: boolean;
-    onPressed?: () => void;
+    onPress?: () => void;
 }
 export interface ActionSheetProps extends ModalStateProps {
     items: ActionSheetItem[];

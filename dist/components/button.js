@@ -3,7 +3,7 @@ import { Pressable, Text } from 'react-native';
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withDelay, withTiming, } from 'react-native-reanimated';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
-export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPressed, }) => {
+export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPress, }) => {
     const theme = useTheme();
     const touchableProgress = useSharedValue(0);
     const animatedStyles = useAnimatedStyle(() => {
@@ -17,7 +17,7 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
         if (haptic) {
             HapticFeedback.lightImpact();
         }
-        onPressed === null || onPressed === void 0 ? void 0 : onPressed();
+        onPress === null || onPress === void 0 ? void 0 : onPress();
     };
     const handlePressIn = () => {
         touchableProgress.value = withTiming(1, { duration: 100 });

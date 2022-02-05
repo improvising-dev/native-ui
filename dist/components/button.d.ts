@@ -6,6 +6,6 @@ export interface ButtonProps {
     textStyle?: TextStyle;
     haptic?: boolean;
     disabled?: boolean;
-    onPressed?: () => void;
+    onPress?: () => void;
 }
 export declare const Button: React.FC<ButtonProps>;

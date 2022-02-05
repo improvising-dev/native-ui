@@ -28,9 +28,9 @@ export const ActionSheet = ({ items, header, visible, transition = 'slide-up', t
                     borderTopRightRadius: theme.borderRadius,
                 }))} textStyle={{
                     color: theme.textColor.primary,
-                }} onPressed={() => {
+                }} onPress={() => {
                     var _a;
-                    (_a = item.onPressed) === null || _a === void 0 ? void 0 : _a.call(item);
+                    (_a = item.onPress) === null || _a === void 0 ? void 0 : _a.call(item);
                     onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
                 }}>
               <Text style={Object.assign(Object.assign({}, theme.componentTheme.actionSheet.titleTextStyle), { color: item.destructive
