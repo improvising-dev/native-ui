@@ -8,5 +8,6 @@ export interface ActionSheetItem {
 }
 export interface ActionSheetProps extends ModalStateProps {
     items: ActionSheetItem[];
+    header?: React.ReactNode;
 }
 export declare const ActionSheet: React.FC<ActionSheetProps>;
