@@ -4,7 +4,7 @@ import { showModal } from './modal'
 
 export const showActionSheet = (
   items: ActionSheetItem[],
-  { header }: { header?: React.ReactNode },
+  { header }: { header?: React.ReactNode } = {},
 ) => {
   const { dispose } = showModal({
     builder: ({ visible, handleDismiss }) => (
