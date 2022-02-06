@@ -55,14 +55,14 @@ export interface Route {
   options?: NativeStackNavigationOptions
 }
 
-export interface RouterViewProps {
+export interface RouterDelegteProps {
   initialRouteName?: keyof RouteParamList
   routes?: Route[]
 }
 
 const Stack = createNativeStackNavigator()
 
-export const RouterView: React.FC<RouterViewProps> = ({
+export const RouterDegelate: React.FC<RouterDelegteProps> = ({
   initialRouteName,
   routes = [],
 }) => {

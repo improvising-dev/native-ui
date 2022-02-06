@@ -15,8 +15,8 @@ export interface Route {
     component: React.ComponentType<any>;
     options?: NativeStackNavigationOptions;
 }
-export interface RouterViewProps {
+export interface RouterDelegteProps {
     initialRouteName?: keyof RouteParamList;
     routes?: Route[];
 }
-export declare const RouterView: React.FC<RouterViewProps>;
+export declare const RouterDegelate: React.FC<RouterDelegteProps>;

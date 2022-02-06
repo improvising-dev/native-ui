@@ -3,7 +3,7 @@ import { Platform, UIManager } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
-import { Route, RouteParamList, RouterView } from './router'
+import { Route, RouteParamList, RouterDegelate } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
 
 if (
@@ -32,7 +32,7 @@ const RouterRenderer: React.FC<RouterRendererProps> = ({
   const theme = useTheme()
 
   return (
-    <RouterView
+    <RouterDegelate
       initialRouteName={initialRouteName}
       routes={typeof routes === 'function' ? routes(theme) : routes}
     />

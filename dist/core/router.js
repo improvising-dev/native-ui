@@ -28,7 +28,7 @@ export class Router {
     }
 }
 const Stack = createNativeStackNavigator();
-export const RouterView = ({ initialRouteName, routes = [], }) => {
+export const RouterDegelate = ({ initialRouteName, routes = [], }) => {
     return (<NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName={initialRouteName}>
         {routes.map(route => (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>))}

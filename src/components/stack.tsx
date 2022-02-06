@@ -14,32 +14,27 @@ export const Stack = React.forwardRef<Stack, StackProps>(
         return children
       }
 
-      const items = React.Children.toArray(children)
+      return React.Children.toArray(children)
+        .filter(Boolean)
+        .reduce<React.ReactNode>((builder, element) => {
+          if (!builder) {
+            return element
+          }
 
-      return items.reduce<React.ReactNode>((children, item, index) => {
-        if (index === items.length - 1) {
           return (
             <>
-              {children}
-              {item}
+              {builder}
+              <View
+                style={
+                  direction === 'row' || direction === 'row-reverse'
+                    ? { width: spacing }
+                    : { height: spacing }
+                }
+              />
+              {element}
             </>
           )
-        }
-
-        return (
-          <>
-            {children}
-            {item}
-            <View
-              style={
-                direction === 'row' || direction === 'row-reverse'
-                  ? { width: spacing }
-                  : { height: spacing }
-              }
-            />
-          </>
-        )
-      }, null)
+        }, null)
     }, [direction, spacing, children])
 
     return (

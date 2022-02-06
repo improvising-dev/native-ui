@@ -18,21 +18,19 @@ export const Stack = React.forwardRef((_a, ref) => {
         if (!spacing) {
             return children;
         }
-        const items = React.Children.toArray(children);
-        return items.reduce((children, item, index) => {
-            if (index === items.length - 1) {
-                return (<>
-              {children}
-              {item}
-            </>);
+        return React.Children.toArray(children)
+            .filter(Boolean)
+            .reduce((builder, element) => {
+            if (!builder) {
+                return element;
             }
             return (<>
-            {children}
-            {item}
-            <View style={direction === 'row' || direction === 'row-reverse'
+              {builder}
+              <View style={direction === 'row' || direction === 'row-reverse'
                     ? { width: spacing }
                     : { height: spacing }}/>
-          </>);
+              {element}
+            </>);
         }, null);
     }, [direction, spacing, children]);
     return (<Container ref={ref} direction={direction} {...viewProps}>
