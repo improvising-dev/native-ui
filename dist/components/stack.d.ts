@@ -5,4 +5,4 @@ export interface Stack extends Container {
 export interface StackProps extends ContainerProps {
     spacing?: number;
 }
-export declare const Stack: React.FC<StackProps>;
+export declare const Stack: React.ForwardRefExoticComponent<StackProps & React.RefAttributes<Stack>>;

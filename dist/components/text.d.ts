@@ -3,6 +3,5 @@ import { Text as RNText, TextProps as RNTextProps } from 'react-native';
 export interface Text extends RNText {
 }
 export interface TextProps extends RNTextProps {
-    expand?: boolean;
 }
 export declare const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<Text>>;

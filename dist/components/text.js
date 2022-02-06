@@ -13,7 +13,7 @@ import React from 'react';
 import { Text as RNText } from 'react-native';
 import { useTheme } from '../core/theme';
 export const Text = React.forwardRef((_a, ref) => {
-    var { expand, style } = _a, textProps = __rest(_a, ["expand", "style"]);
+    var { style } = _a, textProps = __rest(_a, ["style"]);
     const theme = useTheme();
-    return (<RNText ref={ref} style={[theme.textTheme.default, expand && { flex: 1 }, style]} {...textProps}/>);
+    return (<RNText ref={ref} style={[theme.textTheme.default, style]} {...textProps}/>);
 });

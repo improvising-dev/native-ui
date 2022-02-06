@@ -7,7 +7,7 @@ export interface StackProps extends ContainerProps {
   spacing?: number
 }
 
-export const Stack: React.FC<StackProps> = React.forwardRef<Stack, StackProps>(
+export const Stack = React.forwardRef<Stack, StackProps>(
   ({ direction, spacing, children, ...viewProps }, ref) => {
     const node = useMemo(() => {
       if (!spacing) {

@@ -3,18 +3,16 @@ import { Text as RNText, TextProps as RNTextProps } from 'react-native'
 import { useTheme } from '../core/theme'
 
 export interface Text extends RNText {}
-export interface TextProps extends RNTextProps {
-  expand?: boolean
-}
+export interface TextProps extends RNTextProps {}
 
 export const Text = React.forwardRef<Text, TextProps>(
-  ({ expand, style, ...textProps }, ref) => {
+  ({ style, ...textProps }, ref) => {
     const theme = useTheme()
 
     return (
       <RNText
         ref={ref}
-        style={[theme.textTheme.default, expand && { flex: 1 }, style]}
+        style={[theme.textTheme.default, style]}
         {...textProps}
       />
     )
