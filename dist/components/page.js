@@ -14,8 +14,8 @@ import { View } from 'react-native';
 import { useTheme } from '../core/theme';
 import { ScrollView } from './scroll-view';
 import { StatusBar } from './status-bar';
-export const Page = (_a) => {
-    var { scrollable = false, keyboardAvoiding = false, style, children } = _a, viewProps = __rest(_a, ["scrollable", "keyboardAvoiding", "style", "children"]);
+export const Page = React.forwardRef((_a, ref) => {
+    var { scrollable = false, style, children } = _a, props = __rest(_a, ["scrollable", "style", "children"]);
     const theme = useTheme();
     const viewStyle = [
         {
@@ -25,13 +25,13 @@ export const Page = (_a) => {
         style,
     ];
     if (scrollable) {
-        return (<ScrollView keyboardAvoiding={keyboardAvoiding} style={viewStyle} {...viewProps}>
+        return (<ScrollView ref={ref} style={viewStyle} {...props}>
+          <StatusBar style="auto"/>
+          {children}
+        </ScrollView>);
+    }
+    return (<View style={viewStyle} {...props}>
         <StatusBar style="auto"/>
         {children}
-      </ScrollView>);
-    }
-    return (<View style={viewStyle} {...viewProps}>
-      <StatusBar style="auto"/>
-      {children}
-    </View>);
-};
+      </View>);
+});

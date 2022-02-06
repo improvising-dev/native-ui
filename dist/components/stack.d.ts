@@ -1,9 +1,8 @@
 import React from 'react';
-import { FlexStyle, ViewProps } from 'react-native';
-export interface StackProps extends ViewProps {
-    direction?: FlexStyle['flexDirection'];
-    align?: FlexStyle['alignItems'];
-    justify?: FlexStyle['justifyContent'];
+import { Container, ContainerProps } from './container';
+export interface Stack extends Container {
+}
+export interface StackProps extends ContainerProps {
     spacing?: number;
 }
 export declare const Stack: React.FC<StackProps>;

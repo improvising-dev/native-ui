@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
+export interface Button extends View {
+}
 export interface ButtonProps {
     children?: string | React.ReactNode;
     style?: StyleProp<ViewStyle>;
@@ -8,4 +10,4 @@ export interface ButtonProps {
     disabled?: boolean;
     onPress?: () => void;
 }
-export declare const Button: React.FC<ButtonProps>;
+export declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<Button>>;

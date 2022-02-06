@@ -1,7 +1,8 @@
 import React from 'react';
-import { ViewProps } from 'react-native';
-export interface PageProps extends ViewProps {
-    scrollable?: boolean;
-    keyboardAvoiding?: boolean;
+import { ScrollView, ScrollViewProps } from './scroll-view';
+export interface Page extends ScrollView {
 }
-export declare const Page: React.FC<PageProps>;
+export interface PageProps extends ScrollViewProps {
+    scrollable?: boolean;
+}
+export declare const Page: React.ForwardRefExoticComponent<PageProps & React.RefAttributes<Page>>;

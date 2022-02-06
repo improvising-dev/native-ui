@@ -18,17 +18,24 @@ export const Input = React.forwardRef((_a, ref) => {
     const textInput = useRef(null);
     const [height, setHeight] = useState();
     useImperativeHandle(ref, () => textInput.current);
-    return (<Pressable style={style} onPress={() => { var _a; return (_a = textInput.current) === null || _a === void 0 ? void 0 : _a.focus(); }}>
+    return (<Pressable style={[
+            {
+                flexDirection: 'row',
+                alignItems: 'center',
+            },
+            style,
+        ]} onPress={() => { var _a; return (_a = textInput.current) === null || _a === void 0 ? void 0 : _a.focus(); }}>
         <TextInput ref={textInput} multiline={multiline} selectionColor={theme.primaryColor} style={[
             theme.textTheme.default,
-            textStyle,
             {
+                flex: 1,
                 paddingTop: 0,
                 paddingBottom: 0,
                 paddingLeft: 0,
                 paddingRight: 0,
                 height,
             },
+            textStyle,
         ]} placeholderTextColor={placeholderTextColor !== null && placeholderTextColor !== void 0 ? placeholderTextColor : theme.textColor.placeholder} underlineColorAndroid={underlineColorAndroid} onContentSizeChange={event => {
             if (multiline) {
                 setHeight(event.nativeEvent.contentSize.height);

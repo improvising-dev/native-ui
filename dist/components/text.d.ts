@@ -1,6 +1,8 @@
 import React from 'react';
-import { TextProps as RNTextProps } from 'react-native';
-export interface TextProps extends RNTextProps {
-    children?: string;
+import { Text as RNText, TextProps as RNTextProps } from 'react-native';
+export interface Text extends RNText {
 }
-export declare const Text: React.FC<TextProps>;
+export interface TextProps extends RNTextProps {
+    expand?: boolean;
+}
+export declare const Text: React.ForwardRefExoticComponent<TextProps & React.RefAttributes<Text>>;

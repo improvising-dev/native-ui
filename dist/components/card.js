@@ -13,7 +13,7 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
-export const Card = (_a) => {
+export const Card = React.forwardRef((_a, ref) => {
     var { children, style, haptic = false, onPress, onLongPress } = _a, viewProps = __rest(_a, ["children", "style", "haptic", "onPress", "onLongPress"]);
     const theme = useTheme();
     const disabled = !onPress;
@@ -23,7 +23,7 @@ export const Card = (_a) => {
         }
         onPress === null || onPress === void 0 ? void 0 : onPress();
     };
-    return (<Pressable disabled={disabled} onPress={handlePress} onLongPress={onLongPress} style={[
+    return (<Pressable ref={ref} disabled={disabled} onPress={handlePress} onLongPress={onLongPress} style={[
             {
                 backgroundColor: theme.backgroundColor.primary,
                 borderRadius: theme.borderRadius,
@@ -31,6 +31,6 @@ export const Card = (_a) => {
             },
             style,
         ]} {...viewProps}>
-      {children}
-    </Pressable>);
-};
+        {children}
+      </Pressable>);
+});

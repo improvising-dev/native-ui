@@ -1,66 +1,51 @@
-import React from 'react'
-import { FlexStyle, View, ViewProps } from 'react-native'
+import React, { useMemo } from 'react'
+import { View } from 'react-native'
+import { Container, ContainerProps } from './container'
 
-export interface StackProps extends ViewProps {
-  direction?: FlexStyle['flexDirection']
-  align?: FlexStyle['alignItems']
-  justify?: FlexStyle['justifyContent']
+export interface Stack extends Container {}
+export interface StackProps extends ContainerProps {
   spacing?: number
 }
 
-export const Stack: React.FC<StackProps> = ({
-  direction,
-  align,
-  justify,
-  style,
-  spacing,
-  children,
-}) => {
-  const renderItems = () => {
-    if (!spacing) {
-      return children
-    }
+export const Stack: React.FC<StackProps> = React.forwardRef<Stack, StackProps>(
+  ({ direction, spacing, children, ...viewProps }, ref) => {
+    const node = useMemo(() => {
+      if (!spacing) {
+        return children
+      }
 
-    const builder: React.ReactNode[] = []
+      const items = React.Children.toArray(children)
 
-    let index = 0
+      return items.reduce<React.ReactNode>((children, item, index) => {
+        if (index === items.length - 1) {
+          return (
+            <>
+              {children}
+              {item}
+            </>
+          )
+        }
 
-    for (const child of React.Children.toArray(children)) {
-      builder.push(
-        <View
-          key={index}
-          style={
-            direction === 'row' || direction === 'row-reverse'
-              ? { width: spacing }
-              : { height: spacing }
-          }
-        />,
-      )
+        return (
+          <>
+            {children}
+            {item}
+            <View
+              style={
+                direction === 'row' || direction === 'row-reverse'
+                  ? { width: spacing }
+                  : { height: spacing }
+              }
+            />
+          </>
+        )
+      }, null)
+    }, [direction, spacing, children])
 
-      index++
-
-      builder.push(<React.Fragment key={index}>{child}</React.Fragment>)
-
-      index++
-    }
-
-    builder.shift()
-
-    return builder
-  }
-
-  return (
-    <View
-      style={[
-        {
-          flexDirection: direction,
-          alignItems: align,
-          justifyContent: justify,
-        },
-        style,
-      ]}
-    >
-      {renderItems()}
-    </View>
-  )
-}
+    return (
+      <Container ref={ref} direction={direction} {...viewProps}>
+        {node}
+      </Container>
+    )
+  },
+)

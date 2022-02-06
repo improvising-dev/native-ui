@@ -10,13 +10,14 @@ import {
 import { useTheme } from '../core/theme'
 import { useKeyboardHeight } from '../hooks/use-keyboard-height'
 
+export interface ScrollView extends RNScrollView {}
 export interface ScrollViewProps extends RNScrollViewProps {
   keyboardAvoiding?: boolean
   keyboardAvoidingDuration?: number
   bottomInset?: number
 }
 
-export const ScrollView = React.forwardRef<RNScrollView, ScrollViewProps>(
+export const ScrollView = React.forwardRef<ScrollView, ScrollViewProps>(
   (
     {
       keyboardAvoiding = false,

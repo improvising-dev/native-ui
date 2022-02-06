@@ -1,8 +1,10 @@
 import React from 'react';
-import { ViewProps } from 'react-native';
+import { View, ViewProps } from 'react-native';
+export interface Card extends View {
+}
 export interface CardProps extends ViewProps {
     haptic?: boolean;
     onPress?: () => void;
     onLongPress?: () => void;
 }
-export declare const Card: React.FC<CardProps>;
+export declare const Card: React.ForwardRefExoticComponent<CardProps & React.RefAttributes<Card>>;

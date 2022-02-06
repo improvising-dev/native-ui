@@ -12,10 +12,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React from 'react';
 import { Text as RNText } from 'react-native';
 import { useTheme } from '../core/theme';
-export const Text = (_a) => {
-    var { children, style } = _a, textProps = __rest(_a, ["children", "style"]);
+export const Text = React.forwardRef((_a, ref) => {
+    var { expand, style } = _a, textProps = __rest(_a, ["expand", "style"]);
     const theme = useTheme();
-    return (<RNText style={[theme.textTheme.default, style]} {...textProps}>
-      {children}
-    </RNText>);
-};
+    return (<RNText ref={ref} style={[theme.textTheme.default, expand && { flex: 1 }, style]} {...textProps}/>);
+});

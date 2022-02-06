@@ -37,21 +37,31 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     useImperativeHandle(ref, () => textInput.current!)
 
     return (
-      <Pressable style={style} onPress={() => textInput.current?.focus()}>
+      <Pressable
+        style={[
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+          },
+          style,
+        ]}
+        onPress={() => textInput.current?.focus()}
+      >
         <TextInput
           ref={textInput}
           multiline={multiline}
           selectionColor={theme.primaryColor}
           style={[
             theme.textTheme.default,
-            textStyle,
             {
+              flex: 1,
               paddingTop: 0,
               paddingBottom: 0,
               paddingLeft: 0,
               paddingRight: 0,
               height,
             },
+            textStyle,
           ]}
           placeholderTextColor={
             placeholderTextColor ?? theme.textColor.placeholder

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable, Text, } from 'react-native';
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withDelay, withTiming, } from 'react-native-reanimated';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
-export const Button = ({ children, style, textStyle, haptic = false, disabled = false, onPress, }) => {
+export const Button = React.forwardRef(({ children, style, textStyle, haptic = false, disabled = false, onPress }, ref) => {
     const theme = useTheme();
     const touchableProgress = useSharedValue(0);
     const animatedStyles = useAnimatedStyle(() => {
@@ -28,7 +28,7 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
     const handleTouchCancel = () => {
         touchableProgress.value = withTiming(0, { duration: 100 });
     };
-    return (<Pressable onPress={handlePress} onPressIn={handlePressIn} onPressOut={handlePressOut} onTouchCancel={handleTouchCancel} disabled={disabled} style={[
+    return (<Pressable ref={ref} onPress={handlePress} onPressIn={handlePressIn} onPressOut={handlePressOut} onTouchCancel={handleTouchCancel} disabled={disabled} style={[
             {
                 overflow: 'hidden',
                 alignItems: 'center',
@@ -40,16 +40,16 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
             },
             style,
         ]}>
-      {typeof children === 'string' ? (<Text style={[
+        {typeof children === 'string' ? (<Text style={[
                 theme.textTheme.button,
                 {
                     color: theme.primaryContrastingColor,
                 },
                 textStyle,
             ]}>
-          {children}
-        </Text>) : (children)}
-      <Animated.View style={[
+            {children}
+          </Text>) : (children)}
+        <Animated.View style={[
             {
                 position: 'absolute',
                 top: 0,
@@ -60,5 +60,5 @@ export const Button = ({ children, style, textStyle, haptic = false, disabled = 
             },
             animatedStyles,
         ]}/>
-    </Pressable>);
-};
+      </Pressable>);
+});
