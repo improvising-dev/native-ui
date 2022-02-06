@@ -115,7 +115,7 @@ export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', conf
         }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(text)}>
           {confirmButtonText}
         </Button>
       </Stack>

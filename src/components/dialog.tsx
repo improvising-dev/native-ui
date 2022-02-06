@@ -263,7 +263,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
         >
           {cancelButtonText}
         </Button>
-        <Button style={{ flex: 1 }} onPress={() => onDismiss?.()}>
+        <Button style={{ flex: 1 }} onPress={() => onDismiss?.(text)}>
           {confirmButtonText}
         </Button>
       </Stack>
