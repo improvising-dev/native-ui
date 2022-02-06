@@ -9,16 +9,22 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useImperativeHandle, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Pressable, TextInput, } from 'react-native';
 import { useTheme } from '../core/theme';
 export const Input = React.forwardRef((_a, ref) => {
-    var { multiline, style, textStyle, prefix, prefixMode = 'always', suffix, suffixMode = 'always', defaultValue = '', placeholderTextColor, underlineColorAndroid = 'transparent', onChangeText, onContentSizeChange } = _a, textInputProps = __rest(_a, ["multiline", "style", "textStyle", "prefix", "prefixMode", "suffix", "suffixMode", "defaultValue", "placeholderTextColor", "underlineColorAndroid", "onChangeText", "onContentSizeChange"]);
+    var _b;
+    var { multiline, style, textStyle, prefix, prefixMode = 'always', suffix, suffixMode = 'always', value: controlledValue, defaultValue, placeholderTextColor, underlineColorAndroid = 'transparent', onChangeText, onContentSizeChange } = _a, textInputProps = __rest(_a, ["multiline", "style", "textStyle", "prefix", "prefixMode", "suffix", "suffixMode", "value", "defaultValue", "placeholderTextColor", "underlineColorAndroid", "onChangeText", "onContentSizeChange"]);
     const theme = useTheme();
     const textInput = useRef(null);
-    const [value, setValue] = useState(defaultValue);
+    const [value, setValue] = useState((_b = controlledValue !== null && controlledValue !== void 0 ? controlledValue : defaultValue) !== null && _b !== void 0 ? _b : '');
     const [height, setHeight] = useState();
     useImperativeHandle(ref, () => textInput.current);
+    useEffect(() => {
+        if (controlledValue !== undefined && value !== controlledValue) {
+            setValue(controlledValue);
+        }
+    }, [controlledValue]);
     return (<Pressable style={[
             {
                 flexDirection: 'row',
@@ -32,7 +38,7 @@ export const Input = React.forwardRef((_a, ref) => {
             ? prefix
             : null}
 
-        <TextInput ref={textInput} multiline={multiline} selectionColor={theme.primaryColor} style={[
+        <TextInput ref={textInput} value={controlledValue} defaultValue={defaultValue} multiline={multiline} selectionColor={theme.primaryColor} style={[
             theme.textTheme.default,
             {
                 flex: 1,

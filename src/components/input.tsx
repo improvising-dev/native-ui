@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import {
   Pressable,
   StyleProp,
@@ -35,7 +35,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(
       prefixMode = 'always',
       suffix,
       suffixMode = 'always',
-      defaultValue = '',
+      value: controlledValue,
+      defaultValue,
       placeholderTextColor,
       underlineColorAndroid = 'transparent',
       onChangeText,
@@ -47,10 +48,16 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     const theme = useTheme()
     const textInput = useRef<TextInput>(null)
 
-    const [value, setValue] = useState(defaultValue)
+    const [value, setValue] = useState(controlledValue ?? defaultValue ?? '')
     const [height, setHeight] = useState<number>()
 
     useImperativeHandle(ref, () => textInput.current!)
+
+    useEffect(() => {
+      if (controlledValue !== undefined && value !== controlledValue) {
+        setValue(controlledValue)
+      }
+    }, [controlledValue])
 
     return (
       <Pressable
@@ -71,6 +78,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(
 
         <TextInput
           ref={textInput}
+          value={controlledValue}
+          defaultValue={defaultValue}
           multiline={multiline}
           selectionColor={theme.primaryColor}
           style={[
