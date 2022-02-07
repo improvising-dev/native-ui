@@ -5,6 +5,11 @@ const Checkmark = props => (<Svg viewBox="0 0 24 24" {...props}>
       <Path d="M9.86 18a1 1 0 0 1-.73-.32l-4.86-5.17a1 1 0 1 1 1.46-1.37l4.12 4.39 8.41-9.2a1 1 0 1 1 1.48 1.34l-9.14 10a1 1 0 0 1-.73.33Z" data-name="checkmark"/>
     </G>
   </Svg>);
+const Close = props => (<Svg viewBox="0 0 24 24" {...props}>
+    <G data-name="Layer 2">
+      <Path d="m13.41 12 4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" data-name="close"/>
+    </G>
+  </Svg>);
 const Send = props => (<Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path d="M21 4a1.31 1.31 0 0 0-.06-.27v-.09a1 1 0 0 0-.2-.3 1 1 0 0 0-.29-.19h-.09a.86.86 0 0 0-.31-.15H20a1 1 0 0 0-.3 0l-18 6a1 1 0 0 0 0 1.9l8.53 2.84 2.84 8.53a1 1 0 0 0 1.9 0l6-18A1 1 0 0 0 21 4zm-4.7 2.29-5.57 5.57L5.16 10zM14 18.84l-1.86-5.57 5.57-5.57z" data-name="paper-plane"/>
@@ -35,6 +40,7 @@ const MoreVertical = props => (<Svg viewBox="0 0 24 24" {...props}>
   </Svg>);
 export const Icon = {
     Checkmark,
+    Close,
     Send,
     Add,
     MoreHorizontal,
