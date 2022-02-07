@@ -1,10 +1,6 @@
 import React from 'react'
 import { ModalContext } from '../components/modal-context'
 
-const generateId = () => {
-  return Math.random().toString(36).slice(2, 5)
-}
-
 class ModalServiceStatic {
   context?: ModalContext
 
@@ -23,11 +19,7 @@ class ModalServiceStatic {
   }
 
   create(node: React.ReactNode) {
-    let id = generateId()
-
-    while (this.ids.has(id)) {
-      id = generateId()
-    }
+    const id = Date.now().toString()
 
     if (!this.context) {
       throw new Error('ModalContext is not mounted')

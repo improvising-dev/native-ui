@@ -1,6 +1,3 @@
-const generateId = () => {
-    return Math.random().toString(36).slice(2, 5);
-};
 class ModalServiceStatic {
     constructor() {
         this.ids = new Set();
@@ -13,10 +10,7 @@ class ModalServiceStatic {
     }
     create(node) {
         var _a;
-        let id = generateId();
-        while (this.ids.has(id)) {
-            id = generateId();
-        }
+        const id = Date.now().toString();
         if (!this.context) {
             throw new Error('ModalContext is not mounted');
         }

@@ -39,7 +39,6 @@ export interface ModalProps extends ModalStateProps {
   backdrop?: boolean
   backdropStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
-  useNativeDriver?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({

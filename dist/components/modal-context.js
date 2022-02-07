@@ -19,7 +19,7 @@ export const ModalProvider = ({ children }) => {
     }, []);
     const modalList = useMemo(() => {
         return Array.from(modalMap.entries())
-            .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+            .sort(([keyA], [keyB]) => keyA.localeCompare(keyB, 'en', { numeric: true }))
             .map(([key, modal]) => <React.Fragment key={key}>{modal}</React.Fragment>);
     }, [modalMap]);
     useEffect(() => {
