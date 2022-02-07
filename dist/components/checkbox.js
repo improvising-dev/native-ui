@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable } from 'react-native';
-import { Icon } from 'react-native-eva-icons';
 import { useTheme } from '../core/theme';
+import { Icon } from './icon';
 export const CheckBox = ({ value, onValueChange, size: customSize, style, checkedColor: customCheckedColor, uncheckedColor: customUncheckedColor, iconColor: customIconColor, }) => {
     const theme = useTheme();
     const size = customSize !== null && customSize !== void 0 ? customSize : theme.componentTheme.checkbox.size;
@@ -20,6 +20,6 @@ export const CheckBox = ({ value, onValueChange, size: customSize, style, checke
             },
             style,
         ]}>
-      {value && (<Icon name="checkmark" fill={iconColor} width={iconSize} height={iconSize}/>)}
+      {value && (<Icon.Checkmark fill={iconColor} width={iconSize} height={iconSize}/>)}
     </Pressable>);
 };

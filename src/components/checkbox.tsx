@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pressable, StyleProp, ViewStyle } from 'react-native'
-import { Icon } from 'react-native-eva-icons'
 import { useTheme } from '../core/theme'
+import { Icon } from './icon'
 
 export interface CheckBoxProps {
   value: boolean
@@ -46,12 +46,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
       ]}
     >
       {value && (
-        <Icon
-          name="checkmark"
-          fill={iconColor}
-          width={iconSize}
-          height={iconSize}
-        />
+        <Icon.Checkmark fill={iconColor} width={iconSize} height={iconSize} />
       )}
     </Pressable>
   )

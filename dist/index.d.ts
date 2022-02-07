@@ -9,6 +9,7 @@ export * from './components/card';
 export * from './components/checkbox';
 export * from './components/constraints-context';
 export * from './components/container';
+export * from './components/icon';
 export * from './components/input';
 export * from './components/modal';
 export * from './components/page';
