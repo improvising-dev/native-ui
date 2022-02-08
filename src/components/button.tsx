@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Pressable,
-  StyleProp,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { Pressable, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -16,12 +9,13 @@ import Animated, {
 } from 'react-native-reanimated'
 import { HapticFeedback } from '../actions/haptic-feedback'
 import { useTheme } from '../core/theme'
+import { Text } from './text'
 
 export interface Button extends View {}
 export interface ButtonProps {
   children?: string | React.ReactNode
   style?: StyleProp<ViewStyle>
-  textStyle?: TextStyle
+  textStyle?: StyleProp<TextStyle>
   haptic?: boolean
   disabled?: boolean
   onPress?: () => void

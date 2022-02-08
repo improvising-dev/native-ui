@@ -3,12 +3,12 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Text,
   View,
   ViewProps,
 } from 'react-native'
 import { HapticFeedback } from '../actions/haptic-feedback'
 import { useTheme } from '../core/theme'
+import { Text } from './text'
 
 export interface PickerItem {
   title: string

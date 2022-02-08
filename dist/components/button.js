@@ -1,8 +1,9 @@
 import React from 'react';
-import { Pressable, Text, } from 'react-native';
+import { Pressable } from 'react-native';
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withDelay, withTiming, } from 'react-native-reanimated';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
+import { Text } from './text';
 export const Button = React.forwardRef(({ children, style, textStyle, haptic = false, disabled = false, onPress }, ref) => {
     const theme = useTheme();
     const touchableProgress = useSharedValue(0);

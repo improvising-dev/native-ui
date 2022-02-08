@@ -10,9 +10,10 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { useMemo, useRef, useState } from 'react';
-import { FlatList, Text, View, } from 'react-native';
+import { FlatList, View, } from 'react-native';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
+import { Text } from './text';
 export const Picker = (_a) => {
     var { style, items = [], defaultValue, onValueChange, height, itemHeight: customItemHeight } = _a, props = __rest(_a, ["style", "items", "defaultValue", "onValueChange", "height", "itemHeight"]);
     const theme = useTheme();
