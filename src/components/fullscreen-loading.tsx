@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { ActivityIndicator } from 'react-native'
 import { FullscreenLoadingController } from '../controllers/fullscreen-loading'
 import { useMountController } from '../core/controller'
 import { useTheme } from '../core/theme'
+import { ActivityIndicator } from './activity-indicator'
 import { Modal, ModalStateProps } from './modal'
 import { Text } from './text'
 
@@ -62,7 +62,7 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
         justifyContent: 'center',
       }}
     >
-      <ActivityIndicator color={theme.white} />
+      <ActivityIndicator size={35} color={theme.white} />
       {renderMessage()}
     </Modal>
   )

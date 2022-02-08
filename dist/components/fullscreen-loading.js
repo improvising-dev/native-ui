@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ActivityIndicator } from 'react-native';
 import { useMountController } from '../core/controller';
 import { useTheme } from '../core/theme';
+import { ActivityIndicator } from './activity-indicator';
 import { Modal } from './modal';
 import { Text } from './text';
 export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
@@ -27,7 +27,7 @@ export const FullscreenLoading = ({ controller, message: initialMessage, visible
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-      <ActivityIndicator color={theme.white}/>
+      <ActivityIndicator size={35} color={theme.white}/>
       {renderMessage()}
     </Modal>);
 };
