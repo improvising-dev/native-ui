@@ -35,7 +35,7 @@ export const Button = React.forwardRef<Button, ButtonProps>(
     const theme = useTheme()
     const touchableProgress = useSharedValue(0)
 
-    const animatedStyles = useAnimatedStyle(() => {
+    const animatedStyle = useAnimatedStyle(() => {
       return {
         backgroundColor: interpolateColor(
           touchableProgress.value,
@@ -113,7 +113,7 @@ export const Button = React.forwardRef<Button, ButtonProps>(
               right: 0,
               zIndex: 1,
             },
-            animatedStyles,
+            animatedStyle,
           ]}
         />
       </Pressable>

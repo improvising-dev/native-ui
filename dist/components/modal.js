@@ -37,10 +37,10 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
         }
     };
-    const animatedBackdropStyles = useAnimatedStyle(() => {
+    const animatedBackdropStyle = useAnimatedStyle(() => {
         return { opacity: animation.value };
     });
-    const animatedTransitionStyles = useAnimatedStyle(() => {
+    const animatedTransitionStyle = useAnimatedStyle(() => {
         if (transition === 'slide-up') {
             return {
                 transform: [
@@ -101,12 +101,12 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     zIndex: 0,
                 },
                 backdropStyle,
-                animatedBackdropStyles,
+                animatedBackdropStyle,
             ]}/>
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        return (<Animated.View style={[{ zIndex: 1 }, animatedTransitionStyles, style]}>
+        return (<Animated.View style={[{ zIndex: 1 }, animatedTransitionStyle, style]}>
         {children}
       </Animated.View>);
     };

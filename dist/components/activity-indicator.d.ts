@@ -4,4 +4,4 @@ export interface ActivityIndicatorProps {
     count?: number;
     color?: string;
 }
-export declare const ActivityIndicator: React.FC<ActivityIndicatorProps>;
+export declare const ActivityIndicator: React.NamedExoticComponent<ActivityIndicatorProps>;

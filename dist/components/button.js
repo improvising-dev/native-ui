@@ -6,7 +6,7 @@ import { useTheme } from '../core/theme';
 export const Button = React.forwardRef(({ children, style, textStyle, haptic = false, disabled = false, onPress }, ref) => {
     const theme = useTheme();
     const touchableProgress = useSharedValue(0);
-    const animatedStyles = useAnimatedStyle(() => {
+    const animatedStyle = useAnimatedStyle(() => {
         return {
             backgroundColor: interpolateColor(touchableProgress.value, [0, 1], theme.brightness === 'light'
                 ? ['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, .05)']
@@ -58,7 +58,7 @@ export const Button = React.forwardRef(({ children, style, textStyle, haptic = f
                 right: 0,
                 zIndex: 1,
             },
-            animatedStyles,
+            animatedStyle,
         ]}/>
       </Pressable>);
 });

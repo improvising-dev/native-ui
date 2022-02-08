@@ -94,11 +94,11 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }
 
-  const animatedBackdropStyles = useAnimatedStyle(() => {
+  const animatedBackdropStyle = useAnimatedStyle(() => {
     return { opacity: animation.value }
   })
 
-  const animatedTransitionStyles = useAnimatedStyle(() => {
+  const animatedTransitionStyle = useAnimatedStyle(() => {
     if (transition === 'slide-up') {
       return {
         transform: [
@@ -184,7 +184,7 @@ export const Modal: React.FC<ModalProps> = ({
               zIndex: 0,
             },
             backdropStyle,
-            animatedBackdropStyles,
+            animatedBackdropStyle,
           ]}
         />
       </TouchableWithoutFeedback>
@@ -193,7 +193,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => {
     return (
-      <Animated.View style={[{ zIndex: 1 }, animatedTransitionStyles, style]}>
+      <Animated.View style={[{ zIndex: 1 }, animatedTransitionStyle, style]}>
         {children}
       </Animated.View>
     )
