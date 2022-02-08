@@ -10,6 +10,10 @@ export declare const DefaultComponentTheme: {
             readonly fontSize: 12;
         };
     };
+    readonly activityIndicator: {
+        readonly size: 30;
+        readonly count: 12;
+    };
     readonly checkbox: {
         readonly size: 18;
     };
@@ -38,8 +42,15 @@ export declare const DefaultComponentTheme: {
 };
 export declare const DefaultTextTheme: {
     readonly default: {
-        readonly fontSize: 17;
-        readonly letterSpacing: -0.41;
+        fontSize: number;
+        letterSpacing: number;
+        fontFamily?: undefined;
+        includeFontPadding?: undefined;
+    } | {
+        fontFamily: string;
+        includeFontPadding: boolean;
+        fontSize?: undefined;
+        letterSpacing?: undefined;
     };
     readonly body: {
         readonly fontSize: 17;
@@ -58,8 +69,15 @@ export declare const DefaultTheme: {
     readonly borderRadius: 15;
     readonly textTheme: {
         readonly default: {
-            readonly fontSize: 17;
-            readonly letterSpacing: -0.41;
+            fontSize: number;
+            letterSpacing: number;
+            fontFamily?: undefined;
+            includeFontPadding?: undefined;
+        } | {
+            fontFamily: string;
+            includeFontPadding: boolean;
+            fontSize?: undefined;
+            letterSpacing?: undefined;
         };
         readonly body: {
             readonly fontSize: 17;
@@ -84,6 +102,10 @@ export declare const DefaultTheme: {
             readonly subtitleTextStyle: {
                 readonly fontSize: 12;
             };
+        };
+        readonly activityIndicator: {
+            readonly size: 30;
+            readonly count: 12;
         };
         readonly checkbox: {
             readonly size: 18;

@@ -4,6 +4,7 @@ export * from './actions/fullscreen-loading';
 export * from './actions/haptic-feedback';
 export * from './actions/modal';
 export * from './components/action-sheet';
+export * from './components/activity-indicator';
 export * from './components/button';
 export * from './components/card';
 export * from './components/checkbox';

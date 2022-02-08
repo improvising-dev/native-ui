@@ -14,6 +14,11 @@ export interface ComponentTheme {
         titleTextStyle: TextStyle;
         subtitleTextStyle: TextStyle;
     };
+    activityIndicator: {
+        size: number;
+        count: number;
+        color: string;
+    };
     checkbox: {
         size: number;
     };

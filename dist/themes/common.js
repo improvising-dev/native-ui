@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 export const DefaultComponentTheme = {
     actionSheet: {
         zIndex: 500,
@@ -7,6 +8,10 @@ export const DefaultComponentTheme = {
             fontWeight: '500',
         },
         subtitleTextStyle: { fontSize: 12 },
+    },
+    activityIndicator: {
+        size: 30,
+        count: 12,
     },
     checkbox: {
         size: 18,
@@ -29,10 +34,16 @@ export const DefaultComponentTheme = {
     },
 };
 export const DefaultTextTheme = {
-    default: {
-        fontSize: 17,
-        letterSpacing: -0.41,
-    },
+    default: Platform.select({
+        default: {
+            fontSize: 17,
+            letterSpacing: -0.41,
+        },
+        android: {
+            fontFamily: 'Roboto',
+            includeFontPadding: false,
+        },
+    }),
     body: {
         fontSize: 17,
         lineHeight: 23,

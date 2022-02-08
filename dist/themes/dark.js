@@ -29,6 +29,9 @@ export const DarkTheme = merge(cloneDeep(DefaultTheme), {
         },
     },
     componentTheme: {
+        activityIndicator: {
+            color: TextColor.secondary,
+        },
         dialog: {
             messageTextStyle: {
                 color: TextColor.secondary,
