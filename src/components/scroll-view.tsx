@@ -7,8 +7,8 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native'
+import { useKeyboardHeight } from 'react-native-universal-keyboard'
 import { useTheme } from '../core/theme'
-import { useKeyboardHeight } from '../hooks/use-keyboard-height'
 
 export interface ScrollView extends RNScrollView {}
 export interface ScrollViewProps extends RNScrollViewProps {

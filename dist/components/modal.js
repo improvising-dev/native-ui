@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
@@ -107,7 +107,9 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         return (<Animated.View style={[{ zIndex: 1 }, animatedTransitionStyle, style]}>
-        {children}
+        <KeyboardAvoidingView behavior="padding">
+          {children}
+        </KeyboardAvoidingView>
       </Animated.View>);
     };
     if (!mounted) {
