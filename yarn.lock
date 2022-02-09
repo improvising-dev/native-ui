@@ -3535,10 +3535,10 @@ react-native-svg@^12.1.1:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
 
-react-native-universal-keyboard@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/react-native-universal-keyboard/-/react-native-universal-keyboard-1.0.1.tgz#73bbd2cd826bd948d3134151d1cc4fbc4b42a264"
-  integrity sha512-t1wmP0d5wyYtXWRjBjabhP/lKLPb/TvGNO1AnjeFV9gMkgNA2j/Gn6WcRygXfkPPYWWJhNgdpe8PbeZtnGxAaw==
+react-native-universal-keyboard@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/react-native-universal-keyboard/-/react-native-universal-keyboard-1.0.6.tgz#0881ff8b908dd1186b0419138910ec9cfdaaacd5"
+  integrity sha512-xvGYsccSdGNSeVpOv8MxEAn+4WEDgAHoYjZKJxR9qUi1ZtT/EPTYeWUm5yHuAICH5HYkCnMY4+bfDJbzn8I1uw==
 
 react-native@*:
   version "0.67.1"

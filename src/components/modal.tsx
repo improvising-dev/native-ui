@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {
-  KeyboardAvoidingView,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -195,9 +194,7 @@ export const Modal: React.FC<ModalProps> = ({
   const renderContent = () => {
     return (
       <Animated.View style={[{ zIndex: 1 }, animatedTransitionStyle, style]}>
-        <KeyboardAvoidingView behavior="padding">
-          {children}
-        </KeyboardAvoidingView>
+        {children}
       </Animated.View>
     )
   }
