@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
-import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
+import { PanGestureHandler, } from 'react-native-gesture-handler';
+import Animated, { interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, onBackdropPress, onDismiss, onUnmounted, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const animation = useSharedValue(visible ? 1 : 0);
+    const gestureX = useSharedValue(0);
+    const gestureY = useSharedValue(0);
+    const contentWidth = useRef(dimensions.width);
+    const contentHeight = useRef(dimensions.height);
     const [mounted, setMounted] = useState(visible);
     useEffect(() => {
         if (visible) {
@@ -31,6 +36,80 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         }
         return true;
     }, [dismissible]);
+    const handleContentLayout = (event) => {
+        contentWidth.current = event.nativeEvent.layout.width;
+        contentHeight.current = event.nativeEvent.layout.height;
+    };
+    const gestureHandler = useAnimatedGestureHandler({
+        onStart: (_, ctx) => {
+            ctx.startX = gestureX.value;
+            ctx.startY = gestureY.value;
+        },
+        onActive: (event, ctx) => {
+            switch (transition) {
+                case 'slide-up':
+                    if (event.translationY > 0) {
+                        gestureY.value = ctx.startY + event.translationY;
+                    }
+                    break;
+                case 'slide-down':
+                    if (event.translationY < 0) {
+                        gestureY.value = ctx.startY + event.translationY;
+                    }
+                    break;
+                case 'slide-left':
+                    if (event.translationX > 0) {
+                        gestureX.value = ctx.startX + event.translationX;
+                    }
+                    break;
+                case 'slide-right':
+                    if (event.translationX < 0) {
+                        gestureX.value = ctx.startX + event.translationX;
+                    }
+                    break;
+            }
+        },
+        onEnd: () => {
+            switch (transition) {
+                case 'slide-up':
+                    if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+                        gestureY.value = withSpring(contentHeight.current);
+                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                    }
+                    else {
+                        gestureY.value = withSpring(0);
+                    }
+                    break;
+                case 'slide-down':
+                    if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+                        gestureY.value = withSpring(-contentHeight.current);
+                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                    }
+                    else {
+                        gestureY.value = withSpring(0);
+                    }
+                    break;
+                case 'slide-left':
+                    if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+                        gestureX.value = withSpring(contentWidth.current);
+                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                    }
+                    else {
+                        gestureX.value = withSpring(0);
+                    }
+                    break;
+                case 'slide-right':
+                    if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+                        gestureX.value = withSpring(-contentWidth.current);
+                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                    }
+                    else {
+                        gestureX.value = withSpring(0);
+                    }
+                    break;
+            }
+        },
+    });
     const handleBackdropPress = () => {
         onBackdropPress === null || onBackdropPress === void 0 ? void 0 : onBackdropPress();
         if (dismissible) {
@@ -39,6 +118,15 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const animatedBackdropStyle = useAnimatedStyle(() => {
         return { opacity: animation.value };
+    });
+    const animatedGestureStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                {
+                    translateY: gestureY.value,
+                },
+            ],
+        };
     });
     const animatedTransitionStyle = useAnimatedStyle(() => {
         if (transition === 'slide-up') {
@@ -106,9 +194,16 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
       </TouchableWithoutFeedback>);
     };
     const renderContent = () => {
-        return (<Animated.View style={[{ zIndex: 1 }, animatedTransitionStyle, style]}>
-        {children}
-      </Animated.View>);
+        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={gestureHandler}>
+        <Animated.View onLayout={handleContentLayout} style={[
+                { zIndex: 1 },
+                animatedTransitionStyle,
+                animatedGestureStyle,
+                style,
+            ]}>
+          {children}
+        </Animated.View>
+      </PanGestureHandler>);
     };
     if (!mounted) {
         return null;
