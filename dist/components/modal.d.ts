@@ -16,5 +16,6 @@ export interface ModalProps extends ModalStateProps {
     backdropStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
     enableDismissGesture?: boolean;
+    onPress?: () => void;
 }
 export declare const Modal: React.FC<ModalProps>;

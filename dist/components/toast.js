@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-export const Toast = ({ title, message, visible, transitionDuration, onDismiss, onUnmounted, }) => {
+export const Toast = ({ title, message, duration = 1500, visible, transitionDuration, onDismiss, onUnmounted, onPress, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
-    return (<Modal visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
+    useEffect(() => {
+        setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration);
+    }, []);
+    return (<Modal visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} style={{
             position: 'absolute',
             top: 0,
             left: 0,

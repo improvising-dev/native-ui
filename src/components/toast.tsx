@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
 import { Modal, ModalStateProps } from './modal'
@@ -7,18 +7,26 @@ import { Text } from './text'
 export interface ToastProps extends ModalStateProps {
   title?: string
   message?: string
+  duration?: number
+  onPress?: () => void
 }
 
 export const Toast: React.FC<ToastProps> = ({
   title,
   message,
+  duration = 1500,
   visible,
   transitionDuration,
   onDismiss,
   onUnmounted,
+  onPress,
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
+
+  useEffect(() => {
+    setTimeout(() => onDismiss?.(), duration)
+  }, [])
 
   return (
     <Modal
@@ -29,6 +37,7 @@ export const Toast: React.FC<ToastProps> = ({
       enableDismissGesture={true}
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
+      onPress={onPress}
       style={{
         position: 'absolute',
         top: 0,

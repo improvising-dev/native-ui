@@ -3,5 +3,7 @@ import { ModalStateProps } from './modal';
 export interface ToastProps extends ModalStateProps {
     title?: string;
     message?: string;
+    duration?: number;
+    onPress?: () => void;
 }
 export declare const Toast: React.FC<ToastProps>;

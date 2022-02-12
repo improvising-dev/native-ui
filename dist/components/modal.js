@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
+import { Pressable, StyleSheet, TouchableWithoutFeedback, useWindowDimensions, View, } from 'react-native';
 import { PanGestureHandler, } from 'react-native-gesture-handler';
-import Animated, { interpolate, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, withTiming, } from 'react-native-reanimated';
+import Animated, { interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, withTiming, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted, }) => {
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted, onPress, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const animation = useSharedValue(visible ? 1 : 0);
@@ -72,36 +73,36 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         onEnd: () => {
             switch (transition) {
                 case 'slide-up':
-                    if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+                    if (Math.abs(gestureY.value) > contentHeight.current / 3) {
                         gestureY.value = withSpring(contentHeight.current);
-                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                        runOnJS(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss());
                     }
                     else {
                         gestureY.value = withSpring(0);
                     }
                     break;
                 case 'slide-down':
-                    if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+                    if (Math.abs(gestureY.value) > contentHeight.current / 3) {
                         gestureY.value = withSpring(-contentHeight.current);
-                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                        runOnJS(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss());
                     }
                     else {
                         gestureY.value = withSpring(0);
                     }
                     break;
                 case 'slide-left':
-                    if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+                    if (Math.abs(gestureX.value) > contentWidth.current / 3) {
                         gestureX.value = withSpring(contentWidth.current);
-                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                        runOnJS(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss());
                     }
                     else {
                         gestureX.value = withSpring(0);
                     }
                     break;
                 case 'slide-right':
-                    if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+                    if (Math.abs(gestureX.value) > contentWidth.current / 3) {
                         gestureX.value = withSpring(-contentWidth.current);
-                        onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+                        runOnJS(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss());
                     }
                     else {
                         gestureX.value = withSpring(0);
@@ -195,14 +196,14 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={gestureHandler}>
-        <Animated.View onLayout={handleContentLayout} style={[
+        <AnimatedPressable onPress={onPress} onLayout={handleContentLayout} style={[
                 { zIndex: 1 },
                 animatedTransitionStyle,
                 animatedGestureStyle,
                 style,
             ]}>
           {children}
-        </Animated.View>
+        </AnimatedPressable>
       </PanGestureHandler>);
     };
     if (!mounted) {

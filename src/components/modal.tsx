@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
   LayoutChangeEvent,
+  Pressable,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -14,6 +15,7 @@ import {
 } from 'react-native-gesture-handler'
 import Animated, {
   interpolate,
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -22,6 +24,8 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
 import { useBackHandler } from '../hooks/use-back-handler'
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export type ModalTransition =
   | 'fade'
@@ -47,6 +51,7 @@ export interface ModalProps extends ModalStateProps {
   backdropStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
   enableDismissGesture?: boolean
+  onPress?: () => void
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -63,6 +68,7 @@ export const Modal: React.FC<ModalProps> = ({
   onBackdropPress,
   onDismiss,
   onUnmounted,
+  onPress,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
@@ -145,33 +151,37 @@ export const Modal: React.FC<ModalProps> = ({
     onEnd: () => {
       switch (transition) {
         case 'slide-up':
-          if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+          if (Math.abs(gestureY.value) > contentHeight.current / 3) {
             gestureY.value = withSpring(contentHeight.current)
-            onDismiss?.()
+
+            runOnJS(() => onDismiss?.())
           } else {
             gestureY.value = withSpring(0)
           }
           break
         case 'slide-down':
-          if (Math.abs(gestureY.value) > contentHeight.current / 2) {
+          if (Math.abs(gestureY.value) > contentHeight.current / 3) {
             gestureY.value = withSpring(-contentHeight.current)
-            onDismiss?.()
+
+            runOnJS(() => onDismiss?.())
           } else {
             gestureY.value = withSpring(0)
           }
           break
         case 'slide-left':
-          if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+          if (Math.abs(gestureX.value) > contentWidth.current / 3) {
             gestureX.value = withSpring(contentWidth.current)
-            onDismiss?.()
+
+            runOnJS(() => onDismiss?.())
           } else {
             gestureX.value = withSpring(0)
           }
           break
         case 'slide-right':
-          if (Math.abs(gestureX.value) > contentWidth.current / 2) {
+          if (Math.abs(gestureX.value) > contentWidth.current / 3) {
             gestureX.value = withSpring(-contentWidth.current)
-            onDismiss?.()
+
+            runOnJS(() => onDismiss?.())
           } else {
             gestureX.value = withSpring(0)
           }
@@ -301,7 +311,8 @@ export const Modal: React.FC<ModalProps> = ({
         enabled={enableDismissGesture}
         onGestureEvent={gestureHandler}
       >
-        <Animated.View
+        <AnimatedPressable
+          onPress={onPress}
           onLayout={handleContentLayout}
           style={[
             { zIndex: 1 },
@@ -311,7 +322,7 @@ export const Modal: React.FC<ModalProps> = ({
           ]}
         >
           {children}
-        </Animated.View>
+        </AnimatedPressable>
       </PanGestureHandler>
     )
   }

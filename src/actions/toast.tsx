@@ -5,20 +5,24 @@ import { showModal } from './modal'
 export const showToast = ({
   title,
   message,
+  duration,
+  onPress,
 }: {
   title?: string
   message?: string
+  duration?: number
+  onPress?: () => void
 }) => {
   const { dispose } = showModal({
-    transitionDuration: 250,
-    builder: ({ visible, transitionDuration, handleDismiss }) => (
+    builder: ({ visible, handleDismiss }) => (
       <Toast
         title={title}
         message={message}
-        transitionDuration={transitionDuration}
+        duration={duration}
         visible={visible}
         onDismiss={handleDismiss}
         onUnmounted={() => dispose()}
+        onPress={onPress}
       />
     ),
   })
