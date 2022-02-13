@@ -9,13 +9,15 @@ import { Modal, ModalStateProps } from './modal'
 import { Stack } from './stack'
 import { Text } from './text'
 
+const DIALOG_TRANSITION_DURATION = 400
+
 export interface DialogProps extends ModalStateProps {}
 
 export const Dialog: React.FC<DialogProps> = ({
   children,
   visible,
   transition = 'slide-up',
-  transitionDuration,
+  transitionDuration = DIALOG_TRANSITION_DURATION,
   onBackdropPress,
   onDismiss,
   onUnmounted,
@@ -72,7 +74,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
   okButtonText = 'Ok',
   visible,
   transition,
-  transitionDuration,
+  transitionDuration = DIALOG_TRANSITION_DURATION,
   onBackdropPress,
   onDismiss,
   onUnmounted,
@@ -126,7 +128,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   confirmButtonText = 'Confirm',
   visible,
   transition,
-  transitionDuration,
+  transitionDuration = DIALOG_TRANSITION_DURATION,
   onBackdropPress,
   onDismiss,
   onUnmounted,
@@ -198,7 +200,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
   initialValue = '',
   visible,
   transition,
-  transitionDuration,
+  transitionDuration = DIALOG_TRANSITION_DURATION,
   onBackdropPress,
   onDismiss,
   onUnmounted,
@@ -239,6 +241,7 @@ export const PromptDialog: React.FC<PromptDialogProps> = ({
       )}
       <Input
         autoFocus={true}
+        autoFocusDelay={transitionDuration}
         returnKeyType="done"
         defaultValue={text}
         onChangeText={setText}

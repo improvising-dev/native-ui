@@ -23,6 +23,7 @@ export type OverlayVisibilityMode =
 
 export interface Input extends TextInput {}
 export interface InputProps extends TextInputProps {
+  autoFocusDelay?: number
   style?: StyleProp<ViewStyle>
   textStyle?: StyleProp<TextStyle>
   prefix?: React.ReactNode
@@ -34,6 +35,8 @@ export interface InputProps extends TextInputProps {
 const InputComponent = React.forwardRef<TextInput, InputProps>(
   (
     {
+      autoFocus,
+      autoFocusDelay = 0,
       multiline,
       style,
       textStyle,
@@ -65,6 +68,12 @@ const InputComponent = React.forwardRef<TextInput, InputProps>(
       }
     }, [controlledValue])
 
+    useEffect(() => {
+      if (autoFocusDelay > 0 && autoFocus) {
+        setTimeout(() => textInput.current?.focus(), autoFocusDelay)
+      }
+    }, [autoFocus, autoFocusDelay])
+
     return (
       <Pressable
         style={[
@@ -84,6 +93,7 @@ const InputComponent = React.forwardRef<TextInput, InputProps>(
 
         <TextInput
           ref={textInput}
+          autoFocus={autoFocusDelay > 0 ? false : autoFocus}
           value={controlledValue}
           defaultValue={defaultValue}
           multiline={multiline}

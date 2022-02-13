@@ -8,7 +8,8 @@ import { Input } from './input';
 import { Modal } from './modal';
 import { Stack } from './stack';
 import { Text } from './text';
-export const Dialog = ({ children, visible, transition = 'slide-up', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+const DIALOG_TRANSITION_DURATION = 400;
+export const Dialog = ({ children, visible, transition = 'slide-up', transitionDuration = DIALOG_TRANSITION_DURATION, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const [bottomInset, setBottomInset] = useState(insets.bottom);
@@ -30,7 +31,7 @@ export const Dialog = ({ children, visible, transition = 'slide-up', transitionD
       {children}
     </Modal>);
 };
-export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, transition, transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, transition, transitionDuration = DIALOG_TRANSITION_DURATION, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPress={onBackdropPress} onDismiss={onDismiss} onUnmounted={onUnmounted}>
       <Text style={{
@@ -50,7 +51,7 @@ export const AlertDialog = ({ title, message, okButtonText = 'Ok', visible, tran
       </Button>
     </Dialog>);
 };
-export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, transition, transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', visible, transition, transitionDuration = DIALOG_TRANSITION_DURATION, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPress={onBackdropPress} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(false)} onUnmounted={onUnmounted}>
       <Text style={{
@@ -80,7 +81,7 @@ export const ConfirmDialog = ({ title, message, cancelButtonText = 'Cancel', con
       </Stack>
     </Dialog>);
 };
-export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, transition, transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', confirmButtonText = 'Confirm', placeholder, initialValue = '', visible, transition, transitionDuration = DIALOG_TRANSITION_DURATION, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [text, setText] = useState(initialValue);
     return (<Dialog visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPress={onBackdropPress} onDismiss={() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss()} onUnmounted={onUnmounted}>
@@ -100,7 +101,7 @@ export const PromptDialog = ({ title, message, cancelButtonText = 'Cancel', conf
             ]}>
           {message}
         </Text>)}
-      <Input autoFocus={true} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
+      <Input autoFocus={true} autoFocusDelay={transitionDuration} returnKeyType="done" defaultValue={text} onChangeText={setText} placeholder={placeholder} style={{
             padding: theme.spacing,
             borderRadius: theme.borderRadius,
             backgroundColor: theme.backgroundColor.fill,

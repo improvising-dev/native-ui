@@ -14,7 +14,7 @@ import { Pressable, TextInput, } from 'react-native';
 import { useTheme } from '../core/theme';
 const InputComponent = React.forwardRef((_a, ref) => {
     var _b;
-    var { multiline, style, textStyle, prefix, prefixMode = 'always', suffix, suffixMode = 'always', value: controlledValue, defaultValue, placeholderTextColor, underlineColorAndroid = 'transparent', onChangeText, onContentSizeChange } = _a, textInputProps = __rest(_a, ["multiline", "style", "textStyle", "prefix", "prefixMode", "suffix", "suffixMode", "value", "defaultValue", "placeholderTextColor", "underlineColorAndroid", "onChangeText", "onContentSizeChange"]);
+    var { autoFocus, autoFocusDelay = 0, multiline, style, textStyle, prefix, prefixMode = 'always', suffix, suffixMode = 'always', value: controlledValue, defaultValue, placeholderTextColor, underlineColorAndroid = 'transparent', onChangeText, onContentSizeChange } = _a, textInputProps = __rest(_a, ["autoFocus", "autoFocusDelay", "multiline", "style", "textStyle", "prefix", "prefixMode", "suffix", "suffixMode", "value", "defaultValue", "placeholderTextColor", "underlineColorAndroid", "onChangeText", "onContentSizeChange"]);
     const theme = useTheme();
     const textInput = useRef(null);
     const [value, setValue] = useState((_b = controlledValue !== null && controlledValue !== void 0 ? controlledValue : defaultValue) !== null && _b !== void 0 ? _b : '');
@@ -25,6 +25,11 @@ const InputComponent = React.forwardRef((_a, ref) => {
             setValue(controlledValue);
         }
     }, [controlledValue]);
+    useEffect(() => {
+        if (autoFocusDelay > 0 && autoFocus) {
+            setTimeout(() => { var _a; return (_a = textInput.current) === null || _a === void 0 ? void 0 : _a.focus(); }, autoFocusDelay);
+        }
+    }, [autoFocus, autoFocusDelay]);
     return (<Pressable style={[
             {
                 flexDirection: 'row',
@@ -38,7 +43,7 @@ const InputComponent = React.forwardRef((_a, ref) => {
             ? prefix
             : null}
 
-        <TextInput ref={textInput} value={controlledValue} defaultValue={defaultValue} multiline={multiline} selectionColor={theme.primaryColor} style={[
+        <TextInput ref={textInput} autoFocus={autoFocusDelay > 0 ? false : autoFocus} value={controlledValue} defaultValue={defaultValue} multiline={multiline} selectionColor={theme.primaryColor} style={[
             theme.textTheme.default,
             {
                 flex: 1,

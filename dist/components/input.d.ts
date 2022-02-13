@@ -4,6 +4,7 @@ export declare type OverlayVisibilityMode = 'always' | 'editing' | 'not-editing'
 export interface Input extends TextInput {
 }
 export interface InputProps extends TextInputProps {
+    autoFocusDelay?: number;
     style?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
     prefix?: React.ReactNode;
