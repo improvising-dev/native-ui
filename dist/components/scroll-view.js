@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useImperativeHandle, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { LayoutAnimation, ScrollView as RNScrollView, TextInput, useWindowDimensions, View, } from 'react-native';
 import { useKeyboardHeight } from 'react-native-universal-keyboard';
 import { useTheme } from '../core/theme';
@@ -19,6 +19,7 @@ export const ScrollView = React.forwardRef((_a, ref) => {
     const dimensions = useWindowDimensions();
     const scrollView = useRef(null);
     const scrollPosition = useRef(0);
+    const timeoutRef = useRef();
     const [bottomInset, setBottomInset] = useState(initialBottomInset);
     useImperativeHandle(ref, () => scrollView.current);
     useKeyboardHeight(keyboardHeight => {
@@ -30,7 +31,7 @@ export const ScrollView = React.forwardRef((_a, ref) => {
                     const offset = y + height + theme.spacing * 2;
                     const delta = offset - (dimensions.height - keyboardHeight);
                     if (delta > 0) {
-                        setTimeout(() => {
+                        timeoutRef.current = setTimeout(() => {
                             var _a;
                             (_a = scrollView.current) === null || _a === void 0 ? void 0 : _a.scrollTo({
                                 y: scrollPosition.current + delta,
@@ -41,6 +42,13 @@ export const ScrollView = React.forwardRef((_a, ref) => {
             }
         }
     });
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
     return (<RNScrollView ref={scrollView} onMomentumScrollEnd={event => {
             scrollPosition.current = event.nativeEvent.contentOffset.y;
             onMomentumScrollEnd === null || onMomentumScrollEnd === void 0 ? void 0 : onMomentumScrollEnd(event);

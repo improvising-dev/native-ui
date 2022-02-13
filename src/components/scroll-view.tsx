@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import {
   LayoutAnimation,
   ScrollView as RNScrollView,
@@ -34,6 +34,7 @@ export const ScrollView = React.forwardRef<ScrollView, ScrollViewProps>(
 
     const scrollView = useRef<RNScrollView>(null)
     const scrollPosition = useRef(0)
+    const timeoutRef = useRef<NodeJS.Timeout>()
 
     const [bottomInset, setBottomInset] = useState(initialBottomInset)
 
@@ -55,7 +56,7 @@ export const ScrollView = React.forwardRef<ScrollView, ScrollViewProps>(
               const delta = offset - (dimensions.height - keyboardHeight)
 
               if (delta > 0) {
-                setTimeout(() => {
+                timeoutRef.current = setTimeout(() => {
                   scrollView.current?.scrollTo({
                     y: scrollPosition.current + delta,
                   })
@@ -66,6 +67,14 @@ export const ScrollView = React.forwardRef<ScrollView, ScrollViewProps>(
         }
       }
     })
+
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+        }
+      }
+    }, [])
 
     return (
       <RNScrollView
