@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import {
   LayoutChangeEvent,
   Pressable,
@@ -92,6 +92,8 @@ export const Modal: React.FC<ModalProps> = ({
   const [contentWidth, setContentWidth] = useState(dimensions.width)
   const [contentHeight, setContentHeight] = useState(dimensions.height)
 
+  const mounted = useRef(false)
+
   useBackHandler(() => {
     if (dismissible) {
       onDismiss?.()
@@ -101,8 +103,10 @@ export const Modal: React.FC<ModalProps> = ({
   }, [dismissible])
 
   const handleContentLayout = (event: LayoutChangeEvent) => {
-    setContentWidth(event.nativeEvent.layout.width)
-    setContentHeight(event.nativeEvent.layout.height)
+    if (mounted.current) {
+      setContentWidth(event.nativeEvent.layout.width)
+      setContentHeight(event.nativeEvent.layout.height)
+    }
   }
 
   const handleGestureEvent = useAnimatedGestureHandler<
@@ -306,6 +310,14 @@ export const Modal: React.FC<ModalProps> = ({
       </PanGestureHandler>
     )
   }
+
+  useLayoutEffect(() => {
+    mounted.current = true
+
+    return () => {
+      mounted.current = false
+    }
+  }, [])
 
   if (!visible) {
     return null

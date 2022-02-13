@@ -22,6 +22,11 @@ const ToastComponent = ({ title, message, duration = 2000, visible, transitionDu
     };
     useEffect(() => {
         timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration + transitionDuration);
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
     }, []);
     return (<Modal zIndex={theme.componentTheme.toast.zIndex} visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} onGestureEvent={handleGestureEvent} style={{
             position: 'absolute',

@@ -44,6 +44,12 @@ const ToastComponent: React.FC<ToastProps> = ({
       () => onDismiss?.(),
       duration + transitionDuration,
     )
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
   }, [])
 
   return (

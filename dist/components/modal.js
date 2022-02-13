@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions, View, } from 'react-native';
 import { PanGestureHandler, } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomOut, } from 'react-native-reanimated';
@@ -12,6 +12,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     const gestureY = useSharedValue(0);
     const [contentWidth, setContentWidth] = useState(dimensions.width);
     const [contentHeight, setContentHeight] = useState(dimensions.height);
+    const mounted = useRef(false);
     useBackHandler(() => {
         if (dismissible) {
             onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
@@ -19,8 +20,10 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         return true;
     }, [dismissible]);
     const handleContentLayout = (event) => {
-        setContentWidth(event.nativeEvent.layout.width);
-        setContentHeight(event.nativeEvent.layout.height);
+        if (mounted.current) {
+            setContentWidth(event.nativeEvent.layout.width);
+            setContentHeight(event.nativeEvent.layout.height);
+        }
     };
     const handleGestureEvent = useAnimatedGestureHandler({
         onStart: (_, ctx) => {
@@ -191,6 +194,12 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         </AnimatedPressable>
       </PanGestureHandler>);
     };
+    useLayoutEffect(() => {
+        mounted.current = true;
+        return () => {
+            mounted.current = false;
+        };
+    }, []);
     if (!visible) {
         return null;
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
 import { ModalService } from '../core/modal'
 
 export interface ModalContext {
@@ -34,7 +34,7 @@ export const ModalProvider: React.FC = ({ children }) => {
       .map(([key, modal]) => <React.Fragment key={key}>{modal}</React.Fragment>)
   }, [modalMap])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     ModalService.mount(context)
 
     return () => {

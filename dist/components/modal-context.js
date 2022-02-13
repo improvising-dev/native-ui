@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { ModalService } from '../core/modal';
 const modalContext = React.createContext({});
 export const ModalProvider = ({ children }) => {
@@ -22,7 +22,7 @@ export const ModalProvider = ({ children }) => {
             .sort(([keyA], [keyB]) => keyA.localeCompare(keyB, 'en', { numeric: true }))
             .map(([key, modal]) => <React.Fragment key={key}>{modal}</React.Fragment>);
     }, [modalMap]);
-    useEffect(() => {
+    useLayoutEffect(() => {
         ModalService.mount(context);
         return () => {
             ModalService.unmount();
