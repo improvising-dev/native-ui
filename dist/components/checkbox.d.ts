@@ -9,4 +9,4 @@ export interface CheckBoxProps {
     uncheckedColor?: string;
     iconColor?: string;
 }
-export declare const Checkbox: React.NamedExoticComponent<CheckBoxProps>;
+export declare const CheckBox: React.NamedExoticComponent<CheckBoxProps>;

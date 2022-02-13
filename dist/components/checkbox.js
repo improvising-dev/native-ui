@@ -23,4 +23,4 @@ const CheckBoxComponent = ({ value, onValueChange, size: customSize, style, chec
       {value && (<Icon.Checkmark fill={iconColor} width={iconSize} height={iconSize}/>)}
     </Pressable>);
 };
-export const Checkbox = memo(CheckBoxComponent);
+export const CheckBox = memo(CheckBoxComponent);

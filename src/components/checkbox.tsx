@@ -52,4 +52,4 @@ const CheckBoxComponent: React.FC<CheckBoxProps> = ({
   )
 }
 
-export const Checkbox = memo(CheckBoxComponent)
+export const CheckBox = memo(CheckBoxComponent)
