@@ -11,8 +11,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { LayoutAnimation, ScrollView as RNScrollView, TextInput, useWindowDimensions, View, } from 'react-native';
-import { useKeyboardHeight } from 'react-native-universal-keyboard';
 import { useTheme } from '../core/theme';
+import { useKeyboardHeight } from '../hooks/use-keyboard-height';
 export const ScrollView = React.forwardRef((_a, ref) => {
     var { keyboardAvoiding = false, keyboardAvoidingDuration = 200, bottomInset: initialBottomInset = 0, onMomentumScrollEnd, children } = _a, props = __rest(_a, ["keyboardAvoiding", "keyboardAvoidingDuration", "bottomInset", "onMomentumScrollEnd", "children"]);
     const theme = useTheme();

@@ -3506,6 +3506,11 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-android-keyboard@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/react-native-android-keyboard/-/react-native-android-keyboard-1.0.0.tgz#1b3ffd49799f7e9669b6ae02c340764a39d9ccf0"
+  integrity sha512-Dntc2chM1TNJPQd+ybEGWGrVTdFtS3n44OLsUYlaHpHYEOkY+dZN7xwuhjloxnAgqi9jqHLNtYKnOpHjl2yEtg==
+
 react-native-codegen@^0.0.8:
   version "0.0.8"
   resolved "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.8.tgz#b7796a54074139d956fff2862cf1285db43c891b"
@@ -3564,11 +3569,6 @@ react-native-svg@^12.1.1:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
-
-react-native-universal-keyboard@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/react-native-universal-keyboard/-/react-native-universal-keyboard-1.0.6.tgz#0881ff8b908dd1186b0419138910ec9cfdaaacd5"
-  integrity sha512-xvGYsccSdGNSeVpOv8MxEAn+4WEDgAHoYjZKJxR9qUi1ZtT/EPTYeWUm5yHuAICH5HYkCnMY4+bfDJbzn8I1uw==
 
 react-native@*:
   version "0.67.1"
