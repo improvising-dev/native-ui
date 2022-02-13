@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions, View, } from 'react-native';
-import { PanGestureHandler, } from 'react-native-gesture-handler';
+import { PanGestureHandler, TouchableWithoutFeedback, } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomOut, } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
@@ -179,17 +179,20 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         const { entering, exiting } = transitionAnimation;
-        const builder = (<AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
+        let builder = (<Animated.View onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
         {children}
-      </AnimatedPressable>);
+      </Animated.View>);
+        if (onPress) {
+            builder = (<TouchableWithoutFeedback onPress={onPress}>
+          {builder}
+        </TouchableWithoutFeedback>);
+        }
         if (enableDismissGesture) {
-            return (<PanGestureHandler onGestureEvent={handleGestureEvent} onHandlerStateChange={onHandlerStateChange}>
+            builder = (<PanGestureHandler onGestureEvent={handleGestureEvent} onHandlerStateChange={onHandlerStateChange}>
           {builder}
         </PanGestureHandler>);
         }
-        else {
-            return builder;
-        }
+        return builder;
     };
     useLayoutEffect(() => {
         mounted.current = true;

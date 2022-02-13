@@ -12,6 +12,7 @@ import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
   PanGestureHandlerProps,
+  TouchableWithoutFeedback,
 } from 'react-native-gesture-handler'
 import Animated, {
   FadeIn,
@@ -281,20 +282,27 @@ export const Modal: React.FC<ModalProps> = ({
   const renderContent = () => {
     const { entering, exiting } = transitionAnimation
 
-    const builder = (
-      <AnimatedPressable
-        onPress={onPress}
+    let builder = (
+      <Animated.View
         onLayout={handleContentLayout}
         entering={entering}
         exiting={exiting}
         style={[{ zIndex: 1 }, animatedGestureStyle, style]}
       >
         {children}
-      </AnimatedPressable>
+      </Animated.View>
     )
 
+    if (onPress) {
+      builder = (
+        <TouchableWithoutFeedback onPress={onPress}>
+          {builder}
+        </TouchableWithoutFeedback>
+      )
+    }
+
     if (enableDismissGesture) {
-      return (
+      builder = (
         <PanGestureHandler
           onGestureEvent={handleGestureEvent}
           onHandlerStateChange={onHandlerStateChange}
@@ -302,9 +310,9 @@ export const Modal: React.FC<ModalProps> = ({
           {builder}
         </PanGestureHandler>
       )
-    } else {
-      return builder
     }
+
+    return builder
   }
 
   useLayoutEffect(() => {
