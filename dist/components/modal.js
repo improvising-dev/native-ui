@@ -179,11 +179,17 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         const { entering, exiting } = transitionAnimation;
-        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={handleGestureEvent} onHandlerStateChange={onHandlerStateChange}>
-        <AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
-          {children}
-        </AnimatedPressable>
-      </PanGestureHandler>);
+        const builder = (<AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
+        {children}
+      </AnimatedPressable>);
+        if (enableDismissGesture) {
+            return (<PanGestureHandler onGestureEvent={handleGestureEvent} onHandlerStateChange={onHandlerStateChange}>
+          {builder}
+        </PanGestureHandler>);
+        }
+        else {
+            return builder;
+        }
     };
     useLayoutEffect(() => {
         mounted.current = true;

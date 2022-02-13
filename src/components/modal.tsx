@@ -281,23 +281,30 @@ export const Modal: React.FC<ModalProps> = ({
   const renderContent = () => {
     const { entering, exiting } = transitionAnimation
 
-    return (
-      <PanGestureHandler
-        enabled={enableDismissGesture}
-        onGestureEvent={handleGestureEvent}
-        onHandlerStateChange={onHandlerStateChange}
+    const builder = (
+      <AnimatedPressable
+        onPress={onPress}
+        onLayout={handleContentLayout}
+        entering={entering}
+        exiting={exiting}
+        style={[{ zIndex: 1 }, animatedGestureStyle, style]}
       >
-        <AnimatedPressable
-          onPress={onPress}
-          onLayout={handleContentLayout}
-          entering={entering}
-          exiting={exiting}
-          style={[{ zIndex: 1 }, animatedGestureStyle, style]}
-        >
-          {children}
-        </AnimatedPressable>
-      </PanGestureHandler>
+        {children}
+      </AnimatedPressable>
     )
+
+    if (enableDismissGesture) {
+      return (
+        <PanGestureHandler
+          onGestureEvent={handleGestureEvent}
+          onHandlerStateChange={onHandlerStateChange}
+        >
+          {builder}
+        </PanGestureHandler>
+      )
+    } else {
+      return builder
+    }
   }
 
   useLayoutEffect(() => {
