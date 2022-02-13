@@ -5,7 +5,7 @@ import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRi
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, onGestureEvent, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, onGestureStart, onGestureFinish, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const gestureX = useSharedValue(0);
@@ -13,12 +13,6 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     const [contentWidth, setContentWidth] = useState(dimensions.width);
     const [contentHeight, setContentHeight] = useState(dimensions.height);
     const mounted = useRef(false);
-    useBackHandler(() => {
-        if (dismissible) {
-            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
-        }
-        return true;
-    }, [dismissible]);
     const handleContentLayout = (event) => {
         if (mounted.current) {
             setContentWidth(event.nativeEvent.layout.width);
@@ -29,6 +23,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         onStart: (_, ctx) => {
             ctx.startX = gestureX.value;
             ctx.startY = gestureY.value;
+            onGestureStart === null || onGestureStart === void 0 ? void 0 : onGestureStart();
         },
         onActive: (event, ctx) => {
             switch (transition) {
@@ -101,6 +96,9 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     }
                     break;
             }
+        },
+        onFinish: () => {
+            onGestureFinish === null || onGestureFinish === void 0 ? void 0 : onGestureFinish();
         },
     }, [transition, contentWidth, contentHeight]);
     const handleBackdropPress = () => {
@@ -185,10 +183,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         const { entering, exiting } = transitionAnimation;
-        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={event => {
-                handleGestureEvent(event);
-                onGestureEvent === null || onGestureEvent === void 0 ? void 0 : onGestureEvent(event);
-            }}>
+        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={handleGestureEvent}>
         <AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
           {children}
         </AnimatedPressable>
@@ -200,6 +195,12 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             mounted.current = false;
         };
     }, []);
+    useBackHandler(() => {
+        if (dismissible) {
+            onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
+        }
+        return true;
+    }, [dismissible]);
     if (!visible) {
         return null;
     }

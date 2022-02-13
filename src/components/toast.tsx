@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
-import { Modal, ModalProps, ModalStateProps } from './modal'
+import { Modal, ModalStateProps } from './modal'
 import { Text } from './text'
 
 export interface ToastProps extends ModalStateProps {
@@ -25,18 +25,14 @@ const ToastComponent: React.FC<ToastProps> = ({
   const insets = useSafeAreaInsets()
   const timeoutRef = useRef<NodeJS.Timeout>()
 
-  const handleGestureEvent: ModalProps['onGestureEvent'] = event => {
-    switch (event.nativeEvent.state) {
-      case 2:
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current)
-        }
-        break
-      case 3:
-      case 5:
-        timeoutRef.current = setTimeout(() => onDismiss?.(), duration)
-        break
+  const handleGestureStart = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
     }
+  }
+
+  const handleGestureFinish = () => {
+    timeoutRef.current = setTimeout(() => onDismiss?.(), duration)
   }
 
   useEffect(() => {
@@ -63,7 +59,8 @@ const ToastComponent: React.FC<ToastProps> = ({
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       onPress={onPress}
-      onGestureEvent={handleGestureEvent}
+      onGestureStart={handleGestureStart}
+      onGestureFinish={handleGestureFinish}
       style={{
         position: 'absolute',
         top: 0,

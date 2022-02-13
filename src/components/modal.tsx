@@ -9,9 +9,7 @@ import {
   ViewStyle,
 } from 'react-native'
 import {
-  GestureEvent,
   PanGestureHandler,
-  PanGestureHandlerEventPayload,
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
 import Animated, {
@@ -63,7 +61,8 @@ export interface ModalProps extends ModalStateProps {
   style?: StyleProp<ViewStyle>
   enableDismissGesture?: boolean
   onPress?: () => void
-  onGestureEvent?: (event: GestureEvent<PanGestureHandlerEventPayload>) => void
+  onGestureStart?: () => void
+  onGestureFinish?: () => void
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -81,7 +80,8 @@ export const Modal: React.FC<ModalProps> = ({
   onDismiss,
   onUnmounted = () => {},
   onPress,
-  onGestureEvent,
+  onGestureStart,
+  onGestureFinish,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
@@ -93,14 +93,6 @@ export const Modal: React.FC<ModalProps> = ({
   const [contentHeight, setContentHeight] = useState(dimensions.height)
 
   const mounted = useRef(false)
-
-  useBackHandler(() => {
-    if (dismissible) {
-      onDismiss?.()
-    }
-
-    return true
-  }, [dismissible])
 
   const handleContentLayout = (event: LayoutChangeEvent) => {
     if (mounted.current) {
@@ -120,6 +112,8 @@ export const Modal: React.FC<ModalProps> = ({
       onStart: (_, ctx) => {
         ctx.startX = gestureX.value
         ctx.startY = gestureY.value
+
+        onGestureStart?.()
       },
       onActive: (event, ctx) => {
         switch (transition) {
@@ -189,6 +183,9 @@ export const Modal: React.FC<ModalProps> = ({
             }
             break
         }
+      },
+      onFinish: () => {
+        onGestureFinish?.()
       },
     },
     [transition, contentWidth, contentHeight],
@@ -293,10 +290,7 @@ export const Modal: React.FC<ModalProps> = ({
     return (
       <PanGestureHandler
         enabled={enableDismissGesture}
-        onGestureEvent={event => {
-          handleGestureEvent(event)
-          onGestureEvent?.(event)
-        }}
+        onGestureEvent={handleGestureEvent}
       >
         <AnimatedPressable
           onPress={onPress}
@@ -318,6 +312,14 @@ export const Modal: React.FC<ModalProps> = ({
       mounted.current = false
     }
   }, [])
+
+  useBackHandler(() => {
+    if (dismissible) {
+      onDismiss?.()
+    }
+
+    return true
+  }, [dismissible])
 
   if (!visible) {
     return null

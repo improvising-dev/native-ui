@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import { GestureEvent, PanGestureHandlerEventPayload } from 'react-native-gesture-handler';
 export declare type ModalTransition = 'fade' | 'zoom' | 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right';
 export interface ModalStateProps {
     visible: boolean;
@@ -18,6 +17,7 @@ export interface ModalProps extends ModalStateProps {
     style?: StyleProp<ViewStyle>;
     enableDismissGesture?: boolean;
     onPress?: () => void;
-    onGestureEvent?: (event: GestureEvent<PanGestureHandlerEventPayload>) => void;
+    onGestureStart?: () => void;
+    onGestureFinish?: () => void;
 }
 export declare const Modal: React.FC<ModalProps>;

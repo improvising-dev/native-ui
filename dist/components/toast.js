@@ -7,18 +7,13 @@ const ToastComponent = ({ title, message, duration = 2000, visible, transitionDu
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const timeoutRef = useRef();
-    const handleGestureEvent = event => {
-        switch (event.nativeEvent.state) {
-            case 2:
-                if (timeoutRef.current) {
-                    clearTimeout(timeoutRef.current);
-                }
-                break;
-            case 3:
-            case 5:
-                timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration);
-                break;
+    const handleGestureStart = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
         }
+    };
+    const handleGestureFinish = () => {
+        timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration);
     };
     useEffect(() => {
         timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration + transitionDuration);
@@ -28,7 +23,7 @@ const ToastComponent = ({ title, message, duration = 2000, visible, transitionDu
             }
         };
     }, []);
-    return (<Modal zIndex={theme.componentTheme.toast.zIndex} visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} onGestureEvent={handleGestureEvent} style={{
+    return (<Modal zIndex={theme.componentTheme.toast.zIndex} visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} onGestureStart={handleGestureStart} onGestureFinish={handleGestureFinish} style={{
             position: 'absolute',
             top: 0,
             left: 0,
