@@ -5,7 +5,7 @@ import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRi
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, onGestureEvent, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const gestureX = useSharedValue(0);
@@ -182,7 +182,10 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     };
     const renderContent = () => {
         const { entering, exiting } = transitionAnimation;
-        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={handleGestureEvent}>
+        return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={event => {
+                handleGestureEvent(event);
+                onGestureEvent === null || onGestureEvent === void 0 ? void 0 : onGestureEvent(event);
+            }}>
         <AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
           {children}
         </AnimatedPressable>

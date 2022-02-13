@@ -1,15 +1,29 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-const ToastComponent = ({ title, message, duration = 1500, visible, transitionDuration = 500, onDismiss, onUnmounted, onPress, }) => {
+const ToastComponent = ({ title, message, duration = 2000, visible, transitionDuration = 500, onDismiss, onUnmounted, onPress, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
+    const timeoutRef = useRef();
+    const handleGestureEvent = event => {
+        switch (event.nativeEvent.state) {
+            case 2:
+                if (timeoutRef.current) {
+                    clearTimeout(timeoutRef.current);
+                }
+                break;
+            case 3:
+            case 5:
+                timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration);
+                break;
+        }
+    };
     useEffect(() => {
-        setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration + transitionDuration);
+        timeoutRef.current = setTimeout(() => onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss(), duration + transitionDuration);
     }, []);
-    return (<Modal zIndex={theme.componentTheme.toast.zIndex} visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} style={{
+    return (<Modal zIndex={theme.componentTheme.toast.zIndex} visible={visible} transition="slide-down" transitionDuration={transitionDuration} backdrop={false} enableDismissGesture={true} onDismiss={onDismiss} onUnmounted={onUnmounted} onPress={onPress} onGestureEvent={handleGestureEvent} style={{
             position: 'absolute',
             top: 0,
             left: 0,

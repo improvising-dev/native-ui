@@ -1,7 +1,7 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
-import { Modal, ModalStateProps } from './modal'
+import { Modal, ModalProps, ModalStateProps } from './modal'
 import { Text } from './text'
 
 export interface ToastProps extends ModalStateProps {
@@ -14,7 +14,7 @@ export interface ToastProps extends ModalStateProps {
 const ToastComponent: React.FC<ToastProps> = ({
   title,
   message,
-  duration = 1500,
+  duration = 2000,
   visible,
   transitionDuration = 500,
   onDismiss,
@@ -23,9 +23,27 @@ const ToastComponent: React.FC<ToastProps> = ({
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
+  const timeoutRef = useRef<NodeJS.Timeout>()
+
+  const handleGestureEvent: ModalProps['onGestureEvent'] = event => {
+    switch (event.nativeEvent.state) {
+      case 2:
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+        }
+        break
+      case 3:
+      case 5:
+        timeoutRef.current = setTimeout(() => onDismiss?.(), duration)
+        break
+    }
+  }
 
   useEffect(() => {
-    setTimeout(() => onDismiss?.(), duration + transitionDuration)
+    timeoutRef.current = setTimeout(
+      () => onDismiss?.(),
+      duration + transitionDuration,
+    )
   }, [])
 
   return (
@@ -39,6 +57,7 @@ const ToastComponent: React.FC<ToastProps> = ({
       onDismiss={onDismiss}
       onUnmounted={onUnmounted}
       onPress={onPress}
+      onGestureEvent={handleGestureEvent}
       style={{
         position: 'absolute',
         top: 0,
