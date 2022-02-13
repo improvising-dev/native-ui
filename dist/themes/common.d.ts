@@ -39,6 +39,10 @@ export declare const DefaultComponentTheme: {
             readonly fontSize: 12;
         };
     };
+    readonly toast: {
+        readonly zIndex: 10000;
+        readonly backgroundColor: "#303030";
+    };
 };
 export declare const DefaultTextTheme: {
     readonly default: {
@@ -131,6 +135,10 @@ export declare const DefaultTheme: {
             readonly subtitleTextStyle: {
                 readonly fontSize: 12;
             };
+        };
+        readonly toast: {
+            readonly zIndex: 10000;
+            readonly backgroundColor: "#303030";
         };
     };
 };

@@ -14,12 +14,14 @@ export const showToast = ({
   onPress?: () => void
 }) => {
   const { dispose } = showModal({
-    builder: ({ visible, handleDismiss }) => (
+    transitionDuration: 500,
+    builder: ({ visible, transitionDuration, handleDismiss }) => (
       <Toast
         title={title}
         message={message}
         duration={duration}
         visible={visible}
+        transitionDuration={transitionDuration}
         onDismiss={handleDismiss}
         onUnmounted={() => dispose()}
         onPress={onPress}

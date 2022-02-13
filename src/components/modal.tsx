@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import {
   LayoutChangeEvent,
   Pressable,
   StyleProp,
   StyleSheet,
-  TouchableWithoutFeedback,
   useWindowDimensions,
   View,
   ViewStyle,
@@ -14,13 +13,23 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
 import Animated, {
-  interpolate,
+  FadeIn,
+  FadeOut,
   runOnJS,
+  SlideInDown,
+  SlideInLeft,
+  SlideInRight,
+  SlideInUp,
+  SlideOutDown,
+  SlideOutLeft,
+  SlideOutRight,
+  SlideOutUp,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
+  ZoomIn,
+  ZoomOut,
 } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
 import { useBackHandler } from '../hooks/use-back-handler'
@@ -29,7 +38,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export type ModalTransition =
   | 'fade'
-  | 'scale'
+  | 'zoom'
   | 'slide-up'
   | 'slide-down'
   | 'slide-left'
@@ -67,37 +76,17 @@ export const Modal: React.FC<ModalProps> = ({
   enableDismissGesture,
   onBackdropPress,
   onDismiss,
-  onUnmounted,
+  onUnmounted = () => {},
   onPress,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
 
-  const animation = useSharedValue(visible ? 1 : 0)
   const gestureX = useSharedValue(0)
   const gestureY = useSharedValue(0)
 
   const contentWidth = useRef(dimensions.width)
   const contentHeight = useRef(dimensions.height)
-
-  const [mounted, setMounted] = useState(visible)
-
-  useEffect(() => {
-    if (visible) {
-      if (mounted) {
-        animation.value = withTiming(1, { duration })
-      } else {
-        requestAnimationFrame(() => setMounted(true))
-      }
-    } else if (mounted) {
-      animation.value = withTiming(0, { duration })
-
-      setTimeout(() => {
-        setMounted(false)
-        onUnmounted?.()
-      }, duration)
-    }
-  }, [visible, mounted])
 
   useBackHandler(() => {
     if (dismissible) {
@@ -112,7 +101,7 @@ export const Modal: React.FC<ModalProps> = ({
     contentHeight.current = event.nativeEvent.layout.height
   }
 
-  const gestureHandler = useAnimatedGestureHandler<
+  const handleGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     {
       startY: number
@@ -152,38 +141,42 @@ export const Modal: React.FC<ModalProps> = ({
       switch (transition) {
         case 'slide-up':
           if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-            gestureY.value = withSpring(contentHeight.current)
-
-            runOnJS(() => onDismiss?.())
+            gestureY.value = withTiming(contentHeight.current, {}, () => {
+              'worklet'
+              runOnJS(onUnmounted)()
+            })
           } else {
-            gestureY.value = withSpring(0)
+            gestureY.value = withTiming(0)
           }
           break
         case 'slide-down':
           if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-            gestureY.value = withSpring(-contentHeight.current)
-
-            runOnJS(() => onDismiss?.())
+            gestureY.value = withTiming(-contentHeight.current, {}, () => {
+              'worklet'
+              runOnJS(onUnmounted)()
+            })
           } else {
-            gestureY.value = withSpring(0)
+            gestureY.value = withTiming(0)
           }
           break
         case 'slide-left':
           if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-            gestureX.value = withSpring(contentWidth.current)
-
-            runOnJS(() => onDismiss?.())
+            gestureX.value = withTiming(contentWidth.current, {}, () => {
+              'worklet'
+              runOnJS(onUnmounted)()
+            })
           } else {
-            gestureX.value = withSpring(0)
+            gestureX.value = withTiming(0)
           }
           break
         case 'slide-right':
           if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-            gestureX.value = withSpring(-contentWidth.current)
-
-            runOnJS(() => onDismiss?.())
+            gestureX.value = withTiming(-contentWidth.current, {}, () => {
+              'worklet'
+              runOnJS(onUnmounted)()
+            })
           } else {
-            gestureX.value = withSpring(0)
+            gestureX.value = withTiming(0)
           }
           break
       }
@@ -198,89 +191,67 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }
 
-  const animatedBackdropStyle = useAnimatedStyle(() => {
-    return { opacity: animation.value }
-  })
+  const getAnimation = () => {
+    switch (transition) {
+      case 'slide-up':
+        return {
+          entering: SlideInDown.duration(duration),
+          exiting: SlideOutDown.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+      case 'slide-down':
+        return {
+          entering: SlideInUp.duration(duration),
+          exiting: SlideOutUp.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+      case 'slide-left':
+        return {
+          entering: SlideInRight.duration(duration),
+          exiting: SlideOutRight.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+      case 'slide-right':
+        return {
+          entering: SlideInLeft.duration(duration),
+          exiting: SlideOutLeft.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+      case 'zoom':
+        return {
+          entering: ZoomIn.duration(duration),
+          exiting: ZoomOut.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+      case 'fade':
+      default:
+        return {
+          entering: FadeIn.duration(duration),
+          exiting: FadeOut.duration(duration).withCallback(() => {
+            'worklet'
+            runOnJS(onUnmounted)()
+          }),
+        }
+    }
+  }
 
   const animatedGestureStyle = useAnimatedStyle(() => {
     return {
       transform: [
-        {
-          translateY: gestureY.value,
-        },
+        { translateX: gestureX.value },
+        { translateY: gestureY.value },
       ],
     }
-  })
-
-  const animatedTransitionStyle = useAnimatedStyle(() => {
-    if (transition === 'slide-up') {
-      return {
-        transform: [
-          {
-            translateY: interpolate(
-              animation.value,
-              [0, 1],
-              [dimensions.height, 0],
-            ),
-          },
-        ],
-      }
-    }
-
-    if (transition === 'slide-down') {
-      return {
-        transform: [
-          {
-            translateY: interpolate(
-              animation.value,
-              [0, 1],
-              [-dimensions.height, 0],
-            ),
-          },
-        ],
-      }
-    }
-
-    if (transition === 'slide-left') {
-      return {
-        transform: [
-          {
-            translateY: interpolate(
-              animation.value,
-              [0, 1],
-              [dimensions.width, 0],
-            ),
-          },
-        ],
-      }
-    }
-
-    if (transition === 'slide-right') {
-      return {
-        transform: [
-          {
-            translateY: interpolate(
-              animation.value,
-              [0, 1],
-              [-dimensions.width, 0],
-            ),
-          },
-        ],
-      }
-    }
-
-    if (transition === 'scale') {
-      return {
-        opacity: animation.value,
-        transform: [
-          {
-            scale: interpolate(animation.value, [0, 1], [0.9, 1]),
-          },
-        ],
-      }
-    }
-
-    return { opacity: animation.value }
   })
 
   const renderBackdrop = () => {
@@ -289,37 +260,36 @@ export const Modal: React.FC<ModalProps> = ({
     }
 
     return (
-      <TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <Animated.View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: theme.backgroundColor.modalBarrier,
-              zIndex: 0,
-            },
-            backdropStyle,
-            animatedBackdropStyle,
-          ]}
-        />
-      </TouchableWithoutFeedback>
+      <AnimatedPressable
+        onPress={handleBackdropPress}
+        entering={FadeIn.duration(duration)}
+        exiting={FadeOut.duration(duration)}
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: theme.backgroundColor.modalBarrier,
+            zIndex: 0,
+          },
+          backdropStyle,
+        ]}
+      />
     )
   }
 
   const renderContent = () => {
+    const { entering, exiting } = getAnimation()
+
     return (
       <PanGestureHandler
         enabled={enableDismissGesture}
-        onGestureEvent={gestureHandler}
+        onGestureEvent={handleGestureEvent}
       >
         <AnimatedPressable
           onPress={onPress}
           onLayout={handleContentLayout}
-          style={[
-            { zIndex: 1 },
-            animatedTransitionStyle,
-            animatedGestureStyle,
-            style,
-          ]}
+          entering={entering}
+          exiting={exiting}
+          style={[{ zIndex: 1 }, animatedGestureStyle, style]}
         >
           {children}
         </AnimatedPressable>
@@ -327,7 +297,7 @@ export const Modal: React.FC<ModalProps> = ({
     )
   }
 
-  if (!mounted) {
+  if (!visible) {
     return null
   }
 

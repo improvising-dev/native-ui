@@ -16,7 +16,7 @@ export const Toast: React.FC<ToastProps> = ({
   message,
   duration = 1500,
   visible,
-  transitionDuration,
+  transitionDuration = 500,
   onDismiss,
   onUnmounted,
   onPress,
@@ -25,11 +25,12 @@ export const Toast: React.FC<ToastProps> = ({
   const insets = useSafeAreaInsets()
 
   useEffect(() => {
-    setTimeout(() => onDismiss?.(), duration)
+    setTimeout(() => onDismiss?.(), duration + transitionDuration)
   }, [])
 
   return (
     <Modal
+      zIndex={theme.componentTheme.toast.zIndex}
       visible={visible}
       transition="slide-down"
       transitionDuration={transitionDuration}
@@ -45,7 +46,7 @@ export const Toast: React.FC<ToastProps> = ({
         right: 0,
         padding: theme.spacing,
         paddingTop: theme.spacing + insets.top,
-        backgroundColor: '#303030',
+        backgroundColor: theme.componentTheme.toast.backgroundColor,
       }}
     >
       {title && (

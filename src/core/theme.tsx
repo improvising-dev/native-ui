@@ -40,6 +40,10 @@ export interface ComponentTheme {
     titleTextStyle: TextStyle
     subtitleTextStyle: TextStyle
   }
+  toast: {
+    zIndex: number
+    backgroundColor: string
+  }
 }
 
 export interface Theme {

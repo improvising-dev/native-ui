@@ -33,6 +33,10 @@ export const DefaultComponentTheme = {
     titleTextStyle: { fontSize: 17 },
     subtitleTextStyle: { fontSize: 12 },
   },
+  toast: {
+    zIndex: 10000,
+    backgroundColor: '#303030',
+  },
 } as const
 
 export const DefaultTextTheme = {
