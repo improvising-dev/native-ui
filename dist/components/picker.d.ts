@@ -12,4 +12,4 @@ export interface PickerProps extends ViewProps {
     height?: number;
     itemHeight?: number;
 }
-export declare const Picker: React.FC<PickerProps>;
+export declare const Picker: React.NamedExoticComponent<PickerProps>;

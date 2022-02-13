@@ -6,4 +6,4 @@ export interface ToastProps extends ModalStateProps {
     duration?: number;
     onPress?: () => void;
 }
-export declare const Toast: React.FC<ToastProps>;
+export declare const Toast: React.NamedExoticComponent<ToastProps>;

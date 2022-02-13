@@ -35,7 +35,7 @@ export const ScrollView = React.forwardRef((_a, ref) => {
                             (_a = scrollView.current) === null || _a === void 0 ? void 0 : _a.scrollTo({
                                 y: scrollPosition.current + delta,
                             });
-                        }, 200);
+                        }, keyboardAvoidingDuration);
                     }
                 });
             }

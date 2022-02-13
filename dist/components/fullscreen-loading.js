@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useMountController } from '../core/controller';
 import { useTheme } from '../core/theme';
 import { ActivityIndicator } from './activity-indicator';
 import { Modal } from './modal';
 import { Text } from './text';
-export const FullscreenLoading = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+const FullscreenLoadingComponent = ({ controller, message: initialMessage, visible, transition = 'fade', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const [message, setMessage] = useState(initialMessage);
     const renderMessage = () => {
@@ -31,3 +31,4 @@ export const FullscreenLoading = ({ controller, message: initialMessage, visible
       {renderMessage()}
     </Modal>);
 };
+export const FullscreenLoading = memo(FullscreenLoadingComponent);

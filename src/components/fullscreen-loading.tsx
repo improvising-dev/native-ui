@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { FullscreenLoadingController } from '../controllers/fullscreen-loading'
 import { useMountController } from '../core/controller'
 import { useTheme } from '../core/theme'
@@ -11,7 +11,7 @@ export interface FullscreenLoadingProps extends ModalStateProps {
   message?: string
 }
 
-export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
+const FullscreenLoadingComponent: React.FC<FullscreenLoadingProps> = ({
   controller,
   message: initialMessage,
   visible,
@@ -67,3 +67,5 @@ export const FullscreenLoading: React.FC<FullscreenLoadingProps> = ({
     </Modal>
   )
 }
+
+export const FullscreenLoading = memo(FullscreenLoadingComponent)

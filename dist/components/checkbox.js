@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable } from 'react-native';
 import { useTheme } from '../core/theme';
 import { Icon } from './icon';
-export const CheckBox = ({ value, onValueChange, size: customSize, style, checkedColor: customCheckedColor, uncheckedColor: customUncheckedColor, iconColor: customIconColor, }) => {
+const CheckBoxComponent = ({ value, onValueChange, size: customSize, style, checkedColor: customCheckedColor, uncheckedColor: customUncheckedColor, iconColor: customIconColor, }) => {
     const theme = useTheme();
     const size = customSize !== null && customSize !== void 0 ? customSize : theme.componentTheme.checkbox.size;
     const iconSize = Math.floor(size * 0.8);
@@ -23,3 +23,4 @@ export const CheckBox = ({ value, onValueChange, size: customSize, style, checke
       {value && (<Icon.Checkmark fill={iconColor} width={iconSize} height={iconSize}/>)}
     </Pressable>);
 };
+export const Checkbox = memo(CheckBoxComponent);

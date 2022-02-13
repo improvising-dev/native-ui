@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { memo, useMemo, useRef, useState } from 'react'
 import {
   FlatList,
   NativeScrollEvent,
@@ -24,7 +24,7 @@ export interface PickerProps extends ViewProps {
   itemHeight?: number
 }
 
-export const Picker: React.FC<PickerProps> = ({
+const PickerComponent: React.FC<PickerProps> = ({
   style,
   items = [],
   defaultValue,
@@ -177,3 +177,5 @@ export const Picker: React.FC<PickerProps> = ({
     </View>
   )
 }
+
+export const Picker = memo(PickerComponent)

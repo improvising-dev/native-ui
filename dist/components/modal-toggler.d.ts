@@ -12,6 +12,6 @@ export interface ModalTogglerRef {
 export interface ModalTogglerProps {
     transition?: ModalTransition;
     transitionDuration?: number;
-    children: (params: ModalBuilderParams) => React.ReactNode;
+    builder: (params: ModalBuilderParams) => JSX.Element;
 }
-export declare const ModalToggler: React.ForwardRefExoticComponent<ModalTogglerProps & React.RefAttributes<ModalTogglerRef>>;
+export declare const ModalToggler: React.MemoExoticComponent<React.ForwardRefExoticComponent<ModalTogglerProps & React.RefAttributes<ModalTogglerRef>>>;

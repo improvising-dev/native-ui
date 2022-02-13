@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React, { memo } from 'react'
 import Svg, { SvgProps, G, Path, Circle } from 'react-native-svg'
 
-const Back: React.FC<SvgProps> = props => (
+const Back = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -10,9 +10,9 @@ const Back: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const Forward: React.FC<SvgProps> = props => (
+const Forward = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -21,9 +21,9 @@ const Forward: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const Checkmark: React.FC<SvgProps> = props => (
+const Checkmark = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -32,9 +32,9 @@ const Checkmark: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const Close: React.FC<SvgProps> = props => (
+const Close = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -43,9 +43,9 @@ const Close: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const Send: React.FC<SvgProps> = props => (
+const Send = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -54,9 +54,9 @@ const Send: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const Add: React.FC<SvgProps> = props => (
+const Add = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <Path
@@ -65,9 +65,9 @@ const Add: React.FC<SvgProps> = props => (
       />
     </G>
   </Svg>
-)
+))
 
-const MoreHorizontal: React.FC<SvgProps> = props => (
+const MoreHorizontal = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <G data-name="more-horizotnal">
@@ -77,9 +77,9 @@ const MoreHorizontal: React.FC<SvgProps> = props => (
       </G>
     </G>
   </Svg>
-)
+))
 
-const MoreVertical: React.FC<SvgProps> = props => (
+const MoreVertical = memo<SvgProps>(props => (
   <Svg viewBox="0 0 24 24" {...props}>
     <G data-name="Layer 2">
       <G data-name="more-vertical">
@@ -89,7 +89,7 @@ const MoreVertical: React.FC<SvgProps> = props => (
       </G>
     </G>
   </Svg>
-)
+))
 
 export const Icon = {
   Back,

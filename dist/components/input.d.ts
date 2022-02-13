@@ -11,4 +11,4 @@ export interface InputProps extends TextInputProps {
     suffix?: React.ReactNode;
     suffixMode?: OverlayVisibilityMode;
 }
-export declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<TextInput>>;
+export declare const Input: React.MemoExoticComponent<React.ForwardRefExoticComponent<InputProps & React.RefAttributes<TextInput>>>;

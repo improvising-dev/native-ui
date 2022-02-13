@@ -1,5 +1,5 @@
-import React, { useEffect, useImperativeHandle, useMemo, useState } from 'react';
-export const ModalToggler = React.forwardRef(({ transition, transitionDuration = 400, children }, ref) => {
+import React, { memo, useEffect, useImperativeHandle, useState } from 'react';
+const ModalTogglerComponent = React.forwardRef(({ transition, transitionDuration = 400, builder }, ref) => {
     const [visible, setVisible] = useState(false);
     const handleDismiss = () => {
         setVisible(false);
@@ -10,13 +10,11 @@ export const ModalToggler = React.forwardRef(({ transition, transitionDuration =
     useImperativeHandle(ref, () => {
         return { handleDismiss };
     });
-    const node = useMemo(() => {
-        return children({
-            visible,
-            transition,
-            transitionDuration,
-            handleDismiss,
-        });
-    }, [visible]);
-    return <>{node}</>;
+    return builder({
+        visible,
+        transition,
+        transitionDuration,
+        handleDismiss,
+    });
 });
+export const ModalToggler = memo(ModalTogglerComponent);

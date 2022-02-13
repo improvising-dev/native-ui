@@ -14,7 +14,7 @@ export const showModal = ({
 }: {
   transition?: ModalTransition
   transitionDuration?: number
-  builder: (params: ModalBuilderParams) => React.ReactNode
+  builder: (params: ModalBuilderParams) => JSX.Element
 }) => {
   const togglerRef = createRef<ModalTogglerRef>()
 
@@ -23,9 +23,8 @@ export const showModal = ({
       ref={togglerRef}
       transition={transition}
       transitionDuration={transitionDuration}
-    >
-      {builder}
-    </ModalToggler>,
+      builder={builder}
+    />,
   )
 
   return {

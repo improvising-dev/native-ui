@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { SvgProps } from 'react-native-svg';
 export declare const Icon: {
-    Back: React.FC<SvgProps>;
-    Forward: React.FC<SvgProps>;
-    Checkmark: React.FC<SvgProps>;
-    Close: React.FC<SvgProps>;
-    Send: React.FC<SvgProps>;
-    Add: React.FC<SvgProps>;
-    MoreHorizontal: React.FC<SvgProps>;
-    MoreVertical: React.FC<SvgProps>;
+    Back: React.NamedExoticComponent<SvgProps>;
+    Forward: React.NamedExoticComponent<SvgProps>;
+    Checkmark: React.NamedExoticComponent<SvgProps>;
+    Close: React.NamedExoticComponent<SvgProps>;
+    Send: React.NamedExoticComponent<SvgProps>;
+    Add: React.NamedExoticComponent<SvgProps>;
+    MoreHorizontal: React.NamedExoticComponent<SvgProps>;
+    MoreVertical: React.NamedExoticComponent<SvgProps>;
 };

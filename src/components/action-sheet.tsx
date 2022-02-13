@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
@@ -18,7 +18,7 @@ export interface ActionSheetProps extends ModalStateProps {
   header?: React.ReactNode
 }
 
-export const ActionSheet: React.FC<ActionSheetProps> = ({
+const ActionSheetComponent: React.FC<ActionSheetProps> = ({
   items,
   header,
   visible,
@@ -114,3 +114,5 @@ export const ActionSheet: React.FC<ActionSheetProps> = ({
     </Modal>
   )
 }
+
+export const ActionSheet = memo(ActionSheetComponent)

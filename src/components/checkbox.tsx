@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Pressable, StyleProp, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
 import { Icon } from './icon'
@@ -13,7 +13,7 @@ export interface CheckBoxProps {
   iconColor?: string
 }
 
-export const CheckBox: React.FC<CheckBoxProps> = ({
+const CheckBoxComponent: React.FC<CheckBoxProps> = ({
   value,
   onValueChange,
   size: customSize,
@@ -51,3 +51,5 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
     </Pressable>
   )
 }
+
+export const Checkbox = memo(CheckBoxComponent)

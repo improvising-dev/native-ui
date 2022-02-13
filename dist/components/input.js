@@ -9,10 +9,10 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { memo, useEffect, useImperativeHandle, useRef, useState, } from 'react';
 import { Pressable, TextInput, } from 'react-native';
 import { useTheme } from '../core/theme';
-export const Input = React.forwardRef((_a, ref) => {
+const InputComponent = React.forwardRef((_a, ref) => {
     var _b;
     var { multiline, style, textStyle, prefix, prefixMode = 'always', suffix, suffixMode = 'always', value: controlledValue, defaultValue, placeholderTextColor, underlineColorAndroid = 'transparent', onChangeText, onContentSizeChange } = _a, textInputProps = __rest(_a, ["multiline", "style", "textStyle", "prefix", "prefixMode", "suffix", "suffixMode", "value", "defaultValue", "placeholderTextColor", "underlineColorAndroid", "onChangeText", "onContentSizeChange"]);
     const theme = useTheme();
@@ -66,3 +66,4 @@ export const Input = React.forwardRef((_a, ref) => {
             : null}
       </Pressable>);
 });
+export const Input = memo(InputComponent);

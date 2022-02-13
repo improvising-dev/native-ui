@@ -3,4 +3,4 @@ export interface SpacerProps {
     width?: number;
     height?: number;
 }
-export declare const Spacer: React.FC<SpacerProps>;
+export declare const Spacer: React.NamedExoticComponent<SpacerProps>;

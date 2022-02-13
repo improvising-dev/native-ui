@@ -9,12 +9,12 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useMemo, useRef, useState } from 'react';
+import React, { memo, useMemo, useRef, useState } from 'react';
 import { FlatList, View, } from 'react-native';
 import { HapticFeedback } from '../actions/haptic-feedback';
 import { useTheme } from '../core/theme';
 import { Text } from './text';
-export const Picker = (_a) => {
+const PickerComponent = (_a) => {
     var { style, items = [], defaultValue, onValueChange, height, itemHeight: customItemHeight } = _a, props = __rest(_a, ["style", "items", "defaultValue", "onValueChange", "height", "itemHeight"]);
     const theme = useTheme();
     const lastHapticFeedbackIndex = useRef();
@@ -110,3 +110,4 @@ export const Picker = (_a) => {
         }} showsVerticalScrollIndicator={false} nestedScrollEnabled={true} onScroll={handleScroll} onMomentumScrollEnd={handleMomentumScrollEnd} snapToOffsets={snapToOffsets} ListHeaderComponent={placeholder} ListFooterComponent={placeholder} data={items} renderItem={({ item }) => _renderItem(item)} keyExtractor={item => item.value}/>
     </View>);
 };
+export const Picker = memo(PickerComponent);

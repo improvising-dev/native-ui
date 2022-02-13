@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, useWindowDimensions, View, } from 'react-native';
 import { PanGestureHandler, } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRight, SlideInUp, SlideOutDown, SlideOutLeft, SlideOutRight, SlideOutUp, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming, ZoomIn, ZoomOut, } from 'react-native-reanimated';
@@ -10,8 +10,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
     const dimensions = useWindowDimensions();
     const gestureX = useSharedValue(0);
     const gestureY = useSharedValue(0);
-    const contentWidth = useRef(dimensions.width);
-    const contentHeight = useRef(dimensions.height);
+    const [contentWidth, setContentWidth] = useState(dimensions.width);
+    const [contentHeight, setContentHeight] = useState(dimensions.height);
     useBackHandler(() => {
         if (dismissible) {
             onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
@@ -19,8 +19,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         return true;
     }, [dismissible]);
     const handleContentLayout = (event) => {
-        contentWidth.current = event.nativeEvent.layout.width;
-        contentHeight.current = event.nativeEvent.layout.height;
+        setContentWidth(event.nativeEvent.layout.width);
+        setContentHeight(event.nativeEvent.layout.height);
     };
     const handleGestureEvent = useAnimatedGestureHandler({
         onStart: (_, ctx) => {
@@ -54,8 +54,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
         onEnd: () => {
             switch (transition) {
                 case 'slide-up':
-                    if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-                        gestureY.value = withTiming(contentHeight.current, {}, () => {
+                    if (Math.abs(gestureY.value) > contentHeight / 3) {
+                        gestureY.value = withTiming(contentHeight, {}, () => {
                             'worklet';
                             runOnJS(onUnmounted)();
                         });
@@ -65,8 +65,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     }
                     break;
                 case 'slide-down':
-                    if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-                        gestureY.value = withTiming(-contentHeight.current, {}, () => {
+                    if (Math.abs(gestureY.value) > contentHeight / 3) {
+                        gestureY.value = withTiming(-contentHeight, {}, () => {
                             'worklet';
                             runOnJS(onUnmounted)();
                         });
@@ -76,8 +76,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     }
                     break;
                 case 'slide-left':
-                    if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-                        gestureX.value = withTiming(contentWidth.current, {}, () => {
+                    if (Math.abs(gestureX.value) > contentWidth / 3) {
+                        gestureX.value = withTiming(contentWidth, {}, () => {
                             'worklet';
                             runOnJS(onUnmounted)();
                         });
@@ -87,8 +87,8 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     }
                     break;
                 case 'slide-right':
-                    if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-                        gestureX.value = withTiming(-contentWidth.current, {}, () => {
+                    if (Math.abs(gestureX.value) > contentWidth / 3) {
+                        gestureX.value = withTiming(-contentWidth, {}, () => {
                             'worklet';
                             runOnJS(onUnmounted)();
                         });
@@ -99,14 +99,14 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     break;
             }
         },
-    });
+    }, [transition, contentWidth, contentHeight]);
     const handleBackdropPress = () => {
         onBackdropPress === null || onBackdropPress === void 0 ? void 0 : onBackdropPress();
         if (dismissible) {
             onDismiss === null || onDismiss === void 0 ? void 0 : onDismiss();
         }
     };
-    const getAnimation = () => {
+    const transitionAnimation = useMemo(() => {
         switch (transition) {
             case 'slide-up':
                 return {
@@ -158,7 +158,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
                     }),
                 };
         }
-    };
+    }, [transition, duration]);
     const animatedGestureStyle = useAnimatedStyle(() => {
         return {
             transform: [
@@ -181,7 +181,7 @@ export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = t
             ]}/>);
     };
     const renderContent = () => {
-        const { entering, exiting } = getAnimation();
+        const { entering, exiting } = transitionAnimation;
         return (<PanGestureHandler enabled={enableDismissGesture} onGestureEvent={handleGestureEvent}>
         <AnimatedPressable onPress={onPress} onLayout={handleContentLayout} entering={entering} exiting={exiting} style={[{ zIndex: 1 }, animatedGestureStyle, style]}>
           {children}

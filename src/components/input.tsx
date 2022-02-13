@@ -1,4 +1,10 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, {
+  memo,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 import {
   Pressable,
   StyleProp,
@@ -25,7 +31,7 @@ export interface InputProps extends TextInputProps {
   suffixMode?: OverlayVisibilityMode
 }
 
-export const Input = React.forwardRef<TextInput, InputProps>(
+const InputComponent = React.forwardRef<TextInput, InputProps>(
   (
     {
       multiline,
@@ -121,3 +127,5 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     )
   },
 )
+
+export const Input = memo(InputComponent)

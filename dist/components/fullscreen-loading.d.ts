@@ -5,4 +5,4 @@ export interface FullscreenLoadingProps extends ModalStateProps {
     controller?: FullscreenLoadingController;
     message?: string;
 }
-export declare const FullscreenLoading: React.FC<FullscreenLoadingProps>;
+export declare const FullscreenLoading: React.NamedExoticComponent<FullscreenLoadingProps>;

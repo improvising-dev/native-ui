@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   LayoutChangeEvent,
   Pressable,
@@ -85,8 +85,8 @@ export const Modal: React.FC<ModalProps> = ({
   const gestureX = useSharedValue(0)
   const gestureY = useSharedValue(0)
 
-  const contentWidth = useRef(dimensions.width)
-  const contentHeight = useRef(dimensions.height)
+  const [contentWidth, setContentWidth] = useState(dimensions.width)
+  const [contentHeight, setContentHeight] = useState(dimensions.height)
 
   useBackHandler(() => {
     if (dismissible) {
@@ -97,8 +97,8 @@ export const Modal: React.FC<ModalProps> = ({
   }, [dismissible])
 
   const handleContentLayout = (event: LayoutChangeEvent) => {
-    contentWidth.current = event.nativeEvent.layout.width
-    contentHeight.current = event.nativeEvent.layout.height
+    setContentWidth(event.nativeEvent.layout.width)
+    setContentHeight(event.nativeEvent.layout.height)
   }
 
   const handleGestureEvent = useAnimatedGestureHandler<
@@ -107,81 +107,84 @@ export const Modal: React.FC<ModalProps> = ({
       startY: number
       startX: number
     }
-  >({
-    onStart: (_, ctx) => {
-      ctx.startX = gestureX.value
-      ctx.startY = gestureY.value
-    },
-    onActive: (event, ctx) => {
-      switch (transition) {
-        case 'slide-up':
-          if (event.translationY > 0) {
-            gestureY.value = ctx.startY + event.translationY
-          }
-          break
-        case 'slide-down':
-          if (event.translationY < 0) {
-            gestureY.value = ctx.startY + event.translationY
-          }
-          break
+  >(
+    {
+      onStart: (_, ctx) => {
+        ctx.startX = gestureX.value
+        ctx.startY = gestureY.value
+      },
+      onActive: (event, ctx) => {
+        switch (transition) {
+          case 'slide-up':
+            if (event.translationY > 0) {
+              gestureY.value = ctx.startY + event.translationY
+            }
+            break
+          case 'slide-down':
+            if (event.translationY < 0) {
+              gestureY.value = ctx.startY + event.translationY
+            }
+            break
 
-        case 'slide-left':
-          if (event.translationX > 0) {
-            gestureX.value = ctx.startX + event.translationX
-          }
-          break
-        case 'slide-right':
-          if (event.translationX < 0) {
-            gestureX.value = ctx.startX + event.translationX
-          }
-          break
-      }
+          case 'slide-left':
+            if (event.translationX > 0) {
+              gestureX.value = ctx.startX + event.translationX
+            }
+            break
+          case 'slide-right':
+            if (event.translationX < 0) {
+              gestureX.value = ctx.startX + event.translationX
+            }
+            break
+        }
+      },
+      onEnd: () => {
+        switch (transition) {
+          case 'slide-up':
+            if (Math.abs(gestureY.value) > contentHeight / 3) {
+              gestureY.value = withTiming(contentHeight, {}, () => {
+                'worklet'
+                runOnJS(onUnmounted)()
+              })
+            } else {
+              gestureY.value = withTiming(0)
+            }
+            break
+          case 'slide-down':
+            if (Math.abs(gestureY.value) > contentHeight / 3) {
+              gestureY.value = withTiming(-contentHeight, {}, () => {
+                'worklet'
+                runOnJS(onUnmounted)()
+              })
+            } else {
+              gestureY.value = withTiming(0)
+            }
+            break
+          case 'slide-left':
+            if (Math.abs(gestureX.value) > contentWidth / 3) {
+              gestureX.value = withTiming(contentWidth, {}, () => {
+                'worklet'
+                runOnJS(onUnmounted)()
+              })
+            } else {
+              gestureX.value = withTiming(0)
+            }
+            break
+          case 'slide-right':
+            if (Math.abs(gestureX.value) > contentWidth / 3) {
+              gestureX.value = withTiming(-contentWidth, {}, () => {
+                'worklet'
+                runOnJS(onUnmounted)()
+              })
+            } else {
+              gestureX.value = withTiming(0)
+            }
+            break
+        }
+      },
     },
-    onEnd: () => {
-      switch (transition) {
-        case 'slide-up':
-          if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-            gestureY.value = withTiming(contentHeight.current, {}, () => {
-              'worklet'
-              runOnJS(onUnmounted)()
-            })
-          } else {
-            gestureY.value = withTiming(0)
-          }
-          break
-        case 'slide-down':
-          if (Math.abs(gestureY.value) > contentHeight.current / 3) {
-            gestureY.value = withTiming(-contentHeight.current, {}, () => {
-              'worklet'
-              runOnJS(onUnmounted)()
-            })
-          } else {
-            gestureY.value = withTiming(0)
-          }
-          break
-        case 'slide-left':
-          if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-            gestureX.value = withTiming(contentWidth.current, {}, () => {
-              'worklet'
-              runOnJS(onUnmounted)()
-            })
-          } else {
-            gestureX.value = withTiming(0)
-          }
-          break
-        case 'slide-right':
-          if (Math.abs(gestureX.value) > contentWidth.current / 3) {
-            gestureX.value = withTiming(-contentWidth.current, {}, () => {
-              'worklet'
-              runOnJS(onUnmounted)()
-            })
-          } else {
-            gestureX.value = withTiming(0)
-          }
-          break
-      }
-    },
-  })
+    [transition, contentWidth, contentHeight],
+  )
 
   const handleBackdropPress = () => {
     onBackdropPress?.()
@@ -191,7 +194,7 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }
 
-  const getAnimation = () => {
+  const transitionAnimation = useMemo(() => {
     switch (transition) {
       case 'slide-up':
         return {
@@ -243,7 +246,7 @@ export const Modal: React.FC<ModalProps> = ({
           }),
         }
     }
-  }
+  }, [transition, duration])
 
   const animatedGestureStyle = useAnimatedStyle(() => {
     return {
@@ -277,7 +280,7 @@ export const Modal: React.FC<ModalProps> = ({
   }
 
   const renderContent = () => {
-    const { entering, exiting } = getAnimation()
+    const { entering, exiting } = transitionAnimation
 
     return (
       <PanGestureHandler

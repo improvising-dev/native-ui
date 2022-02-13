@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from '../core/theme'
 import { Modal, ModalStateProps } from './modal'
@@ -11,7 +11,7 @@ export interface ToastProps extends ModalStateProps {
   onPress?: () => void
 }
 
-export const Toast: React.FC<ToastProps> = ({
+const ToastComponent: React.FC<ToastProps> = ({
   title,
   message,
   duration = 1500,
@@ -66,3 +66,5 @@ export const Toast: React.FC<ToastProps> = ({
     </Modal>
   )
 }
+
+export const Toast = memo(ToastComponent)

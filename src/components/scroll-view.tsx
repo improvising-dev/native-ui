@@ -59,7 +59,7 @@ export const ScrollView = React.forwardRef<ScrollView, ScrollViewProps>(
                   scrollView.current?.scrollTo({
                     y: scrollPosition.current + delta,
                   })
-                }, 200)
+                }, keyboardAvoidingDuration)
               }
             },
           )

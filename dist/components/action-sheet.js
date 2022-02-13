@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../core/theme';
 import { Button } from './button';
 import { Modal } from './modal';
 import { Text } from './text';
-export const ActionSheet = ({ items, header, visible, transition = 'slide-up', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
+const ActionSheetComponent = ({ items, header, visible, transition = 'slide-up', transitionDuration, onBackdropPress, onDismiss, onUnmounted, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     return (<Modal zIndex={theme.componentTheme.actionSheet.zIndex} visible={visible} transition={transition} transitionDuration={transitionDuration} onBackdropPress={onBackdropPress} onDismiss={onDismiss} onUnmounted={onUnmounted} style={{
@@ -66,3 +66,4 @@ export const ActionSheet = ({ items, header, visible, transition = 'slide-up', t
       </View>
     </Modal>);
 };
+export const ActionSheet = memo(ActionSheetComponent);
