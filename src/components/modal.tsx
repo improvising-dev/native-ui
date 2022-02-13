@@ -75,7 +75,7 @@ export const Modal: React.FC<ModalProps> = ({
   visible,
   transition = 'fade',
   transitionDuration: duration = 400,
-  enableDismissGesture,
+  enableDismissGesture = false,
   onBackdropPress,
   onDismiss,
   onUnmounted = () => {},

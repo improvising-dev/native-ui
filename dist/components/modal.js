@@ -5,7 +5,7 @@ import Animated, { FadeIn, FadeOut, runOnJS, SlideInDown, SlideInLeft, SlideInRi
 import { useTheme } from '../core/theme';
 import { useBackHandler } from '../hooks/use-back-handler';
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, onHandlerStateChange, }) => {
+export const Modal = ({ children, zIndex = 100, dismissible = true, backdrop = true, backdropStyle, style, visible, transition = 'fade', transitionDuration: duration = 400, enableDismissGesture = false, onBackdropPress, onDismiss, onUnmounted = () => { }, onPress, onHandlerStateChange, }) => {
     const theme = useTheme();
     const dimensions = useWindowDimensions();
     const gestureX = useSharedValue(0);
