@@ -11,6 +11,7 @@ import {
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
+  PanGestureHandlerProps,
 } from 'react-native-gesture-handler'
 import Animated, {
   FadeIn,
@@ -61,8 +62,7 @@ export interface ModalProps extends ModalStateProps {
   style?: StyleProp<ViewStyle>
   enableDismissGesture?: boolean
   onPress?: () => void
-  onGestureStart?: () => void
-  onGestureFinish?: () => void
+  onHandlerStateChange?: PanGestureHandlerProps['onHandlerStateChange']
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -80,8 +80,7 @@ export const Modal: React.FC<ModalProps> = ({
   onDismiss,
   onUnmounted = () => {},
   onPress,
-  onGestureStart,
-  onGestureFinish,
+  onHandlerStateChange,
 }) => {
   const theme = useTheme()
   const dimensions = useWindowDimensions()
@@ -112,8 +111,6 @@ export const Modal: React.FC<ModalProps> = ({
       onStart: (_, ctx) => {
         ctx.startX = gestureX.value
         ctx.startY = gestureY.value
-
-        onGestureStart?.()
       },
       onActive: (event, ctx) => {
         switch (transition) {
@@ -183,9 +180,6 @@ export const Modal: React.FC<ModalProps> = ({
             }
             break
         }
-      },
-      onFinish: () => {
-        onGestureFinish?.()
       },
     },
     [transition, contentWidth, contentHeight],
@@ -291,6 +285,7 @@ export const Modal: React.FC<ModalProps> = ({
       <PanGestureHandler
         enabled={enableDismissGesture}
         onGestureEvent={handleGestureEvent}
+        onHandlerStateChange={onHandlerStateChange}
       >
         <AnimatedPressable
           onPress={onPress}
