@@ -34,7 +34,20 @@ export const DefaultComponentTheme = {
     },
     toast: {
         zIndex: 10000,
-        backgroundColor: '#303030',
+        variants: {
+            info: {
+                backgroundColor: '#303030',
+                textColor: '#ffffff',
+            },
+            success: {
+                backgroundColor: '#26ad8d',
+                textColor: '#ffffff',
+            },
+            error: {
+                backgroundColor: '#fe3f43',
+                textColor: '#ffffff',
+            },
+        },
     },
 };
 export const DefaultTextTheme = {

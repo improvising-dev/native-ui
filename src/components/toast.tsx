@@ -4,7 +4,10 @@ import { useTheme } from '../core/theme'
 import { Modal, ModalProps, ModalStateProps } from './modal'
 import { Text } from './text'
 
+export type ToastVariant = 'info' | 'success' | 'error'
+
 export interface ToastProps extends ModalStateProps {
+  variant?: ToastVariant
   title?: string
   message?: string
   duration?: number
@@ -12,6 +15,7 @@ export interface ToastProps extends ModalStateProps {
 }
 
 const ToastComponent: React.FC<ToastProps> = ({
+  variant = 'info',
   title,
   message,
   duration = 2000,
@@ -23,6 +27,9 @@ const ToastComponent: React.FC<ToastProps> = ({
 }) => {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
+
+  const variantTheme = theme.componentTheme.toast.variants[variant]
+
   const timeoutRef = useRef<NodeJS.Timeout>()
 
   const handleHandlerStateChange: ModalProps['onHandlerStateChange'] =
@@ -73,7 +80,7 @@ const ToastComponent: React.FC<ToastProps> = ({
         right: 0,
         padding: theme.spacing,
         paddingTop: theme.spacing + insets.top,
-        backgroundColor: theme.componentTheme.toast.backgroundColor,
+        backgroundColor: variantTheme.backgroundColor,
       }}
     >
       {title && (
@@ -82,14 +89,23 @@ const ToastComponent: React.FC<ToastProps> = ({
             theme.textTheme.small,
             {
               fontWeight: '500',
-              marginBottom: 2,
+              color: variantTheme.textColor,
+              marginBottom: 5,
             },
           ]}
         >
           {title}
         </Text>
       )}
-      {message && <Text>{message}</Text>}
+      {message && (
+        <Text
+          style={{
+            color: variantTheme.textColor,
+          }}
+        >
+          {message}
+        </Text>
+      )}
     </Modal>
   )
 }

@@ -41,7 +41,20 @@ export declare const DefaultComponentTheme: {
     };
     readonly toast: {
         readonly zIndex: 10000;
-        readonly backgroundColor: "#303030";
+        readonly variants: {
+            readonly info: {
+                readonly backgroundColor: "#303030";
+                readonly textColor: "#ffffff";
+            };
+            readonly success: {
+                readonly backgroundColor: "#26ad8d";
+                readonly textColor: "#ffffff";
+            };
+            readonly error: {
+                readonly backgroundColor: "#fe3f43";
+                readonly textColor: "#ffffff";
+            };
+        };
     };
 };
 export declare const DefaultTextTheme: {
@@ -138,7 +151,20 @@ export declare const DefaultTheme: {
         };
         readonly toast: {
             readonly zIndex: 10000;
-            readonly backgroundColor: "#303030";
+            readonly variants: {
+                readonly info: {
+                    readonly backgroundColor: "#303030";
+                    readonly textColor: "#ffffff";
+                };
+                readonly success: {
+                    readonly backgroundColor: "#26ad8d";
+                    readonly textColor: "#ffffff";
+                };
+                readonly error: {
+                    readonly backgroundColor: "#fe3f43";
+                    readonly textColor: "#ffffff";
+                };
+            };
         };
     };
 };

@@ -42,7 +42,20 @@ export interface ComponentTheme {
   }
   toast: {
     zIndex: number
-    backgroundColor: string
+    variants: {
+      info: {
+        backgroundColor: string
+        textColor: string
+      }
+      success: {
+        backgroundColor: string
+        textColor: string
+      }
+      error: {
+        backgroundColor: string
+        textColor: string
+      }
+    }
   }
 }
 

@@ -3,9 +3,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../core/theme';
 import { Modal } from './modal';
 import { Text } from './text';
-const ToastComponent = ({ title, message, duration = 2000, visible, transitionDuration = 500, onDismiss, onUnmounted, onPress, }) => {
+const ToastComponent = ({ variant = 'info', title, message, duration = 2000, visible, transitionDuration = 500, onDismiss, onUnmounted, onPress, }) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
+    const variantTheme = theme.componentTheme.toast.variants[variant];
     const timeoutRef = useRef();
     const handleHandlerStateChange = event => {
         switch (event.nativeEvent.state) {
@@ -36,18 +37,23 @@ const ToastComponent = ({ title, message, duration = 2000, visible, transitionDu
             right: 0,
             padding: theme.spacing,
             paddingTop: theme.spacing + insets.top,
-            backgroundColor: theme.componentTheme.toast.backgroundColor,
+            backgroundColor: variantTheme.backgroundColor,
         }}>
       {title && (<Text style={[
                 theme.textTheme.small,
                 {
                     fontWeight: '500',
-                    marginBottom: 2,
+                    color: variantTheme.textColor,
+                    marginBottom: 5,
                 },
             ]}>
           {title}
         </Text>)}
-      {message && <Text>{message}</Text>}
+      {message && (<Text style={{
+                color: variantTheme.textColor,
+            }}>
+          {message}
+        </Text>)}
     </Modal>);
 };
 export const Toast = memo(ToastComponent);
