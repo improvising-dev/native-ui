@@ -27,7 +27,7 @@ export const ImageBackground: React.FC<ImageBackgroundProps> = ({
         ]}
         {...imageProps}
       />
-      <View>{children}</View>
+      {children}
     </View>
   )
 }

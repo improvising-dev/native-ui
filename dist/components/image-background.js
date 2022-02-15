@@ -24,6 +24,6 @@ export const ImageBackground = (_a) => {
             },
             imageStyle,
         ]} {...imageProps}/>
-      <View>{children}</View>
+      {children}
     </View>);
 };
