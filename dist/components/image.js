@@ -32,7 +32,7 @@ const ImageComponent = (_a) => {
         }
         else {
             const minimumWait = 100;
-            const staggerNonce = 200 * Math.random();
+            const staggerNonce = 100 * Math.random();
             timeoutRef.current = setTimeout(() => {
                 animatedOpacity.value = withTiming(1, { duration: fadeDuration });
             }, minimumWait + staggerNonce);
