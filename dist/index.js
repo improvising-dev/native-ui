@@ -14,6 +14,7 @@ export * from './components/container';
 export * from './components/dialog';
 export * from './components/icon';
 export * from './components/image';
+export * from './components/image-background';
 export * from './components/input';
 export * from './components/modal';
 export * from './components/page';
