@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React from 'react'
 import { ImageStyle, StyleProp, StyleSheet, View } from 'react-native'
 import { Image, ImageProps } from './image'
 
@@ -6,7 +6,7 @@ export interface ImageBackgroundProps extends ImageProps {
   imageStyle?: StyleProp<ImageStyle>
 }
 
-const ImageBackgroundComponent: React.FC<ImageBackgroundProps> = ({
+export const ImageBackground: React.FC<ImageBackgroundProps> = ({
   style,
   imageStyle,
   children,
@@ -31,5 +31,3 @@ const ImageBackgroundComponent: React.FC<ImageBackgroundProps> = ({
     </View>
   )
 }
-
-export const ImageBackground = memo(ImageBackgroundComponent)

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import {
   Image as RNImage,
   ImageProps as RNImageProps,
@@ -32,16 +32,31 @@ const ImageComponent: React.FC<ImageProps> = ({
     }
   })
 
-  const handleLoadEnd = () => {
-    const minimumWait = 100
-    const staggerNonce = 200 * Math.random()
+  const timestamp = useRef(Date.now())
+  const timeoutRef = useRef<NodeJS.Timeout>()
 
-    setTimeout(() => {
-      animatedOpacity.value = withTiming(1, { duration: fadeDuration })
-    }, minimumWait + staggerNonce)
+  const handleLoadEnd = () => {
+    if (Date.now() - timestamp.current < 100) {
+      animatedOpacity.value = withTiming(1, { duration: 0 })
+    } else {
+      const minimumWait = 100
+      const staggerNonce = 200 * Math.random()
+
+      timeoutRef.current = setTimeout(() => {
+        animatedOpacity.value = withTiming(1, { duration: fadeDuration })
+      }, minimumWait + staggerNonce)
+    }
 
     onLoadEnd?.()
   }
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <Animated.Image

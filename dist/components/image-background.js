@@ -9,10 +9,10 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { memo } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Image } from './image';
-const ImageBackgroundComponent = (_a) => {
+export const ImageBackground = (_a) => {
     var { style, imageStyle, children } = _a, imageProps = __rest(_a, ["style", "imageStyle", "children"]);
     const flattenedStyle = StyleSheet.flatten(style);
     return (<View accessibilityIgnoresInvertColors={true} style={style}>
@@ -27,4 +27,3 @@ const ImageBackgroundComponent = (_a) => {
       <View>{children}</View>
     </View>);
 };
-export const ImageBackground = memo(ImageBackgroundComponent);
