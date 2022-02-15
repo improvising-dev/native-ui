@@ -10,48 +10,29 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { memo } from 'react';
-import { Image as RNImage, Platform, StyleSheet, View, } from 'react-native';
+import { Image as RNImage, Platform, } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, } from 'react-native-reanimated';
-import { useTheme } from '../core/theme';
 const ImageComponentAndroid = (_a) => {
-    var { fadeDuration = 200, style, containerStyle } = _a, imageProps = __rest(_a, ["fadeDuration", "style", "containerStyle"]);
-    const theme = useTheme();
-    return (<View style={[
-            {
-                overflow: 'hidden',
-                backgroundColor: theme.backgroundColor.fill,
-            },
-            containerStyle,
-        ]}>
-      <RNImage fadeDuration={fadeDuration} style={[StyleSheet.absoluteFill, style]} {...imageProps}/>
-    </View>);
+    var { fadeDuration = 200 } = _a, imageProps = __rest(_a, ["fadeDuration"]);
+    return <RNImage fadeDuration={fadeDuration} {...imageProps}/>;
 };
 const ImageComponent = (_a) => {
-    var { fadeDuration = 200, style, containerStyle, onLoad } = _a, imageProps = __rest(_a, ["fadeDuration", "style", "containerStyle", "onLoad"]);
-    const theme = useTheme();
+    var { fadeDuration = 200, style, onLoadEnd } = _a, imageProps = __rest(_a, ["fadeDuration", "style", "onLoadEnd"]);
     const animatedOpacity = useSharedValue(0);
     const animatedStyle = useAnimatedStyle(() => {
         return {
             opacity: animatedOpacity.value,
         };
     });
-    const handleLoad = (event) => {
+    const handleLoadEnd = () => {
         const minimumWait = 100;
         const staggerNonce = 200 * Math.random();
         setTimeout(() => {
             animatedOpacity.value = withTiming(1, { duration: fadeDuration });
         }, minimumWait + staggerNonce);
-        onLoad === null || onLoad === void 0 ? void 0 : onLoad(event);
+        onLoadEnd === null || onLoadEnd === void 0 ? void 0 : onLoadEnd();
     };
-    return (<View style={[
-            {
-                overflow: 'hidden',
-                backgroundColor: theme.backgroundColor.fill,
-            },
-            containerStyle,
-        ]}>
-      <Animated.Image style={[StyleSheet.absoluteFill, animatedStyle, style]} onLoad={handleLoad} {...imageProps}/>
-    </View>);
+    return (<Animated.Image style={[animatedStyle, style]} onLoadEnd={handleLoadEnd} {...imageProps}/>);
 };
 export const Image = memo(Platform.select({
     android: ImageComponentAndroid,
