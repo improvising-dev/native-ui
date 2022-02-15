@@ -1,16 +1,35 @@
-import { StyleSheet, View } from 'react-native'
+import { memo } from 'react'
+import { ImageStyle, StyleProp, StyleSheet, View } from 'react-native'
 import { Image, ImageProps } from './image'
 
-export interface ImageBackgroundProps extends ImageProps {}
+export interface ImageBackgroundProps extends ImageProps {
+  imageStyle?: StyleProp<ImageStyle>
+}
 
-export const ImageBackground: React.FC<ImageBackgroundProps> = ({
+const ImageBackgroundComponent: React.FC<ImageBackgroundProps> = ({
+  style,
+  imageStyle,
   children,
   ...imageProps
 }) => {
+  const flattenedStyle = StyleSheet.flatten(style)
+
   return (
-    <View pointerEvents="box-none">
-      <Image {...imageProps} />
-      <View style={StyleSheet.absoluteFill}>{children}</View>
+    <View accessibilityIgnoresInvertColors={true} style={style}>
+      <Image
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            width: flattenedStyle?.width,
+            height: flattenedStyle?.height,
+          },
+          imageStyle,
+        ]}
+        {...imageProps}
+      />
+      <View>{children}</View>
     </View>
   )
 }
+
+export const ImageBackground = memo(ImageBackgroundComponent)
