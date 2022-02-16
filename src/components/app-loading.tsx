@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 export interface AppLoadingProps {
   loadAsync: () => Promise<void>
@@ -8,6 +8,7 @@ export interface AppLoadingProps {
 }
 
 export const AppLoading: React.FC<AppLoadingProps> = ({
+  children,
   loadAsync,
   onComplete,
   onError,
@@ -16,5 +17,13 @@ export const AppLoading: React.FC<AppLoadingProps> = ({
     loadAsync().then(onComplete).catch(onError)
   }
 
-  return <View onLayout={handleLayout} />
+  return (
+    <View
+      style={StyleSheet.absoluteFill}
+      pointerEvents="box-none"
+      onLayout={handleLayout}
+    >
+      {children}
+    </View>
+  )
 }
