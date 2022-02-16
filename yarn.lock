@@ -723,6 +723,11 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@improvising/native-ui-icons@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@improvising/native-ui-icons/-/native-ui-icons-1.0.0.tgz#a62066890b7b2006749b54ae3fc57bfdf11bdf7f"
+  integrity sha512-pF+UzIuVokMjh/kW6Hi46ojNd1PbiOzNd2xwUg1rO6OIMm9qYkV8XzZGfJhHfdspzAFh0UcRqS5WsPqYrZijiw==
+
 "@jest/create-cache-key-function@^27.0.1":
   version "27.4.2"
   resolved "https://registry.npmjs.org/@jest/create-cache-key-function/-/create-cache-key-function-27.4.2.tgz#09b585f9dbafec0f56cfb0e4d4edfe2bec0e0768"

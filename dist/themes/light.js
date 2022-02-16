@@ -21,7 +21,6 @@ export const LightTheme = merge(cloneDeep(DefaultTheme), {
     black: '#000000',
     primaryColor: '#6d3df4',
     primaryContrastingColor: '#ffffff',
-    destructiveColor: '#fe3f43',
     backgroundColor: BackgroundColor,
     textColor: TextColor,
     textTheme: {

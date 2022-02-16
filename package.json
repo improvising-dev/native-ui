@@ -1,6 +1,6 @@
 {
   "name": "@improvising/native-ui",
-  "version": "0.3.65",
+  "version": "0.3.66",
   "description": "The comprehensive UI framework for React Native",
   "license": "MIT",
   "author": "Improvising Rhythm Ltd.",
@@ -12,6 +12,7 @@
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
+    "@improvising/native-ui-icons": "^1.0.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "react": "*",
@@ -25,6 +26,7 @@
     "react-native-svg": "^12.1.1"
   },
   "devDependencies": {
+    "@improvising/native-ui-icons": "^1.0.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@types/lodash": "^4.14.178",

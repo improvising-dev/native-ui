@@ -1,7 +1,7 @@
+import { Icon } from '@improvising/native-ui-icons';
 import React, { memo } from 'react';
 import { Pressable } from 'react-native';
 import { useTheme } from '../core/theme';
-import { Icon } from './icon';
 const CheckBoxComponent = ({ value, onValueChange, size: customSize, style, checkedColor: customCheckedColor, uncheckedColor: customUncheckedColor, iconColor: customIconColor, }) => {
     const theme = useTheme();
     const size = customSize !== null && customSize !== void 0 ? customSize : theme.componentTheme.checkbox.size;

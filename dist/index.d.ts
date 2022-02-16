@@ -12,7 +12,6 @@ export * from './components/checkbox';
 export * from './components/constraints-context';
 export * from './components/container';
 export * from './components/dialog';
-export * from './components/icon';
 export * from './components/image';
 export * from './components/image-background';
 export * from './components/input';

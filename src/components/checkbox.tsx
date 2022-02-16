@@ -1,7 +1,7 @@
+import { Icon } from '@improvising/native-ui-icons'
 import React, { memo } from 'react'
 import { Pressable, StyleProp, ViewStyle } from 'react-native'
 import { useTheme } from '../core/theme'
-import { Icon } from './icon'
 
 export interface CheckBoxProps {
   value: boolean
