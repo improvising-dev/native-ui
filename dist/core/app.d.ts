@@ -5,9 +5,10 @@ export interface AppProviderProps extends ThemeProviderProps, RouterRendererProp
     splashScreen?: React.ReactNode;
     loadAsync?: () => Promise<void>;
     onReady?: () => void;
+    onError?: (reason: any) => void;
 }
 export interface RouterRendererProps {
     initialRouteName?: keyof RouteParamList;
     routes?: Route[] | ((theme: Theme) => Route[]);
 }
-export declare const AppProvider: React.FC<AppProviderProps>;
+export declare const AppProvider: React.NamedExoticComponent<AppProviderProps>;

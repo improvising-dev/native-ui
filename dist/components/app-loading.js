@@ -1,10 +1,34 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-export const AppLoading = ({ children, loadAsync, onComplete, onError, }) => {
-    const handleLayout = () => {
-        loadAsync().then(onComplete).catch(onError);
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import Animated, { FadeOut } from 'react-native-reanimated';
+export const AppLoading = ({ splashScreen, children, loadAsync, onReady, onError = console.warn, }) => {
+    const [appIsReady, setAppIsReady] = useState(false);
+    const renderApp = () => {
+        if (!appIsReady) {
+            return null;
+        }
+        return children;
     };
-    return (<View style={StyleSheet.absoluteFill} pointerEvents="box-none" onLayout={handleLayout}>
-      {children}
-    </View>);
+    const renderSplashScreen = () => {
+        if (!splashScreen) {
+            return null;
+        }
+        return (<Animated.View style={[StyleSheet.absoluteFill, { zIndex: 50000 }]} pointerEvents="box-none" exiting={FadeOut.duration(250)}>
+        {splashScreen}
+      </Animated.View>);
+    };
+    useEffect(() => {
+        if (appIsReady) {
+            onReady === null || onReady === void 0 ? void 0 : onReady();
+        }
+        else {
+            loadAsync()
+                .then(() => setAppIsReady(true))
+                .catch(onError);
+        }
+    }, [appIsReady]);
+    return (<>
+      {renderApp()}
+      {renderSplashScreen()}
+    </>);
 };

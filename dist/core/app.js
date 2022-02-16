@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { Platform, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from '../components/app-loading';
@@ -13,24 +13,15 @@ const RouterRenderer = ({ initialRouteName, routes, }) => {
     const theme = useTheme();
     return (<RouterDegelate initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
 };
-export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, splashScreen, theme, darkTheme, initialRouteName, routes, children, }) => {
-    const [appIsReady, setAppIsReady] = useState(false);
-    useEffect(() => {
-        if (appIsReady) {
-            onReady === null || onReady === void 0 ? void 0 : onReady();
-        }
-    }, [appIsReady]);
-    if (!appIsReady) {
-        return (<AppLoading loadAsync={loadAsync} onComplete={() => setAppIsReady(true)} onError={console.warn}>
-        {splashScreen}
-      </AppLoading>);
-    }
+const AppProviderComponent = ({ loadAsync = () => Promise.resolve(), onReady, onError, splashScreen, theme, darkTheme, initialRouteName, routes, }) => {
     return (<SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>
         <ModalProvider>
-          <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
-          {children}
+          <AppLoading splashScreen={splashScreen} loadAsync={loadAsync} onReady={onReady} onError={onError}>
+            <RouterRenderer initialRouteName={initialRouteName} routes={routes}/>
+          </AppLoading>
         </ModalProvider>
       </ThemeProvider>
     </SafeAreaProvider>);
 };
+export const AppProvider = memo(AppProviderComponent);

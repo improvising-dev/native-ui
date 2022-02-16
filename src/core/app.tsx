@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo } from 'react'
 import { Platform, UIManager } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppLoading } from '../components/app-loading'
@@ -19,6 +19,7 @@ export interface AppProviderProps
   splashScreen?: React.ReactNode
   loadAsync?: () => Promise<void>
   onReady?: () => void
+  onError?: (reason: any) => void
 }
 
 export interface RouterRendererProps {
@@ -40,44 +41,35 @@ const RouterRenderer: React.FC<RouterRendererProps> = ({
   )
 }
 
-export const AppProvider: React.FC<AppProviderProps> = ({
+const AppProviderComponent: React.FC<AppProviderProps> = ({
   loadAsync = () => Promise.resolve(),
   onReady,
+  onError,
   splashScreen,
   theme,
   darkTheme,
   initialRouteName,
   routes,
-  children,
 }) => {
-  const [appIsReady, setAppIsReady] = useState(false)
-
-  useEffect(() => {
-    if (appIsReady) {
-      onReady?.()
-    }
-  }, [appIsReady])
-
-  if (!appIsReady) {
-    return (
-      <AppLoading
-        loadAsync={loadAsync}
-        onComplete={() => setAppIsReady(true)}
-        onError={console.warn}
-      >
-        {splashScreen}
-      </AppLoading>
-    )
-  }
-
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>
         <ModalProvider>
-          <RouterRenderer initialRouteName={initialRouteName} routes={routes} />
-          {children}
+          <AppLoading
+            splashScreen={splashScreen}
+            loadAsync={loadAsync}
+            onReady={onReady}
+            onError={onError}
+          >
+            <RouterRenderer
+              initialRouteName={initialRouteName}
+              routes={routes}
+            />
+          </AppLoading>
         </ModalProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   )
 }
+
+export const AppProvider = memo(AppProviderComponent)
