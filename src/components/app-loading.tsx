@@ -27,7 +27,7 @@ export const AppLoading: React.FC<AppLoadingProps> = ({
   }
 
   const renderSplashScreen = () => {
-    if (!splashScreen) {
+    if (!splashScreen || appIsReady) {
       return null
     }
 

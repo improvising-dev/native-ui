@@ -10,7 +10,7 @@ export const AppLoading = ({ splashScreen, children, loadAsync, onReady, onError
         return children;
     };
     const renderSplashScreen = () => {
-        if (!splashScreen) {
+        if (!splashScreen || appIsReady) {
             return null;
         }
         return (<Animated.View style={[StyleSheet.absoluteFill, { zIndex: 50000 }]} pointerEvents="box-none" exiting={FadeOut.duration(250)}>
