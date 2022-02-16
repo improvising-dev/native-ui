@@ -13,7 +13,7 @@ const RouterRenderer = ({ initialRouteName, routes, }) => {
     const theme = useTheme();
     return (<RouterDegelate initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
 };
-export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, theme, darkTheme, initialRouteName, routes, children, }) => {
+export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, splashScreen, theme, darkTheme, initialRouteName, routes, children, }) => {
     const [appIsReady, setAppIsReady] = useState(false);
     useEffect(() => {
         if (appIsReady) {
@@ -21,7 +21,9 @@ export const AppProvider = ({ loadAsync = () => Promise.resolve(), onReady, them
         }
     }, [appIsReady]);
     if (!appIsReady) {
-        return (<AppLoading loadAsync={loadAsync} onComplete={() => setAppIsReady(true)} onError={console.warn}/>);
+        return (<AppLoading loadAsync={loadAsync} onComplete={() => setAppIsReady(true)} onError={console.warn}>
+        {splashScreen}
+      </AppLoading>);
     }
     return (<SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>

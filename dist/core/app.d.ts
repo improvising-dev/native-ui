@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, RouteParamList } from './router';
 import { Theme, ThemeProviderProps } from './theme';
 export interface AppProviderProps extends ThemeProviderProps, RouterRendererProps {
+    splashScreen?: React.ReactNode;
     loadAsync?: () => Promise<void>;
     onReady?: () => void;
 }

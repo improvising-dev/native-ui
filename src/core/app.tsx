@@ -16,6 +16,7 @@ if (
 export interface AppProviderProps
   extends ThemeProviderProps,
     RouterRendererProps {
+  splashScreen?: React.ReactNode
   loadAsync?: () => Promise<void>
   onReady?: () => void
 }
@@ -42,6 +43,7 @@ const RouterRenderer: React.FC<RouterRendererProps> = ({
 export const AppProvider: React.FC<AppProviderProps> = ({
   loadAsync = () => Promise.resolve(),
   onReady,
+  splashScreen,
   theme,
   darkTheme,
   initialRouteName,
@@ -62,7 +64,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         loadAsync={loadAsync}
         onComplete={() => setAppIsReady(true)}
         onError={console.warn}
-      />
+      >
+        {splashScreen}
+      </AppLoading>
     )
   }
 
