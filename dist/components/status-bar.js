@@ -10,8 +10,8 @@ export const resolveStatusBarStyle = (style, colorScheme) => {
     }
     return resolvedStyle === 'light' ? 'light-content' : 'dark-content';
 };
-export const StatusBar = ({ style = 'auto', animated = true, translucent = true, hidden = false, }) => {
+export const StatusBar = ({ style = 'auto', animated = true, translucent = true, hidden = false, backgroundColor = '#ffffff00', }) => {
     const colorScheme = useColorScheme();
     const barStyle = resolveStatusBarStyle(style, colorScheme);
-    return (<RNStatusBar barStyle={barStyle} animated={animated} translucent={translucent} hidden={hidden}/>);
+    return (<RNStatusBar barStyle={barStyle} animated={animated} translucent={translucent} backgroundColor={backgroundColor} hidden={hidden}/>);
 };

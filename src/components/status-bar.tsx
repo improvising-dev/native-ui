@@ -13,6 +13,7 @@ export interface StatusBarProps {
   animated?: boolean
   translucent?: boolean
   hidden?: boolean
+  backgroundColor?: string
 }
 
 export const resolveStatusBarStyle = (
@@ -35,6 +36,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
   animated = true,
   translucent = true,
   hidden = false,
+  backgroundColor = '#ffffff00',
 }) => {
   const colorScheme = useColorScheme()
   const barStyle = resolveStatusBarStyle(style, colorScheme)
@@ -44,6 +46,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
       barStyle={barStyle}
       animated={animated}
       translucent={translucent}
+      backgroundColor={backgroundColor}
       hidden={hidden}
     />
   )

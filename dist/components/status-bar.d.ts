@@ -6,6 +6,7 @@ export interface StatusBarProps {
     animated?: boolean;
     translucent?: boolean;
     hidden?: boolean;
+    backgroundColor?: string;
 }
 export declare const resolveStatusBarStyle: (style: StatusBarStyle, colorScheme: ColorSchemeName) => RNStatusBarProps['barStyle'];
 export declare const StatusBar: React.FC<StatusBarProps>;
