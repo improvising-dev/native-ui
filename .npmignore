@@ -1,5 +1,4 @@
 .vscode
 .prettierrc
-/lab
 /src
 tsconfig.json
