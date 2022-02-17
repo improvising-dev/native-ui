@@ -1,15 +1,12 @@
-import React, { useContext, useLayoutEffect, useMemo, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
 import { globalModalService, ModalService } from '../core/modal'
 
 export interface ModalContext {
-  modalService: ModalService
   set: (id: string, node: React.ReactNode) => void
   delete: (id: string) => void
 }
 
 const modalContext = React.createContext({} as ModalContext)
-
-export const useModalService = () => useContext(modalContext).modalService
 
 export interface ModalProviderProps {
   modalService?: ModalService

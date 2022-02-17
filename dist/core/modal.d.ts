@@ -10,7 +10,5 @@ export declare class ModalService {
 }
 export declare const createModalService: () => ModalService;
 export declare const globalModalService: ModalService;
-export declare const modalServiceRef: {
-    current: ModalService;
-};
+export declare const getCurrentModalService: () => ModalService;
 export declare const withModal: <P extends {}>(Component: React.ComponentType<P>) => (props: P) => JSX.Element;

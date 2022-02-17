@@ -1,9 +1,9 @@
 import React, { createRef } from 'react';
 import { ModalToggler, } from '../components/modal-toggler';
-import { globalModalService, modalServiceRef } from '../core/modal';
+import { getCurrentModalService, globalModalService } from '../core/modal';
 export const showModal = ({ global = false, transition, transitionDuration, builder, }) => {
     const togglerRef = createRef();
-    const modalService = global ? globalModalService : modalServiceRef.current;
+    const modalService = global ? globalModalService : getCurrentModalService();
     const dispose = modalService.create(<ModalToggler ref={togglerRef} transition={transition} transitionDuration={transitionDuration} builder={builder}/>);
     return {
         dispose,
