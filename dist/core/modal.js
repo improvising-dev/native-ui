@@ -26,7 +26,7 @@ export class ModalService {
     }
 }
 export const createModalService = () => new ModalService();
-export const withModalProvider = (Component) => (props) => {
+export const withModal = (Component) => (props) => {
     const modalService = useRef(new ModalService()).current;
     return (<ModalProvider modalService={modalService}>
         <Component {...props}/>

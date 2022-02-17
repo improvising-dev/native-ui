@@ -9,5 +9,5 @@ export declare class ModalService {
     create(node: React.ReactNode): () => void;
 }
 export declare const createModalService: () => ModalService;
-export declare const withModalProvider: <P extends {}>(Component: React.ComponentType<P>) => (props: P) => JSX.Element;
+export declare const withModal: <P extends {}>(Component: React.ComponentType<P>) => (props: P) => JSX.Element;
 export declare const globalModalService: ModalService;

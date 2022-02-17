@@ -37,7 +37,7 @@ export class ModalService {
 
 export const createModalService = () => new ModalService()
 
-export const withModalProvider =
+export const withModal =
   <P extends {}>(Component: React.ComponentType<P>) =>
   (props: P) => {
     const modalService = useRef(new ModalService()).current
