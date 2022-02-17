@@ -1,4 +1,6 @@
-class ModalServiceStatic {
+import React, { useRef } from 'react';
+import { ModalProvider } from '../components/modal-context';
+export class ModalService {
     constructor() {
         this.ids = new Set();
     }
@@ -23,4 +25,11 @@ class ModalServiceStatic {
         };
     }
 }
-export const ModalService = new ModalServiceStatic();
+export const createModalService = () => new ModalService();
+export const withModalProvider = (Component) => (props) => {
+    const modalService = useRef(new ModalService()).current;
+    return (<ModalProvider modalService={modalService}>
+        <Component {...props}/>
+      </ModalProvider>);
+};
+export const globalModalService = new ModalService();

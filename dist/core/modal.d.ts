@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalContext } from '../components/modal-context';
-declare class ModalServiceStatic {
+export declare class ModalService {
     context?: ModalContext;
     private ids;
     constructor();
@@ -8,5 +8,6 @@ declare class ModalServiceStatic {
     unmount(): void;
     create(node: React.ReactNode): () => void;
 }
-export declare const ModalService: ModalServiceStatic;
-export {};
+export declare const createModalService: () => ModalService;
+export declare const withModalProvider: <P extends {}>(Component: React.ComponentType<P>) => (props: P) => JSX.Element;
+export declare const globalModalService: ModalService;

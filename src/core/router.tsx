@@ -78,7 +78,13 @@ export const RouterDegelate: React.FC<RouterDelegteProps> = ({
 }) => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={initialRouteName}>
+      <Stack.Navigator
+        initialRouteName={initialRouteName}
+        defaultScreenOptions={{
+          animationTypeForReplace: 'push',
+          animation: 'slide_from_left',
+        }}
+      >
         {routes.map(route => (
           <Stack.Screen
             key={route.name}

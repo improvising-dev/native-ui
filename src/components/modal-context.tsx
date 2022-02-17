@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useMemo, useState } from 'react'
-import { ModalService } from '../core/modal'
+import { globalModalService, ModalService } from '../core/modal'
 
 export interface ModalContext {
   set: (id: string, node: React.ReactNode) => void
@@ -8,7 +8,14 @@ export interface ModalContext {
 
 const modalContext = React.createContext({} as ModalContext)
 
-export const ModalProvider: React.FC = ({ children }) => {
+export interface ModalProviderProps {
+  modalService?: ModalService
+}
+
+export const ModalProvider: React.FC<ModalProviderProps> = ({
+  modalService = globalModalService,
+  children,
+}) => {
   const [modalMap, setModalMap] = useState(new Map<string, React.ReactNode>())
 
   const context = useMemo<ModalContext>(() => {
@@ -35,10 +42,10 @@ export const ModalProvider: React.FC = ({ children }) => {
   }, [modalMap])
 
   useLayoutEffect(() => {
-    ModalService.mount(context)
+    modalService.mount(context)
 
     return () => {
-      ModalService.unmount()
+      modalService.unmount()
     }
   }, [])
 

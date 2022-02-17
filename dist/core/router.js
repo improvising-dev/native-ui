@@ -30,7 +30,10 @@ export class Router {
 const Stack = createNativeStackNavigator();
 export const RouterDegelate = ({ initialRouteName, routes = [], }) => {
     return (<NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName={initialRouteName}>
+      <Stack.Navigator initialRouteName={initialRouteName} defaultScreenOptions={{
+            animationTypeForReplace: 'push',
+            animation: 'slide_from_left',
+        }}>
         {routes.map(route => (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>))}
       </Stack.Navigator>
     </NavigationContainer>);

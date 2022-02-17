@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useMemo, useState } from 'react';
-import { ModalService } from '../core/modal';
+import { globalModalService } from '../core/modal';
 const modalContext = React.createContext({});
-export const ModalProvider = ({ children }) => {
+export const ModalProvider = ({ modalService = globalModalService, children, }) => {
     const [modalMap, setModalMap] = useState(new Map());
     const context = useMemo(() => {
         return {
@@ -23,9 +23,9 @@ export const ModalProvider = ({ children }) => {
             .map(([key, modal]) => <React.Fragment key={key}>{modal}</React.Fragment>);
     }, [modalMap]);
     useLayoutEffect(() => {
-        ModalService.mount(context);
+        modalService.mount(context);
         return () => {
-            ModalService.unmount();
+            modalService.unmount();
         };
     }, []);
     return (<modalContext.Provider value={context}>
