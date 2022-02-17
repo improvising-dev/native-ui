@@ -59,7 +59,7 @@ export const withModal =
     }, [])
 
     return (
-      <ModalProvider modalService={currentModalService}>
+      <ModalProvider modalService={nextModalService}>
         <Component {...props} />
       </ModalProvider>
     )

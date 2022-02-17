@@ -37,7 +37,7 @@ export const withModal = (Component) => (props) => {
             modalServiceRef.current = currentModalService;
         };
     }, []);
-    return (<ModalProvider modalService={currentModalService}>
+    return (<ModalProvider modalService={nextModalService}>
         <Component {...props}/>
       </ModalProvider>);
 };

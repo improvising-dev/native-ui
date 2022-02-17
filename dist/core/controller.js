@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 export class BaseController {
     mount(methods) {
         this.methods = methods;
@@ -8,7 +8,7 @@ export class BaseController {
     }
 }
 export const useMountController = ({ controller, methods, }) => {
-    useEffect(() => {
+    useLayoutEffect(() => {
         controller === null || controller === void 0 ? void 0 : controller.mount(methods);
         return () => {
             controller === null || controller === void 0 ? void 0 : controller.unmount();

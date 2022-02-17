@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 export class BaseController<T> {
   protected methods?: T
@@ -19,7 +19,7 @@ export const useMountController = <T,>({
   controller?: BaseController<T>
   methods: T
 }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     controller?.mount(methods)
 
     return () => {

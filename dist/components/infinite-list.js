@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { FlatList, Platform, RefreshControl } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
@@ -85,7 +85,7 @@ const InfiniteListComponent = (_a, ref) => {
         }
         return <React.Fragment>{footer}</React.Fragment>;
     };
-    useEffect(() => {
+    useLayoutEffect(() => {
         mounted.current = true;
         return () => {
             mounted.current = false;

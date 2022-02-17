@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { FlatList, FlatListProps, Platform, RefreshControl } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
@@ -150,7 +150,7 @@ const InfiniteListComponent = <ItemT,>(
     return <React.Fragment>{footer}</React.Fragment>
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     mounted.current = true
 
     return () => {
