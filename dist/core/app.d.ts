@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, RouteParamList } from './router';
+import { RouteName } from '..';
+import { Route } from './router';
 import { Theme, ThemeProviderProps } from './theme';
 export interface AppProviderProps extends ThemeProviderProps, RouterRendererProps {
     splashScreen?: React.ReactNode;
@@ -8,7 +9,7 @@ export interface AppProviderProps extends ThemeProviderProps, RouterRendererProp
     onError?: (reason: any) => void;
 }
 export interface RouterRendererProps {
-    initialRouteName?: keyof RouteParamList;
+    initialRouteName?: RouteName;
     routes?: Route[] | ((theme: Theme) => Route[]);
 }
 export declare const AppProvider: React.NamedExoticComponent<AppProviderProps>;

@@ -2,6 +2,7 @@ import {
   CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
+  ParamListBase,
   StackActions,
 } from '@react-navigation/native'
 import {
@@ -11,32 +12,46 @@ import {
 } from '@react-navigation/native-stack'
 import React from 'react'
 
-export interface RouteParamList {}
+export interface RouteParamList extends ParamListBase {}
 
-export type RouteProps<T extends keyof RouteParamList> =
-  NativeStackScreenProps<T>
+export type RouteName = Extract<keyof RouteParamList, string>
+export type RouteProps<T extends RouteName> = NativeStackScreenProps<
+  RouteParamList,
+  T
+>
 
 export const navigationRef = createNavigationContainerRef<RouteParamList>()
 
 export class Router {
-  static push(name: string, params?: any) {
+  static push<T extends RouteName>(name: T, params: RouteParamList[T]) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(StackActions.push(name, params))
     }
   }
 
-  static replace(name: string, params?: any) {
+  static replace<T extends RouteName>(
+    name: RouteName,
+    params: RouteParamList[T],
+  ) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(StackActions.replace(name, params))
     }
   }
 
-  static reset(name: string, params?: any) {
+  static reset<T extends RouteName>(
+    name: RouteName,
+    params: RouteParamList[T],
+  ) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name, params }],
+          routes: [
+            {
+              name,
+              params,
+            },
+          ],
         }),
       )
     }
@@ -50,13 +65,13 @@ export class Router {
 }
 
 export interface Route {
-  name: keyof RouteParamList
+  name: RouteName
   component: React.ComponentType<any>
   options?: NativeStackNavigationOptions
 }
 
 export interface RouterDelegteProps {
-  initialRouteName?: keyof RouteParamList
+  initialRouteName?: RouteName
   routes?: Route[]
 }
 

@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
 import { Platform, UIManager } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { RouteName } from '..'
 import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
-import { Route, RouteParamList, RouterDegelate } from './router'
+import { Route, RouterDegelate } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
 
 if (
@@ -23,7 +24,7 @@ export interface AppProviderProps
 }
 
 export interface RouterRendererProps {
-  initialRouteName?: keyof RouteParamList
+  initialRouteName?: RouteName
   routes?: Route[] | ((theme: Theme) => Route[])
 }
 

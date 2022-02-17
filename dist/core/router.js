@@ -17,7 +17,12 @@ export class Router {
         if (navigationRef.isReady()) {
             navigationRef.dispatch(CommonActions.reset({
                 index: 0,
-                routes: [{ name, params }],
+                routes: [
+                    {
+                        name,
+                        params,
+                    },
+                ],
             }));
         }
     }
