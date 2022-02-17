@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { ModalProvider, useModalContext, } from '../components/modal-context';
+import React, { useLayoutEffect, useRef } from 'react';
+import { ModalProvider, useModalService, } from '../components/modal-context';
 export class ModalService {
     constructor() {
         this.ids = new Set();
@@ -29,14 +29,14 @@ export const createModalService = () => new ModalService();
 export const globalModalService = createModalService();
 export const modalServiceRef = { current: globalModalService };
 export const withModal = (Component) => (props) => {
-    const { modalService } = useModalContext();
-    const currentModalService = useRef(createModalService()).current;
-    useEffect(() => {
-        modalServiceRef.current = currentModalService;
+    const currentModalService = useRef(useModalService()).current;
+    const nextModalService = useRef(createModalService()).current;
+    useLayoutEffect(() => {
+        modalServiceRef.current = nextModalService;
         return () => {
-            modalServiceRef.current = modalService;
+            modalServiceRef.current = currentModalService;
         };
-    });
+    }, []);
     return (<ModalProvider modalService={currentModalService}>
         <Component {...props}/>
       </ModalProvider>);

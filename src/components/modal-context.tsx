@@ -9,7 +9,7 @@ export interface ModalContext {
 
 const modalContext = React.createContext({} as ModalContext)
 
-export const useModalContext = () => useContext(modalContext)
+export const useModalService = () => useContext(modalContext).modalService
 
 export interface ModalProviderProps {
   modalService?: ModalService

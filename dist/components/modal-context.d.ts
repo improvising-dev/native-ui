@@ -5,7 +5,7 @@ export interface ModalContext {
     set: (id: string, node: React.ReactNode) => void;
     delete: (id: string) => void;
 }
-export declare const useModalContext: () => ModalContext;
+export declare const useModalService: () => ModalService;
 export interface ModalProviderProps {
     modalService?: ModalService;
 }

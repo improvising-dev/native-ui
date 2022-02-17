@@ -8,7 +8,7 @@ import {
 import { globalModalService, modalServiceRef } from '../core/modal'
 
 export const showModal = ({
-  global,
+  global = false,
   transition,
   transitionDuration,
   builder,

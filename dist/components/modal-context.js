@@ -1,7 +1,7 @@
 import React, { useContext, useLayoutEffect, useMemo, useState } from 'react';
 import { globalModalService } from '../core/modal';
 const modalContext = React.createContext({});
-export const useModalContext = () => useContext(modalContext);
+export const useModalService = () => useContext(modalContext).modalService;
 export const ModalProvider = ({ modalService = globalModalService, children, }) => {
     const [modalMap, setModalMap] = useState(new Map());
     const context = useMemo(() => {
