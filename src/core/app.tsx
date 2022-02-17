@@ -24,7 +24,7 @@ export interface AppProviderProps
 }
 
 export interface RouterRendererProps {
-  initialRouteName?: RouteName
+  initialRouteName?: RouteName | (() => RouteName)
   routes?: Route[] | ((theme: Theme) => Route[])
 }
 
@@ -36,7 +36,11 @@ const RouterRenderer: React.FC<RouterRendererProps> = ({
 
   return (
     <RouterDegelate
-      initialRouteName={initialRouteName}
+      initialRouteName={
+        typeof initialRouteName === 'function'
+          ? initialRouteName()
+          : initialRouteName
+      }
       routes={typeof routes === 'function' ? routes(theme) : routes}
     />
   )

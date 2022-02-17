@@ -9,7 +9,7 @@ export interface AppProviderProps extends ThemeProviderProps, RouterRendererProp
     onError?: (reason: any) => void;
 }
 export interface RouterRendererProps {
-    initialRouteName?: RouteName;
+    initialRouteName?: RouteName | (() => RouteName);
     routes?: Route[] | ((theme: Theme) => Route[]);
 }
 export declare const AppProvider: React.NamedExoticComponent<AppProviderProps>;

@@ -11,7 +11,9 @@ if (Platform.OS === 'android' &&
 }
 const RouterRenderer = ({ initialRouteName, routes, }) => {
     const theme = useTheme();
-    return (<RouterDegelate initialRouteName={initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
+    return (<RouterDegelate initialRouteName={typeof initialRouteName === 'function'
+            ? initialRouteName()
+            : initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
 };
 const AppProviderComponent = ({ loadAsync = () => Promise.resolve(), onReady, onError, splashScreen, theme, darkTheme, initialRouteName, routes, }) => {
     return (<SafeAreaProvider>
