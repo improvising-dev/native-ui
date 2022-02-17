@@ -23,7 +23,7 @@ export type RouteProps<T extends RouteName> = NativeStackScreenProps<
 export const navigationRef = createNavigationContainerRef<RouteParamList>()
 
 export class Router {
-  static push<T extends RouteName>(name: T, params: RouteParamList[T]) {
+  static push<T extends RouteName>(name: T, params?: RouteParamList[T]) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(StackActions.push(name, params))
     }
@@ -31,7 +31,7 @@ export class Router {
 
   static replace<T extends RouteName>(
     name: RouteName,
-    params: RouteParamList[T],
+    params?: RouteParamList[T],
   ) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(StackActions.replace(name, params))
@@ -40,18 +40,13 @@ export class Router {
 
   static reset<T extends RouteName>(
     name: RouteName,
-    params: RouteParamList[T],
+    params?: RouteParamList[T],
   ) {
     if (navigationRef.isReady()) {
       navigationRef.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [
-            {
-              name,
-              params,
-            },
-          ],
+          routes: [{ name, params }],
         }),
       )
     }

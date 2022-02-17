@@ -7,9 +7,9 @@ export declare type RouteName = Extract<keyof RouteParamList, string>;
 export declare type RouteProps<T extends RouteName> = NativeStackScreenProps<RouteParamList, T>;
 export declare const navigationRef: import("@react-navigation/native").NavigationContainerRefWithCurrent<RouteParamList>;
 export declare class Router {
-    static push<T extends RouteName>(name: T, params: RouteParamList[T]): void;
-    static replace<T extends RouteName>(name: RouteName, params: RouteParamList[T]): void;
-    static reset<T extends RouteName>(name: RouteName, params: RouteParamList[T]): void;
+    static push<T extends RouteName>(name: T, params?: RouteParamList[T]): void;
+    static replace<T extends RouteName>(name: RouteName, params?: RouteParamList[T]): void;
+    static reset<T extends RouteName>(name: RouteName, params?: RouteParamList[T]): void;
     static pop(): void;
 }
 export interface Route {
