@@ -53,9 +53,9 @@ export const AppLoading: React.FC<AppLoadingProps> = ({
   }, [appIsReady])
 
   return (
-    <>
+    <React.Fragment>
       {renderApp()}
       {renderSplashScreen()}
-    </>
+    </React.Fragment>
   )
 }

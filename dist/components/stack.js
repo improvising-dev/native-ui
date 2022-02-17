@@ -24,13 +24,13 @@ export const Stack = React.forwardRef((_a, ref) => {
             if (!builder) {
                 return element;
             }
-            return (<>
+            return (<React.Fragment>
               {builder}
               <View style={direction === 'row' || direction === 'row-reverse'
                     ? { width: spacing }
                     : { height: spacing }}/>
               {element}
-            </>);
+            </React.Fragment>);
         }, null);
     }, [direction, spacing, children]);
     return (<Container ref={ref} direction={direction} {...viewProps}>

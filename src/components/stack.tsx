@@ -22,7 +22,7 @@ export const Stack = React.forwardRef<Stack, StackProps>(
           }
 
           return (
-            <>
+            <React.Fragment>
               {builder}
               <View
                 style={
@@ -32,7 +32,7 @@ export const Stack = React.forwardRef<Stack, StackProps>(
                 }
               />
               {element}
-            </>
+            </React.Fragment>
           )
         }, null)
     }, [direction, spacing, children])

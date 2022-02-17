@@ -27,8 +27,8 @@ export const AppLoading = ({ splashScreen, children, loadAsync, onReady, onError
                 .catch(onError);
         }
     }, [appIsReady]);
-    return (<>
+    return (<React.Fragment>
       {renderApp()}
       {renderSplashScreen()}
-    </>);
+    </React.Fragment>);
 };
