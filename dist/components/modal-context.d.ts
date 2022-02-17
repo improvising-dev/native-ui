@@ -1,9 +1,11 @@
 import React from 'react';
 import { ModalService } from '../core/modal';
 export interface ModalContext {
+    modalService: ModalService;
     set: (id: string, node: React.ReactNode) => void;
     delete: (id: string) => void;
 }
+export declare const useModalContext: () => ModalContext;
 export interface ModalProviderProps {
     modalService?: ModalService;
 }
