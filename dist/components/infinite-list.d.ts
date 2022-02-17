@@ -14,8 +14,4 @@ export interface InfiniteListProps<ItemT> extends Omit<FlatListProps<ItemT>, 'It
     onLoadMore?: () => Promise<boolean>;
     onLoadMoreError?: (reason: any) => void;
 }
-declare const InfiniteListComponent: <ItemT>({ header, footer, dividerSpacing, horizontalSpacing, topSpacing, bottomSpacing, contentContainerStyle, onRefresh, onRefreshError, onLoadMore, onLoadMoreError, onEndReached, ...props }: InfiniteListProps<ItemT>, ref: React.ForwardedRef<InfiniteList<ItemT>>) => JSX.Element;
-export declare const InfiniteList: React.MemoExoticComponent<(<ItemT>(props: InfiniteListProps<ItemT> & {
-    ref?: React.ForwardedRef<InfiniteList<ItemT>> | undefined;
-}) => ReturnType<typeof InfiniteListComponent>)>;
-export {};
+export declare const InfiniteList: <ItemT>(props: InfiniteListProps<ItemT> & React.RefAttributes<InfiniteList<ItemT>>) => React.ReactElement<any, string | React.JSXElementConstructor<any>> | null;

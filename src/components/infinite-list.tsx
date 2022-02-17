@@ -1,7 +1,8 @@
-import React, { forwardRef, memo, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FlatList, FlatListProps, Platform, RefreshControl } from 'react-native'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { useTheme } from '../core/theme'
+import { typedForwardRef, typedMemo } from '../utils/typed-react'
 import { ActivityIndicator } from './activity-indicator'
 import { Spacer } from './spacer'
 
@@ -190,10 +191,4 @@ const InfiniteListComponent = <ItemT,>(
   )
 }
 
-export const InfiniteList = memo(
-  forwardRef(InfiniteListComponent) as <ItemT>(
-    props: InfiniteListProps<ItemT> & {
-      ref?: React.ForwardedRef<InfiniteList<ItemT>>
-    },
-  ) => ReturnType<typeof InfiniteListComponent>,
-)
+export const InfiniteList = typedMemo(typedForwardRef(InfiniteListComponent))

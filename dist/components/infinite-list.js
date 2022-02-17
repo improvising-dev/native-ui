@@ -9,10 +9,11 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, Platform, RefreshControl } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTheme } from '../core/theme';
+import { typedForwardRef, typedMemo } from '../utils/typed-react';
 import { ActivityIndicator } from './activity-indicator';
 import { Spacer } from './spacer';
 const InfiniteListComponent = (_a, ref) => {
@@ -97,4 +98,4 @@ const InfiniteListComponent = (_a, ref) => {
             contentContainerStyle,
         ]} contentInset={{ top: topSpacing }} contentOffset={{ y: -topSpacing, x: 0 }} refreshing={refreshing} refreshControl={<RefreshControl enabled={Boolean(onRefresh)} progressViewOffset={topSpacing} refreshing={refreshing} onRefresh={handleRefresh}/>} onEndReached={handleEndReached} {...props}/>);
 };
-export const InfiniteList = memo(forwardRef(InfiniteListComponent));
+export const InfiniteList = typedMemo(typedForwardRef(InfiniteListComponent));

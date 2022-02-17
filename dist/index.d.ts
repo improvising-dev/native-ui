@@ -37,3 +37,4 @@ export * from './hooks/use-keyboard-height';
 export * from './themes/common';
 export * from './themes/dark';
 export * from './themes/light';
+export * from './utils/typed-react';
