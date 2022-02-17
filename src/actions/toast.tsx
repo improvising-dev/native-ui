@@ -16,6 +16,7 @@ export const showToast = ({
   onPress?: () => void
 }) => {
   const { dispose } = showModal({
+    global: true,
     transitionDuration: 500,
     builder: ({ visible, transitionDuration, handleDismiss }) => (
       <Toast

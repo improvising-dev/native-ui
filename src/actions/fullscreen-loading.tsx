@@ -13,6 +13,7 @@ export const showLoading = ({
   message,
 }: FullscreenLoadingParams = {}) => {
   const { dispose, handleDismiss } = showModal({
+    global: true,
     builder: ({ visible, handleDismiss }) => (
       <FullscreenLoading
         controller={controller}

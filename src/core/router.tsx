@@ -11,6 +11,7 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
 import React from 'react'
+import { withModal } from './modal'
 
 export interface RouteParamList extends ParamListBase {}
 
@@ -89,7 +90,7 @@ export const RouterDegelate: React.FC<RouterDelegteProps> = ({
           <Stack.Screen
             key={route.name}
             name={route.name}
-            component={route.component}
+            component={withModal(route.component)}
             options={route.options}
           />
         ))}

@@ -6,7 +6,6 @@ export interface ModalContext {
     delete: (id: string) => void;
 }
 export declare const useModalContext: () => ModalContext;
-export declare const useModalService: () => ModalService;
 export interface ModalProviderProps {
     modalService?: ModalService;
 }

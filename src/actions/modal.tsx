@@ -5,20 +5,21 @@ import {
   ModalToggler,
   ModalTogglerRef,
 } from '../components/modal-toggler'
-import { globalModalService, ModalService } from '../core/modal'
+import { globalModalService, modalServiceRef } from '../core/modal'
 
 export const showModal = ({
-  modalService = globalModalService,
+  global,
   transition,
   transitionDuration,
   builder,
 }: {
-  modalService?: ModalService
+  global?: boolean
   transition?: ModalTransition
   transitionDuration?: number
   builder: (params: ModalBuilderParams) => JSX.Element
 }) => {
   const togglerRef = createRef<ModalTogglerRef>()
+  const modalService = global ? globalModalService : modalServiceRef.current
 
   const dispose = modalService.create(
     <ModalToggler

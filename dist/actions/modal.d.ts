@@ -1,9 +1,8 @@
 /// <reference types="react" />
 import { ModalTransition } from '../components/modal';
 import { ModalBuilderParams } from '../components/modal-toggler';
-import { ModalService } from '../core/modal';
-export declare const showModal: ({ modalService, transition, transitionDuration, builder, }: {
-    modalService?: ModalService | undefined;
+export declare const showModal: ({ global, transition, transitionDuration, builder, }: {
+    global?: boolean | undefined;
     transition?: ModalTransition | undefined;
     transitionDuration?: number | undefined;
     builder: (params: ModalBuilderParams) => JSX.Element;
