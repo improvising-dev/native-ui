@@ -21,4 +21,4 @@ export interface RouterDelegteProps {
     initialRouteName?: RouteName;
     routes?: Route[];
 }
-export declare const RouterDegelate: React.FC<RouterDelegteProps>;
+export declare const RouterDelegate: React.NamedExoticComponent<RouterDelegteProps>;

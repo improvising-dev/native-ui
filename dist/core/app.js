@@ -3,18 +3,18 @@ import { Platform, UIManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from '../components/app-loading';
 import { ModalProvider } from '../components/modal-context';
-import { RouterDegelate } from './router';
+import { RouterDelegate } from './router';
 import { ThemeProvider, useTheme } from './theme';
 if (Platform.OS === 'android' &&
     UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
 }
-const RouterRenderer = ({ initialRouteName, routes, }) => {
+const RouterRenderer = memo(({ initialRouteName, routes }) => {
     const theme = useTheme();
-    return (<RouterDegelate initialRouteName={typeof initialRouteName === 'function'
+    return (<RouterDelegate initialRouteName={typeof initialRouteName === 'function'
             ? initialRouteName()
             : initialRouteName} routes={typeof routes === 'function' ? routes(theme) : routes}/>);
-};
+});
 const AppProviderComponent = ({ loadAsync = () => Promise.resolve(), onReady, onError, splashScreen, theme, darkTheme, initialRouteName, routes, }) => {
     return (<SafeAreaProvider>
       <ThemeProvider theme={theme} darkTheme={darkTheme}>

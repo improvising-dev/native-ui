@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { RouteName } from '..'
 import { AppLoading } from '../components/app-loading'
 import { ModalProvider } from '../components/modal-context'
-import { Route, RouterDegelate } from './router'
+import { Route, RouterDelegate } from './router'
 import { Theme, ThemeProvider, ThemeProviderProps, useTheme } from './theme'
 
 if (
@@ -28,23 +28,22 @@ export interface RouterRendererProps {
   routes?: Route[] | ((theme: Theme) => Route[])
 }
 
-const RouterRenderer: React.FC<RouterRendererProps> = ({
-  initialRouteName,
-  routes,
-}) => {
-  const theme = useTheme()
+const RouterRenderer: React.FC<RouterRendererProps> = memo(
+  ({ initialRouteName, routes }) => {
+    const theme = useTheme()
 
-  return (
-    <RouterDegelate
-      initialRouteName={
-        typeof initialRouteName === 'function'
-          ? initialRouteName()
-          : initialRouteName
-      }
-      routes={typeof routes === 'function' ? routes(theme) : routes}
-    />
-  )
-}
+    return (
+      <RouterDelegate
+        initialRouteName={
+          typeof initialRouteName === 'function'
+            ? initialRouteName()
+            : initialRouteName
+        }
+        routes={typeof routes === 'function' ? routes(theme) : routes}
+      />
+    )
+  },
+)
 
 const AppProviderComponent: React.FC<AppProviderProps> = ({
   loadAsync = () => Promise.resolve(),

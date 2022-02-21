@@ -10,8 +10,7 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
-import React from 'react'
-import { withModal } from './modal'
+import React, { memo } from 'react'
 
 export interface RouteParamList extends ParamListBase {}
 
@@ -73,7 +72,7 @@ export interface RouterDelegteProps {
 
 const Stack = createNativeStackNavigator()
 
-export const RouterDegelate: React.FC<RouterDelegteProps> = ({
+const RouterDelegateComponent: React.FC<RouterDelegteProps> = ({
   initialRouteName,
   routes = [],
 }) => {
@@ -90,7 +89,7 @@ export const RouterDegelate: React.FC<RouterDelegteProps> = ({
           <Stack.Screen
             key={route.name}
             name={route.name}
-            component={withModal(route.component)}
+            component={route.component}
             options={route.options}
           />
         ))}
@@ -98,3 +97,5 @@ export const RouterDegelate: React.FC<RouterDelegteProps> = ({
     </NavigationContainer>
   )
 }
+
+export const RouterDelegate = memo(RouterDelegateComponent)

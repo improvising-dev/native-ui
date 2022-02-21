@@ -1,7 +1,6 @@
 import { CommonActions, createNavigationContainerRef, NavigationContainer, StackActions, } from '@react-navigation/native';
 import { createNativeStackNavigator, } from '@react-navigation/native-stack';
-import React from 'react';
-import { withModal } from './modal';
+import React, { memo } from 'react';
 export const navigationRef = createNavigationContainerRef();
 export class Router {
     static push(name, params) {
@@ -29,13 +28,14 @@ export class Router {
     }
 }
 const Stack = createNativeStackNavigator();
-export const RouterDegelate = ({ initialRouteName, routes = [], }) => {
+const RouterDelegateComponent = ({ initialRouteName, routes = [], }) => {
     return (<NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName={initialRouteName} defaultScreenOptions={{
             animationTypeForReplace: 'push',
             animation: 'slide_from_left',
         }}>
-        {routes.map(route => (<Stack.Screen key={route.name} name={route.name} component={withModal(route.component)} options={route.options}/>))}
+        {routes.map(route => (<Stack.Screen key={route.name} name={route.name} component={route.component} options={route.options}/>))}
       </Stack.Navigator>
     </NavigationContainer>);
 };
+export const RouterDelegate = memo(RouterDelegateComponent);
