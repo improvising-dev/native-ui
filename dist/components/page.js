@@ -11,7 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React from 'react';
 import { View } from 'react-native';
-import { withModal } from '..';
+import { withModal } from '../core/modal';
 import { useTheme } from '../core/theme';
 import { StatusBar } from './status-bar';
 const PageComponent = React.forwardRef((_a, ref) => {

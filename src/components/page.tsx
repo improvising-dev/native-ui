@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleProp, View, ViewProps, ViewStyle } from 'react-native'
-import { withModal } from '..'
+import { withModal } from '../core/modal'
 import { useTheme } from '../core/theme'
 import { StatusBar } from './status-bar'
 
