@@ -13,20 +13,35 @@ import React from 'react';
 import { View } from 'react-native';
 import { withModal } from '../core/modal';
 import { useTheme } from '../core/theme';
+import { ScrollView } from './scroll-view';
 import { StatusBar } from './status-bar';
 const PageComponent = React.forwardRef((_a, ref) => {
     var { style, children } = _a, props = __rest(_a, ["style", "children"]);
     const theme = useTheme();
-    const viewStyle = [
-        {
-            flex: 1,
-            backgroundColor: theme.backgroundColor.secondary,
-        },
-        style,
-    ];
-    return (<View ref={ref} style={viewStyle} {...props}>
+    return (<View ref={ref} style={[
+            {
+                flex: 1,
+                backgroundColor: theme.backgroundColor.secondary,
+            },
+            style,
+        ]} {...props}>
         <StatusBar style="auto"/>
         {children}
       </View>);
 });
 export const Page = withModal(PageComponent);
+const ScrollPageComponent = React.forwardRef((_a, ref) => {
+    var { style, children } = _a, props = __rest(_a, ["style", "children"]);
+    const theme = useTheme();
+    return (<ScrollView ref={ref} style={[
+            {
+                flex: 1,
+                backgroundColor: theme.backgroundColor.secondary,
+            },
+            style,
+        ]} {...props}>
+        <StatusBar style="auto"/>
+        {children}
+      </ScrollView>);
+});
+export const ScrollPage = withModal(ScrollPageComponent);
