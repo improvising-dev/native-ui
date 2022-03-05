@@ -150,6 +150,20 @@ const InfiniteListComponent = <ItemT,>(
     return <React.Fragment>{footer}</React.Fragment>
   }
 
+  const renderRefreshControl = () => {
+    if (!onRefresh) {
+      return undefined
+    }
+
+    return (
+      <RefreshControl
+        progressViewOffset={topSpacing}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      />
+    )
+  }
+
   useLayoutEffect(() => {
     mounted.current = true
 
@@ -177,14 +191,7 @@ const InfiniteListComponent = <ItemT,>(
       contentInset={{ top: topSpacing }}
       contentOffset={{ y: -topSpacing, x: 0 }}
       refreshing={refreshing}
-      refreshControl={
-        <RefreshControl
-          enabled={Boolean(onRefresh)}
-          progressViewOffset={topSpacing}
-          refreshing={refreshing}
-          onRefresh={handleRefresh}
-        />
-      }
+      refreshControl={renderRefreshControl()}
       onEndReached={handleEndReached}
       {...props}
     />
